@@ -15,18 +15,18 @@ public class PlayerSpotlight : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        
+        //Debug.Log("Frame");
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Debug.Log(Physics.Raycast(ray, out hit, 100.0f));
+            Ray ray = camera1.ScreenPointToRay(Input.mousePosition);
+            //Debug.Log(Physics.Raycast(ray, out hit, 100.0f));
             if (Physics.Raycast(ray, out hit, 100.0f))
             {
 
                 if (hit.transform != null)
                 {
-                    PrintName(hit.transform.gameObject);
+                    //PrintName(hit.transform.gameObject);
                     if (hit.transform.gameObject.name == "King")
                     {
                         camera1.gameObject.SetActive(false);
@@ -36,6 +36,12 @@ public class PlayerSpotlight : MonoBehaviour
                 }
             }
         }
+        if (Input.GetMouseButtonUp(0))
+        {
+            camera1.gameObject.SetActive(true);
+            camera2.gameObject.SetActive(false);
+        }
+        
 
     }
 
