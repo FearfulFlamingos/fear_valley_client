@@ -1,7 +1,9 @@
 ﻿<Properties StartupConfiguration="{277D41E0-79B6-5802-0140-E3D636924174}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerSpotlight.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/CameraFollow.cs">
     <Files>
-      <File FileName="Assets/Scripts/PlayerSpotlight.cs" Line="30" Column="65" />
+      <File FileName="Assets/Scripts/PlayerSpotlight.cs" Line="35" Column="22" />
+      <File FileName="Assets/Scripts/PlayerMovement.cs" Line="31" Column="6" />
+      <File FileName="Assets/Scripts/CameraFollow.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -9,22 +11,17 @@
           <Node name="fear_hello_world" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
-                <Node name="PlayerSpotlight.cs" selected="True" />
+                <Node name="CameraFollow.cs" selected="True" />
               </Node>
             </Node>
           </Node>
-        </State>
-      </Pad>
-      <Pad Id="MonoDevelop.UnitTesting.TestPad">
-        <State name="__root__">
-          <Node name="fear_hello_world" expanded="True" selected="True" />
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="94d3442d-18c0-4fb5-a4f5-61223b8ef0bd" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="b2e0b1f5-2409-4a06-a45b-e20655a65c10" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
