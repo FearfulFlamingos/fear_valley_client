@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Assets\Free Low Poly Chess Set\Example\Scripts\CameraRotate.cs" />
     <Compile Include="Assets\scirpt.cs" />
+    <Compile Include="Assets\Scripts\ArmyBudget.cs" />
     <Compile Include="Assets\Scripts\PlayerSpotlight.cs" />
     <None Include="Assets\Free Low Poly Chess Set\README.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
