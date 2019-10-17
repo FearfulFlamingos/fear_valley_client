@@ -10,8 +10,7 @@ public class ArmyBudget : MonoBehaviour
 {
 
     private int currentBudget = 300;
-    private DBStandin newDB = new DBStandin();
-    private DatabaseController gameDB = new DatabaseController();
+    private Dictionary<string, int> costs;
     public Text displayBudget;
     public Dropdown characters;
     public Dropdown weapons;
@@ -21,9 +20,12 @@ public class ArmyBudget : MonoBehaviour
 
     private void Start()
     {
-        PopulateDropdown(characters, newDB.getArmy());
-        PopulateDropdown(weapons, newDB.getWeapons());
-        PopulateDropdown(armors, newDB.getArmor());
+        DatabaseController dbCont = new DatabaseController();
+        costs = new Dictionary<string, int>();
+        PopulateDropdown(characters, dbCont.ReadDB("class, cost","Troop"));
+        PopulateDropdown(weapons, dbCont.ReadDB("name, cost","Weapon"));
+        PopulateDropdown(armors, dbCont.ReadDB("armor, cost","Armor"));
+        dbCont.CloseDB();
         
     }
 
@@ -32,17 +34,18 @@ public class ArmyBudget : MonoBehaviour
         displayBudget.text = $"Current Resources: {currentBudget}";
     }
 
-    private int calculateCost()
+    private int CalculateCost()
     {
+        foreach (var thing in costs) { Debug.Log(thing); }
         int totalCost = 0;
         string troop = characters.options[characters.value].text;
-        totalCost += newDB.getArmy()[troop];
+        totalCost += costs[troop];
 
         string weap = weapons.options[weapons.value].text;
-        totalCost += newDB.getWeapons()[weap];
+        totalCost += costs[weap];
 
         string armor = armors.options[weapons.value].text;
-        totalCost += newDB.getArmor()[armor];
+        totalCost += costs[armor];
 
         return totalCost; 
     }
@@ -53,43 +56,17 @@ public class ArmyBudget : MonoBehaviour
         foreach (var option in optionsArray.Keys)
         {
             options.Add(option);
+            costs.Add(option, optionsArray[option]);
         }
         drpdwn.ClearOptions();
         drpdwn.AddOptions(options);
     }
 
-    public void addPersonOnClick()
+    public void AddPersonOnClick()
     {
-        int cost = calculateCost();
+        int cost = CalculateCost();
+        Debug.Log(cost);
         currentBudget -= cost;
     }
-}
 
-class DBStandin
-{
-    Dictionary<string, int> armyType = new Dictionary<string, int>()
-        { {"None",0 }, {"Peasant",10}, {"Warrior",50},{"Mage", 100}  };
-    Dictionary<string, int> weaponType = new Dictionary<string, int>()
-        { {"None",0 }, {"1H",15 },{"2H", 20},{"Polearm",10},{"Ranged",25} };
-    Dictionary<string, int> armorType = new Dictionary<string, int>()
-        {{"None",0 },
-        { "Light Mundane",20},
-        { "Light Magic",40},
-        { "Heavy Mundane",30},
-        { "Heavy Magic",50},
-        { "Mundane Shield", 10},
-        { "Magic Shield",30 }};
-    
-    public Dictionary<string,int> getArmy()
-    {
-        return armyType;
-    }
-    public Dictionary<string, int> getWeapons()
-    {
-        return weaponType;
-    }
-    public Dictionary<string, int> getArmor()
-    {
-        return armorType;
-    }
 }

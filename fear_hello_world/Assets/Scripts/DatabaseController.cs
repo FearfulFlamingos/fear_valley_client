@@ -9,26 +9,15 @@ public class DatabaseController
 {
     private string dbpath = "URI=file:" + Application.dataPath + "/Data/fearful_data.sqlite";
     private IDbConnection dbcon;
+
     public DatabaseController()
     {
         // connection created in instance
-        IDbConnection dbcon = new SqliteConnection(dbpath);
+        dbcon = new SqliteConnection(dbpath);
         dbcon.Open();
-
-        IDbCommand dbcmd;
-        IDataReader reader;
-
-        dbcmd = dbcon.CreateCommand();
-        string q_createTable = "CREATE TABLE test_table (id INTEGER PRIMARY KEY AUTOINCREMENT, val INTEGER);";
-        dbcmd.CommandText = q_createTable;
-        reader = dbcmd.ExecuteReader();
-
-        IDbCommand cmd = dbcon.CreateCommand();
-        cmd.CommandText = "INSERT INTO test_table (val) VALUES (5);";
-        cmd.ExecuteNonQuery();
     }
 
-    public IDataReader create(string sql)
+    public IDataReader Create(string sql)
     {
         IDbCommand dbcmd = this.dbcon.CreateCommand();
         dbcmd.CommandText = sql;
@@ -36,7 +25,7 @@ public class DatabaseController
 
     }
 
-    public IDataReader read(string sql)
+    public IDataReader Read(string sql)
     {
         IDbCommand dbcmd = this.dbcon.CreateCommand();
         dbcmd.CommandText = sql;
@@ -51,9 +40,23 @@ public class DatabaseController
     }
     public void delete(string sql) { }
 
-    public void close()
+    public void CloseDB()
     {
         this.dbcon.Close();
     }
-    
+
+    public Dictionary<string, int> ReadDB(string columns, string table)
+    {
+        Dictionary<string, int> items = new Dictionary<string, int>();
+        string sql = $"SELECT {columns} FROM {table}";
+        IDataReader reader = this.Read(sql);
+        while (reader.Read())
+        {
+            // reader indices are based on query
+            items.Add(reader.GetString(0), (int) (reader.GetFloat(1)) );
+        }
+        return items;
+    }
+
+
 }
