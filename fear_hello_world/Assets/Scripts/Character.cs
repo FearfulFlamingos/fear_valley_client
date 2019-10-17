@@ -21,13 +21,12 @@ public class Character : MonoBehaviour
         string query = "SELECT a.id, teamNumber, t.class, ar.armor, ar.armor, w.name, a.currentHealth, a.isLeader FROM Army a, Weapon w, Armor ar, Troop t WHERE a.class = t.id AND a.armor = ar.id AND a.weapon = w.id;";
         cmnd_read.CommandText = query;
         reader = cmnd_read.ExecuteReader();
-        dbcon.Close();
         while (reader.Read())
         {
             
             var competitor = (teamNum: reader[1], charClass: reader[2], armor: reader[3], shield: reader[4], weapon: reader[5], health: reader[6], leader: reader[7]);
             armyList.Add(competitor);
-            Debug.Log(armyList[0]);
+            Debug.Log(armyList[0].teamNum);
             Debug.Log(reader[1]);
             Debug.Log("in");
         }
