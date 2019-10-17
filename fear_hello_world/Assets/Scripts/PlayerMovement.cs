@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mono.Data.Sqlite;
 using UnityEngine.AI;
 
 public class PlayerMovement : MonoBehaviour
@@ -34,8 +35,8 @@ public class PlayerMovement : MonoBehaviour
                 float squaredY = (hitY - playY) * (hitY - playY);
                 float result = Mathf.Sqrt(squaredX + squaredY);
 
-                Debug.Log(squaredX);
-                Debug.Log(result);
+                Debug.Log("Hello");
+                Debug.Log(hitX);
                 ///Debug.Log(myAgent.nextPosition[0]);
                 if (result < 20) 
                     {

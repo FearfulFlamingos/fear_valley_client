@@ -4,7 +4,7 @@
       <File FileName="Assets/Scripts/PlayerSpotlight.cs" Line="35" Column="22" />
       <File FileName="Assets/Scripts/PlayerMovement.cs" />
       <File FileName="Assets/Scripts/CameraFollow.cs" />
-      <File FileName="Assets/Scripts/Character.cs" Line="3" Column="7" />
+      <File FileName="Assets/Scripts/Character.cs" Line="24" Column="23" />
       <File FileName="Assets/Scripts/drawCircle.cs" />
     </Files>
     <Pads>
@@ -23,7 +23,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="1c29fe40-786c-4029-aec0-47d3bb2cab7f" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="d65abd8a-7b05-4f68-8f70-56ff22da410e" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
