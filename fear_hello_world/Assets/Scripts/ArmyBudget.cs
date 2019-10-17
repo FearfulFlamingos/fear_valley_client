@@ -11,6 +11,7 @@ public class ArmyBudget : MonoBehaviour
 
     private int currentBudget = 300;
     private DBStandin newDB = new DBStandin();
+    private DatabaseController gameDB = new DatabaseController();
     public Text displayBudget;
     public Dropdown characters;
     public Dropdown weapons;
@@ -23,23 +24,7 @@ public class ArmyBudget : MonoBehaviour
         PopulateDropdown(characters, newDB.getArmy());
         PopulateDropdown(weapons, newDB.getWeapons());
         PopulateDropdown(armors, newDB.getArmor());
-
-        string path = "URI=file:" + Application.dataPath + "/Data/fearful_data.sqlite";
-        System.Data.IDbConnection dbcon = new SqliteConnection(path);
-        dbcon.Open();
-
-        IDbCommand dbcmd;
-        IDataReader reader;
-
-        dbcmd = dbcon.CreateCommand();
-        string q_createTable = "CREATE TABLE test_table (id INTEGER PRIMARY KEY AUTOINCREMENT, val INTEGER);";
-        dbcmd.CommandText = q_createTable;
-        reader = dbcmd.ExecuteReader();
-
-        IDbCommand cmd = dbcon.CreateCommand();
-        cmd.CommandText = "INSERT INTO test_table (val) VALUES (5);";
-        cmd.ExecuteNonQuery();
-        dbcon.Close();
+        
     }
 
     private void Update()

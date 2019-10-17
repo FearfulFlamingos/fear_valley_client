@@ -63,6 +63,7 @@
     <Compile Include="Assets\Free Low Poly Chess Set\Example\Scripts\CameraRotate.cs" />
     <Compile Include="Assets\scirpt.cs" />
     <Compile Include="Assets\Scripts\ArmyBudget.cs" />
+    <Compile Include="Assets\Scripts\DatabaseController.cs" />
     <Compile Include="Assets\Scripts\PlayerSpotlight.cs" />
     <None Include="Assets\Free Low Poly Chess Set\README.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
@@ -281,6 +282,9 @@
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.9f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Data.Sqlite">
+      <HintPath>C:/Users/Gavin Lochtefeld/Documents/GitHub/senior_project/fear_hello_world/Assets/Plugins/Mono.Data.Sqlite.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Analytics.Editor">
       <HintPath>C:/Users/Gavin Lochtefeld/Documents/GitHub/senior_project/fear_hello_world/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
@@ -289,9 +293,6 @@
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
       <HintPath>C:/Users/Gavin Lochtefeld/Documents/GitHub/senior_project/fear_hello_world/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Data.Sqlite">
-      <HintPath>C:/Users/Gavin Lochtefeld/Documents/GitHub/senior_project/fear_hello_world/Assets/Plugins/Mono.Data.Sqlite.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.4.9f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
