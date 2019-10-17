@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Data;
+using Mono.Data.Sqlite;
+using System.IO;
 
 public class ArmyBudget : MonoBehaviour
 {
+
     private int currentBudget = 300;
     private DBStandin newDB = new DBStandin();
-    // Start is called before the first frame update
     public Text displayBudget;
     public Dropdown characters;
     public Dropdown weapons;
     public Dropdown armors;
+
 
 
     private void Start()
@@ -19,6 +23,23 @@ public class ArmyBudget : MonoBehaviour
         PopulateDropdown(characters, newDB.getArmy());
         PopulateDropdown(weapons, newDB.getWeapons());
         PopulateDropdown(armors, newDB.getArmor());
+
+        string path = "URI=file:" + Application.dataPath + "/Data/fearful_data.sqlite";
+        System.Data.IDbConnection dbcon = new SqliteConnection(path);
+        dbcon.Open();
+
+        IDbCommand dbcmd;
+        IDataReader reader;
+
+        dbcmd = dbcon.CreateCommand();
+        string q_createTable = "CREATE TABLE test_table (id INTEGER PRIMARY KEY AUTOINCREMENT, val INTEGER);";
+        dbcmd.CommandText = q_createTable;
+        reader = dbcmd.ExecuteReader();
+
+        IDbCommand cmd = dbcon.CreateCommand();
+        cmd.CommandText = "INSERT INTO test_table (val) VALUES (5);";
+        cmd.ExecuteNonQuery();
+        dbcon.Close();
     }
 
     private void Update()
@@ -26,9 +47,19 @@ public class ArmyBudget : MonoBehaviour
         displayBudget.text = $"Current Resources: {currentBudget}";
     }
 
-    private int calculateCost(string army, string weapon, string armor)
+    private int calculateCost()
     {
-        return 10; // Just here to avoid throwing an error for now
+        int totalCost = 0;
+        string troop = characters.options[characters.value].text;
+        totalCost += newDB.getArmy()[troop];
+
+        string weap = weapons.options[weapons.value].text;
+        totalCost += newDB.getWeapons()[weap];
+
+        string armor = armors.options[weapons.value].text;
+        totalCost += newDB.getArmor()[armor];
+
+        return totalCost; 
     }
 
     private void PopulateDropdown(Dropdown drpdwn, Dictionary<string, int> optionsArray)
@@ -40,6 +71,12 @@ public class ArmyBudget : MonoBehaviour
         }
         drpdwn.ClearOptions();
         drpdwn.AddOptions(options);
+    }
+
+    public void addPersonOnClick()
+    {
+        int cost = calculateCost();
+        currentBudget -= cost;
     }
 }
 
