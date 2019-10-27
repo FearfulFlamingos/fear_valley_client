@@ -52,6 +52,9 @@
     <UnityVersion>2018.4.9f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2018.4.9f1\Editor\Data\Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -64,6 +67,7 @@
     <Compile Include="Assets\scirpt.cs" />
     <Compile Include="Assets\Scripts\ArmyBudget.cs" />
     <Compile Include="Assets\Scripts\DatabaseController.cs" />
+    <Compile Include="Assets\Scripts\GridPosSetter.cs" />
     <Compile Include="Assets\Scripts\PlayerSpotlight.cs" />
     <None Include="Assets\Free Low Poly Chess Set\README.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
