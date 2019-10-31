@@ -16,6 +16,7 @@ fear_hello_world/*.pidb.meta
 ###
 # VS/MD solution and project files
 ###
+fear_hello_world/.vs/
 fear_hello_world/[Ee]xportedObj/
 fear_hello_world/*.booproj
 fear_hello_world/*.csproj
