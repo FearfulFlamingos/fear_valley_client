@@ -1,41 +1,41 @@
 ###
 # Unity folders and files
 ###
-fearful_hello_world/[Aa]ssets/AssetStoreTools*
-fearful_hello_world/[Bb]uild/
-fearful_hello_world/[Ll]ibrary/
-fearful_hello_world/[Ll]ocal[Cc]ache/
-fearful_hello_world/[Oo]bj/
-fearful_hello_world/[Tt]emp/
-fearful_hello_world/[Uu]nityGenerated/
+fear_hello_world/[Aa]ssets/AssetStoreTools*
+fear_hello_world/[Bb]uild/
+fear_hello_world/[Ll]ibrary/
+fear_hello_world/[Ll]ocal[Cc]ache/
+fear_hello_world/[Oo]bj/
+fear_hello_world/[Tt]emp/
+fear_hello_world/[Uu]nityGenerated/
 # file on crash reports
 fearful_hello_world/sysinfo.txt
 # Unity3D generated meta files
-fearful_hello_world/*.pidb.meta
+fear_hello_world/*.pidb.meta
 
 ###
 # VS/MD solution and project files
 ###
-fearful_hello_world/[Ee]xportedObj/
-fearful_hello_world/*.booproj
-fearful_hello_world/*.csproj
-fearful_hello_world/*.sln
-fearful_hello_world/*.suo
-fearful_hello_world/*.svd
-fearful_hello_world/*.unityproj
-fearful_hello_world/*.user
-fearful_hello_world/*.userprefs
-fearful_hello_world/*.pidb
-fearful_hello_world/.DS_Store
+fear_hello_world/[Ee]xportedObj/
+fear_hello_world/*.booproj
+fear_hello_world/*.csproj
+fear_hello_world/*.sln
+fear_hello_world/*.suo
+fear_hello_world/*.svd
+fear_hello_world/*.unityproj
+fear_hello_world/*.user
+fear_hello_world/*.userprefs
+fear_hello_world/*.pidb
+fear_hello_world/.DS_Store
 
 ###
 # OS generated
 ###
-fearful_hello_world/.DS_Store
-fearful_hello_world/.DS_Store?
-fearful_hello_world/._*
-fearful_hello_world/.Spotlight-V100
-fearful_hello_world/.Trashes
-fearful_hello_world/Icon?
-fearful_hello_world/ehthumbs.db
-fearful_hello_world/Thumbs.db
+fear_hello_world/.DS_Store
+fear_hello_world/.DS_Store?
+fear_hello_world/._*
+fear_hello_world/.Spotlight-V100
+fear_hello_world/.Trashes
+fear_hello_world/Icon?
+fear_hello_world/ehthumbs.db
+fear_hello_world/Thumbs.db
