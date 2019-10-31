@@ -64,27 +64,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Free Low Poly Chess Set\Example\Scripts\CameraRotate.cs" />
+    <Compile Include="Assets\Scripts\ArmyBudget.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
-    <Compile Include="Assets\Scripts\Character.cs" />
+    <Compile Include="Assets\Scripts\CharacterFeatures.cs" />
     <Compile Include="Assets\Scripts\drawCircle.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\PlayerSpotlight.cs" />
+    <Compile Include="Assets\Scripts\PopulateCharacter.cs" />
     <None Include="Assets\Free Low Poly Chess Set\README.txt" />
-    <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>/Users/Nathan/Desktop/senior_project/senior_project/fear_hello_world/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>/Users/Nathan/Desktop/senior_project/senior_project/fear_hello_world/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>/Users/Nathan/Desktop/senior_project/senior_project/fear_hello_world/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>/Users/Nathan/Desktop/senior_project/senior_project/fear_hello_world/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>/Users/Nathan/Desktop/senior_project/senior_project/fear_hello_world/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>/Applications/Unity/Hub/Editor/2018.4.9f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
@@ -290,7 +277,7 @@
       <HintPath>/Applications/Unity/Hub/Editor/2018.4.9f1/Unity.app/Contents/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Data.Sqlite">
-      <HintPath>/Users/Nathan/Desktop/senior_project/senior_project/fear_hello_world/Assets/Plugins/SQLite/Mono.Data.Sqlite.dll</HintPath>
+      <HintPath>/Users/Nathan/Desktop/senior_project/senior_project/fear_hello_world/Assets/Plugins/Mono.Data.Sqlite.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
       <HintPath>/Users/Nathan/Desktop/senior_project/senior_project/fear_hello_world/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>

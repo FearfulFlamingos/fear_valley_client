@@ -1,11 +1,12 @@
 ﻿<Properties StartupConfiguration="{277D41E0-79B6-5802-0140-E3D636924174}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Character.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerMovement.cs">
     <Files>
       <File FileName="Assets/Scripts/PlayerSpotlight.cs" Line="35" Column="22" />
-      <File FileName="Assets/Scripts/PlayerMovement.cs" />
+      <File FileName="Assets/Scripts/PlayerMovement.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/CameraFollow.cs" />
-      <File FileName="Assets/Scripts/Character.cs" Line="24" Column="23" />
       <File FileName="Assets/Scripts/drawCircle.cs" />
+      <File FileName="Assets/Scripts/ArmyBudget.cs" />
+      <File FileName="Assets/Scripts/PopulateCharacter.cs" Line="9" Column="14" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -13,7 +14,7 @@
           <Node name="fear_hello_world" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
-                <Node name="Character.cs" selected="True" />
+                <Node name="PlayerMovement.cs" selected="True" />
               </Node>
             </Node>
           </Node>
@@ -23,7 +24,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="ca3bdb87-79dd-46a6-b7c2-432f2a2e066b" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="351bc2ef-2ce7-40ac-841d-e6f1665b495e" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
