@@ -19,13 +19,13 @@ public class PopulateCharacter : MonoBehaviour
         objectReference.Add("Magic User", "wizardprefab");
         
         //DuplicateObjects();
-        string connection = "URI=file:" + Application.dataPath + "/Data/fearful_data";
+        string connection = "URI=file:" + Application.dataPath + "/Data/fearful_data.sqlite";
         Debug.Log(connection);
         IDbConnection dbcon = new SqliteConnection(connection);
         dbcon.Open();
         IDbCommand cmnd_read = dbcon.CreateCommand();
         IDataReader reader;
-        string query = "SELECT a.teamNumber, t.class, ar.armor, art.armor, w.name, a.currentHealth, a.isLeader, a.xpos,a.zpos FROM Army a, Armor ar, Armor art, Troop t, Weapon w Where a.class = t.id and a.armor = ar.id and a.shield = art.id and a.weapon = w.id";
+        string query = "SELECT a.teamNumber, t.class, ar.armor, art.armor, w.name, a.currentHealth, a.isLeader, a.pos_x,a.pox_z FROM Army a, Armor ar, Armor art, Troop t, Weapon w Where a.class = t.class and a.armor = ar.armor and a.shield = art.armor and a.weapon = w.name";
         cmnd_read.CommandText = query;
         reader = cmnd_read.ExecuteReader();
         while (reader.Read())
@@ -55,7 +55,7 @@ public class PopulateCharacter : MonoBehaviour
         Debug.Log(zPos);
         tile.transform.position = new Vector3(xPos, yPos,zPos);
         CharacterFeatures referenceScript = tile.GetComponent<CharacterFeatures>();
-        referenceScript.health = System.Convert.ToInt32(characterInfo.health);
+        referenceScript.health = System.Convert.ToInt32(16);
         referenceScript.shield = characterInfo.shield.ToString();
         referenceScript.weapon = characterInfo.weapon.ToString();
         referenceScript.armclass = characterInfo.armor.ToString();

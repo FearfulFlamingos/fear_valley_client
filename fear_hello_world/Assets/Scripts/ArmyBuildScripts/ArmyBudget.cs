@@ -127,7 +127,7 @@ public class ArmyBudget : MonoBehaviour
             DatabaseController dbCont = new DatabaseController();
             dbCont.update("INSERT INTO Army " +
                 "(teamNumber,class,armor,shield,weapon," +
-                "isLeader,x_pos,z_pos) " +
+                "isLeader,pos_x,pox_z) " +
                 "VALUES " +
                 "(0," +
                 $"'{characters.options[characters.value].text}'," +
