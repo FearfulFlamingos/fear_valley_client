@@ -25,13 +25,13 @@ public class PopulateCharacter : MonoBehaviour
         dbcon.Open();
         IDbCommand cmnd_read = dbcon.CreateCommand();
         IDataReader reader;
-        string query = "SELECT a.teamNumber, t.class, t.health, ar.armor, art.armor, w.name, a.isLeader, a.pos_x,a.pox_z FROM Army a, Armor ar, Armor art, Troop t, Weapon w Where a.class = t.class and a.armor = ar.armor and a.shield = art.armor and a.weapon = w.name";
+        string query = "SELECT a.teamNumber, t.class, ar.armor, art.armor, w.name, a.currentHealth, a.isLeader, a.pos_x,a.pox_z FROM Army a, Armor ar, Armor art, Troop t, Weapon w Where a.class = t.class and a.armor = ar.armor and a.shield = art.armor and a.weapon = w.name";
         cmnd_read.CommandText = query;
         reader = cmnd_read.ExecuteReader();
         while (reader.Read())
         {
             
-            var competitor = (teamNum: reader[0], charClass: reader[1], health: reader[2], armor: reader[3], shield: reader[4], weapon: reader[5], leader: reader[6], xpos: reader[7], zpos: reader[8]);
+            var competitor = (teamNum: reader[0], charClass: reader[1], armor: reader[2], shield: reader[3], weapon: reader[4], health: reader[5], leader: reader[6], xpos: reader[7], zpos: reader[8]);
             armyList.Add(competitor);
             Debug.Log(objectReference[competitor.charClass.ToString()]);
         }
@@ -57,14 +57,14 @@ public class PopulateCharacter : MonoBehaviour
         float floating = 0.2F;
         tile.transform.position = new Vector3(xPos,floating,zPos);
         circle.transform.position = new Vector3(xPos,yPos, zPos);
+        circle.GetComponent<Renderer>().enabled = false;
         CharacterFeatures referenceScript = tile.GetComponent<CharacterFeatures>();
-        referenceScript.health = System.Convert.ToInt32(16);//characterInfo.health);
+        referenceScript.health = System.Convert.ToInt32(16);
         referenceScript.shield = characterInfo.shield.ToString();
         referenceScript.weapon = characterInfo.weapon.ToString();
         referenceScript.armclass = characterInfo.armor.ToString();
         referenceScript.isLeader = System.Convert.ToInt32(characterInfo.leader);
         referenceScript.charclass = characterInfo.charClass.ToString();
-        referenceScript.team = System.Convert.ToInt32(characterInfo.teamNum);
 
 
         PlayerMovement canmove = tile.GetComponent<PlayerMovement>();
