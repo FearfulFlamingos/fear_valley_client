@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 82b63c6564d46451c93f67d9d59007fd
+  - enabled: 1
+    path: Assets/Scenes/ArmyBuilder.unity
+    guid: 416c69ef92034b845822d687ea1535cd
+  - enabled: 1
+    path: Assets/Scenes/main.unity
+    guid: c436efdd8a2b19d42b7d48eb3433924c
   m_configObjects: {}
