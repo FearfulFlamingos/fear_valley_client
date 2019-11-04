@@ -54,22 +54,22 @@ public class ArmyBudget : MonoBehaviour
     private void Start()
     {
         // Grid workaroud
-        button0.onClick.AddListener(() => { AddPersonOnClick("0", "0"); button0.interactable = false; });
-        button1.onClick.AddListener(() => { AddPersonOnClick("1", "0"); button1.interactable = false; });
-        button2.onClick.AddListener(() => { AddPersonOnClick("0", "1"); button2.interactable = false; });
-        button3.onClick.AddListener(() => { AddPersonOnClick("1", "1"); button3.interactable = false; });
-        button4.onClick.AddListener(() => { AddPersonOnClick("2", "0"); button4.interactable = false; });
-        button5.onClick.AddListener(() => { AddPersonOnClick("3", "0"); button5.interactable = false; });
-        button6.onClick.AddListener(() => { AddPersonOnClick("2", "1"); button6.interactable = false; });
-        button7.onClick.AddListener(() => { AddPersonOnClick("3", "1"); button7.interactable = false; });
-        button8.onClick.AddListener(() => { AddPersonOnClick("4", "0"); button8.interactable = false; });
-        button9.onClick.AddListener(() => { AddPersonOnClick("5", "0"); button9.interactable = false; });
-        button10.onClick.AddListener(() => { AddPersonOnClick("4", "1"); button10.interactable = false; });
-        button11.onClick.AddListener(() => { AddPersonOnClick("5", "1"); button11.interactable = false; });
-        button12.onClick.AddListener(() => { AddPersonOnClick("6", "0"); button12.interactable = false; });
-        button13.onClick.AddListener(() => { AddPersonOnClick("7", "0"); button13.interactable = false; });
-        button14.onClick.AddListener(() => { AddPersonOnClick("6", "1"); button14.interactable = false; });
-        button15.onClick.AddListener(() => { AddPersonOnClick("7", "1"); button15.interactable = false; });
+        button0.onClick.AddListener(() => { AddPersonOnClick("0", "-18"); button0.interactable = false; });
+        button1.onClick.AddListener(() => { AddPersonOnClick("3", "-18"); button1.interactable = false; });
+        button2.onClick.AddListener(() => { AddPersonOnClick("0", "-21"); button2.interactable = false; });
+        button3.onClick.AddListener(() => { AddPersonOnClick("3", "-21"); button3.interactable = false; });
+        button4.onClick.AddListener(() => { AddPersonOnClick("6", "-18"); button4.interactable = false; });
+        button5.onClick.AddListener(() => { AddPersonOnClick("9", "-18"); button5.interactable = false; });
+        button6.onClick.AddListener(() => { AddPersonOnClick("6", "-21"); button6.interactable = false; });
+        button7.onClick.AddListener(() => { AddPersonOnClick("9", "-21"); button7.interactable = false; });
+        button8.onClick.AddListener(() => { AddPersonOnClick("12", "-18"); button8.interactable = false; });
+        button9.onClick.AddListener(() => { AddPersonOnClick("15", "-18"); button9.interactable = false; });
+        button10.onClick.AddListener(() => { AddPersonOnClick("12", "-21"); button10.interactable = false; });
+        button11.onClick.AddListener(() => { AddPersonOnClick("15", "-21"); button11.interactable = false; });
+        button12.onClick.AddListener(() => { AddPersonOnClick("18", "-18"); button12.interactable = false; });
+        button13.onClick.AddListener(() => { AddPersonOnClick("21", "-18"); button13.interactable = false; });
+        button14.onClick.AddListener(() => { AddPersonOnClick("18", "-21"); button14.interactable = false; });
+        button15.onClick.AddListener(() => { AddPersonOnClick("21", "-21"); button15.interactable = false; });
         warning.SetActive(false);
         // Everything else
         DatabaseController dbCont = new DatabaseController();

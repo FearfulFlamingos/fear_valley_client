@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CharacterFeatures : MonoBehaviour
 {
+    public int team;
     public int health;
     public string charclass;
     public string armclass;
