@@ -49,11 +49,14 @@ public class PopulateCharacter : MonoBehaviour
     {
         //GameObject referenceTile = (GameObject)Instantiate(Resources.Load(prefab));
         GameObject tile = (GameObject)Instantiate(Resources.Load(prefab));
+        GameObject circle = (GameObject)Instantiate(Resources.Load("circleprefab"));
         int xPos = System.Convert.ToInt32(characterInfo.xpos);
         int yPos = 0;
         int zPos = System.Convert.ToInt32(characterInfo.zpos);
         Debug.Log(zPos);
-        tile.transform.position = new Vector3(xPos, yPos,zPos);
+        float floating = 0.2F;
+        tile.transform.position = new Vector3(xPos,floating,zPos);
+        circle.transform.position = new Vector3(xPos,yPos, zPos);
         CharacterFeatures referenceScript = tile.GetComponent<CharacterFeatures>();
         referenceScript.health = System.Convert.ToInt32(16);//characterInfo.health);
         referenceScript.shield = characterInfo.shield.ToString();
