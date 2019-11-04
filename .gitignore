@@ -41,6 +41,7 @@ fear_hello_world/*.pidb.meta
 *.user
 *.userprefs
 *.pidb
+*.sqlite
 .DS_Store
 =======
 fear_hello_world/.vs/
