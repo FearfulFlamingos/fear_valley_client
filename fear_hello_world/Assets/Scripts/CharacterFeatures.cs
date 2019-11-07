@@ -11,7 +11,7 @@ public class CharacterFeatures : MonoBehaviour
     public string shield;
     public string weapon;
     public int isLeader;
-    
+    public GameObject myCircle;
     void Start()
     {
         

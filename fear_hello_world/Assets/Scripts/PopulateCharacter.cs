@@ -10,6 +10,7 @@ public class PopulateCharacter : MonoBehaviour
 {
     Dictionary<string, string> objectReference = new Dictionary<string, string>();
     
+    
 
     List<(object teamNum, object charClass, object armor, object shield, object weapon, object health, object leader, object xpos, object zpos)> armyList = new List<(object teamNum, object charClass, object armor, object shield, object weapon, object health, object leader, object xpos, object zpos)>();
     private void Start()
@@ -42,6 +43,17 @@ public class PopulateCharacter : MonoBehaviour
         {
             Debug.Log("Amount is "+armyList[i].xpos+" and type is " + armyList[i].zpos);
             DuplicateObjects(objectReference[armyList[i].charClass.ToString()], armyList[i]);
+            if (System.Convert.ToInt32(armyList[i].zpos) == -21)
+            {
+                var newArmy = (teamNum: 2, charClass: armyList[i].charClass, armor: armyList[i].armor, shield: armyList[i].shield, weapon: armyList[i].weapon, health: armyList[i].health, leader: armyList[i].leader, xpos: armyList[i].xpos, zpos: 0);
+                DuplicateObjects(objectReference[armyList[i].charClass.ToString()], newArmy);
+            }
+            else
+            {
+                var newArmy = (teamNum: 2, charClass: armyList[i].charClass, armor: armyList[i].armor, shield: armyList[i].shield, weapon: armyList[i].weapon, health: armyList[i].health, leader: armyList[i].leader, xpos: armyList[i].xpos, zpos: -3);
+                DuplicateObjects(objectReference[armyList[i].charClass.ToString()], newArmy);
+            }
+            
         }
 
     }
@@ -55,8 +67,9 @@ public class PopulateCharacter : MonoBehaviour
         int zPos = System.Convert.ToInt32(characterInfo.zpos);
         Debug.Log(zPos);
         float floating = 0.2F;
-        tile.transform.position = new Vector3(xPos,floating,zPos);
-        circle.transform.position = new Vector3(xPos,yPos, zPos);
+        tile.transform.position = new Vector3(xPos,yPos,zPos);
+        circle.transform.position = new Vector3(xPos,floating, zPos);
+        circle.transform.localScale = new Vector3(21, 21, 21);
         circle.GetComponent<Renderer>().enabled = false;
         CharacterFeatures referenceScript = tile.GetComponent<CharacterFeatures>();
         referenceScript.health = System.Convert.ToInt32(16);
@@ -65,6 +78,7 @@ public class PopulateCharacter : MonoBehaviour
         referenceScript.armclass = characterInfo.armor.ToString();
         referenceScript.isLeader = System.Convert.ToInt32(characterInfo.leader);
         referenceScript.charclass = characterInfo.charClass.ToString();
+        referenceScript.myCircle = circle;
 
 
         PlayerMovement canmove = tile.GetComponent<PlayerMovement>();
