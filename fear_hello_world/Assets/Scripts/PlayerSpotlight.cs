@@ -26,31 +26,21 @@ public class PlayerSpotlight : MonoBehaviour
 
                 if (hit.transform != null)
                 {
-                    GameObject gameObject = hit.transform.gameObject;
-                    CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
-                    Debug.Log(referenceScript.isFocused);
-                    referenceScript.isFocused = true;
-                    Debug.Log(referenceScript.isFocused);
-                    GameObject circle = referenceScript.myCircle;
-                    var cubeRenderer = gameObject.GetComponent<Renderer>();
-                    if (circle.GetComponent<Renderer>().enabled == false)
+                    //PrintName(hit.transform.gameObject);
+                    if (hit.transform.gameObject.name == "King")
                     {
-                        referenceScript.isFocused = true;
-                        circle.GetComponent<Renderer>().enabled = true;
-                        cubeRenderer.material.SetColor("_Color", Color.red);
-                    }
-                    else
-                    {
-                        referenceScript.isFocused = false;
-                        circle.GetComponent<Renderer>().enabled = false;
-                        Color mycolor = new Color32(223, 210, 194, 255);
-                        cubeRenderer.material.SetColor("_Color", mycolor);
-                    }
+                        camera1.gameObject.SetActive(false);
+                        camera2.gameObject.SetActive(true);
 
+                    }
                 }
             }
         }
-
+        if (Input.GetMouseButtonUp(0))
+        {
+            camera1.gameObject.SetActive(true);
+            camera2.gameObject.SetActive(false);
+        }
         
 
     }

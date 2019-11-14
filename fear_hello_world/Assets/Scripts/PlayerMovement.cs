@@ -29,22 +29,18 @@ public class PlayerMovement : MonoBehaviour
             {
                 float hitX = hitInfo.point[0];
                 float hitY = hitInfo.point[2];
-                float floating = 0.2F;
                 float playX = gameObject.transform.position[0];
                 float playY = gameObject.transform.position[2];
                 float squaredX = (hitX - playX) * (hitX - playX);
                 float squaredY = (hitY - playY) * (hitY - playY);
                 float result = Mathf.Sqrt(squaredX + squaredY);
-                CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
+
                 Debug.Log("Hello");
                 Debug.Log(hitX);
                 ///Debug.Log(myAgent.nextPosition[0]);
-                if (result < 11) 
+                if (result < 20) 
                     {
                     myAgent.SetDestination(hitInfo.point);
-                    GameObject Circle = referenceScript.myCircle;
-                    Circle.GetComponent<Renderer>().enabled = false;
-                    Circle.transform.position = new Vector3(hitX,floating,hitY);
                 }
                     
             }

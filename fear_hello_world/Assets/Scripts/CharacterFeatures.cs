@@ -10,17 +10,15 @@ public class CharacterFeatures : MonoBehaviour
     public string armclass;
     public string shield;
     public string weapon;
-    public int isLeader;
-    public GameObject myCircle;
-    public bool isFocused;
-    void Start()
-    {
-        
-    }
+    public bool isLeader;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int GetTeam() => this.team;
+    public int GetHealth() => this.health;
+    public string GetClass() => this.charclass;
+    public string GetArmor() => this.armclass;
+    public string GetShield() => this.shield;
+    public string GetWeapon() => this.weapon;
+    public bool IsLeader() => this.isLeader;
+
+
 }
