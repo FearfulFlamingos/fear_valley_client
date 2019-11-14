@@ -39,10 +39,11 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log("Hello");
                 Debug.Log(hitX);
                 ///Debug.Log(myAgent.nextPosition[0]);
-                if (result < 20) 
+                if (result < 11) 
                     {
                     myAgent.SetDestination(hitInfo.point);
                     GameObject Circle = referenceScript.myCircle;
+                    Circle.GetComponent<Renderer>().enabled = false;
                     Circle.transform.position = new Vector3(hitX,floating,hitY);
                 }
                     

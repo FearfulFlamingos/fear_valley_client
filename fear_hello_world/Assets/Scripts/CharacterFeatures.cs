@@ -12,6 +12,7 @@ public class CharacterFeatures : MonoBehaviour
     public string weapon;
     public int isLeader;
     public GameObject myCircle;
+    public bool isFocused;
     void Start()
     {
         

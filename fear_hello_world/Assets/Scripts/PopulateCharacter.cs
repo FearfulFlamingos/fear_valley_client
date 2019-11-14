@@ -72,6 +72,7 @@ public class PopulateCharacter : MonoBehaviour
         circle.transform.localScale = new Vector3(21, 21, 21);
         circle.GetComponent<Renderer>().enabled = false;
         CharacterFeatures referenceScript = tile.GetComponent<CharacterFeatures>();
+        referenceScript.team = System.Convert.ToInt32(characterInfo.teamNum);
         referenceScript.health = System.Convert.ToInt32(16);
         referenceScript.shield = characterInfo.shield.ToString();
         referenceScript.weapon = characterInfo.weapon.ToString();
@@ -79,6 +80,7 @@ public class PopulateCharacter : MonoBehaviour
         referenceScript.isLeader = System.Convert.ToInt32(characterInfo.leader);
         referenceScript.charclass = characterInfo.charClass.ToString();
         referenceScript.myCircle = circle;
+        referenceScript.isFocused = false;
 
 
         PlayerMovement canmove = tile.GetComponent<PlayerMovement>();
