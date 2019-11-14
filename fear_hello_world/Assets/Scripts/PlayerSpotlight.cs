@@ -1,17 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerSpotlight : MonoBehaviour
 {
     public Camera camera1;
     public Camera camera2;
 
+    public GameObject uiCanvas;
+    public Text leftText, rightText;
+
     private void Start()
     {
         camera1.gameObject.SetActive(true);
         camera2.gameObject.SetActive(false);
+        uiCanvas.SetActive(false);
     }
+
     // Update is called once per frame
     private void Update()
     {
@@ -38,6 +44,11 @@ public class PlayerSpotlight : MonoBehaviour
                         referenceScript.isFocused = true;
                         circle.GetComponent<Renderer>().enabled = true;
                         cubeRenderer.material.SetColor("_Color", Color.red);
+
+                        uiCanvas.SetActive(true);
+                        leftText.text = $"Name: Roman\nAttack:+4\nAction Points:0";
+                        rightText.text = $"Class: {referenceScript.charclass}\nDefense:13\nMovement:6";
+
                     }
                     else
                     {
@@ -45,7 +56,12 @@ public class PlayerSpotlight : MonoBehaviour
                         circle.GetComponent<Renderer>().enabled = false;
                         Color mycolor = new Color32(223, 210, 194, 255);
                         cubeRenderer.material.SetColor("_Color", mycolor);
+                        uiCanvas.SetActive(false);
                     }
+
+
+                    // Populate Panel
+                    // left string = 
 
                 }
             }
