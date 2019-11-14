@@ -24,6 +24,9 @@ fear_hello_world/[Uu]nityGenerated/
 # file on crash reports
 fearful_hello_world/sysinfo.txt
 # Unity3D generated meta files
+
+*.sqlite
+fear_hello_world/Assets/Data/fearful_data.sqlite
 fear_hello_world/*.pidb.meta
 >>>>>>> 3879b3abe19f8a4021bf7081700e47c57d779344
 
