@@ -1006,6 +1006,7 @@ GameObject:
   - component: {fileID: 1345067959}
   - component: {fileID: 1345067958}
   - component: {fileID: 1345067962}
+  - component: {fileID: 1345067963}
   m_Layer: 5
   m_Name: CharacterControlPanel
   m_TagString: Untagged
@@ -1106,6 +1107,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 729057820}
+--- !u!114 &1345067963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345067957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a8837edc34c5aa46b26be6a0e86635d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftStats: {fileID: 926704670}
+  rightStats: {fileID: 2085315746}
 --- !u!1 &1382330786
 GameObject:
   m_ObjectHideFlags: 0

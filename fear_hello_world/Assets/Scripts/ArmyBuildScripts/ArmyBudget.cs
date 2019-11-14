@@ -11,6 +11,7 @@ public class ArmyBudget : MonoBehaviour
 
     private int currentBudget = 300;
     private Dictionary<string, int> costs;
+    private bool leaderChosen = false;
     public Text displayBudget;
     public Dropdown characters;
     public Dropdown weapons;
@@ -118,6 +119,13 @@ public class ArmyBudget : MonoBehaviour
 
     public void AddPersonOnClick(string posx, string posy)
     {
+        bool leaderStatus = false;
+        if (!this.leaderChosen)
+        {
+            this.leaderChosen = true;
+            leaderStatus = true;
+        }
+
         int cost = CalculateCost();
         Debug.Log("POS:" + posx + "," + posy);
         Debug.Log("COST:" + cost);
@@ -134,7 +142,7 @@ public class ArmyBudget : MonoBehaviour
                 $"'{armors.options[armors.value].text}'," +
                 "'Mundane shield'," +
                 $"'{weapons.options[weapons.value].text}'," +
-                "'0'," +
+                $"'{leaderStatus}'," +
                 $"{posx}," +
                 $"{posy}); ");
             dbCont.CloseDB();

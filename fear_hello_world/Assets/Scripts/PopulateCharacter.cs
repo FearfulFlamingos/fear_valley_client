@@ -63,7 +63,7 @@ public class PopulateCharacter : MonoBehaviour
         referenceScript.shield = characterInfo.shield.ToString();
         referenceScript.weapon = characterInfo.weapon.ToString();
         referenceScript.armclass = characterInfo.armor.ToString();
-        referenceScript.isLeader = System.Convert.ToInt32(characterInfo.leader);
+        referenceScript.isLeader = System.Convert.ToBoolean(characterInfo.leader);
         referenceScript.charclass = characterInfo.charClass.ToString();
 
 
