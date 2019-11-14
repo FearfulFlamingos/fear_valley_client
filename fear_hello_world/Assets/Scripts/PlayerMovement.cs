@@ -9,13 +9,17 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask whatCanBeClickedOn;
     private NavMeshAgent myAgent;
     public GameObject gameObject;
+    public GameObject uiCanvas;
+
     // Start is called before the first frame update
     void Start()
     {
         myAgent = GetComponent<NavMeshAgent>();
-        
+        uiCanvas = GameObject.FindGameObjectWithTag("PlayerAction");
     }
-
+        
+    
+        
     // Update is called once per frame
     void Update()
     {
@@ -45,6 +49,11 @@ public class PlayerMovement : MonoBehaviour
                     GameObject Circle = referenceScript.myCircle;
                     Circle.GetComponent<Renderer>().enabled = false;
                     Circle.transform.position = new Vector3(hitX,floating,hitY);
+                    Color mycolor = new Color32(223, 210, 194, 255);
+                    var cubeRenderer = gameObject.GetComponent<Renderer>();
+                    cubeRenderer.material.SetColor("_Color", mycolor);
+                    uiCanvas.SetActive(false);
+                    gameObject.GetComponent<PlayerMovement>().enabled = false;
                 }
                     
             }

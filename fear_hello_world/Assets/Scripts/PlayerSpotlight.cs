@@ -7,7 +7,7 @@ public class PlayerSpotlight : MonoBehaviour
 {
     public Camera camera1;
     public Camera camera2;
-
+    public GameObject lastClicked;
     public GameObject uiCanvas;
     public Text leftText, rightText;
 
@@ -33,8 +33,8 @@ public class PlayerSpotlight : MonoBehaviour
                 if (hit.transform != null)
                 {
                     GameObject gameObject = hit.transform.gameObject;
+                    lastClicked = gameObject;
                     CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
-                    Debug.Log(referenceScript.isFocused);
                     referenceScript.isFocused = true;
                     Debug.Log(referenceScript.isFocused);
                     GameObject circle = referenceScript.myCircle;
@@ -75,6 +75,11 @@ public class PlayerSpotlight : MonoBehaviour
     {
         print(go.name);
     }
+    public void activateMovement()
+    {
+        lastClicked.GetComponent<PlayerMovement>().enabled = true;
+    }
+
     //private void switchCamera(int camPosition)
     //{
     //    if (camPosition > 1)
