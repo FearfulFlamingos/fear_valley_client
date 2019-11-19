@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6791112040076275363}
   - component: {fileID: 6791112040076275364}
   - component: {fileID: 6791112040076275365}
-  - component: {fileID: 6791112040076275366}
+  - component: {fileID: 4588417134557577636}
   m_Layer: 0
   m_Name: wizardprefab
   m_TagString: Untagged
@@ -95,7 +95,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cf55154806a342ffa4e7450b66d0b1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  team: 0
   health: 0
+  charclass: 
+  armclass: 
+  shield: 
+  weapon: 
+  isLeader: 0
+  myCircle: {fileID: 0}
+  attackRange: {fileID: 0}
+  isFocused: 0
 --- !u!64 &6791112040076275362
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -243,7 +252,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &6791112040076275366
+--- !u!114 &4588417134557577636
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -252,9 +261,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6791112040076275367}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bfb73c1fb5a64aa38ccfb043a4a6028, type: 3}
+  m_Script: {fileID: 11500000, guid: 219f841fdd56945269a4ad8d2e9fe34e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  segments: 30
-  xradius: 1
-  yradius: 1
+  whatCanBeClickedOn:
+    serializedVersion: 2
+    m_Bits: 0
+  gameObject: {fileID: 6791112040076275367}

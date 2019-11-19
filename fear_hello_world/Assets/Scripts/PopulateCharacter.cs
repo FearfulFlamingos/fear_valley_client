@@ -45,23 +45,26 @@ public class PopulateCharacter : MonoBehaviour
             DuplicateObjects(objectReference[armyList[i].charClass.ToString()], armyList[i]);
             if (System.Convert.ToInt32(armyList[i].zpos) == -21)
             {
-                var newArmy = (teamNum: 2, charClass: armyList[i].charClass, armor: armyList[i].armor, shield: armyList[i].shield, weapon: armyList[i].weapon, health: armyList[i].health, leader: armyList[i].leader, xpos: armyList[i].xpos, zpos: 0);
+                var newArmy = (teamNum: 1, charClass: armyList[i].charClass, armor: armyList[i].armor, shield: armyList[i].shield, weapon: armyList[i].weapon, health: armyList[i].health, leader: armyList[i].leader, xpos: armyList[i].xpos, zpos: 0);
                 DuplicateObjects(objectReference[armyList[i].charClass.ToString()], newArmy);
             }
             else
             {
-                var newArmy = (teamNum: 2, charClass: armyList[i].charClass, armor: armyList[i].armor, shield: armyList[i].shield, weapon: armyList[i].weapon, health: armyList[i].health, leader: armyList[i].leader, xpos: armyList[i].xpos, zpos: -3);
+                var newArmy = (teamNum: 1, charClass: armyList[i].charClass, armor: armyList[i].armor, shield: armyList[i].shield, weapon: armyList[i].weapon, health: armyList[i].health, leader: armyList[i].leader, xpos: armyList[i].xpos, zpos: -3);
                 DuplicateObjects(objectReference[armyList[i].charClass.ToString()], newArmy);
             }
             
         }
 
     }
+
+    //This function is desgined to create each instance of the game objects. It is called for every character created by the game and populates all of the characteristics of the character.
     private void DuplicateObjects(string prefab, (object teamNum, object charClass, object armor, object shield, object weapon, object health, object leader, object xpos, object zpos) characterInfo)
     {
         //GameObject referenceTile = (GameObject)Instantiate(Resources.Load(prefab));
         GameObject tile = (GameObject)Instantiate(Resources.Load(prefab));
         GameObject circle = (GameObject)Instantiate(Resources.Load("circleprefab"));
+        GameObject circle2 = (GameObject)Instantiate(Resources.Load("circleprefab"));
         int xPos = System.Convert.ToInt32(characterInfo.xpos);
         int yPos = 0;
         int zPos = System.Convert.ToInt32(characterInfo.zpos);
@@ -70,7 +73,10 @@ public class PopulateCharacter : MonoBehaviour
         tile.transform.position = new Vector3(xPos,yPos,zPos);
         circle.transform.position = new Vector3(xPos,floating, zPos);
         circle.transform.localScale = new Vector3(21, 21, 21);
+        circle2.transform.position = new Vector3(xPos, floating, zPos);
+        circle2.transform.localScale = new Vector3(9, 9, 9);
         circle.GetComponent<Renderer>().enabled = false;
+        circle2.GetComponent<Renderer>().enabled = false;
         CharacterFeatures referenceScript = tile.GetComponent<CharacterFeatures>();
         referenceScript.team = System.Convert.ToInt32(characterInfo.teamNum);
         referenceScript.health = System.Convert.ToInt32(16);
@@ -80,12 +86,12 @@ public class PopulateCharacter : MonoBehaviour
         referenceScript.isLeader = System.Convert.ToInt32(characterInfo.leader);
         referenceScript.charclass = characterInfo.charClass.ToString();
         referenceScript.myCircle = circle;
+        referenceScript.attackRange = circle2;
         referenceScript.isFocused = false;
 
 
-        PlayerMovement canmove = tile.GetComponent<PlayerMovement>();
-        canmove.enabled = false;
-
+        tile.GetComponent<PlayerMovement>().enabled = false;
+        tile.GetComponent<PlayerAttack>().enabled = false;
 
 
     }

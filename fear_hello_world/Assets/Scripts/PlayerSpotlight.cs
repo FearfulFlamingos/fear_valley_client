@@ -9,13 +9,19 @@ public class PlayerSpotlight : MonoBehaviour
     public Camera camera2;
     public GameObject lastClicked;
     public GameObject uiCanvas;
+    public GameObject attackcanvas;
     public Text leftText, rightText;
+    public Text yourChar, attackChar;
+    private GameObject scripts;
 
     private void Start()
     {
         camera1.gameObject.SetActive(true);
         camera2.gameObject.SetActive(false);
         uiCanvas.SetActive(false);
+        attackcanvas.SetActive(false);
+        scripts = GameObject.FindGameObjectWithTag("scripts");
+
     }
 
     // Update is called once per frame
@@ -35,28 +41,35 @@ public class PlayerSpotlight : MonoBehaviour
                     GameObject gameObject = hit.transform.gameObject;
                     lastClicked = gameObject;
                     CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
-                    referenceScript.isFocused = true;
-                    Debug.Log(referenceScript.isFocused);
-                    GameObject circle = referenceScript.myCircle;
-                    var cubeRenderer = gameObject.GetComponent<Renderer>();
-                    if (circle.GetComponent<Renderer>().enabled == false)
+                    GameLoop currentPlayer = scripts.GetComponent<GameLoop>();
+                    if (currentPlayer.currentPlayer == referenceScript.team)
                     {
+
+
                         referenceScript.isFocused = true;
-                        circle.GetComponent<Renderer>().enabled = true;
-                        cubeRenderer.material.SetColor("_Color", Color.red);
+                        Debug.Log(referenceScript.isFocused);
+                        GameObject circle = referenceScript.myCircle;
+                        var cubeRenderer = gameObject.GetComponent<Renderer>();
+                        if (circle.GetComponent<Renderer>().enabled == false)
+                        {
+                            referenceScript.isFocused = true;
+                            circle.GetComponent<Renderer>().enabled = true;
+                            cubeRenderer.material.SetColor("_Color", Color.red);
 
-                        uiCanvas.SetActive(true);
-                        leftText.text = $"Name: Roman\nAttack:+4\nAction Points:0";
-                        rightText.text = $"Class: {referenceScript.charclass}\nDefense:13\nMovement:6";
+                            uiCanvas.SetActive(true);
+                            
+                            leftText.text = $"Name: Roman\nAttack:+4\nAction Points:{currentPlayer.actionPoints}";
+                            rightText.text = $"Class: {referenceScript.charclass}\nDefense:13\nMovement:6";
 
-                    }
-                    else
-                    {
-                        referenceScript.isFocused = false;
-                        circle.GetComponent<Renderer>().enabled = false;
-                        Color mycolor = new Color32(223, 210, 194, 255);
-                        cubeRenderer.material.SetColor("_Color", mycolor);
-                        uiCanvas.SetActive(false);
+                        }
+                        else
+                        {
+                            referenceScript.isFocused = false;
+                            circle.GetComponent<Renderer>().enabled = false;
+                            Color mycolor = new Color32(223, 210, 194, 255);
+                            cubeRenderer.material.SetColor("_Color", mycolor);
+                            uiCanvas.SetActive(false);
+                        }
                     }
 
 
@@ -71,13 +84,18 @@ public class PlayerSpotlight : MonoBehaviour
 
     }
 
-    private void PrintName(GameObject go)
-    {
-        print(go.name);
-    }
+
     public void activateMovement()
     {
         lastClicked.GetComponent<PlayerMovement>().enabled = true;
+    }
+    public void activateAttack()
+    {
+        yourChar.text = $"You are attacking with: {lastClicked.GetComponent<CharacterFeatures>().charclass}";
+        uiCanvas.SetActive(false);
+        attackcanvas.SetActive(true);
+        lastClicked.GetComponent<PlayerAttack>().enabled = true;
+        lastClicked.GetComponent<PlayerAttack>().activateAttack();
     }
 
     //private void switchCamera(int camPosition)

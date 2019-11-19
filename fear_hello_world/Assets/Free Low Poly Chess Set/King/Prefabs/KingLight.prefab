@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4239372230150158}
   - component: {fileID: 33080485989685302}
   - component: {fileID: 23126716194031272}
-  - component: {fileID: 3090720420867140198}
+  - component: {fileID: 9190310590703497944}
   m_Layer: 0
   m_Name: KingLight
   m_TagString: Untagged
@@ -78,7 +78,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &3090720420867140198
+--- !u!114 &9190310590703497944
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -87,7 +87,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1389686872840900}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cf55154806a342ffa4e7450b66d0b1b, type: 3}
+  m_Script: {fileID: 11500000, guid: 219f841fdd56945269a4ad8d2e9fe34e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  whatCanBeClickedOn:
+    serializedVersion: 2
+    m_Bits: 0
+  gameObject: {fileID: 0}

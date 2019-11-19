@@ -9,13 +9,15 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask whatCanBeClickedOn;
     private NavMeshAgent myAgent;
     public GameObject gameObject;
-    public GameObject uiCanvas;
+    private GameObject uiCanvas;
+    private GameObject scripts;
 
     // Start is called before the first frame update
     void Start()
     {
         myAgent = GetComponent<NavMeshAgent>();
         uiCanvas = GameObject.FindGameObjectWithTag("PlayerAction");
+        scripts = GameObject.FindGameObjectWithTag("scripts");
     }
         
     
@@ -45,6 +47,8 @@ public class PlayerMovement : MonoBehaviour
                 ///Debug.Log(myAgent.nextPosition[0]);
                 if (result < 11) 
                     {
+                    GameLoop actionPoints = scripts.GetComponent<GameLoop>();
+                    actionPoints.actionPoints = System.Convert.ToInt32(actionPoints.actionPoints) - 1;
                     myAgent.SetDestination(hitInfo.point);
                     GameObject Circle = referenceScript.myCircle;
                     Circle.GetComponent<Renderer>().enabled = false;

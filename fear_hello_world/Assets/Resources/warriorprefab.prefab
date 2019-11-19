@@ -147,21 +147,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &729057827
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3762522089948502730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bfb73c1fb5a64aa38ccfb043a4a6028, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  segments: 50
-  xradius: 5
-  yradius: 5
 --- !u!114 &8363151933671673664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,7 +159,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cf55154806a342ffa4e7450b66d0b1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  team: 0
   health: 0
+  charclass: 
+  armclass: 
+  shield: 
+  weapon: 
+  isLeader: 0
+  myCircle: {fileID: 0}
+  attackRange: {fileID: 0}
+  isFocused: 0
 --- !u!1001 &3761567878400655374
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -242,6 +236,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 9190310590703497944, guid: 27d2608cb94ae2d44811af52793c3562,
+        type: 3}
+      propertyPath: gameObject
+      value: 
+      objectReference: {fileID: 3762522089948502730}
     m_RemovedComponents:
     - {fileID: 3090720420867140198, guid: 27d2608cb94ae2d44811af52793c3562, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 27d2608cb94ae2d44811af52793c3562, type: 3}
