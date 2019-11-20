@@ -7,9 +7,9 @@ public class PlayerAttack : MonoBehaviour
 {
     public LayerMask whatCanBeClickedOn;
     public GameObject gameObject;
-    public Camera camera1;
-    public Text attackChar;
-    public GameObject uiCanvas;
+    private Camera camera1;
+    private Text attackChar;
+    private GameObject uiCanvas;
     private GameObject scripts;
 
     // Start is called before the first frame update
@@ -18,6 +18,9 @@ public class PlayerAttack : MonoBehaviour
         
         //uiCanvas = GameObject.FindGameObjectWithTag("PlayerAction");
         scripts = GameObject.FindGameObjectWithTag("scripts");
+        attackChar = scripts.GetComponent<PlayerSpotlight>().attackChar;
+        uiCanvas = scripts.GetComponent<PlayerSpotlight>().attackcanvas;
+        camera1 = scripts.GetComponent<PlayerSpotlight>().camera1;
     }
 
 
@@ -35,10 +38,11 @@ public class PlayerAttack : MonoBehaviour
 
                 if (hit.transform != null)
                 {
-                    GameObject gameObject = hit.transform.gameObject;
+                    GameObject newObject = hit.transform.gameObject;
                     
                     CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
                     GameLoop currentPlayer = scripts.GetComponent<GameLoop>();
+                    Debug.Log(WithinRange(3.5F, newObject.transform.position[0], newObject.transform.position[2], gameObject.transform.position[0], gameObject.transform.position[2], false));
                     //if (currentPlayer.currentPlayer == referenceScript.team)
                     //{
 
@@ -77,23 +81,31 @@ public class PlayerAttack : MonoBehaviour
         }
 
     }
-    public void withinRange(int newPointX, int newPointZ, int curPointX, int curPointZ, bool ranged)
+    public bool WithinRange(float maxDistance, float newPointX, float newPointZ, float curPointX, float curPointZ, bool ranged)
     {
 
-        float floating = 0.2F;
-        float playX = gameObject.transform.position[0];
-        float playY = gameObject.transform.position[2];
-        float squaredX = (newPointX - playX) * (newPointX - playX);
-        float squaredY = (newPointZ - playY) * (newPointZ- playY);
-        float result = Mathf.Sqrt(squaredX + squaredY);
+        float squaredX = (newPointX - curPointX) * (newPointX - curPointX);
+        float squaredZ = (newPointZ - curPointZ) * (newPointZ - curPointZ);
+        float result = Mathf.Sqrt(squaredX + squaredZ);
+        Debug.Log("IAMHERE");
+        Debug.Log(result);
+        if (maxDistance >= result)
+        {
+            return true;
+        }
+
+        return false;
     }
-    public void activateAttack()
+    public void ActivateAttack()
     {
+        scripts = GameObject.FindGameObjectWithTag("scripts");
+        scripts.GetComponent<PlayerSpotlight>().enabled = false;
         CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
         GameObject Circle = referenceScript.myCircle;
         Circle.GetComponent<Renderer>().enabled = false;
         GameObject Circle2 = referenceScript.attackRange;
         Circle2.GetComponent<Renderer>().enabled = true;
+        
     }
 }
 

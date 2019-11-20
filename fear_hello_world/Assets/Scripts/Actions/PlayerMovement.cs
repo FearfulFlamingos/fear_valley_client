@@ -51,8 +51,10 @@ public class PlayerMovement : MonoBehaviour
                     actionPoints.actionPoints = System.Convert.ToInt32(actionPoints.actionPoints) - 1;
                     myAgent.SetDestination(hitInfo.point);
                     GameObject Circle = referenceScript.myCircle;
+                    GameObject Circle2 = referenceScript.attackRange;
                     Circle.GetComponent<Renderer>().enabled = false;
                     Circle.transform.position = new Vector3(hitX,floating,hitY);
+                    Circle2.transform.position = new Vector3(hitX, floating, hitY);
                     Color mycolor = new Color32(223, 210, 194, 255);
                     var cubeRenderer = gameObject.GetComponent<Renderer>();
                     cubeRenderer.material.SetColor("_Color", mycolor);

@@ -85,17 +85,17 @@ public class PlayerSpotlight : MonoBehaviour
     }
 
 
-    public void activateMovement()
+    public void ActivateMovement()
     {
         lastClicked.GetComponent<PlayerMovement>().enabled = true;
     }
-    public void activateAttack()
+    public void ActivateAttack()
     {
         yourChar.text = $"You are attacking with: {lastClicked.GetComponent<CharacterFeatures>().charclass}";
         uiCanvas.SetActive(false);
         attackcanvas.SetActive(true);
         lastClicked.GetComponent<PlayerAttack>().enabled = true;
-        lastClicked.GetComponent<PlayerAttack>().activateAttack();
+        lastClicked.GetComponent<PlayerAttack>().ActivateAttack();
     }
 
     //private void switchCamera(int camPosition)
