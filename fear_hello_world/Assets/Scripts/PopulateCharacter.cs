@@ -26,7 +26,10 @@ public class PopulateCharacter : MonoBehaviour
         dbcon.Open();
         IDbCommand cmnd_read = dbcon.CreateCommand();
         IDataReader reader;
-        string query = "SELECT a.teamNumber, t.class, ar.armor, art.armor, w.name, t.health, a.isLeader, a.pos_x,a.pox_z,t.attack, t.damage, t.movement,t.perception FROM Army a, Armor ar, Armor art, Troop t, Weapon w Where a.class = t.class and a.armor = ar.armor and a.shield = art.armor and a.weapon = w.name";
+        string query = "SELECT a.teamNumber, t.class, ar.armor, art.armor, w.name, " +
+            "t.health, a.isLeader, a.pos_x,a.pox_z,t.attack, t.damage, t.movement,t.perception " +
+            "FROM Army a, Armor ar, Armor art, Troop t, Weapon w Where a.class = t.class " +
+            "and a.armor = ar.armor and a.shield = art.armor and a.weapon = w.name";
         cmnd_read.CommandText = query;
         reader = cmnd_read.ExecuteReader();
         while (reader.Read())
