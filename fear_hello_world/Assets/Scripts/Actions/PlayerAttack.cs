@@ -42,7 +42,14 @@ public class PlayerAttack : MonoBehaviour
                     
                     CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
                     GameLoop currentPlayer = scripts.GetComponent<GameLoop>();
-                    Debug.Log(WithinRange(3.5F, newObject.transform.position[0], newObject.transform.position[2], gameObject.transform.position[0], gameObject.transform.position[2], false));
+                    if (newObject.GetComponent<CharacterFeatures>().team != gameObject.GetComponent<CharacterFeatures>().team)
+                    {
+                        Debug.Log(WithinRange(3.5F, newObject.transform.position[0], newObject.transform.position[2], gameObject.transform.position[0], gameObject.transform.position[2], false));
+
+
+                    }
+                    
+                    
                     //if (currentPlayer.currentPlayer == referenceScript.team)
                     //{
 
@@ -106,6 +113,14 @@ public class PlayerAttack : MonoBehaviour
         GameObject Circle2 = referenceScript.attackRange;
         Circle2.GetComponent<Renderer>().enabled = true;
         
+    }
+    public void DeactivateAttack()
+    {
+        scripts = GameObject.FindGameObjectWithTag("scripts");
+        scripts.GetComponent<PlayerSpotlight>().enabled = true;
+        CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
+        GameObject Circle2 = referenceScript.attackRange;
+        Circle2.GetComponent<Renderer>().enabled = false;
     }
 }
 

@@ -38,10 +38,12 @@ public class PlayerSpotlight : MonoBehaviour
 
                 if (hit.transform != null)
                 {
+                    GameLoop currentPlayer = scripts.GetComponent<GameLoop>();
                     GameObject gameObject = hit.transform.gameObject;
                     lastClicked = gameObject;
+                    currentPlayer.lastClicked = gameObject;
                     CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
-                    GameLoop currentPlayer = scripts.GetComponent<GameLoop>();
+                    
                     if (currentPlayer.currentPlayer == referenceScript.team)
                     {
 

@@ -244,7 +244,7 @@ GameObject:
   - component: {fileID: 224095467}
   - component: {fileID: 224095466}
   m_Layer: 5
-  m_Name: RetreatButton
+  m_Name: CancelAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -305,11 +305,22 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 224095467}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 829751381}
+        m_MethodName: CancelAttack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &224095467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,10 +386,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88ee2eff6d8e74dabb7e980f7b6ed48c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1389687430638458}
@@ -541,7 +548,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 829751378}
+      - m_Target: {fileID: 1696886323}
         m_MethodName: ActivateAttack
         m_Mode: 1
         m_Arguments:
@@ -947,10 +954,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 152f7defc998e43c88acfedf218e9b12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
   camera1: {fileID: 640898253}
   camera2: {fileID: 926088942}
   lastClicked: {fileID: 0}
@@ -1298,10 +1301,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 152f7defc998e43c88acfedf218e9b12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
   camera1: {fileID: 640898253}
   camera2: {fileID: 926088942}
   lastClicked: {fileID: 0}
@@ -1349,12 +1348,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9d323a2b381e4443b992110f9ae1b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
   currentPlayer: 0
   actionPoints: 0
+  uiCanvas: {fileID: 1345067957}
+  attackcanvas: {fileID: 234765401}
+  lastClicked: {fileID: 0}
 --- !u!1 &926088940
 GameObject:
   m_ObjectHideFlags: 0
@@ -1450,10 +1448,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88ee2eff6d8e74dabb7e980f7b6ed48c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
   player: {fileID: 1389687430638458}
 --- !u!1 &1217946487
 GameObject:
@@ -1494,7 +1488,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 329.4, y: -806.1}
+  m_AnchoredPosition: {x: 329.4004, y: -806.1001}
   m_SizeDelta: {x: 658.3, y: 547.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1217946489
@@ -1847,10 +1841,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88ee2eff6d8e74dabb7e980f7b6ed48c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
   player: {fileID: 1389687430638458}
 --- !u!1 &1382330786
 GameObject:
@@ -2115,7 +2105,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Retreat
+  m_Text: Cancel Attack
 --- !u!222 &1694552881
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2124,6 +2114,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1694552878}
   m_CullTransparentMesh: 0
+--- !u!114 &1696886323 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2438768718377054628, guid: 8714d11a90abb49988c7b48477a9fa1d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1339264486460141547}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 219f841fdd56945269a4ad8d2e9fe34e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1723640964
 GameObject:
   m_ObjectHideFlags: 0
@@ -2789,11 +2791,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 219f841fdd56945269a4ad8d2e9fe34e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
   whatCanBeClickedOn:
+    serializedVersion: 2
     m_Bits: 0
   gameObject: {fileID: 2139419394}
 --- !u!1 &1389687430638458
@@ -2917,6 +2916,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: peasantprefab
       objectReference: {fileID: 0}
+    - target: {fileID: 2438768718377054628, guid: 8714d11a90abb49988c7b48477a9fa1d,
+        type: 3}
+      propertyPath: camera1
+      value: 
+      objectReference: {fileID: 640898253}
+    - target: {fileID: 2438768718377054628, guid: 8714d11a90abb49988c7b48477a9fa1d,
+        type: 3}
+      propertyPath: attackChar
+      value: 
+      objectReference: {fileID: 1881054917}
+    - target: {fileID: 2438768718377054628, guid: 8714d11a90abb49988c7b48477a9fa1d,
+        type: 3}
+      propertyPath: uiCanvas
+      value: 
+      objectReference: {fileID: 234765401}
     - target: {fileID: 6593270470844387580, guid: 8714d11a90abb49988c7b48477a9fa1d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2972,21 +2986,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2438768718377054628, guid: 8714d11a90abb49988c7b48477a9fa1d,
-        type: 3}
-      propertyPath: camera1
-      value: 
-      objectReference: {fileID: 640898253}
-    - target: {fileID: 2438768718377054628, guid: 8714d11a90abb49988c7b48477a9fa1d,
-        type: 3}
-      propertyPath: attackChar
-      value: 
-      objectReference: {fileID: 1881054917}
-    - target: {fileID: 2438768718377054628, guid: 8714d11a90abb49988c7b48477a9fa1d,
-        type: 3}
-      propertyPath: uiCanvas
-      value: 
-      objectReference: {fileID: 234765401}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8714d11a90abb49988c7b48477a9fa1d, type: 3}
 --- !u!1001 &1790619307638875066
