@@ -7,6 +7,8 @@ public class PlayerAttack : MonoBehaviour
 {
     public LayerMask whatCanBeClickedOn;
     public GameObject gameObject;
+    private GameObject attackObject;
+    private bool canAttack;
     private Camera camera1;
     private Text attackChar;
     private GameObject uiCanvas;
@@ -38,51 +40,29 @@ public class PlayerAttack : MonoBehaviour
 
                 if (hit.transform != null)
                 {
-                    GameObject newObject = hit.transform.gameObject;
+                    attackObject = hit.transform.gameObject;
                     
-                    CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
+                    CharacterFeatures referenceScript = attackObject.GetComponent<CharacterFeatures>();
                     GameLoop currentPlayer = scripts.GetComponent<GameLoop>();
-                    if (newObject.GetComponent<CharacterFeatures>().team != gameObject.GetComponent<CharacterFeatures>().team)
+                    if (referenceScript.team != gameObject.GetComponent<CharacterFeatures>().team)
                     {
-                        Debug.Log(WithinRange(3.5F, newObject.transform.position[0], newObject.transform.position[2], gameObject.transform.position[0], gameObject.transform.position[2], false));
-
+                        if(WithinRange(3.5F, attackObject.transform.position[0],attackObject.transform.position[2], gameObject.transform.position[0], gameObject.transform.position[2], false))
+                        {
+                            attackChar.text = $"Name: Roman\nHealth: {referenceScript.health}\nClass: {referenceScript.charclass}\nDefense: {referenceScript.damageBonus}\nWithin Range: Yes";
+                            canAttack = true;
+                        }
+                        else
+                        {
+                            attackChar.text = $"Name: Roman\nHealth: {referenceScript.health}\nClass: {referenceScript.charclass}\nDefense: {referenceScript.damageBonus}\nWithin Range: No";
+                            canAttack = false;
+                        }
 
                     }
+                    else
+                    {
+                        attackChar.text = $"You can not attack\nyour own team.";
+                    }
                     
-                    
-                    //if (currentPlayer.currentPlayer == referenceScript.team)
-                    //{
-
-
-                    //    referenceScript.isFocused = true;
-                    //    Debug.Log(referenceScript.isFocused);
-                    //    GameObject circle = referenceScript.myCircle;
-                    //    var cubeRenderer = gameObject.GetComponent<Renderer>();
-                    //    if (circle.GetComponent<Renderer>().enabled == false)
-                    //    {
-                    //        referenceScript.isFocused = true;
-                    //        circle.GetComponent<Renderer>().enabled = true;
-                    //        cubeRenderer.material.SetColor("_Color", Color.red);
-
-                    //        uiCanvas.SetActive(true);
-                    //        leftText.text = $"Name: Roman\nAttack:+4\nAction Points:{currentPlayer.actionPoints}";
-                    //        rightText.text = $"Class: {referenceScript.charclass}\nDefense:13\nMovement:6";
-
-                    //    }
-                    //    else
-                    //    {
-                    //        referenceScript.isFocused = false;
-                    //        circle.GetComponent<Renderer>().enabled = false;
-                    //        Color mycolor = new Color32(223, 210, 194, 255);
-                    //        cubeRenderer.material.SetColor("_Color", mycolor);
-                    //        uiCanvas.SetActive(false);
-                    //    }
-                    //}
-
-
-                    // Populate Panel
-                    // left string = 
-
                 }
             }
         }
@@ -103,6 +83,17 @@ public class PlayerAttack : MonoBehaviour
 
         return false;
     }
+    public void Attack()
+    {
+        if (canAttack)
+        {
+            Debug.Log("worked");
+        }
+        else
+        {
+            attackChar.text = $"You can not attack this target\nthey are not in range. Select \nanother fighter to attack."; 
+        }
+    }
     public void ActivateAttack()
     {
         scripts = GameObject.FindGameObjectWithTag("scripts");
@@ -121,6 +112,7 @@ public class PlayerAttack : MonoBehaviour
         CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
         GameObject Circle2 = referenceScript.attackRange;
         Circle2.GetComponent<Renderer>().enabled = false;
+        attackChar.text = $"Name: Health: \nClass: \nDefense: \nWithin Range: ";
     }
 }
 

@@ -99,6 +99,18 @@ public class PlayerSpotlight : MonoBehaviour
         lastClicked.GetComponent<PlayerAttack>().enabled = true;
         lastClicked.GetComponent<PlayerAttack>().ActivateAttack();
     }
+    public void Leave()
+    {
+        if (scripts.GetComponent<GameLoop>().actionPoints >= 3)
+        {
+            uiCanvas.SetActive(false);
+            Destroy(lastClicked.GetComponent<CharacterFeatures>().myCircle);
+            Destroy(lastClicked.GetComponent<CharacterFeatures>().attackRange);
+            Destroy(lastClicked);
+            scripts.GetComponent<GameLoop>().actionPoints = 0;
+
+        }
+    }
 
     //private void switchCamera(int camPosition)
     //{

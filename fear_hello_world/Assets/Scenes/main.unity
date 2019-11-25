@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657856, g: 0.49641234, b: 0.57481724, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.5748171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -189,11 +189,22 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 115604452}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 829751378}
+        m_MethodName: Leave
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &115604452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -548,8 +559,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1696886323}
-        m_MethodName: ActivateAttack
+      - m_Target: {fileID: 829751381}
+        m_MethodName: Attack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -713,8 +724,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 149, y: -261}
-  m_SizeDelta: {x: 267.85, y: 255.01}
+  m_AnchoredPosition: {x: 282.9, y: -266.5}
+  m_SizeDelta: {x: 535.6, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &593873165
 MonoBehaviour:
@@ -747,15 +758,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Name:
-
-    Class:
-
-    Defense:
-
-    Movement:
-
-'
+  m_Text: "Name:\nHealth:\nClass:\nDefense:\nWithin Range: \n"
 --- !u!222 &593873166
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1309,7 +1312,7 @@ MonoBehaviour:
   leftText: {fileID: 1723640966}
   rightText: {fileID: 580455587}
   yourChar: {fileID: 625497273}
-  attackChar: {fileID: 1881054917}
+  attackChar: {fileID: 593873165}
 --- !u!4 &829751379
 Transform:
   m_ObjectHideFlags: 0
@@ -2114,18 +2117,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1694552878}
   m_CullTransparentMesh: 0
---- !u!114 &1696886323 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2438768718377054628, guid: 8714d11a90abb49988c7b48477a9fa1d,
-    type: 3}
-  m_PrefabInstance: {fileID: 1339264486460141547}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 219f841fdd56945269a4ad8d2e9fe34e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1723640964
 GameObject:
   m_ObjectHideFlags: 0
@@ -2245,7 +2236,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 144.5, y: -152}
+  m_AnchoredPosition: {x: 144.5, y: -166}
   m_SizeDelta: {x: 289.2, y: 146.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1881054917
@@ -3247,8 +3238,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6274153916129065646, guid: d2d9b9ad7c83d43e4ab198339e1dcd23,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6274153916129065646, guid: d2d9b9ad7c83d43e4ab198339e1dcd23,
+        type: 3}
       propertyPath: m_Interactable
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6274153916129065646, guid: d2d9b9ad7c83d43e4ab198339e1dcd23,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Leave
+      objectReference: {fileID: 0}
+    - target: {fileID: 6274153916129065646, guid: d2d9b9ad7c83d43e4ab198339e1dcd23,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6274153915815090787, guid: d2d9b9ad7c83d43e4ab198339e1dcd23,
         type: 3}

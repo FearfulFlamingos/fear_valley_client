@@ -25,6 +25,10 @@ public class GameLoop : MonoBehaviour
             actionPoints = 3;
         }
     }
+    public void Attack()
+    {
+        lastClicked.GetComponent<PlayerAttack>().Attack();
+    }
     public void CancelAttack()
     {
         attackcanvas.SetActive(false);

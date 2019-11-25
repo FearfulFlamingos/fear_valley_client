@@ -8,8 +8,15 @@ public class CharacterFeatures : MonoBehaviour
     public int health;
     public string charclass;
     public string armclass;
-    public string shield;
     public string weapon;
+    public int damageBonus;
+    public int movement;
+    public int perception;
+    public int magicattack;
+    public int magicdamage;
+    public int bonus;
+    public int stealth;
+    public int damage;
     public int isLeader;
     public GameObject myCircle;
     public GameObject attackRange;

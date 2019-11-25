@@ -12,7 +12,13 @@ public class PopulateCharacter : MonoBehaviour
     
     
 
-    List<(object teamNum, object charClass, object armor, object shield, object weapon, object health, object leader, object xpos, object zpos, object attack, object damage, object movement, object perception)> armyList = new List<(object teamNum, object charClass, object armor, object shield, object weapon, object health, object leader, object xpos, object zpos, object attack, object damage,object movement,object perception)>();
+    List<(object teamNum, object charClass, object armor, object weapon, object health,
+        object leader, object xpos, object zpos, object attack, object damageBonus, object movement,
+        object perception, object magicAttack, object magicDamage, object armorBonus, object armorStealth, object damage)> armyList =
+        new List<(object teamNum, object charClass, object armor, object weapon, object health,
+        object leader, object xpos, object zpos, object attack, object damageBonus, object movement,
+        object perception, object magicAttack, object magicDamage, object armorBonus, object armorStealth, object damage)>();
+
     private void Start()
     {
         objectReference.Add("Peasant", "peasantprefab");
@@ -26,16 +32,20 @@ public class PopulateCharacter : MonoBehaviour
         dbcon.Open();
         IDbCommand cmnd_read = dbcon.CreateCommand();
         IDataReader reader;
-        string query = "SELECT a.teamNumber, t.class, ar.armor, art.armor, w.name, " +
+        string query = "SELECT a.teamNumber, t.class, ar.armor, w.name, " +
             "t.health, a.isLeader, a.pos_x,a.pox_z,t.attack, t.damage, t.movement,t.perception " +
-            "FROM Army a, Armor ar, Armor art, Troop t, Weapon w Where a.class = t.class " +
-            "and a.armor = ar.armor and a.shield = art.armor and a.weapon = w.name";
+            ", t.magicattack, t.magicDamage, ar.bonus,ar.stealth, w.damage FROM Army a, Armor ar, Troop t, Weapon w Where a.class = t.class " +
+            " and a.armor = ar.armor and a.weapon = w.name";
         cmnd_read.CommandText = query;
         reader = cmnd_read.ExecuteReader();
         while (reader.Read())
         {
 
-            var competitor = (teamNum: reader[0], charClass: reader[1], armor: reader[2], shield: reader[3], weapon: reader[4], health: reader[5], leader: reader[6], xpos: reader[7], zpos: reader[8], attack: reader[9], damage: reader[10], movement: reader[11], perception: reader[12]);
+            var competitor = (teamNum: reader[0], charClass: reader[1], armor: reader[2],
+                weapon: reader[3], health: reader[4], leader: reader[5],
+                xpos: reader[6], zpos: reader[7], attack: reader[8], damageBonus: reader[8],
+                movement: reader[10], perception: reader[11], magicAttack: reader[12], magicDamage: reader[13],
+                armorBonus: reader[14], armorStealth: reader[15], damage: reader[16]);
             armyList.Add(competitor);
             Debug.Log(objectReference[competitor.charClass.ToString()]);
         }
@@ -48,12 +58,18 @@ public class PopulateCharacter : MonoBehaviour
             DuplicateObjects(objectReference[armyList[i].charClass.ToString()], armyList[i]);
             if (System.Convert.ToInt32(armyList[i].zpos) == -21)
             {
-                var newArmy = (teamNum: 1, charClass: armyList[i].charClass, armor: armyList[i].armor, shield: armyList[i].shield, weapon: armyList[i].weapon, health: armyList[i].health, leader: armyList[i].leader, xpos: armyList[i].xpos, zpos: 0, attack: armyList[i].attack, damage: armyList[i].damage, movement: armyList[i].movement, perception: armyList[i].perception);
+                var newArmy = (teamNum: 1, charClass: armyList[i].charClass, armor: armyList[i].armor,
+                    weapon: armyList[i].weapon, health: armyList[i].health, leader: armyList[i].leader, xpos: armyList[i].xpos,
+                    zpos: 0, attack: armyList[i].attack, damageBonus: armyList[i].damageBonus, movement: armyList[i].movement, perception: armyList[i].perception,
+                    magicAttack: armyList[i].magicAttack, magicDamage: armyList[i].magicDamage, armorBonus: armyList[i].armorBonus, armorStealth: armyList[i].armorStealth, damage: armyList[i].damage);
                 DuplicateObjects(objectReference[armyList[i].charClass.ToString()], newArmy);
             }
             else
             {
-                var newArmy = (teamNum: 1, charClass: armyList[i].charClass, armor: armyList[i].armor, shield: armyList[i].shield, weapon: armyList[i].weapon, health: armyList[i].health, leader: armyList[i].leader, xpos: armyList[i].xpos, zpos: -3, attack: armyList[i].attack, damage: armyList[i].damage, movement: armyList[i].movement, perception: armyList[i].perception);
+                var newArmy = (teamNum: 1, charClass: armyList[i].charClass, armor: armyList[i].armor,
+                                    weapon: armyList[i].weapon, health: armyList[i].health, leader: armyList[i].leader, xpos: armyList[i].xpos,
+                                    zpos: 0, attack: armyList[i].attack, damageBonus: armyList[i].damageBonus, movement: armyList[i].movement, perception: armyList[i].perception,
+                                    magicAttack: armyList[i].magicAttack, magicDamage: armyList[i].magicDamage, armorBonus: armyList[i].armorBonus, armorStealth: armyList[i].armorStealth, damage: armyList[i].damage);
                 DuplicateObjects(objectReference[armyList[i].charClass.ToString()], newArmy);
             }
             
@@ -62,7 +78,9 @@ public class PopulateCharacter : MonoBehaviour
     }
 
     //This function is desgined to create each instance of the game objects. It is called for every character created by the game and populates all of the characteristics of the character.
-    private void DuplicateObjects(string prefab, (object teamNum, object charClass, object armor, object shield, object weapon, object health, object leader, object xpos, object zpos, object attack, object damage, object movement, object perception) characterInfo)
+    private void DuplicateObjects(string prefab, (object teamNum, object charClass, object armor, object weapon, object health,
+        object leader, object xpos, object zpos, object attack, object damageBonus, object movement,
+        object perception, object magicAttack, object magicDamage, object armorBonus, object armorStealth, object damage) characterInfo)
     {
         //GameObject referenceTile = (GameObject)Instantiate(Resources.Load(prefab));
         GameObject tile = (GameObject)Instantiate(Resources.Load(prefab));
@@ -82,10 +100,17 @@ public class PopulateCharacter : MonoBehaviour
         circle2.GetComponent<Renderer>().enabled = false;
         CharacterFeatures referenceScript = tile.GetComponent<CharacterFeatures>();
         referenceScript.team = System.Convert.ToInt32(characterInfo.teamNum);
-        referenceScript.health = System.Convert.ToInt32(16);
-        referenceScript.shield = characterInfo.shield.ToString();
+        referenceScript.health = System.Convert.ToInt32(characterInfo.health);
         referenceScript.weapon = characterInfo.weapon.ToString();
         referenceScript.armclass = characterInfo.armor.ToString();
+        referenceScript.damageBonus = System.Convert.ToInt32(characterInfo.damageBonus);
+        referenceScript.movement = System.Convert.ToInt32(characterInfo.movement);
+        referenceScript.perception = System.Convert.ToInt32(characterInfo.perception);
+        //referenceScript.magicattack = System.Convert.ToInt32(characterInfo.magicAttack);
+        //referenceScript.magicdamage = System.Convert.ToInt32(characterInfo.magicDamage);
+        referenceScript.bonus = System.Convert.ToInt32(characterInfo.armorBonus);
+        referenceScript.stealth = System.Convert.ToInt32(characterInfo.armorStealth);
+        referenceScript.damage = System.Convert.ToInt32(characterInfo.damage);
         referenceScript.isLeader = System.Convert.ToInt32(characterInfo.leader);
         referenceScript.charclass = characterInfo.charClass.ToString();
         referenceScript.myCircle = circle;
