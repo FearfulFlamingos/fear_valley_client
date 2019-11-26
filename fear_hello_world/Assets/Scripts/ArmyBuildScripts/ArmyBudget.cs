@@ -6,6 +6,10 @@ using System.Data;
 using Mono.Data.Sqlite;
 using System.IO;
 
+/// <summary>
+///     This is the main script to keep track of all army building
+///     related things. 
+/// </summary>
 public class ArmyBudget : MonoBehaviour
 {
 
@@ -51,6 +55,10 @@ public class ArmyBudget : MonoBehaviour
     [SerializeField]
     private GameObject warning;
 
+    /// <summary>
+    /// This adds functionality to the buttons, fills dropdown menus,
+    /// and reads costs into a dict for later comparison.
+    /// </summary>
     private void Start()
     {
         // Grid workaroud
@@ -88,6 +96,11 @@ public class ArmyBudget : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// This function checks the value of the dropdown menus against the cost,
+    /// which is stored in a local dict.
+    /// </summary>
+    /// <returns></returns>
     private int CalculateCost()
     {
         //foreach (var thing in costs) { Debug.Log(thing); }
@@ -104,22 +117,35 @@ public class ArmyBudget : MonoBehaviour
         return totalCost;
     }
 
-    private void PopulateDropdown(Dropdown drpdwn, Dictionary<string, int> optionsArray)
+    /// <summary>
+    /// Given a menu object and a dictionary of options, will add all
+    /// options to the DD menu and to the costs dict.
+    /// </summary>
+    /// <param name="drpdwn">Dropdown menu object to be filled.</param>
+    /// <param name="options">Dict object of values.</param>
+    private void PopulateDropdown(Dropdown drpdwn, Dictionary<string, int> options)
     {
-        List<string> options = new List<string>();
-        foreach (var option in optionsArray.Keys)
+        List<string> values = new List<string>();
+        foreach (var option in options.Keys)
         {
-            options.Add(option);
-            costs.Add(option, optionsArray[option]);
+            values.Add(option);
+            costs.Add(option, options[option]);
         }
         drpdwn.ClearOptions();
-        drpdwn.AddOptions(options);
+        drpdwn.AddOptions(values);
     }
 
-    public void AddPersonOnClick(string posx, string posy)
+    /// <summary>
+    /// Main button behavior. Will read values from DD menus and create
+    /// SQL query to insert into ARMY table. Buttons provide coordinates.
+    /// Unity is wierd, Y is straight up and XZ plane is ground.
+    /// </summary>
+    /// <param name="posx">X position of troop.</param>
+    /// <param name="posz">Z position of troop.</param>
+    public void AddPersonOnClick(string posx, string posz)
     {
         int cost = CalculateCost();
-        Debug.Log("POS:" + posx + "," + posy);
+        Debug.Log("POS:" + posx + "," + posz);
         Debug.Log("COST:" + cost);
         if (cost <= currentBudget)
         {
@@ -136,7 +162,7 @@ public class ArmyBudget : MonoBehaviour
                 $"'{weapons.options[weapons.value].text}'," +
                 "'0'," +
                 $"{posx}," +
-                $"{posy}); ");
+                $"{posz}); ");
             dbCont.CloseDB();
         }
         else
