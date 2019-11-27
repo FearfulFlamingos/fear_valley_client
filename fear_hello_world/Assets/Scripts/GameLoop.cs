@@ -9,6 +9,7 @@ public class GameLoop : MonoBehaviour
     public GameObject uiCanvas;
     public GameObject attackcanvas;
     public GameObject lastClicked;
+    private int numAttacks;
     private GameObject scripts;
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,7 @@ public class GameLoop : MonoBehaviour
         {
             currentPlayer = 1 - currentPlayer;
             actionPoints = 3;
+            numAttacks = 0;
         }
     }
     public void Attack()
@@ -37,5 +39,16 @@ public class GameLoop : MonoBehaviour
         cubeRenderer.material.SetColor("_Color", mycolor);
         lastClicked.GetComponent<PlayerAttack>().DeactivateAttack();
         lastClicked.GetComponent<PlayerAttack>().enabled = false;
+    }
+    public void EndAttack()
+    {
+        attackcanvas.SetActive(false);
+        Color mycolor = new Color32(223, 210, 194, 255);
+        var cubeRenderer = lastClicked.GetComponent<Renderer>();
+        cubeRenderer.material.SetColor("_Color", mycolor);
+        lastClicked.GetComponent<PlayerAttack>().DeactivateAttack();
+        lastClicked.GetComponent<PlayerAttack>().enabled = false;
+        numAttacks++;
+        actionPoints++;
     }
 }

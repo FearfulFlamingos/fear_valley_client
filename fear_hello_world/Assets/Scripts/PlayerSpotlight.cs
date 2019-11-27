@@ -10,6 +10,7 @@ public class PlayerSpotlight : MonoBehaviour
     public GameObject lastClicked;
     public GameObject uiCanvas;
     public GameObject attackcanvas;
+    public GameObject xbutton, attackbutton, cancelbutton;
     public Text leftText, rightText;
     public Text yourChar, attackChar;
     private GameObject scripts;
@@ -96,6 +97,7 @@ public class PlayerSpotlight : MonoBehaviour
         yourChar.text = $"You are attacking with: {lastClicked.GetComponent<CharacterFeatures>().charclass}";
         uiCanvas.SetActive(false);
         attackcanvas.SetActive(true);
+        xbutton.SetActive(false);
         lastClicked.GetComponent<PlayerAttack>().enabled = true;
         lastClicked.GetComponent<PlayerAttack>().ActivateAttack();
     }

@@ -9,6 +9,7 @@ public class CharacterFeatures : MonoBehaviour
     public string charclass;
     public string armclass;
     public string weapon;
+    public int attack;
     public int damageBonus;
     public int movement;
     public int perception;

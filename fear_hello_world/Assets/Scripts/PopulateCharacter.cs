@@ -43,7 +43,7 @@ public class PopulateCharacter : MonoBehaviour
 
             var competitor = (teamNum: reader[0], charClass: reader[1], armor: reader[2],
                 weapon: reader[3], health: reader[4], leader: reader[5],
-                xpos: reader[6], zpos: reader[7], attack: reader[8], damageBonus: reader[8],
+                xpos: reader[6], zpos: reader[7], attack: reader[8], damageBonus: reader[9],
                 movement: reader[10], perception: reader[11], magicAttack: reader[12], magicDamage: reader[13],
                 armorBonus: reader[14], armorStealth: reader[15], damage: reader[16]);
             armyList.Add(competitor);
@@ -101,6 +101,7 @@ public class PopulateCharacter : MonoBehaviour
         CharacterFeatures referenceScript = tile.GetComponent<CharacterFeatures>();
         referenceScript.team = System.Convert.ToInt32(characterInfo.teamNum);
         referenceScript.health = System.Convert.ToInt32(characterInfo.health);
+        referenceScript.attack = System.Convert.ToInt32(characterInfo.attack);
         referenceScript.weapon = characterInfo.weapon.ToString();
         referenceScript.armclass = characterInfo.armor.ToString();
         referenceScript.damageBonus = System.Convert.ToInt32(characterInfo.damageBonus);
