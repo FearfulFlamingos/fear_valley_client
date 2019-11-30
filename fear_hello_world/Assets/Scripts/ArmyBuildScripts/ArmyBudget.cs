@@ -5,12 +5,13 @@ using UnityEngine.UI;
 using System.Data;
 using Mono.Data.Sqlite;
 using System.IO;
+using UnityEngine.Networking;
 
 /// <summary>
 ///     This is the main script to keep track of all army building
 ///     related things. 
 /// </summary>
-public class ArmyBudget : MonoBehaviour
+public class ArmyBudget : NetworkBehaviour
 {
 
     private int currentBudget = 300;
@@ -145,25 +146,31 @@ public class ArmyBudget : MonoBehaviour
     public void AddPersonOnClick(string posx, string posz)
     {
         int cost = CalculateCost();
+        if (connectionToClient.connectionId > 0)
+        {
+            posz = "0";
+        }
+
         Debug.Log("POS:" + posx + "," + posz);
         Debug.Log("COST:" + cost);
         if (cost <= currentBudget)
         {
             currentBudget -= cost;
-            DatabaseController dbCont = new DatabaseController();
-            dbCont.update("INSERT INTO Army " +
+            //DatabaseController dbCont = new DatabaseController();
+            string sql = "INSERT INTO Army " +
                 "(teamNumber,class,armor,shield,weapon," +
                 "isLeader,pos_x,pox_z) " +
                 "VALUES " +
-                "(0," +
+                $"({connectionToClient.connectionId}," +
                 $"'{characters.options[characters.value].text}'," +
                 $"'{armors.options[armors.value].text}'," +
                 "'Mundane shield'," +
                 $"'{weapons.options[weapons.value].text}'," +
                 "'0'," +
                 $"{posx}," +
-                $"{posz}); ");
-            dbCont.CloseDB();
+                $"{posz}); ";
+            //dbCont.CloseDB();
+            CmdUpdateOnServer(sql);
         }
         else
         {
@@ -172,6 +179,12 @@ public class ArmyBudget : MonoBehaviour
     }
 
 
-
+    [Command]
+    private void CmdUpdateOnServer(string sql)
+    {
+        DatabaseController dbCont = new DatabaseController();
+        dbCont.update(sql);
+        dbCont.CloseDB();
+    }
 
 }

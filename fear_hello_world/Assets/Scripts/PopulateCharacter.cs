@@ -4,7 +4,6 @@ using UnityEngine;
 using System.Data;
 using Mono.Data.Sqlite;
 using System.IO;
-using System.Collections.Generic;
 
 public class PopulateCharacter : MonoBehaviour
 {
