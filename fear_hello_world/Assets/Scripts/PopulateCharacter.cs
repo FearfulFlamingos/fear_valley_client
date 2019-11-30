@@ -9,8 +9,8 @@ using System.Collections.Generic;
 public class PopulateCharacter : MonoBehaviour
 {
     Dictionary<string, string> objectReference = new Dictionary<string, string>();
-    
-    
+    public List<GameObject> p0Chars, p1Chars;
+    private GameObject scripts;
 
     List<(object teamNum, object charClass, object armor, object weapon, object health,
         object leader, object xpos, object zpos, object attack, object damageBonus, object movement,
@@ -24,8 +24,11 @@ public class PopulateCharacter : MonoBehaviour
         objectReference.Add("Peasant", "peasantprefab");
         objectReference.Add("Trained Warrior", "warriorprefab");
         objectReference.Add("Magic User", "wizardprefab");
-        
+
         //DuplicateObjects();
+        scripts = GameObject.FindGameObjectWithTag("scripts");
+        p0Chars = scripts.GetComponent<GameLoop>().p0Chars;
+        p1Chars = scripts.GetComponent<GameLoop>().p1Chars;
         string connection = "URI=file:" + Application.dataPath + "/Data/fearful_data.sqlite";
         Debug.Log(connection);
         IDbConnection dbcon = new SqliteConnection(connection);
@@ -116,11 +119,20 @@ public class PopulateCharacter : MonoBehaviour
         referenceScript.charclass = characterInfo.charClass.ToString();
         referenceScript.myCircle = circle;
         referenceScript.attackRange = circle2;
+        referenceScript.character = tile;
         referenceScript.isFocused = false;
 
 
         tile.GetComponent<PlayerMovement>().enabled = false;
         tile.GetComponent<PlayerAttack>().enabled = false;
+        if (referenceScript.team == 0)
+        {
+            p0Chars.Add(tile);
+        }
+        else
+        {
+            p1Chars.Add(tile);
+        }
 
 
     }

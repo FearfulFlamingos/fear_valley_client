@@ -22,6 +22,7 @@ public class PlayerSpotlight : MonoBehaviour
         uiCanvas.SetActive(false);
         attackcanvas.SetActive(false);
         scripts = GameObject.FindGameObjectWithTag("scripts");
+        lastClicked = null;
 
     }
 
@@ -40,39 +41,19 @@ public class PlayerSpotlight : MonoBehaviour
                 if (hit.transform != null)
                 {
                     GameLoop currentPlayer = scripts.GetComponent<GameLoop>();
-                    GameObject gameObject = hit.transform.gameObject;
-                    lastClicked = gameObject;
-                    currentPlayer.lastClicked = gameObject;
-                    CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
-                    
+                    GameObject gamePiece = hit.transform.gameObject;
+                    if (lastClicked != null)
+                    {
+                        lastClicked.GetComponent<CharacterFeatures>().isFocused = false;
+                    }
+                    lastClicked = gamePiece;
+                    currentPlayer.lastClicked = gamePiece;
+                    CharacterFeatures referenceScript = gamePiece.GetComponent<CharacterFeatures>();
                     if (currentPlayer.currentPlayer == referenceScript.team)
                     {
 
-
-                        referenceScript.isFocused = true;
-                        Debug.Log(referenceScript.isFocused);
-                        GameObject circle = referenceScript.myCircle;
-                        var cubeRenderer = gameObject.GetComponent<Renderer>();
-                        if (circle.GetComponent<Renderer>().enabled == false)
-                        {
-                            referenceScript.isFocused = true;
-                            circle.GetComponent<Renderer>().enabled = true;
-                            cubeRenderer.material.SetColor("_Color", Color.red);
-
-                            uiCanvas.SetActive(true);
-                            
-                            leftText.text = $"Name: Roman\nAttack:+4\nAction Points:{currentPlayer.actionPoints}";
-                            rightText.text = $"Class: {referenceScript.charclass}\nDefense:13\nMovement:6";
-
-                        }
-                        else
-                        {
-                            referenceScript.isFocused = false;
-                            circle.GetComponent<Renderer>().enabled = false;
-                            Color mycolor = new Color32(223, 210, 194, 255);
-                            cubeRenderer.material.SetColor("_Color", mycolor);
-                            uiCanvas.SetActive(false);
-                        }
+                        spotlightChar(gamePiece);
+                        
                     }
 
 
@@ -87,6 +68,24 @@ public class PlayerSpotlight : MonoBehaviour
 
     }
 
+    public void spotlightChar(GameObject current)
+    {
+        CharacterFeatures referenceScript = current.GetComponent<CharacterFeatures>();
+        GameLoop currentPlayer = scripts.GetComponent<GameLoop>();
+        if (referenceScript.isFocused)
+        {
+            referenceScript.isFocused = false;
+            uiCanvas.SetActive(false);
+        }
+        else
+        {
+            referenceScript.isFocused = true;
+            uiCanvas.SetActive(true);
+
+            leftText.text = $"Name: Roman\nAttack:+4\nAction Points:{currentPlayer.actionPoints}";
+            rightText.text = $"Class: {referenceScript.charclass}\nDefense:13\nMovement:6";
+        }
+    }
 
     public void ActivateMovement()
     {
@@ -101,18 +100,7 @@ public class PlayerSpotlight : MonoBehaviour
         lastClicked.GetComponent<PlayerAttack>().enabled = true;
         lastClicked.GetComponent<PlayerAttack>().ActivateAttack();
     }
-    public void Leave()
-    {
-        if (scripts.GetComponent<GameLoop>().actionPoints >= 3)
-        {
-            uiCanvas.SetActive(false);
-            Destroy(lastClicked.GetComponent<CharacterFeatures>().myCircle);
-            Destroy(lastClicked.GetComponent<CharacterFeatures>().attackRange);
-            Destroy(lastClicked);
-            scripts.GetComponent<GameLoop>().actionPoints = 0;
 
-        }
-    }
 
     //private void switchCamera(int camPosition)
     //{

@@ -95,12 +95,7 @@ public class PlayerAttack : MonoBehaviour
         scripts = GameObject.FindGameObjectWithTag("scripts");
         scripts.GetComponent<PlayerSpotlight>().enabled = false;
         CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
-        GameObject Circle = referenceScript.myCircle;
-        Circle.GetComponent<Renderer>().enabled = false;
-        GameObject Circle2 = referenceScript.attackRange;
-        Circle2.GetComponent<Renderer>().enabled = true;
-        attackbutton.SetActive(true);
-        cancelbutton.SetActive(true);
+        referenceScript.isAttacking = true;
 
     }
     public void Attack()
@@ -108,6 +103,7 @@ public class PlayerAttack : MonoBehaviour
         System.Random random = new System.Random();
         CharacterFeatures referenceScript = attackObject.GetComponent<CharacterFeatures>();
         CharacterFeatures referenceScript2 = gameObject.GetComponent<CharacterFeatures>();
+        GameLoop gamevars = scripts.GetComponent<GameLoop>();
         if (canAttack)
         {
             
@@ -118,7 +114,12 @@ public class PlayerAttack : MonoBehaviour
                 {
                     attackChar.text = $"You have dealt fatal damage\nto the player named Roman ";
                     timeToDistroy = true;
-                }else
+                    gamevars.PlayerRemoval("Attack", attackObject);
+                    Destroy(attackObject);
+                    Destroy(attackObject.GetComponent<CharacterFeatures>().myCircle);
+                    Destroy(attackObject.GetComponent<CharacterFeatures>().attackRange);
+                }
+                else
                 {
                     referenceScript.health = System.Convert.ToInt32(referenceScript.health - damageTaken);
                     attackChar.text = $"You attack was a success \nand you have dealt {damageTaken} damage\nto the player named Roman ";
@@ -145,11 +146,13 @@ public class PlayerAttack : MonoBehaviour
         scripts = GameObject.FindGameObjectWithTag("scripts");
         scripts.GetComponent<PlayerSpotlight>().enabled = true;
         CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
-        GameObject Circle2 = referenceScript.attackRange;
-        Circle2.GetComponent<Renderer>().enabled = false;
+        attackbutton.SetActive(true);
+        cancelbutton.SetActive(true);
+        referenceScript.isAttacking = false;
         attackChar.text = $"Name: Health: \nClass: \nDefense: \nWithin Range: ";
         if (timeToDistroy)
         {
+            Debug.Log("__________________________________________________________" + timeToDistroy);
             timeToDistroy = false;
             Destroy(attackObject.GetComponent<CharacterFeatures>().myCircle);
             Destroy(attackObject.GetComponent<CharacterFeatures>().attackRange);
