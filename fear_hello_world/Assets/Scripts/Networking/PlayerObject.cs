@@ -5,7 +5,9 @@ using UnityEngine.Networking;
 
 public class PlayerObject : NetworkBehaviour
 {
-    public GameObject PlayerUnitPrefab;
+   // public GameObject PlayerUnitPrefab;
+    //public static int connID = 0;
+    public GameObject armyBuildingRef;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +16,8 @@ public class PlayerObject : NetworkBehaviour
             Debug.Log("This belongs to another player");
             return;
         }
+
+        PlayerPrefs.SetInt("connID",connectionToClient.connectionId);
 
         //Instantiate(PlayerUnitPrefab);
         //NetworkServer.Spawn(PlayerUnitPrefab);
@@ -34,4 +38,5 @@ public class PlayerObject : NetworkBehaviour
     {
         Debug.Log(connectionToClient.connectionId);
     }
+
 }
