@@ -1863,8 +1863,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1809335071}
-        m_MethodName: Net_AddTroop
+      - m_Target: {fileID: 1803822321}
+        m_MethodName: ADDTROOPTEST
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

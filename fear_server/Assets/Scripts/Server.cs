@@ -15,6 +15,8 @@ public class Server : MonoBehaviour
     private bool isStarted = false;
     private byte error; // general error byte, see documentation
 
+    private DatabaseController dbCont;
+
     #region Monobehavior
     private void Start()
     {
@@ -43,6 +45,11 @@ public class Server : MonoBehaviour
 
         isStarted = true;
         Debug.Log($"Started server on port {PORT}");
+
+        // Clear out Army table for database
+        dbCont = new DatabaseController();
+        dbCont.Update("DELETE FROM Army;");
+        dbCont.CloseDB();
     }                                         
     public void Shutdown()
     {
@@ -114,7 +121,15 @@ public class Server : MonoBehaviour
     }
     private void Net_AddTroop(int connId, int channelId, int recHostId, Net_AddTroop msg)
     {
-        Debug.Log($"AddTroop: TT {msg.TroopType}, WT {msg.WeaponType}, AT {msg.ArmorType}");
+        dbCont.OpenDB();
+        dbCont.AddTroopToDB(
+            connId,
+            msg.TroopType,
+            msg.WeaponType,
+            msg.ArmorType,
+            msg.XPosRelative,
+            msg.ZPosRelative);
+        dbCont.CloseDB();
     }
     private void Net_CreateAccount(int connId, int channelId, int recHostId, Net_CreateAccount msg)
     {
