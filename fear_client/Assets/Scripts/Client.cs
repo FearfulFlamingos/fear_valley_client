@@ -1,27 +1,32 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
-public class Server : MonoBehaviour
+public class Client : MonoBehaviour
 {
-    private const int MAX_USER = 10; 
+    public static Client Instance { private set; get; }
+    private const int MAX_USER = 10;
     private const int PORT = 26000;
+    private const string SERVER_IP = "127.0.0.1";
     private const int BYTE_SIZE = 1024; // standard packet size
-    
+
     private byte reliableChannel;
+    private int connectionId;
     private int hostId;
     private bool isStarted = false;
-    private byte error; // general error byte, see documentation
+    private byte error;
+
+    public GameObject uiController;
 
     #region Monobehavior
     private void Start()
     {
+        Instance = this;
         DontDestroyOnLoad(gameObject);
         Init();
     }
-
     private void Update()
     {
         UpdateMessagePump();
@@ -30,20 +35,22 @@ public class Server : MonoBehaviour
 
     public void Init()
     {
+
         NetworkTransport.Init();
 
         ConnectionConfig cc = new ConnectionConfig();
-        reliableChannel = cc.AddChannel(QosType.Reliable); // other channels available
-        // need a QosType.ReliableFragmented if data needs to be bigger than 1024 bytes
+        reliableChannel = cc.AddChannel(QosType.Reliable);
 
-        HostTopology topo = new HostTopology(cc, MAX_USER); // "map" of channels
+        HostTopology topo = new HostTopology(cc, MAX_USER);
 
-        // Server only code
-        hostId = NetworkTransport.AddHost(topo, PORT, null);
+        // Client only code
+        hostId = NetworkTransport.AddHost(topo, 0, SERVER_IP);
+        connectionId = NetworkTransport.Connect(hostId, SERVER_IP, PORT, 0, out error);
+        Debug.Log("Connecting from standalone");
 
         isStarted = true;
-        Debug.Log($"Started server on port {PORT}");
-    }                                         
+        Debug.Log($"Attempting to connnect on {SERVER_IP}...");
+    }
     public void Shutdown()
     {
         isStarted = false;
@@ -62,19 +69,19 @@ public class Server : MonoBehaviour
         byte[] recievedBuffer = new byte[BYTE_SIZE];
         int dataSize; // length of byte[] that data fills
 
-        NetworkEventType type = NetworkTransport.Receive(out recHostId, 
-            out connectionId, 
-            out channelId, 
-            recievedBuffer, 
-            BYTE_SIZE, 
-            out dataSize, 
+        NetworkEventType type = NetworkTransport.Receive(out recHostId,
+            out connectionId,
+            out channelId,
+            recievedBuffer,
+            BYTE_SIZE,
+            out dataSize,
             out error);
-        switch(type)
+        switch (type)
         {
             case NetworkEventType.Nothing:
                 break;
             case NetworkEventType.ConnectEvent:
-                Debug.Log($"User {connectionId} has connected through host {hostId}");
+                Debug.Log("Connected to server");
                 break;
             case NetworkEventType.DataEvent:
                 Debug.Log("Data recieved");
@@ -84,9 +91,8 @@ public class Server : MonoBehaviour
                 OnData(connectionId, channelId, recHostId, msg);
                 break;
             case NetworkEventType.DisconnectEvent:
-                Debug.Log($"User {connectionId} has disconnected");
+                Debug.Log("Have been disconnected");
                 break;
-            
             default:
             case NetworkEventType.BroadcastEvent:
                 Debug.Log("Unexpected network event type");
@@ -103,27 +109,13 @@ public class Server : MonoBehaviour
             case NetOP.None:
                 Debug.Log("Unexpected NETOP code");
                 break;
-            case NetOP.AddTroop:
-                Debug.Log("NETOP: Add Troop to DB");
-                Net_AddTroop(connId, channelId, recHostId, (Net_AddTroop)msg);
-                break;
-            case NetOP.CreateAccount:
-                Net_CreateAccount(connId, channelId, recHostId, (Net_CreateAccount)msg);
-                break;
         }
     }
-    private void Net_AddTroop(int connId, int channelId, int recHostId, Net_AddTroop msg)
-    {
-        Debug.Log($"AddTroop: TT {msg.TroopType}, WT {msg.WeaponType}, AT {msg.ArmorType}");
-    }
-    private void Net_CreateAccount(int connId, int channelId, int recHostId, Net_CreateAccount msg)
-    {
-        Debug.Log($"Create account: UN {msg.Username}, PW {msg.Password}, EM {msg.Email}");
-    }
+
     #endregion
 
     #region Send
-    public void SendToClient(int recHost, int connId, NetMsg msg)
+    public void SendToServer(NetMsg msg)
     {
         // hold data to send
         byte[] buffer = new byte[BYTE_SIZE];
@@ -134,11 +126,33 @@ public class Server : MonoBehaviour
         formatter.Serialize(ms, msg);
 
         NetworkTransport.Send(hostId,
-            connId,
-            reliableChannel,
-            buffer,
-            BYTE_SIZE,
-            out error); 
+            connectionId, 
+            reliableChannel, 
+            buffer, 
+            BYTE_SIZE, 
+            out error);
+    }
+
+    public void AddTroopRequest(string troop, string weapon, string armor, int xPos, int yPos)
+    {
+        Net_AddTroop at = new Net_AddTroop();
+        at.TroopType = troop;
+        at.WeaponType = weapon;
+        at.ArmorType = armor;
+        at.XPosRelative = xPos;
+        at.ZPosRelative = yPos;
+
+        SendToServer(at);
     }
     #endregion
+
+    public void TESTFUNCTIONCREATEACCOUNT()
+    {
+        Net_CreateAccount ca = new Net_CreateAccount();
+        ca.Username = "megaSwagXXX";
+        ca.Password = "hunter2";
+        ca.Email = "gmail@netscape.com";
+
+        SendToServer(ca);
+    }
 }
