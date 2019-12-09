@@ -7,7 +7,7 @@ public class PlayerSpotlight : MonoBehaviour
 {
     public Camera camera1;
     public Camera camera2;
-    public GameObject lastClicked;
+    public GameObject lastClicked, board;
     public GameObject uiCanvas;
     public GameObject attackcanvas;
     public GameObject xbutton, attackbutton, cancelbutton;
@@ -41,18 +41,27 @@ public class PlayerSpotlight : MonoBehaviour
                 if (hit.transform != null)
                 {
                     GameLoop currentPlayer = scripts.GetComponent<GameLoop>();
-                    GameObject gamePiece = hit.transform.gameObject;
+                    GameObject gameObject = hit.transform.gameObject;
+                    Debug.Log(lastClicked);
                     if (lastClicked != null)
                     {
-                        lastClicked.GetComponent<CharacterFeatures>().isFocused = false;
+                        if (lastClicked != board)
+                        {
+                            lastClicked.GetComponent<CharacterFeatures>().isFocused = false;
+                        }
                     }
-                    lastClicked = gamePiece;
-                    currentPlayer.lastClicked = gamePiece;
-                    CharacterFeatures referenceScript = gamePiece.GetComponent<CharacterFeatures>();
+                    if (lastClicked != board)
+                    {
+                        lastClicked = gameObject;
+                    }
+                    
+                    
+                    currentPlayer.lastClicked = gameObject;
+                    CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
                     if (currentPlayer.currentPlayer == referenceScript.team)
                     {
 
-                        spotlightChar(gamePiece);
+                        SpotlightChar(gameObject);
                         
                     }
 
@@ -68,7 +77,7 @@ public class PlayerSpotlight : MonoBehaviour
 
     }
 
-    public void spotlightChar(GameObject current)
+    public void SpotlightChar(GameObject current)
     {
         CharacterFeatures referenceScript = current.GetComponent<CharacterFeatures>();
         GameLoop currentPlayer = scripts.GetComponent<GameLoop>();
@@ -90,6 +99,7 @@ public class PlayerSpotlight : MonoBehaviour
     public void ActivateMovement()
     {
         lastClicked.GetComponent<PlayerMovement>().enabled = true;
+        lastClicked.GetComponent<PlayerMovement>().ActivateAttack();
     }
     public void ActivateAttack()
     {

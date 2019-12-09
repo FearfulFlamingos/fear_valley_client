@@ -1073,6 +1073,7 @@ MonoBehaviour:
   camera1: {fileID: 640898253}
   camera2: {fileID: 926088942}
   lastClicked: {fileID: 0}
+  board: {fileID: 0}
   uiCanvas: {fileID: 0}
   attackcanvas: {fileID: 0}
   xbutton: {fileID: 0}
@@ -1423,6 +1424,7 @@ MonoBehaviour:
   camera1: {fileID: 640898253}
   camera2: {fileID: 926088942}
   lastClicked: {fileID: 0}
+  board: {fileID: 1257129865}
   uiCanvas: {fileID: 1345067957}
   attackcanvas: {fileID: 234765401}
   xbutton: {fileID: 1289946128}
@@ -1734,6 +1736,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1217946487}
   m_CullTransparentMesh: 0
+--- !u!1 &1257129865 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1857998089916902, guid: 5b856ec4f8f8cb84f861f8f8a026c288,
+    type: 3}
+  m_PrefabInstance: {fileID: 2133043784}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1257754394
 GameObject:
   m_ObjectHideFlags: 0

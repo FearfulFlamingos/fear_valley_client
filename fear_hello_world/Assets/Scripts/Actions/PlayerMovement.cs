@@ -55,12 +55,24 @@ public class PlayerMovement : MonoBehaviour
                     GameObject Circle2 = referenceScript.attackRange;
                     Circle.transform.position = new Vector3(hitX,floating,hitY);
                     Circle2.transform.position = new Vector3(hitX, floating, hitY);
-                    uiCanvas.SetActive(false);
-                    gameObject.GetComponent<PlayerMovement>().enabled = false;
+                    DeactivateAttack();
                 }
                     
             }
         }
 
+    }
+    public void ActivateAttack()
+    {
+        scripts = GameObject.FindGameObjectWithTag("scripts");
+        scripts.GetComponent<PlayerSpotlight>().enabled = false;
+
+    }
+    public void DeactivateAttack()
+    {
+        scripts = GameObject.FindGameObjectWithTag("scripts");
+        scripts.GetComponent<PlayerSpotlight>().enabled = true;
+        uiCanvas.SetActive(false);
+        gameObject.GetComponent<PlayerMovement>().enabled = false;
     }
 }

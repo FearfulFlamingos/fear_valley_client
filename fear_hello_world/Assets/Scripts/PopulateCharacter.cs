@@ -80,6 +80,12 @@ public class PopulateCharacter : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="prefab"></param>
+    /// <param name="characterInfo"></param>
+
     //This function is desgined to create each instance of the game objects. It is called for every character created by the game and populates all of the characteristics of the character.
     private void DuplicateObjects(string prefab, (object teamNum, object charClass, object armor, object weapon, object health,
         object leader, object xpos, object zpos, object attack, object damageBonus, object movement,
