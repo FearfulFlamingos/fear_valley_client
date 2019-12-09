@@ -13,8 +13,8 @@ public class UIPopulate : MonoBehaviour
     [SerializeField]
     private TMP_Dropdown armorsDropdown;
 
-    //[SerializeField]
-    //private TMP_Text warning;
+    [SerializeField]
+    private GameObject warning;
     [SerializeField]
     private TMP_Text remainingBudget;
     [SerializeField]
@@ -27,10 +27,10 @@ public class UIPopulate : MonoBehaviour
     Dictionary<string, int> costs = new Dictionary<string, int>()
         {
             {"Unarmored", 0 },
-            {"Light mundane armor +3", 20 },
-            {"Light magical armor +4", 30 },
-            {"Heavy mundane armor +5", 40 },
-            {"Heavy magical armor +6",50 },
+            {"Light mundane armor", 20 },
+            {"Light magical armor", 30 },
+            {"Heavy mundane armor", 40 },
+            {"Heavy magical armor",50 },
 
             { "Unarmed", 0 },
             {"Polearm", 10 },
@@ -63,13 +63,14 @@ public class UIPopulate : MonoBehaviour
     private List<string> armorVals = new List<string>()
     {
         "Unarmored",
-        "Light mundane armor +3",
-        "Light magical armor +4",
-        "Heavy mundane armor +5",
-        "Heavy magical armor +6"
+        "Light mundane armor",
+        "Light magical armor",
+        "Heavy mundane armor",
+        "Heavy magical armor"
     };
     #endregion
-
+    
+    #region MonoBehavior
     // Start is called before the first frame update
     void Start()
     {
@@ -80,6 +81,8 @@ public class UIPopulate : MonoBehaviour
         troopsDropdown.AddOptions(troopVals);
         weaponsDropdown.AddOptions(weaponVals);
         armorsDropdown.AddOptions(armorVals);
+
+        warning.SetActive(false);
     }
 
     // Update is called once per frame
@@ -88,7 +91,8 @@ public class UIPopulate : MonoBehaviour
         remainingBudget.text = $"Budget: {budget}";
         projectedCost.text = $"Projected Cost: {CalculateCost()}";
     }
-
+    #endregion
+    
     /// <summary>
     /// This function checks the value of the dropdown menus against the cost,
     /// which is stored in a local dict.
@@ -114,12 +118,21 @@ public class UIPopulate : MonoBehaviour
         return totalCost;
     }
 
-    public void ADDTROOPTEST()
+    public void OnClickAddTroop(int posx, int posz)
     {
-        string troop = troopsDropdown.options[troopsDropdown.value].text;
-        string weap = weaponsDropdown.options[weaponsDropdown.value].text;
-        string armor = armorsDropdown.options[armorsDropdown.value].text;
-        Client.Instance.AddTroopRequest(troop, weap, armor, 0, 0);
+        int cost = CalculateCost();
+        if (cost <= budget)
+        {
+            budget -= cost;
+            string troop = troopsDropdown.options[troopsDropdown.value].text;
+            string weap = weaponsDropdown.options[weaponsDropdown.value].text;
+            string armor = armorsDropdown.options[armorsDropdown.value].text;
+            Client.Instance.AddTroopRequest(troop, weap, armor, 0, 0);
+        }
+        else
+        {
+            warning.SetActive(true);
+        }
     }
 
 }
