@@ -8,8 +8,8 @@ using System.IO;
 public class PopulateCharacter : MonoBehaviour
 {
     Dictionary<string, string> objectReference = new Dictionary<string, string>();
-    
-    
+    public List<GameObject> p0Chars, p1Chars;
+    private GameObject scripts;
 
     List<(object teamNum, object charClass, object armor, object weapon, object health,
         object leader, object xpos, object zpos, object attack, object damageBonus, object movement,
@@ -23,8 +23,11 @@ public class PopulateCharacter : MonoBehaviour
         objectReference.Add("Peasant", "peasantprefab");
         objectReference.Add("Trained Warrior", "warriorprefab");
         objectReference.Add("Magic User", "wizardprefab");
-        
+
         //DuplicateObjects();
+        scripts = GameObject.FindGameObjectWithTag("scripts");
+        p0Chars = scripts.GetComponent<GameLoop>().p0Chars;
+        p1Chars = scripts.GetComponent<GameLoop>().p1Chars;
         string connection = "URI=file:" + Application.dataPath + "/Data/fearful_data.sqlite";
         Debug.Log(connection);
         IDbConnection dbcon = new SqliteConnection(connection);
@@ -42,7 +45,7 @@ public class PopulateCharacter : MonoBehaviour
 
             var competitor = (teamNum: reader[0], charClass: reader[1], armor: reader[2],
                 weapon: reader[3], health: reader[4], leader: reader[5],
-                xpos: reader[6], zpos: reader[7], attack: reader[8], damageBonus: reader[8],
+                xpos: reader[6], zpos: reader[7], attack: reader[8], damageBonus: reader[9],
                 movement: reader[10], perception: reader[11], magicAttack: reader[12], magicDamage: reader[13],
                 armorBonus: reader[14], armorStealth: reader[15], damage: reader[16]);
             armyList.Add(competitor);
@@ -76,6 +79,12 @@ public class PopulateCharacter : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="prefab"></param>
+    /// <param name="characterInfo"></param>
+
     //This function is desgined to create each instance of the game objects. It is called for every character created by the game and populates all of the characteristics of the character.
     private void DuplicateObjects(string prefab, (object teamNum, object charClass, object armor, object weapon, object health,
         object leader, object xpos, object zpos, object attack, object damageBonus, object movement,
@@ -100,6 +109,7 @@ public class PopulateCharacter : MonoBehaviour
         CharacterFeatures referenceScript = tile.GetComponent<CharacterFeatures>();
         referenceScript.team = System.Convert.ToInt32(characterInfo.teamNum);
         referenceScript.health = System.Convert.ToInt32(characterInfo.health);
+        referenceScript.attack = System.Convert.ToInt32(characterInfo.attack);
         referenceScript.weapon = characterInfo.weapon.ToString();
         referenceScript.armclass = characterInfo.armor.ToString();
         referenceScript.damageBonus = System.Convert.ToInt32(characterInfo.damageBonus);
@@ -114,11 +124,20 @@ public class PopulateCharacter : MonoBehaviour
         referenceScript.charclass = characterInfo.charClass.ToString();
         referenceScript.myCircle = circle;
         referenceScript.attackRange = circle2;
+        referenceScript.character = tile;
         referenceScript.isFocused = false;
 
 
         tile.GetComponent<PlayerMovement>().enabled = false;
         tile.GetComponent<PlayerAttack>().enabled = false;
+        if (referenceScript.team == 0)
+        {
+            p0Chars.Add(tile);
+        }
+        else
+        {
+            p1Chars.Add(tile);
+        }
 
 
     }
