@@ -96,5 +96,35 @@ public class DatabaseController
             $"{posX}," +
             $"{posZ});");
     }
+
+    public List<Troop> GetAllTroops()
+    {
+        List<Troop> allTroops = new List<Troop>();
+        IDataReader troops = Read("SELECT " +
+            "Ay.teamNumber, Ay.class, Ay.weapon, Ay.isLeader, Ay.pos_x, Ay.pox_z, " +//5 
+            "T.health, T.attack, T.damage, T.movement, T.perception, T.magicattack, " +//11 
+            "W.damage, W.range, W.AOE, " +//14
+            "Ar.bonus, Ar.stealth " +//16
+            "" +
+            "FROM Army Ay " +
+            "INNER JOIN Troop T ON Ay.class = T.class " +
+            "INNER JOIN Weapon W ON Ay.weapon = W.name " +
+            "INNER JOIN Armor Ar ON Ay.armor = Ar.armor;");
+        while (troops.Read())
+        {
+            Troop t = new Troop(troops.GetInt32(0), //teamNum
+                troops.GetString(1), //TroopType
+                (int) troops.GetDouble(15)+10, //Armor
+                (int) troops.GetDouble(7), //WeapMod
+                (int) troops.GetDouble(12), //WeapDmg
+                (int) troops.GetDouble(6), //Health
+                troops.GetBoolean(3),//leader
+                troops.GetDouble(4),//xpos
+                troops.GetDouble(5));//zPos
+            allTroops.Add(t);
+        }
+
+        return allTroops;
+    }
     #endregion
 }

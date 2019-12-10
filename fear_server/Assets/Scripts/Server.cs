@@ -50,6 +50,8 @@ public class Server : MonoBehaviour
         dbCont = new DatabaseController();
         dbCont.Update("DELETE FROM Army;");
         dbCont.CloseDB();
+
+        
     }                                         
     public void Shutdown()
     {
