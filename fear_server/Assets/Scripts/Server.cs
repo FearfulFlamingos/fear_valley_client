@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine.Networking;
 
 public class Server : MonoBehaviour
 {
-    private const int MAX_USER = 10; 
+    private const int MAX_USER = 2; 
     private const int PORT = 26000;
     private const int BYTE_SIZE = 1024; // standard packet size
     
@@ -50,6 +51,8 @@ public class Server : MonoBehaviour
         dbCont = new DatabaseController();
         dbCont.Update("DELETE FROM Army;");
         dbCont.CloseDB();
+
+        
     }                                         
     public void Shutdown()
     {
@@ -148,12 +151,59 @@ public class Server : MonoBehaviour
         MemoryStream ms = new MemoryStream(buffer);
         formatter.Serialize(ms, msg);
 
+        int test = 0;
+        for (int i = 0; i < BYTE_SIZE;i++)
+        {
+            if (buffer[i] != new byte())
+                test++;
+        }
+        Debug.Log($"Transfer = {test} bytes");
+
         NetworkTransport.Send(hostId,
             connId,
             reliableChannel,
             buffer,
             BYTE_SIZE,
-            out error); 
+            out error);
+        Debug.Log(error);
     }
+
+    public void ChangeScene(string scene)
+    {
+        Net_ChangeScene cs = new Net_ChangeScene();
+        cs.SceneName = scene;
+        for (int i = 1; i <= MAX_USER; i++)
+        {
+            try { SendToClient(0, i, cs); }
+            catch(Exception e) { Debug.Log($"No user {i}"); }
+        }
+    }
+
+    public void PropogateTroops()
+    {
+        Debug.Log("Sending troops");
+        dbCont = new DatabaseController();
+        List<Troop> troops = dbCont.GetAllTroops();
+        dbCont.CloseDB();
+
+        foreach (Troop t in troops)
+        {
+            Net_Propogate np = new Net_Propogate();
+            np.Prefab = t.TroopType;
+            np.AbsoluteXPos = t.XPos;
+            np.AbsoluteZPos = t.ZPos;
+            SendToClient(0, 1, np);
+        }
+        
+
+    }
+
     #endregion
+
+    public void TESTPROPOGATEANDSWITCH()
+    {
+        ChangeScene("Battlefield");
+        PropogateTroops();
+
+    }
 }

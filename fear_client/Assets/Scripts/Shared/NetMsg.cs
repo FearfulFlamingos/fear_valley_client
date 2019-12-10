@@ -2,7 +2,9 @@
 {
     public const int None = 0;
     public const int AddTroop = 1;
-    public const int CreateAccount = 100;
+    public const int PropogateTroop = 4;
+    public const int ChangeScene = 70;
+    public const int CreateAccount = 255;
 }
 
 [System.Serializable]

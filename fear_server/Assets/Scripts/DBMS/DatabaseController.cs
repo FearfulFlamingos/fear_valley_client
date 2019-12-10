@@ -96,5 +96,40 @@ public class DatabaseController
             $"{posX}," +
             $"{posZ});");
     }
+    /// <summary>
+    /// Queries the DB and pulls all relevant info from tables.
+    /// </summary>
+    /// <returns>List of Troop objects for easy use</returns>
+    public List<Troop> GetAllTroops()
+    {
+        List<Troop> allTroops = new List<Troop>();
+        IDataReader troops = Read("SELECT " +
+            "Ay.id, Ay.teamNumber, Ay.class, Ay.weapon, Ay.isLeader, Ay.pos_x, Ay.pox_z, " +//6 
+            "T.health, T.attack, T.damage, T.movement, T.perception, T.magicattack, " +//12 
+            "W.damage, W.range, W.AOE, " +//15
+            "Ar.bonus, Ar.stealth " +//17
+            "" +
+            "FROM Army Ay " +
+            "INNER JOIN Troop T ON Ay.class = T.class " +
+            "INNER JOIN Weapon W ON Ay.weapon = W.name " +
+            "INNER JOIN Armor Ar ON Ay.armor = Ar.armor;");
+        while (troops.Read())
+        {
+            Troop t = new Troop(troops.GetInt32(0),//troopID
+                troops.GetInt32(1), //teamNum
+                troops.GetString(2), //TroopType
+                (int) troops.GetDouble(16)+10, //Armor
+                (int) troops.GetDouble(8), //WeapMod
+                (int) troops.GetDouble(13), //WeapDmg
+                (int) troops.GetDouble(7), //Health
+                false,//troops.GetBoolean(4),//leader
+                troops.GetDouble(5),//xpos
+                troops.GetDouble(6));//zPos
+            allTroops.Add(t);
+        }
+
+        //Debug.Log($"DB Records = {allTroops.Count}");
+        return allTroops;
+    }
     #endregion
 }

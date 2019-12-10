@@ -1,13 +1,15 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Client : MonoBehaviour
 {
     public static Client Instance { private set; get; }
-    private const int MAX_USER = 10;
+    private const int MAX_USER = 2;
     private const int PORT = 26000;
     private const string SERVER_IP = "127.0.0.1";
     private const int BYTE_SIZE = 1024; // standard packet size
@@ -109,7 +111,28 @@ public class Client : MonoBehaviour
             case NetOP.None:
                 Debug.Log("Unexpected NETOP code");
                 break;
+            case NetOP.ChangeScene:
+                Debug.Log("NETOP: Change Scene");
+                Net_ChangeScene(connId, channelId, recHostId, (Net_ChangeScene)msg);
+                break;
+            case NetOP.PropogateTroop:
+                Debug.Log("NETOP: Propogate troop");
+                Net_PropogateTroop(connId, channelId, recHostId, (Net_Propogate)msg);
+                break;
         }
+    }
+
+    private void Net_PropogateTroop(int connId, int channelId, int recHostId, Net_Propogate msg)
+    {
+        
+        Debug.Log($"Added troop {msg.Prefab}");
+        GameObject tile = (GameObject)Instantiate(Resources.Load(msg.Prefab));
+        tile.transform.position = new Vector3(msg.AbsoluteXPos, 0, msg.AbsoluteZPos);
+    }
+
+    private void Net_ChangeScene(int connId, int channelId, int recHostId, Net_ChangeScene msg)
+    {
+        SceneManager.LoadScene(msg.SceneName);
     }
 
     #endregion
