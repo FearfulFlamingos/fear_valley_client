@@ -1,5 +1,6 @@
 ﻿public class Troop
 {
+    private int troopID;
     private int teamNum;
     private string troopType;
     private int armor;
@@ -10,8 +11,9 @@
     private double xPos;
     private double zPos;
 
-    public Troop(int teamNum, string troopType, int armor, int weapMod, int weapDmg, int health, bool leader, double xPos, double zPos)
+    public Troop(int troopID, int teamNum, string troopType, int armor, int weapMod, int weapDmg, int health, bool leader, double xPos, double zPos)
     {
+        this.TroopID = troopID;
         this.TeamNum = teamNum;
         this.TroopType = troopType;
         this.Armor = armor;
@@ -46,5 +48,6 @@
     public bool Leader { get => leader; set => leader = value; }
     public double XPos { get => xPos; set => xPos = value; }
     public double ZPos { get => zPos; set => zPos = value; }
+    public int TroopID { get => troopID; set => troopID = value; }
     #endregion
 }

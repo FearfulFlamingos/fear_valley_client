@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PopulateGrid : MonoBehaviour
 {
-    public GameObject prefab; // button prefab
+    //public GameObject prefab; // button prefab
     public int numberOfButtons;
 
     [SerializeField]
@@ -25,7 +25,7 @@ public class PopulateGrid : MonoBehaviour
 
         for (int i = 0; i< numberOfButtons; i++)
         {
-            newObj = Instantiate(prefab, transform) as GameObject;
+            newObj = (GameObject) Instantiate(Resources.Load("GUIButton"), transform) as GameObject;
             buttons[i] = newObj.GetComponent<Button>();
         }
 

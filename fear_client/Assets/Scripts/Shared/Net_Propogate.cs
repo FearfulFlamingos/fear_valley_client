@@ -12,6 +12,6 @@ public class Net_Propogate : NetMsg
     public int AttackMod { set; get; }
     public int MaxAttackVal { set; get; }
     public int DefenseMod { set; get; }
-    public double AbsoluteXPos { set; get; }
-    public double AbsoluteZPos { set; get; }
+    public float AbsoluteXPos { set; get; }
+    public float AbsoluteZPos { set; get; }
 }
