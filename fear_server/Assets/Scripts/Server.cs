@@ -192,7 +192,7 @@ public class Server : MonoBehaviour
             np.Prefab = t.TroopType;
             np.AbsoluteXPos = t.XPos;
             np.AbsoluteZPos = t.ZPos;
-            np.AttackMod = t.WeaponMod;
+            np.AttackMod = t.TroopAtkBonus;
             np.Health = t.Health;
             np.MaxAttackVal = t.WeaponDamage;
             np.DefenseMod = t.Armor;

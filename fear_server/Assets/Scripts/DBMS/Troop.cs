@@ -4,7 +4,7 @@
     private int teamNum;
     private string troopType;
     private int armor;
-    private int weaponMod;
+    private int troopAtkBonus;
     private int weaponDamage;
     private int health;
     private bool leader;
@@ -17,7 +17,7 @@
         this.TeamNum = teamNum;
         this.TroopType = troopType;
         this.Armor = armor;
-        this.WeaponMod = weapMod;
+        this.TroopAtkBonus = weapMod;
         this.WeaponDamage = weapDmg;
         this.Health = health;
         this.Leader = leader;
@@ -28,7 +28,7 @@
     public string PRINT()
     {
         return $"\n<Troop>\nTeam={this.TeamNum}\nClass={this.TroopType}" +
-            $"\nArmor={this.Armor}\nWMod={this.WeaponMod}" +
+            $"\nArmor={this.Armor}\nWMod={this.TroopAtkBonus}" +
             $"\nWDmg={this.WeaponDamage}\nHealth={this.Health}" +
             $"\nleader={this.Leader}\nXPos={this.XPos}\nZPos={this.ZPos}";
     }
@@ -42,7 +42,7 @@
     public int TeamNum { get => teamNum; set => teamNum = value; }
     public string TroopType { get => troopType; set => troopType = value; }
     public int Armor { get => armor; set => armor = value; }
-    public int WeaponMod { get => weaponMod; set => weaponMod = value; }
+    public int TroopAtkBonus { get => troopAtkBonus; set => troopAtkBonus = value; }
     public int WeaponDamage { get => weaponDamage; set => weaponDamage = value; }
     public int Health { get => health; set => health = value; }
     public bool Leader { get => leader; set => leader = value; }
