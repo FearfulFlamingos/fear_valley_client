@@ -126,8 +126,12 @@ public class Client : MonoBehaviour
     {
         
         Debug.Log($"Added troop {msg.Prefab}");
-        GameObject tile = (GameObject)Instantiate(Resources.Load(msg.Prefab));
-        tile.transform.position = new Vector3(msg.AbsoluteXPos, 0, msg.AbsoluteZPos);
+        PopulateCharacter popChar = new PopulateCharacter();
+        //GameObject tile = (GameObject)Instantiate(Resources.Load(msg.Prefab));
+        float varx = (float)msg.AbsoluteXPos;
+        float varz = (float)msg.AbsoluteZPos;
+        popChar.DuplicateObjects(msg.Prefab, varx, varz, 1, msg.Health, msg.AttackMod, 0, 0, 0, msg.DefenseMod, 0, 6, 0);
+        //tile.transform.position = new Vector3(varx, 0, varz);
     }
 
     private void Net_ChangeScene(int connId, int channelId, int recHostId, Net_ChangeScene msg)

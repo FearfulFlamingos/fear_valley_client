@@ -127,7 +127,7 @@ public class UIPopulate : MonoBehaviour
             string troop = troopsDropdown.options[troopsDropdown.value].text;
             string weap = weaponsDropdown.options[weaponsDropdown.value].text;
             string armor = armorsDropdown.options[armorsDropdown.value].text;
-            Client.Instance.AddTroopRequest(troop, weap, armor, 0, 0);
+            Client.Instance.AddTroopRequest(troop, weap, armor, posx, posz);
         }
         else
         {
