@@ -8,7 +8,7 @@ using UnityEngine.Networking;
 public class Server : MonoBehaviour
 {
     private const int MAX_USER = 2; 
-    private const int PORT = 26000;
+    private const int PORT = 50000;
     private const int BYTE_SIZE = 1024; // standard packet size
     
     private byte reliableChannel;
@@ -42,7 +42,7 @@ public class Server : MonoBehaviour
         HostTopology topo = new HostTopology(cc, MAX_USER); // "map" of channels
 
         // Server only code
-        hostId = NetworkTransport.AddHost(topo, PORT, null);
+        hostId = NetworkTransport.AddHost(topo, PORT);
 
         isStarted = true;
         Debug.Log($"Started server on port {PORT}");

@@ -10,8 +10,8 @@ public class Client : MonoBehaviour
 {
     public static Client Instance { private set; get; }
     private const int MAX_USER = 2;
-    private const int PORT = 26000;
-    private const string SERVER_IP = "127.0.0.1";
+    private const int PORT = 50000;
+    private const string SERVER_IP = "127.0.0.1"; //change to whatever IP you need
     private const int BYTE_SIZE = 1024; // standard packet size
 
     private byte reliableChannel;
@@ -46,8 +46,20 @@ public class Client : MonoBehaviour
         HostTopology topo = new HostTopology(cc, MAX_USER);
 
         // Client only code
-        hostId = NetworkTransport.AddHost(topo, 0, SERVER_IP);
+        
+        if (SERVER_IP == "127.0.0.1")
+        {
+            Debug.Log("Running local instances");
+            hostId = NetworkTransport.AddHost(topo, 0);
+        }
+        else
+        {
+            hostId = NetworkTransport.AddHost(topo, PORT);
+        }
+
+        //Debug.Log(hostId);
         connectionId = NetworkTransport.Connect(hostId, SERVER_IP, PORT, 0, out error);
+        //NetworkTransport.Connect(1, SERVER_IP, PORT, 0, out error);
         Debug.Log("Connecting from standalone");
 
         isStarted = true;
@@ -102,7 +114,7 @@ public class Client : MonoBehaviour
         }
     }
 
-    #region OnData
+#region OnData
     private void OnData(int connId, int channelId, int recHostId, NetMsg msg)
     {
         Debug.Log($"Recieved message of type {msg.OperationCode}");
@@ -139,9 +151,9 @@ public class Client : MonoBehaviour
         SceneManager.LoadScene(msg.SceneName);
     }
 
-    #endregion
+#endregion
 
-    #region Send
+#region Send
     public void SendToServer(NetMsg msg)
     {
         // hold data to send
@@ -171,7 +183,7 @@ public class Client : MonoBehaviour
 
         SendToServer(at);
     }
-    #endregion
+#endregion
 
     public void TESTFUNCTIONCREATEACCOUNT()
     {
