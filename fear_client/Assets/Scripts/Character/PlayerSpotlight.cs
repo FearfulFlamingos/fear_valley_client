@@ -91,24 +91,24 @@ public class PlayerSpotlight : MonoBehaviour
             uiCanvas.SetActive(true);
 
             leftText.text = $"Name: Roman\nAttack:+4\nAction Points:{currentPlayer.actionPoints}";
-            rightText.text = $"Class: Roman\nDefense:13\nMovement:6";
+            rightText.text = $"Class: {referenceScript.charclass}\nDefense:13\nMovement:6";
         }
     }
 
-    //public void ActivateMovement()
-    //{
-    //    lastClicked.GetComponent<PlayerMovement>().enabled = true;
-    //    lastClicked.GetComponent<PlayerMovement>().ActivateAttack();
-    //}
-    //public void ActivateAttack()
-    //{
-    //    yourChar.text = $"You are attacking with: {lastClicked.GetComponent<CharacterFeatures>().charclass}";
-    //    uiCanvas.SetActive(false);
-    //    attackcanvas.SetActive(true);
-    //    xbutton.SetActive(false);
-    //    lastClicked.GetComponent<PlayerAttack>().enabled = true;
-    //    lastClicked.GetComponent<PlayerAttack>().ActivateAttack();
-    //}
+    public void ActivateMovement()
+    {
+        lastClicked.GetComponent<PlayerMovement>().enabled = true;
+        lastClicked.GetComponent<PlayerMovement>().ActivateMovement();
+    }
+    public void ActivateAttack()
+    {
+        yourChar.text = $"You are attacking with: {lastClicked.GetComponent<CharacterFeatures>().charclass}";
+        uiCanvas.SetActive(false);
+        attackcanvas.SetActive(true);
+        xbutton.SetActive(false);
+        lastClicked.GetComponent<PlayerAttack>().enabled = true;
+        lastClicked.GetComponent<PlayerAttack>().ActivateAttack();
+    }
 
 
     //private void switchCamera(int camPosition)
@@ -129,5 +129,5 @@ public class PlayerSpotlight : MonoBehaviour
     //        camera1.SetActive(false);
     //        camera2.SetActive(true);
     //    }
-    }
+}
 

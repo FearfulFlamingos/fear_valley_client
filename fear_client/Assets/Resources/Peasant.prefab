@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5266402843906947623}
   - component: {fileID: 5266402843906947620}
+  - component: {fileID: 114586466348519390}
+  - component: {fileID: 114439114265428832}
   - component: {fileID: 5266402843906947621}
   - component: {fileID: 5266402843906947618}
   - component: {fileID: 5266402843906947619}
@@ -44,6 +46,38 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5266402843906947615}
   m_Mesh: {fileID: 4300000, guid: 1ae3b6cad3254b848942cea678f244c7, type: 3}
+--- !u!114 &114586466348519390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5266402843906947615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bc7adb471d894331851b273094ca02e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatCanBeClickedOn:
+    serializedVersion: 2
+    m_Bits: 0
+  gameObject: {fileID: 5266402843906947615}
+--- !u!114 &114439114265428832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5266402843906947615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 041264792cb0f4504a0ce62acad3afe8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatCanBeClickedOn:
+    serializedVersion: 2
+    m_Bits: 0
+  gameObject: {fileID: 5266402843906947615}
 --- !u!23 &5266402843906947621
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -102,7 +136,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5266402843906947615}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -226,6 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 0
   health: 0
+  charclass: 
   attack: 0
   damageBonus: 0
   movement: 0
