@@ -9,9 +9,9 @@ public class GameLoop : MonoBehaviour
 	public int currentPlayer;
     public int actionPoints;
     public GameObject uiCanvas;
-    public GameObject attackcanvas,victorycanvas;
+    public GameObject attackcanvas;//,victorycanvas;
     public GameObject lastClicked;
-    public Text victoryStatement;
+    //public Text victoryStatement;
     public List<GameObject> p0Chars, p1Chars;
     private int numAttacks;
     private GameObject scripts;
