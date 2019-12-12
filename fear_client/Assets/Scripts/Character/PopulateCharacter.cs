@@ -42,6 +42,10 @@ public class PopulateCharacter : MonoBehaviour
         GameObject circle = (GameObject)Instantiate(Resources.Load("circleprefab"));
         GameObject circle2 = (GameObject)Instantiate(Resources.Load("circleprefab"));
         float floating = 0.2F;
+        if (teamNum == 2)
+        {
+            zpos = zpos +7;
+        }
         tile.transform.position = new Vector3(xpos,0,zpos);
         circle.transform.position = new Vector3(xpos,floating, zpos);
         circle.transform.localScale = new Vector3(21, 21, 21);
@@ -56,6 +60,7 @@ public class PopulateCharacter : MonoBehaviour
         referenceScript.damageBonus = System.Convert.ToInt32(damageBonus);
         referenceScript.movement = System.Convert.ToInt32(movement);
         referenceScript.perception = System.Convert.ToInt32(perception);
+        referenceScript.charclass = prefab;
         //referenceScript.magicattack = System.Convert.ToInt32(characterInfo.magicAttack);
         //referenceScript.magicdamage = System.Convert.ToInt32(characterInfo.magicDamage);
         referenceScript.bonus = System.Convert.ToInt32(armorBonus);
@@ -68,15 +73,15 @@ public class PopulateCharacter : MonoBehaviour
         referenceScript.isFocused = false;
 
 
-        //tile.GetComponent<PlayerMovement>().enabled = false;
-        //tile.GetComponent<PlayerAttack>().enabled = false;
+        tile.GetComponent<PlayerMovement>().enabled = false;
+        tile.GetComponent<PlayerAttack>().enabled = false;
         //if (teamNum == 0)
         //{
         //    p0Chars.Add(tile);
         //}
         //else
         //{
-        //    //p1Chars.Add(tile);
+        //    p1Chars.Add(tile);
         //}
 
 
