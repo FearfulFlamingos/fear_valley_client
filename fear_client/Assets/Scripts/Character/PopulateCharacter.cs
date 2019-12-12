@@ -70,14 +70,14 @@ public class PopulateCharacter : MonoBehaviour
 
         //tile.GetComponent<PlayerMovement>().enabled = false;
         //tile.GetComponent<PlayerAttack>().enabled = false;
-        if (teamNum == 0)
-        {
-            p0Chars.Add(tile);
-        }
-        else
-        {
-            p1Chars.Add(tile);
-        }
+        //if (teamNum == 0)
+        //{
+        //    p0Chars.Add(tile);
+        //}
+        //else
+        //{
+        //    //p1Chars.Add(tile);
+        //}
 
 
     }

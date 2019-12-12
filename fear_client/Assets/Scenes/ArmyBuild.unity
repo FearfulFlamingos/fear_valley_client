@@ -3020,8 +3020,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1913808683}
   m_HandleRect: {fileID: 1913808682}
   m_Direction: 2
-  m_Value: 0.9999991
-  m_Size: 0.9149999
+  m_Value: 1
+  m_Size: 0.915
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4107,7 +4107,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eedd0ba883cdf3479be1a04554bff06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 7695104208036259296, guid: 8d5a53fe25cec3a41adbe4179227da6b, type: 3}
   numberOfButtons: 16
   MainUI: {fileID: 1803822320}
 --- !u!1 &1672345473

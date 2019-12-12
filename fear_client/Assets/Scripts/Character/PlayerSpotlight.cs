@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerSpotlight : MonoBehaviour
 {
     public Camera camera1;
-    public Camera camera2;
     public GameObject lastClicked, board;
     public GameObject uiCanvas;
     public GameObject attackcanvas;
     public GameObject xbutton, attackbutton, cancelbutton;
-    public Text leftText, rightText;
-    public Text yourChar, attackChar;
+    public TMP_Text leftText, rightText;
+    public TMP_Text yourChar, attackChar;
     private GameObject scripts;
 
     private void Start()
     {
         camera1.gameObject.SetActive(true);
-        camera2.gameObject.SetActive(false);
         uiCanvas.SetActive(false);
         attackcanvas.SetActive(false);
         scripts = GameObject.FindGameObjectWithTag("scripts");
