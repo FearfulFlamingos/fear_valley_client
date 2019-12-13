@@ -258,7 +258,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   whatCanBeClickedOn:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   gameObject: {fileID: 6791112040076275367}
 --- !u!114 &114946023468598234
 MonoBehaviour:
@@ -274,5 +274,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   whatCanBeClickedOn:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   gameObject: {fileID: 6791112040076275367}

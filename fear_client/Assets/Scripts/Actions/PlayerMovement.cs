@@ -50,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
                     actionPoints.actionPoints = System.Convert.ToInt32(actionPoints.actionPoints) - 1;
                     gameObject.GetComponent<CharacterFeatures>().isFocused = false;
                     myAgent.SetDestination(hitInfo.point);
+                    Debug.Log(hitInfo.point);
                     GameObject Circle = referenceScript.myCircle;
                     GameObject Circle2 = referenceScript.attackRange;
                     Circle.transform.position = new Vector3(hitX,floating,hitY);

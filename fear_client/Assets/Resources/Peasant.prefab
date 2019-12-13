@@ -60,7 +60,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   whatCanBeClickedOn:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   gameObject: {fileID: 5266402843906947615}
 --- !u!114 &114439114265428832
 MonoBehaviour:
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   whatCanBeClickedOn:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   gameObject: {fileID: 5266402843906947615}
 --- !u!23 &5266402843906947621
 MeshRenderer:

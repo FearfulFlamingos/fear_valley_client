@@ -172,6 +172,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Trained Warrior
       objectReference: {fileID: 0}
+    - target: {fileID: 3876811793839233491, guid: 27d2608cb94ae2d44811af52793c3562,
+        type: 3}
+      propertyPath: whatCanBeClickedOn.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 3876811793839233491, guid: 27d2608cb94ae2d44811af52793c3562,
+        type: 3}
+      propertyPath: gameObject
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2057105319803594668, guid: 27d2608cb94ae2d44811af52793c3562,
+        type: 3}
+      propertyPath: gameObject
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2057105319803594668, guid: 27d2608cb94ae2d44811af52793c3562,
+        type: 3}
+      propertyPath: whatCanBeClickedOn.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
     - target: {fileID: 4239372230150158, guid: 27d2608cb94ae2d44811af52793c3562, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10
