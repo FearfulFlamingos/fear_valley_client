@@ -11,7 +11,7 @@ public class Client : MonoBehaviour
     public static Client Instance { private set; get; }
     private const int MAX_USER = 2;
     private const int PORT = 50000;
-    private const string SERVER_IP = "127.0.0.1"; //change to whatever IP you need
+    private const string SERVER_IP = "10.28.144.173"; //change to whatever IP you need
     private const int BYTE_SIZE = 1024; // standard packet size
 
     private byte reliableChannel;

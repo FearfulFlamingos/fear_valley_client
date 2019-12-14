@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Data;
 using System.IO;
+using UnityEngine.AI;
 
 public class PopulateCharacter : MonoBehaviour
 {
@@ -44,7 +45,14 @@ public class PopulateCharacter : MonoBehaviour
         float floating = 0.2F;
         if (teamNum == 2)
         {
-            zpos = zpos +7;
+            if (zpos == 0)
+            {
+                zpos = zpos + 8;
+            }
+            else
+            {
+                zpos = zpos + 6;
+            }
         }
         tile.transform.position = new Vector3(xpos,0,zpos);
         circle.transform.position = new Vector3(xpos,floating, zpos);
@@ -75,6 +83,8 @@ public class PopulateCharacter : MonoBehaviour
 
         tile.GetComponent<PlayerMovement>().enabled = false;
         tile.GetComponent<PlayerAttack>().enabled = false;
+        tile.AddComponent<NavMeshAgent>();
+        tile.GetComponent<NavMeshAgent>().baseOffset = 0;
         //if (teamNum == 0)
         //{
         //    p0Chars.Add(tile);
