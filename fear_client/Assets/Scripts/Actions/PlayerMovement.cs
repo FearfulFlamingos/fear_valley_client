@@ -33,13 +33,20 @@ public class PlayerMovement : MonoBehaviour
             if (Physics.Raycast (myRay, out hitInfo, 100, whatCanBeClickedOn))
             {
                 float hitX = hitInfo.point[0];
+                Debug.Log($"hitX {hitX}");
                 float hitY = hitInfo.point[2];
+                Debug.Log($"hitY {hitY}");
                 float floating = 0.2F;
                 float playX = gameObject.transform.position[0];
+                Debug.Log($"playX {playX}");
                 float playY = gameObject.transform.position[2];
+                Debug.Log($"play Y {playY}");
                 float squaredX = (hitX - playX) * (hitX - playX);
+                Debug.Log($"squaredX {squaredX}");
                 float squaredY = (hitY - playY) * (hitY - playY);
+                Debug.Log($"squaredY {squaredY}");
                 float result = Mathf.Sqrt(squaredX + squaredY);
+                Debug.Log($"result: {result}");
                 CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
                 Debug.Log("Hello");
                 Debug.Log(hitX);

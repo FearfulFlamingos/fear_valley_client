@@ -11,7 +11,7 @@ public class Client : MonoBehaviour
     public static Client Instance { private set; get; }
     private const int MAX_USER = 2;
     private const int PORT = 50000;
-    private const string SERVER_IP = "10.28.144.173"; //change to whatever IP you need
+    private const string SERVER_IP = "127.0.0.1"; //change to whatever IP you need
     private const int BYTE_SIZE = 1024; // standard packet size
 
     private byte reliableChannel;
@@ -131,7 +131,16 @@ public class Client : MonoBehaviour
                 Debug.Log("NETOP: Propogate troop");
                 Net_PropogateTroop(connId, channelId, recHostId, (Net_Propogate)msg);
                 break;
+            case NetOP.ToggleControls:
+                Debug.Log("NETOP: Toggle controls");
+                Net_ToggleControls(connId, channelId, recHostId, (Net_ToggleControls)msg);
+                break;
         }
+    }
+
+    private void Net_ToggleControls(int connId, int channelId, int recHostId, Net_ToggleControls msg)
+    {
+        throw new NotImplementedException(); //TODO: Implement
     }
 
     private void Net_PropogateTroop(int connId, int channelId, int recHostId, Net_Propogate msg)
@@ -177,7 +186,7 @@ public class Client : MonoBehaviour
             out error);
     }
 
-    public void AddTroopRequest(string troop, string weapon, string armor, int xPos, int yPos)
+    public void SendTroopRequest(string troop, string weapon, string armor, int xPos, int yPos)
     {
         Net_AddTroop at = new Net_AddTroop();
         at.TroopType = troop;
@@ -188,15 +197,39 @@ public class Client : MonoBehaviour
 
         SendToServer(at);
     }
+
+    public void SendFinishBuild()
+    {
+        Net_FinishBuild fb = new Net_FinishBuild();
+        SendToServer(fb);
+    }
+
+    public void SendMoveData(int TroopID, float newX, float newZ)
+    {
+        Net_MOVE mv = new Net_MOVE();
+        mv.TroopID = TroopID;
+        mv.NewX = newX;
+        mv.NewZ = newZ;
+
+        SendToServer(mv);
+    }
+
+    public void SendAttackData(int troopId, int health)
+    {
+        Net_ATTACK atk = new Net_ATTACK();
+        atk.TroopID = troopId;
+        atk.NewHealth = health;
+
+        SendToServer(atk);
+    }
+
+    public void SendRetreatData(int troopId)
+    {
+        Net_RETREAT ret = new Net_RETREAT();
+        ret.TroopID = troopId;
+
+        SendToServer(ret);
+    }
 #endregion
 
-    public void TESTFUNCTIONCREATEACCOUNT()
-    {
-        Net_CreateAccount ca = new Net_CreateAccount();
-        ca.Username = "megaSwagXXX";
-        ca.Password = "hunter2";
-        ca.Email = "gmail@netscape.com";
-
-        SendToServer(ca);
-    }
 }

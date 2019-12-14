@@ -17,6 +17,7 @@ public class Server : MonoBehaviour
     private byte error; // general error byte, see documentation
 
     private DatabaseController dbCont;
+    private List<Troop> allTroops = new List<Troop>();
 
     #region Monobehavior
     private void Start()
@@ -117,11 +118,27 @@ public class Server : MonoBehaviour
                 Debug.Log("NETOP: Add Troop to DB");
                 Net_AddTroop(connId, channelId, recHostId, (Net_AddTroop)msg);
                 break;
-            case NetOP.CreateAccount:
-                Net_CreateAccount(connId, channelId, recHostId, (Net_CreateAccount)msg);
+            case NetOP.FinishBuild:
+                Debug.Log($"NETOP: Player {connId} is finished");
+                Net_FinishBuild(connId, channelId, recHostId, (Net_FinishBuild)msg);
+                break;
+            case NetOP.MOVE:
+                Debug.Log("NETOP: Move troop");
+                Net_MOVE(connId, channelId, recHostId, (Net_MOVE)msg);
                 break;
         }
     }
+
+    private void Net_FinishBuild(int connId, int channelId, int recHostId, Net_FinishBuild msg)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void Net_MOVE(int connId, int channelId, int recHostId, Net_MOVE msg)
+    {
+        throw new NotImplementedException();
+    }
+
     private void Net_AddTroop(int connId, int channelId, int recHostId, Net_AddTroop msg)
     {
         dbCont.OpenDB();
@@ -134,13 +151,15 @@ public class Server : MonoBehaviour
             msg.ZPosRelative);
         dbCont.CloseDB();
     }
-    private void Net_CreateAccount(int connId, int channelId, int recHostId, Net_CreateAccount msg)
-    {
-        Debug.Log($"Create account: UN {msg.Username}, PW {msg.Password}, EM {msg.Email}");
-    }
     #endregion
 
     #region Send
+    /// <summary>
+    /// Sends a message to the client over the network.
+    /// </summary>
+    /// <param name="recHost">Recieving host socket type, typically 0.</param>
+    /// <param name="connId">Connection to client.</param>
+    /// <param name="msg">Any child of NetMsg, carries a payload.</param>
     public void SendToClient(int recHost, int connId, NetMsg msg)
     {
         // hold data to send
@@ -168,6 +187,10 @@ public class Server : MonoBehaviour
         Debug.Log(error);
     }
 
+    /// <summary>
+    /// Changes the scene on the client.
+    /// </summary>
+    /// <param name="scene">Name of the scene to switch to.</param>
     public void ChangeScene(string scene)
     {
         Net_ChangeScene cs = new Net_ChangeScene();
@@ -179,14 +202,17 @@ public class Server : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Reads DB for troops and sends info to clients.
+    /// </summary>
     public void PropogateTroops()
     {
         Debug.Log("Sending troops");
         dbCont = new DatabaseController();
-        List<Troop> troops = dbCont.GetAllTroops();
+        allTroops = dbCont.GetAllTroops();
         dbCont.CloseDB();
 
-        foreach (Troop t in troops)
+        foreach (Troop t in allTroops)
         {
             Net_Propogate np = new Net_Propogate();
             np.Prefab = t.TroopType;
@@ -198,16 +224,37 @@ public class Server : MonoBehaviour
             np.DefenseMod = t.Armor;
             SendToClient(0, 1, np);
         }
-        
-
     }
 
+    /// <summary>
+    /// Toggles whether the controls are enabled or disabled for the client.
+    /// </summary>
+    public void ToggleControls() //TODO: Add payload?
+    {
+        Net_ToggleControls tc = new Net_ToggleControls();
+        for (int i = 1; i <= MAX_USER; i++)
+        {
+            try { SendToClient(0, i, tc); }
+            catch (Exception e) { Debug.Log($"No user {i}"); }
+        }
+    }
     #endregion
+    
+    #region TEST FUNCTIONS
+    /// <summary>
+    /// These are test functions that are mapped to buttons in the server scene.
+    /// </summary>
 
     public void TESTPROPOGATEANDSWITCH()
     {
         ChangeScene("Battlefield");
         PropogateTroops();
-
     }
+
+    public void TESTTOGGLECONTROLS()
+    {
+        ToggleControls();
+    }
+    #endregion
+
 }

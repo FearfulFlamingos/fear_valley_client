@@ -57,11 +57,18 @@ public class PlayerSpotlight : MonoBehaviour
                     
                     currentPlayer.lastClicked = gameObject;
                     CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
-                    if (currentPlayer.currentPlayer == referenceScript.team)
+                    try
                     {
+                        if (currentPlayer.currentPlayer == referenceScript.team)
+                        {
 
-                        SpotlightChar(gameObject);
-                        
+                            SpotlightChar(gameObject);
+
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.Log($"Non-troop object selected;\n{ex}");
                     }
 
 
