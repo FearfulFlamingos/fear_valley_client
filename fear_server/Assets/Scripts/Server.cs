@@ -222,7 +222,12 @@ public class Server : MonoBehaviour
             np.Health = t.Health;
             np.MaxAttackVal = t.WeaponDamage;
             np.DefenseMod = t.Armor;
-            SendToClient(0, 1, np);
+            
+            for (int i = 1; i <= MAX_USER; i++)
+            {
+                try { SendToClient(0, i, np); }
+                catch (Exception e) { Debug.Log($"No user {i}"); }
+            }
         }
     }
 
