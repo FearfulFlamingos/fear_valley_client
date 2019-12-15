@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/ServerConnect.unity
+    guid: e44c2995c04d30e429464493d985c67b
+  - enabled: 1
+    path: Assets/Scenes/TempLoadingScene.unity
+    guid: 1438ce6e71ff3b74dafbc4f06a9480be
+  - enabled: 1
     path: Assets/Scenes/ArmyBuild.unity
     guid: 9d780fc9bc01b1b49b54130bac060046
   - enabled: 1

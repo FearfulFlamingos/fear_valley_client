@@ -10,8 +10,8 @@ public class Client : MonoBehaviour
 {
     public static Client Instance { private set; get; }
     private const int MAX_USER = 2;
-    private const int PORT = 50000;
-    private const string SERVER_IP = "127.0.0.1"; //change to whatever IP you need
+    private int PORT;
+    private string SERVER_IP;
     private const int BYTE_SIZE = 1024; // standard packet size
 
     private byte reliableChannel;
@@ -37,7 +37,9 @@ public class Client : MonoBehaviour
 
     public void Init()
     {
-
+        SERVER_IP = GameObject.Find("/ServerJoinPrefs").GetComponent<ServerPreferences>().GetIP();
+        PORT = GameObject.Find("/ServerJoinPrefs").GetComponent<ServerPreferences>().GetPort();
+        
         NetworkTransport.Init();
 
         ConnectionConfig cc = new ConnectionConfig();

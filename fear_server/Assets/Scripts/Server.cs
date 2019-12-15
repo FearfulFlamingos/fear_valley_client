@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 
 public class Server : MonoBehaviour
 {
-    private const int MAX_USER = 2; 
+    private const int MAX_USER = 10; 
     private const int PORT = 50000;
     private const int BYTE_SIZE = 1024; // standard packet size
     
@@ -15,6 +15,7 @@ public class Server : MonoBehaviour
     private int hostId;
     private bool isStarted = false;
     private byte error; // general error byte, see documentation
+    private int waitingConnections = 2;
 
     private DatabaseController dbCont;
     private List<Troop> allTroops = new List<Troop>();
@@ -131,7 +132,17 @@ public class Server : MonoBehaviour
 
     private void Net_FinishBuild(int connId, int channelId, int recHostId, Net_FinishBuild msg)
     {
-        throw new NotImplementedException();
+        Debug.Log($"{waitingConnections} left");
+        ChangeScene("TempLoadingScene", connId);
+        Debug.Log($"Changed {connId} scene to temp");
+        waitingConnections--;
+        Debug.Log($"{waitingConnections} left");
+        
+        if (waitingConnections == 0)
+        {
+            ChangeScene("Battlefield", 3);
+            PropogateTroops();
+        }
     }
 
     private void Net_MOVE(int connId, int channelId, int recHostId, Net_MOVE msg)
@@ -191,15 +202,25 @@ public class Server : MonoBehaviour
     /// Changes the scene on the client.
     /// </summary>
     /// <param name="scene">Name of the scene to switch to.</param>
-    public void ChangeScene(string scene)
+    public void ChangeScene(string scene, int whichConn)
     {
         Net_ChangeScene cs = new Net_ChangeScene();
         cs.SceneName = scene;
-        for (int i = 1; i <= MAX_USER; i++)
+
+        switch (whichConn)
         {
-            try { SendToClient(0, i, cs); }
-            catch(Exception e) { Debug.Log($"No user {i}"); }
+            case 1:
+                SendToClient(0, 1, cs);
+                break;
+            case 2:
+                SendToClient(0, 2, cs);
+                break;
+            case 3:
+                SendToClient(0, 1, cs);
+                SendToClient(0, 2, cs);
+                break;      
         }
+        
     }
 
     /// <summary>
@@ -252,7 +273,7 @@ public class Server : MonoBehaviour
 
     public void TESTPROPOGATEANDSWITCH()
     {
-        ChangeScene("Battlefield");
+        ChangeScene("Battlefield", 2);
         PropogateTroops();
     }
 
