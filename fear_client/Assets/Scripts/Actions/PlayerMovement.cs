@@ -47,7 +47,6 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log($"squaredY {squaredY}");
                 float result = Mathf.Sqrt(squaredX + squaredY);
                 Debug.Log($"result: {result}");
-                CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
                 Debug.Log("Hello");
                 Debug.Log(hitX);
                 ///Debug.Log(myAgent.nextPosition[0]);
@@ -56,18 +55,23 @@ public class PlayerMovement : MonoBehaviour
                     GameLoop actionPoints = scripts.GetComponent<GameLoop>();
                     actionPoints.actionPoints = System.Convert.ToInt32(actionPoints.actionPoints) - 1;
                     gameObject.GetComponent<CharacterFeatures>().isFocused = false;
-                    myAgent.SetDestination(hitInfo.point);
-                    Debug.Log(hitInfo.point);
-                    GameObject Circle = referenceScript.myCircle;
-                    GameObject Circle2 = referenceScript.attackRange;
-                    Circle.transform.position = new Vector3(hitX,floating,hitY);
-                    Circle2.transform.position = new Vector3(hitX, floating, hitY);
+                    MoveMe(hitInfo.point);
+                    scripts.GetComponent<Client>().SendMoveData(gameObject.GetComponent<CharacterFeatures>().troopId, hitInfo.point[0], hitInfo.point[2]);
                     DeactivateMovement();
                 }
                     
             }
         }
 
+    }
+    public void MoveMe(Vector3 newPos) {
+        myAgent.SetDestination(newPos);
+        Debug.Log(newPos);
+        CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
+        GameObject Circle = referenceScript.myCircle;
+        GameObject Circle2 = referenceScript.attackRange;
+        Circle.transform.position = new Vector3(newPos[0], 0.2F, newPos[2]);
+        Circle2.transform.position = new Vector3(newPos[0], 0.2F, newPos[2]);
     }
     public void ActivateMovement()
     {

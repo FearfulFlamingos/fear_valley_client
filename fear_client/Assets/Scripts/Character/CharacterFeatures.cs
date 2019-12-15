@@ -6,6 +6,7 @@ public class CharacterFeatures : MonoBehaviour
 {
     public int team;
     public int health;
+    public int troopId;
     public string charclass;
     //public string armclass;
     //public string weapon;

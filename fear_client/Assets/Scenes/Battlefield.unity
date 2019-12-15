@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4445011, g: 0.49399108, b: 0.57329136, a: 1}
+  m_IndirectSpecularColor: {r: 0.4445013, g: 0.4939916, b: 0.5732921, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3113,6 +3113,7 @@ GameObject:
   - component: {fileID: 1998899699}
   - component: {fileID: 1998899700}
   - component: {fileID: 1998899701}
+  - component: {fileID: 1998899702}
   m_Layer: 0
   m_Name: SceneController
   m_TagString: scripts
@@ -3148,7 +3149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera1: {fileID: 1610165618}
   lastClicked: {fileID: 0}
-  board: {fileID: 1036789255}
+  board: {fileID: 1806173561}
   uiCanvas: {fileID: 1150058616}
   attackcanvas: {fileID: 563583643}
   xbutton: {fileID: 345560204}
@@ -3177,8 +3178,19 @@ MonoBehaviour:
   victorycanvas: {fileID: 0}
   lastClicked: {fileID: 0}
   victoryStatement: {fileID: 0}
-  p0Chars: []
-  p1Chars: []
+--- !u!114 &1998899702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1998899698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a7c451af533c441b40e62d344b4c56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiController: {fileID: 0}
 --- !u!1 &2125567854
 GameObject:
   m_ObjectHideFlags: 0
