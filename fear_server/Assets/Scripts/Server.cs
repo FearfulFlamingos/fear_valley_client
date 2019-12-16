@@ -195,13 +195,13 @@ public class Server : MonoBehaviour
         MemoryStream ms = new MemoryStream(buffer);
         formatter.Serialize(ms, msg);
 
-        int test = 0;
-        for (int i = 0; i < BYTE_SIZE;i++)
-        {
-            if (buffer[i] != new byte())
-                test++;
-        }
-        Debug.Log($"Transfer = {test} bytes");
+        //int test = 0;
+        //for (int i = 0; i < BYTE_SIZE;i++)
+        //{
+        //    if (buffer[i] != new byte())
+        //        test++;
+        //}
+        //Debug.Log($"Transfer = {test} bytes");
 
         NetworkTransport.Send(hostId,
             connId,
@@ -209,7 +209,7 @@ public class Server : MonoBehaviour
             buffer,
             BYTE_SIZE,
             out error);
-        Debug.Log(error);
+        //Debug.Log(error);
     }
 
     /// <summary>

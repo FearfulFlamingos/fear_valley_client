@@ -124,7 +124,7 @@ public class PlayerAttack : MonoBehaviour
                 else
                 {
                     referenceScript.health = System.Convert.ToInt32(referenceScript.health - damageTaken);
-                    scripts.GetComponent<Client>().SendAttackData(referenceScript.troopId,damageTaken);
+                    Client.Instance.SendAttackData(referenceScript.troopId,damageTaken);
                     attackChar.text = $"You attack was a success \nand you have dealt {damageTaken} damage\nto the player named Roman ";
                 }
                 

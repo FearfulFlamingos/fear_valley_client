@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
                     actionPoints.actionPoints = System.Convert.ToInt32(actionPoints.actionPoints) - 1;
                     gameObject.GetComponent<CharacterFeatures>().isFocused = false;
                     MoveMe(hitInfo.point);
-                    scripts.GetComponent<Client>().SendMoveData(gameObject.GetComponent<CharacterFeatures>().troopId, hitInfo.point[0], hitInfo.point[2]);
+                    Client.Instance.SendMoveData(gameObject.GetComponent<CharacterFeatures>().troopId, hitInfo.point[0], hitInfo.point[2]);
                     DeactivateMovement();
                 }
                     
