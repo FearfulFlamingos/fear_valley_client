@@ -6,22 +6,22 @@ using UnityEngine.SceneManagement;
 
 public class GameLoop : MonoBehaviour
 {
-	public int currentPlayer;
+    public int currentPlayer;
     public int actionPoints;
     public GameObject uiCanvas;
-    public GameObject attackcanvas,victorycanvas;
+    public GameObject attackcanvas, victorycanvas;
     public GameObject lastClicked;
     public Text victoryStatement;
-    public List<GameObject> p0Chars, p1Chars;
+    public Dictionary<int, GameObject> p1CharsDict, p2CharsDict;
     private int numAttacks;
     private GameObject scripts;
-    
+
     // Start is called before the first frame update
     void Start()
     {
         scripts = GameObject.FindGameObjectWithTag("scripts");
-        List<GameObject> p1Chars = new List<GameObject>();
-        List<GameObject> p0Chars = new List<GameObject>();
+        p1CharsDict = new Dictionary<int, GameObject>();
+        p2CharsDict = new Dictionary<int, GameObject>();
 
     }
 
@@ -35,6 +35,29 @@ public class GameLoop : MonoBehaviour
             numAttacks = 0;
         }
 
+    }
+    public void AddtoDict(int team, int troopid, GameObject reference)
+    {
+        if (team == 1)
+        {
+            p1CharsDict.Add(troopid, reference);
+        }
+        else
+        {
+            p2CharsDict.Add(troopid, reference);
+        }
+    }
+    public void MoveOther(int troopid, float newX, float newZ)
+    {
+        GameObject changing = p2CharsDict[troopid];
+        Vector3 newVect = new Vector3(newX, 0, newZ);
+        changing.GetComponent<PlayerMovement>().MoveMe(newVect);
+    }
+    public void IveBeenAttacked(int troopid, int damage)
+    {
+        GameObject changing = p1CharsDict[troopid];
+        CharacterFeatures reference = changing.GetComponent<CharacterFeatures>();
+        reference.health = System.Convert.ToInt32(reference.health - damage);
     }
     public void Attack()
     {
@@ -66,21 +89,21 @@ public class GameLoop : MonoBehaviour
             uiCanvas.SetActive(false);
             Destroy(lastClicked.GetComponent<CharacterFeatures>().myCircle);
             Destroy(lastClicked.GetComponent<CharacterFeatures>().attackRange);
-            PlayerRemoval("Retreat", lastClicked);
+            PlayerRemoval("Retreat", lastClicked.GetComponent<CharacterFeatures>().troopId);
             Destroy(lastClicked);
 
             scripts.GetComponent<GameLoop>().actionPoints = 0;
 
         }
     }
-    public void PlayerRemoval(string action, GameObject deleteThis)
+    public void PlayerRemoval(string action, int troopId)
     {
         if (action == "Retreat")
         {
             if (currentPlayer == 0)
             {
-                p0Chars.Remove(deleteThis);
-                if (p0Chars.Count == 0)
+                p1CharsDict.Remove(troopId);
+                if (p1CharsDict.Count == 0)
                 {
                     victorycanvas.SetActive(true);
                     attackcanvas.SetActive(false);
@@ -89,8 +112,8 @@ public class GameLoop : MonoBehaviour
             }
             else
             {
-                p1Chars.Remove(deleteThis);
-                if (p1Chars.Count == 0)
+                p2CharsDict.Remove(troopId);
+                if (p2CharsDict.Count == 0)
                 {
                     victorycanvas.SetActive(true);
                     attackcanvas.SetActive(false);
@@ -102,8 +125,8 @@ public class GameLoop : MonoBehaviour
         {
             if (currentPlayer == 0)
             {
-                p1Chars.Remove(deleteThis);
-                if (p1Chars.Count == 0)
+                p2CharsDict.Remove(troopId);
+                if (p2CharsDict.Count == 0)
                 {
                     victorycanvas.SetActive(true);
                     attackcanvas.SetActive(false);
@@ -112,8 +135,8 @@ public class GameLoop : MonoBehaviour
             }
             else
             {
-                p0Chars.Remove(deleteThis);
-                if (p0Chars.Count == 0)
+                p1CharsDict.Remove(troopId);
+                if (p1CharsDict.Count == 0)
                 {
                     victorycanvas.SetActive(true);
                     attackcanvas.SetActive(false);

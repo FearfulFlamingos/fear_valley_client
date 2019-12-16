@@ -214,17 +214,23 @@ public class Server : MonoBehaviour
 
         foreach (Troop t in allTroops)
         {
-            Net_Propogate np = new Net_Propogate();
-            np.Prefab = t.TroopType;
-            np.AbsoluteXPos = t.XPos;
-            np.AbsoluteZPos = t.ZPos;
-            np.AtkBonus = t.TroopAtkBonus;
-            np.Health = t.Health;
-            np.MaxAttackVal = t.WeaponDamage;
-            np.DefenseMod = t.Armor;
-            SendToClient(0, 1, np);
-        }
-    }
+			Net_Propogate np = new Net_Propogate();
+			np.Prefab = t.TroopType;
+			np.TroopID = t.TroopID;
+			np.TeamNum = t.TeamNum;
+			np.AbsoluteXPos = t.XPos;
+			np.AbsoluteZPos = t.ZPos;
+			np.AtkBonus = t.TroopAtkBonus;
+			np.Health = t.Health;
+			np.MaxAttackVal = t.WeaponDamage;
+			np.DefenseMod = t.Armor;
+
+			np.ComingFrom = 1;
+			SendToClient(0, 1, np);
+			np.ComingFrom = 2;
+			SendToClient(0, 2, np);
+		}
+	}
 
     /// <summary>
     /// Toggles whether the controls are enabled or disabled for the client.

@@ -8,10 +8,11 @@ using UnityEngine.AI;
 public class PopulateCharacter : MonoBehaviour
 {
     public List<GameObject> p0Chars, p1Chars;
+    private GameObject scripts;
+    private GameLoop getdictionary;
+
     private void Start()
     {
-
-
 
     }
 
@@ -35,8 +36,8 @@ public class PopulateCharacter : MonoBehaviour
     /// <param name="leader"></param>
 
     //This function is desgined to create each instance of the game objects. It is called for every character created by the game and populates all of the characteristics of the character.
-    public void DuplicateObjects(string prefab,float xpos,float zpos, int teamNum, int health, int attack,
-        int damageBonus, int movement, int perception, int armorBonus,int armorStealth, int damage, int leader)
+    public void DuplicateObjects(int TroopID, string prefab, float xpos, float zpos, int teamNum, int health, int attack,
+        int damageBonus, int movement, int perception, int armorBonus, int armorStealth, int damage, int leader)
     {
         //GameObject referenceTile = (GameObject)Instantiate(Resources.Load(prefab));
         GameObject tile = (GameObject)Instantiate(Resources.Load(prefab));
@@ -54,8 +55,8 @@ public class PopulateCharacter : MonoBehaviour
                 zpos = zpos + 6;
             }
         }
-        tile.transform.position = new Vector3(xpos,0,zpos);
-        circle.transform.position = new Vector3(xpos,floating, zpos);
+        tile.transform.position = new Vector3(xpos, 0, zpos);
+        circle.transform.position = new Vector3(xpos, floating, zpos);
         circle.transform.localScale = new Vector3(21, 21, 21);
         circle2.transform.position = new Vector3(xpos, floating, zpos);
         circle2.transform.localScale = new Vector3(9, 9, 9);
@@ -64,6 +65,7 @@ public class PopulateCharacter : MonoBehaviour
         CharacterFeatures referenceScript = tile.GetComponent<CharacterFeatures>();
         referenceScript.team = System.Convert.ToInt32(teamNum);
         referenceScript.health = System.Convert.ToInt32(health);
+        referenceScript.troopId = TroopID;
         referenceScript.attack = System.Convert.ToInt32(attack);
         referenceScript.damageBonus = System.Convert.ToInt32(damageBonus);
         referenceScript.movement = System.Convert.ToInt32(movement);
@@ -80,20 +82,14 @@ public class PopulateCharacter : MonoBehaviour
         referenceScript.character = tile;
         referenceScript.isFocused = false;
 
-
         tile.GetComponent<PlayerMovement>().enabled = false;
         tile.GetComponent<PlayerAttack>().enabled = false;
         tile.AddComponent<NavMeshAgent>();
         tile.GetComponent<NavMeshAgent>().baseOffset = 0;
-        //if (teamNum == 0)
-        //{
-        //    p0Chars.Add(tile);
-        //}
-        //else
-        //{
-        //    p1Chars.Add(tile);
-        //}
 
+        scripts = GameObject.FindGameObjectWithTag("scripts");
+        getdictionary = scripts.GetComponent<GameLoop>();
+        getdictionary.AddtoDict(teamNum, TroopID, tile);
 
     }
 

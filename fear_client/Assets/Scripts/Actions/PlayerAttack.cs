@@ -20,7 +20,7 @@ public class PlayerAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
         //uiCanvas = GameObject.FindGameObjectWithTag("PlayerAction");
         scripts = GameObject.FindGameObjectWithTag("scripts");
         attackChar = scripts.GetComponent<PlayerSpotlight>().attackChar;
@@ -48,12 +48,12 @@ public class PlayerAttack : MonoBehaviour
                 if (hit.transform != null)
                 {
                     attackObject = hit.transform.gameObject;
-                    
+
                     CharacterFeatures referenceScript = attackObject.GetComponent<CharacterFeatures>();
 
                     if (referenceScript.team != gameObject.GetComponent<CharacterFeatures>().team)
                     {
-                        if(WithinRange(3.5F, attackObject.transform.position[0],attackObject.transform.position[2], gameObject.transform.position[0], gameObject.transform.position[2], false))
+                        if (WithinRange(3.5F, attackObject.transform.position[0], attackObject.transform.position[2], gameObject.transform.position[0], gameObject.transform.position[2], false))
                         {
                             attackChar.text = $"Name: Roman\nHealth: {referenceScript.health}\nClass: {referenceScript.charclass}\nDefense: {referenceScript.damageBonus}\nWithin Range: Yes";
                             canAttack = true;
@@ -69,7 +69,7 @@ public class PlayerAttack : MonoBehaviour
                     {
                         attackChar.text = $"You can not attack\nyour own team.";
                     }
-                    
+
                 }
             }
         }
@@ -107,15 +107,16 @@ public class PlayerAttack : MonoBehaviour
         GameLoop gamevars = scripts.GetComponent<GameLoop>();
         if (canAttack)
         {
-            
-            if (random.Next(0,20)+referenceScript2.attack >= 10+referenceScript.bonus)
+
+            if (random.Next(0, 20) + referenceScript2.attack >= 10 + referenceScript.bonus)
             {
-                int damageTaken = random.Next(1, (referenceScript2.damage))+referenceScript2.damageBonus;
+                int damageTaken = random.Next(1, (referenceScript2.damage)) + referenceScript2.damageBonus;
                 if ((referenceScript.health - damageTaken) <= 0)
                 {
                     attackChar.text = $"You have dealt fatal damage\nto the player named Roman ";
                     timeToDistroy = true;
-                    gamevars.PlayerRemoval("Attack", attackObject);
+
+                    gamevars.PlayerRemoval("Attack", attackObject.GetComponent<CharacterFeatures>().troopId);
                     Destroy(attackObject);
                     Destroy(attackObject.GetComponent<CharacterFeatures>().myCircle);
                     Destroy(attackObject.GetComponent<CharacterFeatures>().attackRange);
@@ -123,9 +124,10 @@ public class PlayerAttack : MonoBehaviour
                 else
                 {
                     referenceScript.health = System.Convert.ToInt32(referenceScript.health - damageTaken);
+                    Client.Instance.SendAttackData(referenceScript.troopId, damageTaken);
                     attackChar.text = $"You attack was a success \nand you have dealt {damageTaken} damage\nto the player named Roman ";
                 }
-                
+
             }
             else
             {

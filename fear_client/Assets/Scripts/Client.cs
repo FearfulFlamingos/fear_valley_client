@@ -13,6 +13,7 @@ public class Client : MonoBehaviour
     private const int PORT = 50000;
     private const string SERVER_IP = "127.0.0.1"; //change to whatever IP you need
     private const int BYTE_SIZE = 1024; // standard packet size
+    private int playerNumber;
 
     private byte reliableChannel;
     private int connectionId;
@@ -145,18 +146,23 @@ public class Client : MonoBehaviour
 
     private void Net_PropogateTroop(int connId, int channelId, int recHostId, Net_Propogate msg)
     {
-        
+
         Debug.Log($"Added troop {msg.Prefab}");
         PopulateCharacter popChar = new PopulateCharacter();
         //PopulateCharacter popChar2 = new PopulateCharacter();
         //GameObject tile = (GameObject)Instantiate(Resources.Load(msg.Prefab));
         float varx = (float)msg.AbsoluteXPos;
         float varz = (float)msg.AbsoluteZPos;
-
-        popChar.DuplicateObjects(msg.Prefab, varx, varz, 2, msg.Health, msg.AtkBonus, 0, 0, 0, msg.DefenseMod, 0, 6, 0);
-        popChar.DuplicateObjects(msg.Prefab, varx, varz, 1, msg.Health, msg.AtkBonus, 0, 0, 0, msg.DefenseMod, 0, 6, 0);
-        
-
+        playerNumber = msg.ComingFrom;
+        if (msg.TeamNum == playerNumber)
+        {
+            popChar.DuplicateObjects(msg.TroopID, msg.Prefab, varx, varz, 1, msg.Health, msg.AtkBonus, 0, 0, 0, msg.DefenseMod, 0, 6, 0);
+            //popChar.DuplicateObjects((msg.TroopID+1),msg.Prefab, varx, varz, 2, msg.Health, msg.AtkBonus, 0, 0, 0, msg.DefenseMod, 0, 6, 0);
+        }
+        else
+        {
+            popChar.DuplicateObjects(msg.TroopID, msg.Prefab, varx, varz, 2, msg.Health, msg.AtkBonus, 0, 0, 0, msg.DefenseMod, 0, 6, 0);
+        }
         //tile.transform.position = new Vector3(varx, 0, varz);
     }
 
