@@ -131,9 +131,29 @@ public class Server : MonoBehaviour
 				Debug.Log("NETOP: Attack troop");
 				Net_ATTACK(connId, channelId, recHostId, (Net_ATTACK)msg);
 				break;
-		}
+            case NetOP.RETREAT:
+                Debug.Log("NETOP: Attack troop");
+                Net_RETREAT(connId, channelId, recHostId, (Net_RETREAT)msg);
+                break;
+        }
     }
 
+    private void Net_RETREAT(int connId, int channelId, int recHostId, Net_RETREAT msg)
+    {
+        Debug.Log($"Attack {msg.TroopID} with damage");
+        switch (connId)
+        {
+            case 1:
+                SendToClient(0, 2, msg);
+                break;
+            case 2:
+                SendToClient(0, 1, msg);
+                break;
+            default:
+                Debug.Log("Unknown connectionID, disconnected?");
+                break;
+        }
+    }
     private void Net_ATTACK(int connId, int channelId, int recHostId, Net_ATTACK msg)
     {
         Debug.Log($"Attack {msg.TroopID} with damage");

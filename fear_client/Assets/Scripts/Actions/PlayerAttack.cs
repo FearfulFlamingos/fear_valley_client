@@ -116,7 +116,7 @@ public class PlayerAttack : MonoBehaviour
                     attackChar.text = $"You have dealt fatal damage\nto the player named Roman ";
                     timeToDistroy = true;
 
-                    gamevars.PlayerRemoval("Attack", attackObject.GetComponent<CharacterFeatures>().troopId);
+                    gamevars.PlayerRemoval("Attack", attackObject.GetComponent<CharacterFeatures>().troopId,1);
                     Destroy(attackObject);
                     Destroy(attackObject.GetComponent<CharacterFeatures>().myCircle);
                     Destroy(attackObject.GetComponent<CharacterFeatures>().attackRange);

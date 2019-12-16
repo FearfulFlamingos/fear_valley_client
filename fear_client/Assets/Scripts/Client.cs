@@ -141,6 +141,10 @@ public class Client : MonoBehaviour
                 Debug.Log("NETOP: Attack Player");
                 Net_Attack(connId, channelId, recHostId, (Net_ATTACK)msg);
                 break;
+            case NetOP.RETREAT:
+                Debug.Log("NETOP: Attack Player");
+                Net_Retreat(connId, channelId, recHostId, (Net_RETREAT)msg);
+                break;
             case NetOP.ToggleControls:
                 Debug.Log("NETOP: Toggle controls");
                 Net_ToggleControls(connId, channelId, recHostId, (Net_ToggleControls)msg);
@@ -162,6 +166,11 @@ public class Client : MonoBehaviour
     {
         GameObject scripts = GameObject.FindGameObjectWithTag("scripts");
         scripts.GetComponent<GameLoop>().IveBeenAttacked(msg.TroopID,msg.NewHealth);
+    }
+    private void Net_Retreat(int connId, int channelId, int recHostId, Net_RETREAT msg)
+    {
+        GameObject scripts = GameObject.FindGameObjectWithTag("scripts");
+        scripts.GetComponent<GameLoop>().OtherLeaves(msg.TroopID);
     }
     /// <summary>
     /// Propogates the troops to the client. Note that every client thinks they are connection #1.

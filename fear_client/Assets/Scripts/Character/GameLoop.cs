@@ -87,6 +87,12 @@ public class GameLoop : MonoBehaviour
     {
         SceneManager.LoadScene("ArmyBuilder");
     }
+    public void OtherLeaves(int troopId)
+    {
+        GameObject destroy = p2CharsDict[troopId];
+        PlayerRemoval("Retreat", troopId, 2);
+        Destroy(destroy);
+    }
     public void Leave()
     {
         if (scripts.GetComponent<GameLoop>().actionPoints >= 3)
@@ -94,18 +100,18 @@ public class GameLoop : MonoBehaviour
             uiCanvas.SetActive(false);
             Destroy(lastClicked.GetComponent<CharacterFeatures>().myCircle);
             Destroy(lastClicked.GetComponent<CharacterFeatures>().attackRange);
-            PlayerRemoval("Retreat", lastClicked.GetComponent<CharacterFeatures>().troopId);
+            PlayerRemoval("Retreat", lastClicked.GetComponent<CharacterFeatures>().troopId, 1);
             Destroy(lastClicked);
-
+            Client.Instance.SendRetreatData(lastClicked.GetComponent<CharacterFeatures>().troopId);
             scripts.GetComponent<GameLoop>().actionPoints = 0;
 
         }
     }
-    public void PlayerRemoval(string action, int troopId)
+    public void PlayerRemoval(string action, int troopId, int playerInQuestion)
     {
         if (action == "Retreat")
         {
-            if (currentPlayer == 0)
+            if (playerInQuestion == 1)
             {
                 p1CharsDict.Remove(troopId);
                 if (p1CharsDict.Count == 0)
@@ -128,7 +134,7 @@ public class GameLoop : MonoBehaviour
         }
         else
         {
-            if (currentPlayer == 0)
+            if (playerInQuestion == 1)
             {
                 p2CharsDict.Remove(troopId);
                 if (p2CharsDict.Count == 0)
