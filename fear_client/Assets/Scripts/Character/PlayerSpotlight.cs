@@ -30,7 +30,7 @@ public class PlayerSpotlight : MonoBehaviour
     private void Update()
     {
         //Debug.Log("Frame");
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && Client.Instance.hasControl)
         {
             RaycastHit hit;
             Ray ray = camera1.ScreenPointToRay(Input.mousePosition);
@@ -42,39 +42,44 @@ public class PlayerSpotlight : MonoBehaviour
                 {
                     GameLoop currentPlayer = scripts.GetComponent<GameLoop>();
                     GameObject gameObject = hit.transform.gameObject;
-                    Debug.Log(lastClicked);
+                    Debug.Log($"Last clicked: {lastClicked}");
                     if (lastClicked != null)
                     {
                         if (lastClicked != board)
                         {
-                            Debug.Log($"THE TROOP MAY HAVE FAILED {lastClicked}");
+                            Debug.Log("Last clicked != board");
                             lastClicked.GetComponent<CharacterFeatures>().isFocused = false;
                         }
                     }
                     if (currentPlayer != board)
                     {
+                        Debug.Log("Currentplayer != board");
                         lastClicked = gameObject;
                         currentPlayer.lastClicked = gameObject;
                     }
                     else
                     {
+                        Debug.Log("Currentplayer == board");
                         uiCanvas.SetActive(false);
                     }
 
                     CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
-                    try
-                    {
-                        if (currentPlayer.currentPlayer == referenceScript.team)
-                        {
+                    if (gameObject.GetComponent<CharacterFeatures>().team == 1)
+                        SpotlightChar(gameObject);
+                    //try
+                    //{
+                    //    Debug.Log($"currentplayer {currentPlayer} == {referenceScript.team}?");
+                    //    if (currentPlayer.currentPlayer == referenceScript.team)
+                    //    {
+                            
+                            
 
-                            SpotlightChar(gameObject);
-
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.Log($"Non-troop object selected;\n{ex}");
-                    }
+                    //    }
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    Debug.Log($"Non-troop object selected;\n{ex}");
+                    //}
 
 
                     // Populate Panel

@@ -19,6 +19,7 @@ public class Client : MonoBehaviour
     private int hostId;
     private bool isStarted = false;
     private byte error;
+    public bool hasControl;
 
     public GameObject uiController;
 
@@ -154,7 +155,8 @@ public class Client : MonoBehaviour
 
     private void Net_ToggleControls(int connId, int channelId, int recHostId, Net_ToggleControls msg)
     {
-        throw new NotImplementedException(); //TODO: Implement
+        Client.Instance.hasControl = !Client.Instance.hasControl;
+        Debug.Log($"Toggling controls to {Client.Instance.hasControl}");
     }
 
     private void Net_Move(int connId, int channelId, int recHostId, Net_MOVE msg)
@@ -274,6 +276,14 @@ public class Client : MonoBehaviour
 
         SendToServer(ret);
     }
+
+    public void SendEndTurn()
+    {
+        //Client.Instance.hasControl = false;
+        Net_EndTurn et = new Net_EndTurn();
+        SendToServer(et);
+    }
+
 #endregion
 
 }

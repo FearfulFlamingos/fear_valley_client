@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && Client.Instance.hasControl)
         {
             Debug.Log("Mouse button clicked");
             Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);

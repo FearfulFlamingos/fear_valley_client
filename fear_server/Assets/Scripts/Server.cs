@@ -135,7 +135,18 @@ public class Server : MonoBehaviour
                 Debug.Log("NETOP: Attack troop");
                 Net_RETREAT(connId, channelId, recHostId, (Net_RETREAT)msg);
                 break;
+            case NetOP.EndTurn:
+                Debug.Log($"NETOP: End P{connId} turn");
+                Net_EndTurn(connId, channelId, recHostId, (Net_EndTurn)msg);
+                break;
         }
+    }
+
+    private void Net_EndTurn(int connId, int channelId, int recHostId, Net_EndTurn msg)
+    {
+        Debug.Log("Toggling controls for all players");
+        ToggleControls(1);
+        ToggleControls(2);
     }
 
     private void Net_RETREAT(int connId, int channelId, int recHostId, Net_RETREAT msg)
@@ -175,6 +186,7 @@ public class Server : MonoBehaviour
     {
         //Debug.Log($"{waitingConnections} left");
         ChangeScene("TempLoadingScene", connId);
+        //ToggleControls(connId);
         Debug.Log($"Changed P{connId} scene to temp");
         waitingConnections--;
         Debug.Log($"{waitingConnections} connection(s) remaining");
@@ -183,6 +195,7 @@ public class Server : MonoBehaviour
         {
             ChangeScene("Battlefield", 3);
             PropogateTroops();
+            ToggleControls(1);
         }
     }
 
@@ -332,15 +345,12 @@ public class Server : MonoBehaviour
     /// <summary>
     /// Toggles whether the controls are enabled or disabled for the client.
     /// </summary>
-    public void ToggleControls() //TODO: Add payload?
+    public void ToggleControls(int connId) //TODO: Add payload?
     {
         Net_ToggleControls tc = new Net_ToggleControls();
-        for (int i = 1; i <= MAX_USER; i++)
-        {
-            try { SendToClient(0, i, tc); }
-            catch (Exception e) { Debug.Log($"No user {i}"); }
-        }
+        SendToClient(0, connId, tc);
     }
+
     #endregion
     
     #region TEST FUNCTIONS
@@ -354,10 +364,6 @@ public class Server : MonoBehaviour
         PropogateTroops();
     }
 
-    public void TESTTOGGLECONTROLS()
-    {
-        ToggleControls();
-    }
     #endregion
 
 }

@@ -19,6 +19,7 @@ public class GameLoop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        actionPoints = 3;
         scripts = GameObject.FindGameObjectWithTag("scripts");
         p1CharsDict = new Dictionary<int,GameObject>();
         p2CharsDict = new Dictionary<int,GameObject>();
@@ -30,12 +31,14 @@ public class GameLoop : MonoBehaviour
     {
         if (actionPoints == 0)
         {
-            currentPlayer = 1 - currentPlayer;
+            currentPlayer = 1;// - currentPlayer;
             actionPoints = 3;
             numAttacks = 0;
+            Client.Instance.SendEndTurn();
         }
 
     }
+
     public void AddtoDict(int team,int troopid, GameObject reference)
     {
         if (team == 1)
@@ -81,7 +84,7 @@ public class GameLoop : MonoBehaviour
         lastClicked.GetComponent<PlayerAttack>().DeactivateAttack();
         lastClicked.GetComponent<PlayerAttack>().enabled = false;
         numAttacks++;
-        actionPoints++;
+        //actionPoints++;
     }
     public void endGame()
     {

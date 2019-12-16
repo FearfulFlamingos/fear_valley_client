@@ -37,7 +37,7 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && Client.Instance.hasControl)
         {
             RaycastHit hit;
             Ray ray = camera1.ScreenPointToRay(Input.mousePosition);
