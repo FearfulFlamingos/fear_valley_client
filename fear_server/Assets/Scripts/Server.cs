@@ -127,7 +127,11 @@ public class Server : MonoBehaviour
                 Debug.Log("NETOP: Move troop");
                 Net_MOVE(connId, channelId, recHostId, (Net_MOVE)msg);
                 break;
-        }
+			case NetOP.ATTACK:
+				Debug.Log("NETOP: Attack troop");
+				Net_ATTACK(connId, channelId, recHostId, (Net_ATTACK)msg);
+				break;
+		}
     }
 
     private void Net_FinishBuild(int connId, int channelId, int recHostId, Net_FinishBuild msg)
@@ -147,10 +151,31 @@ public class Server : MonoBehaviour
 
     private void Net_MOVE(int connId, int channelId, int recHostId, Net_MOVE msg)
     {
-        throw new NotImplementedException();
+        if (connId == 1)
+		{
+			SendToClient(0, 2, msg);
+            Debug.Log("Movement Sent");
+        }
+		else
+		{
+			SendToClient(0, 1, msg);
+            Debug.Log("Movement Sent");
+        }
     }
+	private void Net_ATTACK(int connId, int channelId, int recHostId, Net_ATTACK msg)
+	{
+		if (connId == 1)
+		{
+			SendToClient(0, 2, msg);
+		}
+		else
+		{
+			SendToClient(0, 1, msg);
+		}
+	}
 
-    private void Net_AddTroop(int connId, int channelId, int recHostId, Net_AddTroop msg)
+
+	private void Net_AddTroop(int connId, int channelId, int recHostId, Net_AddTroop msg)
     {
         dbCont.OpenDB();
         dbCont.AddTroopToDB(
@@ -181,13 +206,13 @@ public class Server : MonoBehaviour
         MemoryStream ms = new MemoryStream(buffer);
         formatter.Serialize(ms, msg);
 
-        int test = 0;
-        for (int i = 0; i < BYTE_SIZE;i++)
-        {
-            if (buffer[i] != new byte())
-                test++;
-        }
-        Debug.Log($"Transfer = {test} bytes");
+        //int test = 0;
+        //for (int i = 0; i < BYTE_SIZE;i++)
+        //{
+        //    if (buffer[i] != new byte())
+        //        test++;
+        //}
+        //Debug.Log($"Transfer = {test} bytes");
 
         NetworkTransport.Send(hostId,
             connId,
@@ -195,7 +220,7 @@ public class Server : MonoBehaviour
             buffer,
             BYTE_SIZE,
             out error);
-        Debug.Log(error);
+        //Debug.Log(error);
     }
 
     /// <summary>
@@ -237,18 +262,19 @@ public class Server : MonoBehaviour
         {
             Net_Propogate np = new Net_Propogate();
             np.Prefab = t.TroopType;
+            np.TroopID = t.TroopID;
+            np.TeamNum = t.TeamNum;
             np.AbsoluteXPos = t.XPos;
             np.AbsoluteZPos = t.ZPos;
             np.AtkBonus = t.TroopAtkBonus;
             np.Health = t.Health;
             np.MaxAttackVal = t.WeaponDamage;
             np.DefenseMod = t.Armor;
-            
-            for (int i = 1; i <= MAX_USER; i++)
-            {
-                try { SendToClient(0, i, np); }
-                catch (Exception e) { Debug.Log($"No user {i}"); }
-            }
+
+            np.ComingFrom = 1;
+            SendToClient(0, 1, np);
+            np.ComingFrom = 2;
+			      SendToClient(0, 2, np);
         }
     }
 

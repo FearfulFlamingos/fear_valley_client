@@ -50,13 +50,16 @@ public class PlayerSpotlight : MonoBehaviour
                             lastClicked.GetComponent<CharacterFeatures>().isFocused = false;
                         }
                     }
-                    if (lastClicked != board)
+                    if (currentPlayer != board)
                     {
                         lastClicked = gameObject;
+                        currentPlayer.lastClicked = gameObject;
                     }
-                    
-                    
-                    currentPlayer.lastClicked = gameObject;
+                    else
+                    {
+                        uiCanvas.SetActive(false);
+                    }
+                  
                     CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
                     try
                     {

@@ -13,6 +13,7 @@ public class Client : MonoBehaviour
     private int PORT;
     private string SERVER_IP;
     private const int BYTE_SIZE = 1024; // standard packet size
+    private int playerNumber;
 
     private byte reliableChannel;
     private int connectionId;
@@ -133,6 +134,14 @@ public class Client : MonoBehaviour
                 Debug.Log("NETOP: Propogate troop");
                 Net_PropogateTroop(connId, channelId, recHostId, (Net_Propogate)msg);
                 break;
+            case NetOP.MOVE:
+                Debug.Log("NETOP: Move Player");
+                Net_Move(connId, channelId, recHostId, (Net_MOVE)msg);
+                break;
+            case NetOP.ATTACK:
+                Debug.Log("NETOP: Attack Player");
+                Net_Move(connId, channelId, recHostId, (Net_MOVE)msg);
+                break;
             case NetOP.ToggleControls:
                 Debug.Log("NETOP: Toggle controls");
                 Net_ToggleControls(connId, channelId, recHostId, (Net_ToggleControls)msg);
@@ -145,6 +154,16 @@ public class Client : MonoBehaviour
         throw new NotImplementedException(); //TODO: Implement
     }
 
+    private void Net_Move(int connId, int channelId, int recHostId, Net_MOVE msg)
+    {
+        GameObject scripts = GameObject.FindGameObjectWithTag("scripts");
+        scripts.GetComponent<GameLoop>().MoveOther(msg.TroopID, msg.NewX, msg.NewZ);
+    }
+    private void Net_Attack(int connId, int channelId, int recHostId, Net_ATTACK msg)
+    {
+
+    }
+    
     private void Net_PropogateTroop(int connId, int channelId, int recHostId, Net_Propogate msg)
     {
         
@@ -154,10 +173,16 @@ public class Client : MonoBehaviour
         //GameObject tile = (GameObject)Instantiate(Resources.Load(msg.Prefab));
         float varx = (float)msg.AbsoluteXPos;
         float varz = (float)msg.AbsoluteZPos;
-
-        popChar.DuplicateObjects(msg.Prefab, varx, varz, 2, msg.Health, msg.AtkBonus, 0, 0, 0, msg.DefenseMod, 0, 6, 0);
-        popChar.DuplicateObjects(msg.Prefab, varx, varz, 1, msg.Health, msg.AtkBonus, 0, 0, 0, msg.DefenseMod, 0, 6, 0);
-        
+        playerNumber = msg.ComingFrom;
+        if (msg.TeamNum == playerNumber)
+        {
+            popChar.DuplicateObjects(msg.TroopID,msg.Prefab, varx, varz, 1, msg.Health, msg.AtkBonus, 0, 0, 0, msg.DefenseMod, 0, 6, 0);
+            //popChar.DuplicateObjects((msg.TroopID+1),msg.Prefab, varx, varz, 2, msg.Health, msg.AtkBonus, 0, 0, 0, msg.DefenseMod, 0, 6, 0);
+        }
+        else
+        {
+            popChar.DuplicateObjects(msg.TroopID,msg.Prefab, varx, varz, 2, msg.Health, msg.AtkBonus, 0, 0, 0, msg.DefenseMod, 0, 6, 0);
+        }
 
         //tile.transform.position = new Vector3(varx, 0, varz);
     }
@@ -214,6 +239,7 @@ public class Client : MonoBehaviour
         mv.NewZ = newZ;
 
         SendToServer(mv);
+        Debug.Log("Sending Move Data");
     }
 
     public void SendAttackData(int troopId, int health)
@@ -223,6 +249,7 @@ public class Client : MonoBehaviour
         atk.NewHealth = health;
 
         SendToServer(atk);
+        Debug.Log("Sending Attack Data");
     }
 
     public void SendRetreatData(int troopId)
