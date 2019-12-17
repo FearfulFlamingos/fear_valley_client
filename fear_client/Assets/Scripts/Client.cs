@@ -172,7 +172,7 @@ public class Client : MonoBehaviour
     private void Net_Retreat(int connId, int channelId, int recHostId, Net_RETREAT msg)
     {
         GameObject scripts = GameObject.FindGameObjectWithTag("scripts");
-        scripts.GetComponent<GameLoop>().OtherLeaves(msg.TroopID);
+        scripts.GetComponent<GameLoop>().OtherLeaves(msg.TroopID,msg.TeamNum);
     }
     /// <summary>
     /// Propogates the troops to the client. Note that every client thinks they are connection #1.
@@ -269,10 +269,11 @@ public class Client : MonoBehaviour
         SendToServer(atk);
     }
 
-    public void SendRetreatData(int troopId)
+    public void SendRetreatData(int troopId, int TeamNum)
     {
         Net_RETREAT ret = new Net_RETREAT();
         ret.TroopID = troopId;
+        ret.TeamNum = TeamNum;
 
         SendToServer(ret);
     }

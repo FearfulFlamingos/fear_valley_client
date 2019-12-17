@@ -117,9 +117,10 @@ public class PlayerAttack : MonoBehaviour
                     timeToDistroy = true;
 
                     gamevars.PlayerRemoval("Attack", attackObject.GetComponent<CharacterFeatures>().troopId,1);
-                    Destroy(attackObject);
-                    Destroy(attackObject.GetComponent<CharacterFeatures>().myCircle);
-                    Destroy(attackObject.GetComponent<CharacterFeatures>().attackRange);
+                    //Destroy(attackObject);
+                    Client.Instance.SendRetreatData(referenceScript.troopId,1);
+                    //Destroy(attackObject.GetComponent<CharacterFeatures>().myCircle);
+                    //Destroy(attackObject.GetComponent<CharacterFeatures>().attackRange);
                 }
                 else
                 {

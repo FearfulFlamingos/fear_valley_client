@@ -7,4 +7,5 @@ public class Net_RETREAT : NetMsg
     }
 
     public int TroopID { set; get; }
+    public int TeamNum { set; get; }
 }

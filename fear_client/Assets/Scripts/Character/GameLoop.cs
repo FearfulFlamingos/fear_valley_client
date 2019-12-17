@@ -90,10 +90,11 @@ public class GameLoop : MonoBehaviour
     {
         SceneManager.LoadScene("ArmyBuilder");
     }
-    public void OtherLeaves(int troopId)
+    public void OtherLeaves(int troopId,int TeamNum)
     {
+        Debug.Log($"Retreat message received with {TeamNum} and {troopId}");
         GameObject destroy = p2CharsDict[troopId];
-        PlayerRemoval("Retreat", troopId, 2);
+        PlayerRemoval("Retreat", troopId, TeamNum);
         Destroy(destroy);
     }
     public void Leave()
@@ -105,7 +106,7 @@ public class GameLoop : MonoBehaviour
             Destroy(lastClicked.GetComponent<CharacterFeatures>().attackRange);
             PlayerRemoval("Retreat", lastClicked.GetComponent<CharacterFeatures>().troopId, 1);
             Destroy(lastClicked);
-            Client.Instance.SendRetreatData(lastClicked.GetComponent<CharacterFeatures>().troopId);
+            Client.Instance.SendRetreatData(lastClicked.GetComponent<CharacterFeatures>().troopId,2);
             scripts.GetComponent<GameLoop>().actionPoints = 0;
 
         }
