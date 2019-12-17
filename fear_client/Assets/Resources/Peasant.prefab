@@ -60,7 +60,7 @@ MonoBehaviour:
   whatCanBeClickedOn:
     serializedVersion: 2
     m_Bits: 512
-  gameObject: {fileID: 5266402843906947615}
+  myGameObject: {fileID: 5266402843906947615}
 --- !u!114 &114439114265428832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,6 +237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 0
   health: 0
+  troopId: 0
   charclass: 
   attack: 0
   damageBonus: 0

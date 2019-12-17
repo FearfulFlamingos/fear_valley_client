@@ -8,7 +8,7 @@ using TMPro;
 public class PlayerAttack : MonoBehaviour
 {
     public LayerMask whatCanBeClickedOn;
-    public GameObject gameObject;
+    public GameObject myGameObject;
     private GameObject attackObject;
     private bool canAttack, timeToDistroy;
     private Camera camera1;
@@ -51,9 +51,9 @@ public class PlayerAttack : MonoBehaviour
                     
                     CharacterFeatures referenceScript = attackObject.GetComponent<CharacterFeatures>();
 
-                    if (referenceScript.team != gameObject.GetComponent<CharacterFeatures>().team)
+                    if (referenceScript.team != myGameObject.GetComponent<CharacterFeatures>().team)
                     {
-                        if(WithinRange(3.5F, attackObject.transform.position[0],attackObject.transform.position[2], gameObject.transform.position[0], gameObject.transform.position[2], false))
+                        if(WithinRange(3.5F, attackObject.transform.position[0],attackObject.transform.position[2], myGameObject.transform.position[0], myGameObject.transform.position[2], false))
                         {
                             attackChar.text = $"Name: Roman\nHealth: {referenceScript.health}\nClass: {referenceScript.charclass}\nDefense: {referenceScript.damageBonus}\nWithin Range: Yes";
                             canAttack = true;
@@ -95,7 +95,7 @@ public class PlayerAttack : MonoBehaviour
     {
         scripts = GameObject.FindGameObjectWithTag("scripts");
         scripts.GetComponent<PlayerSpotlight>().enabled = false;
-        CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
+        CharacterFeatures referenceScript = myGameObject.GetComponent<CharacterFeatures>();
         referenceScript.isAttacking = true;
 
     }
@@ -103,12 +103,12 @@ public class PlayerAttack : MonoBehaviour
     {
         System.Random random = new System.Random();
         CharacterFeatures referenceScript = attackObject.GetComponent<CharacterFeatures>();
-        CharacterFeatures referenceScript2 = gameObject.GetComponent<CharacterFeatures>();
+        CharacterFeatures referenceScript2 = myGameObject.GetComponent<CharacterFeatures>();
         GameLoop gamevars = scripts.GetComponent<GameLoop>();
         if (canAttack)
         {
             
-            if (random.Next(0,20)+referenceScript2.attack >= 10+referenceScript.bonus)
+            if (random.Next(0,20)+referenceScript2.attack >= referenceScript.bonus)
             {
                 int damageTaken = random.Next(1, (referenceScript2.damage))+referenceScript2.damageBonus;
                 if ((referenceScript.health - damageTaken) <= 0)
@@ -116,7 +116,7 @@ public class PlayerAttack : MonoBehaviour
                     attackChar.text = $"You have dealt fatal damage\nto the player named Roman ";
                     timeToDistroy = true;
 
-                    gamevars.PlayerRemoval("Attack", attackObject.GetComponent<CharacterFeatures>().troopId,1);
+                    gamevars.PlayerRemoval("Attack", attackObject.GetComponent<CharacterFeatures>().troopId,2);
                     //Destroy(attackObject);
                     Client.Instance.SendRetreatData(referenceScript.troopId,1);
                     //Destroy(attackObject.GetComponent<CharacterFeatures>().myCircle);
@@ -149,7 +149,7 @@ public class PlayerAttack : MonoBehaviour
     {
         scripts = GameObject.FindGameObjectWithTag("scripts");
         scripts.GetComponent<PlayerSpotlight>().enabled = true;
-        CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
+        CharacterFeatures referenceScript = myGameObject.GetComponent<CharacterFeatures>();
         attackbutton.SetActive(true);
         cancelbutton.SetActive(true);
         referenceScript.isAttacking = false;

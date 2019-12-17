@@ -114,6 +114,7 @@ public class PlayerSpotlight : MonoBehaviour
 
     public void ActivateMovement()
     {
+        //uiCanvas.SetActive(false);
         lastClicked.GetComponent<PlayerMovement>().enabled = true;
         lastClicked.GetComponent<PlayerMovement>().ActivateMovement();
     }

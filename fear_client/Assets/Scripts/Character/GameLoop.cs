@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameLoop : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class GameLoop : MonoBehaviour
     public GameObject uiCanvas;
     public GameObject attackcanvas,victorycanvas;
     public GameObject lastClicked;
-    public Text victoryStatement;
+    public TMP_Text victoryStatement;
     public Dictionary<int,GameObject> p1CharsDict, p2CharsDict;
     private int numAttacks;
     private GameObject scripts;
@@ -93,9 +94,19 @@ public class GameLoop : MonoBehaviour
     public void OtherLeaves(int troopId,int TeamNum)
     {
         Debug.Log($"Retreat message received with {TeamNum} and {troopId}");
-        GameObject destroy = p2CharsDict[troopId];
-        PlayerRemoval("Retreat", troopId, TeamNum);
-        Destroy(destroy);
+        if (TeamNum == 1)
+        {
+            GameObject destroy = p1CharsDict[troopId];
+            PlayerRemoval("Attack", troopId, TeamNum);
+            Destroy(destroy);
+        }
+        
+        else {
+            GameObject destroy = p2CharsDict[troopId];
+            PlayerRemoval("Retreat", troopId, TeamNum);
+            Destroy(destroy);
+        }
+            
     }
     public void Leave()
     {
@@ -138,7 +149,7 @@ public class GameLoop : MonoBehaviour
         }
         else
         {
-            if (playerInQuestion == 1)
+            if (playerInQuestion == 2)
             {
                 p2CharsDict.Remove(troopId);
                 if (p2CharsDict.Count == 0)

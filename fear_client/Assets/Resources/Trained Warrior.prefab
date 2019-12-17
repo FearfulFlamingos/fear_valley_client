@@ -123,6 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 0
   health: 0
+  troopId: 0
   charclass: 
   attack: 0
   damageBonus: 0
@@ -158,6 +159,11 @@ PrefabInstance:
     - target: {fileID: 3876811793839233491, guid: 27d2608cb94ae2d44811af52793c3562,
         type: 3}
       propertyPath: gameObject
+      value: 
+      objectReference: {fileID: 3762522089948502730}
+    - target: {fileID: 3876811793839233491, guid: 27d2608cb94ae2d44811af52793c3562,
+        type: 3}
+      propertyPath: myGameObject
       value: 
       objectReference: {fileID: 3762522089948502730}
     - target: {fileID: 2057105319803594668, guid: 27d2608cb94ae2d44811af52793c3562,
