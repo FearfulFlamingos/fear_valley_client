@@ -49,21 +49,30 @@ public class PlayerMovement : MonoBehaviour
                     {
                     GameLoop actionPoints = scripts.GetComponent<GameLoop>();
                     actionPoints.actionPoints = System.Convert.ToInt32(actionPoints.actionPoints) - 1;
+                    gameObject.GetComponent<CharacterFeatures>().isFocused = false;
                     myAgent.SetDestination(hitInfo.point);
                     GameObject Circle = referenceScript.myCircle;
                     GameObject Circle2 = referenceScript.attackRange;
-                    Circle.GetComponent<Renderer>().enabled = false;
                     Circle.transform.position = new Vector3(hitX,floating,hitY);
                     Circle2.transform.position = new Vector3(hitX, floating, hitY);
-                    Color mycolor = new Color32(223, 210, 194, 255);
-                    var cubeRenderer = gameObject.GetComponent<Renderer>();
-                    cubeRenderer.material.SetColor("_Color", mycolor);
-                    uiCanvas.SetActive(false);
-                    gameObject.GetComponent<PlayerMovement>().enabled = false;
+                    DeactivateAttack();
                 }
                     
             }
         }
 
+    }
+    public void ActivateAttack()
+    {
+        scripts = GameObject.FindGameObjectWithTag("scripts");
+        scripts.GetComponent<PlayerSpotlight>().enabled = false;
+
+    }
+    public void DeactivateAttack()
+    {
+        scripts = GameObject.FindGameObjectWithTag("scripts");
+        scripts.GetComponent<PlayerSpotlight>().enabled = true;
+        uiCanvas.SetActive(false);
+        gameObject.GetComponent<PlayerMovement>().enabled = false;
     }
 }

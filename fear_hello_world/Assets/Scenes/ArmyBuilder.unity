@@ -1886,6 +1886,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef55852789c2e904eb393c2570b2bc4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  networkCommands: {fileID: 2096287836}
 --- !u!4 &544315572
 Transform:
   m_ObjectHideFlags: 0
@@ -1898,7 +1899,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &566935258
 GameObject:
@@ -6847,6 +6848,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2094983402}
   m_CullTransparentMesh: 0
+--- !u!1 &2096287836
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2096287838}
+  - component: {fileID: 2096287837}
+  m_Layer: 0
+  m_Name: NetworkTrafficMgr
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2096287837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096287836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73fe7518248f0fd4b9097556f3315950, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2096287838
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096287836}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.4514885, y: 4.115562, z: 2.8149467}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2103671579
 GameObject:
   m_ObjectHideFlags: 0
@@ -6857,8 +6901,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2103671581}
   - component: {fileID: 2103671580}
+  - component: {fileID: 2103671582}
   m_Layer: 0
-  m_Name: ArmyBuilderScript
+  m_Name: UIReferencePopulator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6871,7 +6916,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2103671579}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f57f3a068b5d074c9f59666e78b364a, type: 3}
   m_Name: 
@@ -6897,6 +6942,8 @@ MonoBehaviour:
   button14: {fileID: 566935260}
   button15: {fileID: 1388221805}
   warning: {fileID: 490582665}
+  commandMgr: {fileID: 2096287836}
+  connectionID: 0
 --- !u!4 &2103671581
 Transform:
   m_ObjectHideFlags: 0
@@ -6909,8 +6956,41 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2103671582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103671579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e2c6e1c52386734098865f1af29d003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayBudget: {fileID: 1477758234}
+  characters: {fileID: 1219189400}
+  weapons: {fileID: 762003634}
+  armors: {fileID: 1864492282}
+  button0: {fileID: 1462799989}
+  button1: {fileID: 263362500}
+  button2: {fileID: 1798029312}
+  button3: {fileID: 445517448}
+  button4: {fileID: 2089663393}
+  button5: {fileID: 814073052}
+  button6: {fileID: 1892462463}
+  button7: {fileID: 2126384061}
+  button8: {fileID: 305211963}
+  button9: {fileID: 490237050}
+  button10: {fileID: 688134791}
+  button11: {fileID: 1415102204}
+  button12: {fileID: 1110224378}
+  button13: {fileID: 1901809541}
+  button14: {fileID: 566935260}
+  button15: {fileID: 1388221805}
+  warning: {fileID: 490582665}
 --- !u!1 &2104334033
 GameObject:
   m_ObjectHideFlags: 0

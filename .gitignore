@@ -14,21 +14,20 @@ sysinfo.txt
 # Unity3D generated meta files
 *.pidb.meta
 =======
-fear_hello_world/[Aa]ssets/AssetStoreTools*
-fear_hello_world/[Bb]uild/
-fear_hello_world/[Ll]ibrary/
-fear_hello_world/[Ll]ocal[Cc]ache/
-fear_hello_world/[Oo]bj/
-fear_hello_world/[Tt]emp/
-fear_hello_world/[Uu]nityGenerated/
+[Aa]ssets/AssetStoreTools*
+[Bb]uild/
+[Ll]ibrary/
+[Ll]ocal[Cc]ache/
+[Oo]bj/
+[Tt]emp/
+[Uu]nityGenerated/
 # file on crash reports
-fearful_hello_world/sysinfo.txt
+sysinfo.txt
 # Unity3D generated meta files
 
 *.sqlite
-fear_hello_world/Assets/Data/fearful_data.sqlite
-fear_hello_world/*.pidb.meta
->>>>>>> 3879b3abe19f8a4021bf7081700e47c57d779344
+fearful_data.sqlite
+*.pidb.meta
 
 ###
 # VS/MD solution and project files
@@ -47,24 +46,21 @@ fear_hello_world/*.pidb.meta
 *.sqlite
 .DS_Store
 =======
-fear_hello_world/.vs/
-fear_hello_world/[Ee]xportedObj/
-fear_hello_world/*.booproj
-fear_hello_world/*.csproj
-fear_hello_world/*.sln
-fear_hello_world/*.suo
-fear_hello_world/*.svd
-fear_hello_world/*.unityproj
-fear_hello_world/*.user
-fear_hello_world/*.userprefs
-fear_hello_world/*.pidb
-fear_hello_world/.DS_Store
->>>>>>> 3879b3abe19f8a4021bf7081700e47c57d779344
+.vs/
+[Ee]xportedObj/
+*.booproj
+*.csproj
+*.sln
+*.suo
+*.svd
+*.unityproj
+*.user
+*.userprefs
+*.pidb
 
 ###
 # OS generated
 ###
-<<<<<<< HEAD
 .DS_Store
 .DS_Store?
 ._*
@@ -74,12 +70,12 @@ Icon?
 ehthumbs.db
 Thumbs.db
 =======
-fear_hello_world/.DS_Store
-fear_hello_world/.DS_Store?
-fear_hello_world/._*
-fear_hello_world/.Spotlight-V100
-fear_hello_world/.Trashes
-fear_hello_world/Icon?
-fear_hello_world/ehthumbs.db
-fear_hello_world/Thumbs.db
->>>>>>> 3879b3abe19f8a4021bf7081700e47c57d779344
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+fearful_data.sqlite.meta
