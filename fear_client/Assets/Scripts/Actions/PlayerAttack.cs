@@ -35,6 +35,10 @@ public class PlayerAttack : MonoBehaviour
 
 
     // Update is called once per frame
+    /// <summary>
+    /// This function is called once per frame while attack is active. It is similar to player spotlight
+    /// in that it is constantly checking to see if someone has been clicked on and updating the UI.
+    /// </summary>
     void Update()
     {
         if (Input.GetMouseButtonDown(0) && Client.Instance.hasControl)
@@ -75,6 +79,17 @@ public class PlayerAttack : MonoBehaviour
         }
 
     }
+
+    /// <summary>
+    /// This function is used to decide with the point on the screen clicked. This is used to view if the player clicked can be attacked from where the player is currently.
+    /// </summary>
+    /// <param name="maxDistance"></param>
+    /// <param name="newPointX"></param>
+    /// <param name="newPointZ"></param>
+    /// <param name="curPointX"></param>
+    /// <param name="curPointZ"></param>
+    /// <param name="ranged">There are special resitrictions for ranged attacks</param>
+    /// <returns></returns>
     public bool WithinRange(float maxDistance, float newPointX, float newPointZ, float curPointX, float curPointZ, bool ranged)
     {
 
@@ -91,6 +106,10 @@ public class PlayerAttack : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// This function is called to modify the game to "attack mode". It activates the attacking click options and deactivates the player spotlight clicked.
+    /// This function is always the first function called to get to other functions.
+    /// </summary>
     public void ActivateAttack()
     {
         scripts = GameObject.FindGameObjectWithTag("scripts");
@@ -99,6 +118,11 @@ public class PlayerAttack : MonoBehaviour
         referenceScript.isAttacking = true;
 
     }
+    /// <summary>
+    /// This is the base funciton for all attacks. The trigger for this function to be used is a button on the UI canvas.
+    /// Once the button is triggered the player must have already selected a figure to attack or it will get an error. Additionally,
+    /// this function will take away any health if need be or it can even trigger the destruction of an object. 
+    /// </summary>
     public void Attack()
     {
         System.Random random = new System.Random();
@@ -143,7 +167,10 @@ public class PlayerAttack : MonoBehaviour
             attackChar.text = $"You can not attack this target\nthey are not in range. Select \nanother fighter to attack.";
         }
     }
-
+    /// <summary>
+    /// This function is used after an attack and is used to enable the player spotlight script and deactivate this script.
+    /// The function will also destroy any object that has been destroyed.
+    /// </summary>
 
     public void DeactivateAttack()
     {
