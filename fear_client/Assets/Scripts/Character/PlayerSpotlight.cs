@@ -27,6 +27,13 @@ public class PlayerSpotlight : MonoBehaviour
     }
 
     // Update is called once per frame
+    /// <summary>
+    /// This function is constantly checking, what has been clicked on the screen. This is used
+    /// by the player to select a figure which is on their team. Once the figure has been selected
+    /// they are given a menu with options on what they would like to do with the figure. They
+    /// select the option they would like to pursue by clicking the button on the menu which is
+    /// linked to the functions below.
+    /// </summary>
     private void Update()
     {
         //Debug.Log("Frame");
@@ -92,7 +99,11 @@ public class PlayerSpotlight : MonoBehaviour
 
 
     }
-
+    /// <summary>
+    /// This functions is called after a viable object has been selected and it focuses the
+    /// object and then populates the ui canvas. 
+    /// </summary>
+    /// <param name="current"></param>
     public void SpotlightChar(GameObject current)
     {
         CharacterFeatures referenceScript = current.GetComponent<CharacterFeatures>();
@@ -111,13 +122,19 @@ public class PlayerSpotlight : MonoBehaviour
             rightText.text = $"Class: {referenceScript.charclass}\nDefense:13\nMovement:6";
         }
     }
-
+    /// <summary>
+    /// This function is used after the move buttion is clicked and it activates the movement script
+    /// </summary>
     public void ActivateMovement()
     {
         //uiCanvas.SetActive(false);
         lastClicked.GetComponent<PlayerMovement>().enabled = true;
         lastClicked.GetComponent<PlayerMovement>().ActivateMovement();
     }
+
+    /// <summary>
+    /// This function is used after the attack buttion is clicked and it activates the attack script
+    /// </summary>
     public void ActivateAttack()
     {
         yourChar.text = $"You are attacking with: {lastClicked.GetComponent<CharacterFeatures>().charclass}";
