@@ -133,7 +133,7 @@ public class GameLoop : MonoBehaviour
                 {
                     victorycanvas.SetActive(true);
                     attackcanvas.SetActive(false);
-                    victoryStatement.text = $"Victory has been acheived for \nplayer 2 after player 1 retreated ";
+                    victoryStatement.text = $"You have fled the battlefield. ";
                 }
             }
             else
@@ -143,7 +143,7 @@ public class GameLoop : MonoBehaviour
                 {
                     victorycanvas.SetActive(true);
                     attackcanvas.SetActive(false);
-                    victoryStatement.text = $"Victory has been acheived for \nplayer 1 after player 2 retreated ";
+                    victoryStatement.text = $"Your enemy has retreated!";
                 }
             }
         }
@@ -156,7 +156,7 @@ public class GameLoop : MonoBehaviour
                 {
                     victorycanvas.SetActive(true);
                     attackcanvas.SetActive(false);
-                    victoryStatement.text = $"Victory has been acheived for \nplayer 1 after defeating player 2 ";
+                    victoryStatement.text = $"Your foes lie defeated! Victory!";
                 }
             }
             else
@@ -166,7 +166,7 @@ public class GameLoop : MonoBehaviour
                 {
                     victorycanvas.SetActive(true);
                     attackcanvas.SetActive(false);
-                    victoryStatement.text = $"Victory has been acheived for \nplayer 2 after defeating player 1 ";
+                    victoryStatement.text = $"You have suffered a terrible defeat.";
                 }
             }
         }
