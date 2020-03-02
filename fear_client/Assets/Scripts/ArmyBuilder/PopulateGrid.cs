@@ -7,12 +7,35 @@ public class PopulateGrid : MonoBehaviour
 {
     [SerializeField]
     private GameObject explosionScrollView;
-
     private Stack<GameObject> explosions;
+
+    public GameObject selection;
+    public Camera camera;
+
     // Start is called before the first frame update
     void Start()
     {
         explosions = new Stack<GameObject>();
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(1))
+            RemovePlacedObject();
+        if (selection != null)
+        {
+            RaycastHit hit;
+            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray,out hit,100.0f,1<<9))
+            {
+                Debug.Log("Moving");
+                selection.transform.position = hit.point;
+            }
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            selection = null;
+        }
     }
 
     //void Populate()
@@ -59,6 +82,29 @@ public class PopulateGrid : MonoBehaviour
     //    //Debug.Log(temp);
     //    buttons[i].onClick.AddListener(() => { MainUI.GetComponent<UIPopulate>().OnClickAddTroop(temp, 1); buttons[i].interactable = false; });
     //}
+
+    #endregion
+
+    #region Upper Panel
+    public void SetSelection(string resourceName)
+    {
+        GameObject resource = (GameObject) Instantiate(Resources.Load(resourceName)) as GameObject;
+        selection = resource;
+        selection.transform.position = new Vector3(0,0.2f,10);
+
+    }
+
+    public void RemovePlacedObject()
+    {
+        Debug.Log("Checking");
+        RaycastHit checkGameObject;
+        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out checkGameObject, 100.0f,1<<10) && checkGameObject.transform != null)
+        {
+            Debug.Log("Deleting placed");
+            Destroy(checkGameObject.transform.gameObject);
+        }
+    }
 
     #endregion
 
