@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && Client.Instance.hasControl)
+        if (Input.GetMouseButtonDown(0))// TODO: CHANGE BACK && Client.Instance.hasControl)
         {
             Debug.Log("Mouse button clicked");
             Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);

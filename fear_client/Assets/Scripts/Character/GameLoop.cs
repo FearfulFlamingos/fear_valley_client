@@ -9,6 +9,7 @@ public class GameLoop : MonoBehaviour
 {
 	public int currentPlayer;
     public int actionPoints;
+    public int magicPoints;
     public GameObject uiCanvas;
     public GameObject attackcanvas,victorycanvas;
     public GameObject lastClicked;
@@ -223,5 +224,10 @@ public class GameLoop : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void CastSpell()
+    {
+
     }
 }

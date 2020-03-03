@@ -41,7 +41,7 @@ public class PlayerAttack : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && Client.Instance.hasControl)
+        if (Input.GetMouseButtonDown(0))// TODO: CHANGE THIS BACK && Client.Instance.hasControl)
         {
             RaycastHit hit;
             Ray ray = camera1.ScreenPointToRay(Input.mousePosition);

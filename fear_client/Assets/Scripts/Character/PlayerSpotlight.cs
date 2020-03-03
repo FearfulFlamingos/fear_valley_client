@@ -37,12 +37,12 @@ public class PlayerSpotlight : MonoBehaviour
     private void Update()
     {
         //Debug.Log("Frame");
-        if (Input.GetMouseButtonDown(0) && Client.Instance.hasControl)
+        if (Input.GetMouseButtonDown(0))//TODO: C && Client.Instance.hasControl)
         {
             RaycastHit hit;
             Ray ray = camera1.ScreenPointToRay(Input.mousePosition);
             //Debug.Log(Physics.Raycast(ray, out hit, 100.0f));
-            if (Physics.Raycast(ray, out hit, 100.0f))
+            if (Physics.Raycast(ray, out hit, 100.0f,layerMask:1<<10))
             {
 
                 if (hit.transform != null)
@@ -145,6 +145,13 @@ public class PlayerSpotlight : MonoBehaviour
         xbutton.SetActive(false);
         lastClicked.GetComponent<PlayerAttack>().enabled = true;
         lastClicked.GetComponent<PlayerAttack>().ActivateAttack();
+    }
+
+    public void PlaceExplosion()
+    {
+        //lastClicked.GetComponent<PlayerMagic>().enabled = true;
+        uiCanvas.SetActive(false);
+        lastClicked.GetComponent<PlayerMagic>().PlaceExplosion();
     }
 
 

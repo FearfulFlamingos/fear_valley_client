@@ -345,6 +345,7 @@ public class Server : MonoBehaviour
 
         Net_SendMagic sm = new Net_SendMagic();
         
+        // send magic amount to client
         foreach (KeyValuePair<int,int> entry in magics)
         {
             sm.MagicAmount = entry.Value;
