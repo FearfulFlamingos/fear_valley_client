@@ -254,3 +254,4 @@ MonoBehaviour:
   character: {fileID: 5266402843906947615}
   isFocused: 0
   isAttacking: 0
+  numMagAtk: 0
