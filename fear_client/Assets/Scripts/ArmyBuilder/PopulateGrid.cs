@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,11 @@ public class PopulateGrid : MonoBehaviour
 
     public GameObject selection;
     public Camera camera;
+    [SerializeField]
+    private TMP_Text remainingBudget;
+    [SerializeField]
+    private TMP_Text projectedCost;
+    public int budget= 300;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +42,8 @@ public class PopulateGrid : MonoBehaviour
         {
             selection = null;
         }
+
+        remainingBudget.text = $"Budget: {budget}";
     }
 
     //void Populate()
