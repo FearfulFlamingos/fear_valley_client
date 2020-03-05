@@ -131,5 +131,36 @@ public class DatabaseController
         //Debug.Log($"DB Records = {allTroops.Count}");
         return allTroops;
     }
+
+    /// <summary>
+    /// Adds the team Magic budget into the database. This should only be called once, ideally after the "Finish Build" button is clicked.
+    /// </summary>
+    /// <param name="team">Connection number to associate this with.</param>
+    /// <param name="value">Amount of magic charges that the team purchased.</param>
+    public void AddMagicToDB(int team, int value)
+    {
+        Update("INSERT INTO Magic " +
+            "VALUES (" +
+            $"{team}, " +
+            $"{value});");
+    }
+
+    /// <summary>
+    /// Reads the Magic table in its entirety and returns it as a dictionary.
+    /// </summary>
+    /// <returns>Dictionary object of ConnectionID to Magic Charge amount.</returns>
+    public Dictionary<int,int> ReadMagicFromDB()
+    {
+        Dictionary<int,int> magic = new Dictionary<int,int>();
+        IDataReader magicInDB = Read("SELECT * FROM Magic;");
+        while (magicInDB.Read())
+        {
+            magic.Add(
+                magicInDB.GetInt32(0),
+                magicInDB.GetInt32(1));
+        }
+
+        return magic;
+    }
     #endregion
 }

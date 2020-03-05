@@ -30,7 +30,7 @@ public class PopulateCharacter : MonoBehaviour
     /// <param name="armorStealth"></param>
     /// <param name="damage"></param>
     /// <param name="leader"></param>
-    public void DuplicateObjects(int TroopID,string prefab,float xpos,float zpos, int teamNum, int health, int attack,
+    public GameObject DuplicateObjects(int TroopID,string prefab,float xpos,float zpos, int teamNum, int health, int attack,
         int damageBonus, int movement, int perception, int armorBonus,int armorStealth, int damage, int leader)
     {
         //GameObject referenceTile = (GameObject)Instantiate(Resources.Load(prefab));
@@ -94,8 +94,10 @@ public class PopulateCharacter : MonoBehaviour
         tile.GetComponent<NavMeshAgent>().baseOffset = 0;
 
         scripts = GameObject.FindGameObjectWithTag("scripts");
-        getdictionary = scripts.GetComponent<GameLoop>();
+        GameLoop getdictionary = scripts.GetComponent<GameLoop>();
         getdictionary.AddtoDict(teamNum, TroopID, tile);
+
+        return tile;
 
     }
 

@@ -134,6 +134,10 @@ public class Client : MonoBehaviour
                 Debug.Log("NETOP: Propogate troop");
                 Net_PropogateTroop(connId, channelId, recHostId, (Net_Propogate)msg);
                 break;
+            case NetOP.SendMagic:
+                Debug.Log("NETOP: Magic Recieved");
+                Net_SendMagic(connId, channelId, recHostId, (Net_SendMagic)msg);
+                break;
             case NetOP.MOVE:
                 Debug.Log("NETOP: Move Player");
                 Net_Move(connId, channelId, recHostId, (Net_MOVE)msg);
@@ -151,6 +155,11 @@ public class Client : MonoBehaviour
                 Net_ToggleControls(connId, channelId, recHostId, (Net_ToggleControls)msg);
                 break;
         }
+    }
+
+    private void Net_SendMagic(int connId, int channelId, int recHostId, Net_SendMagic msg)
+    {
+        throw new NotImplementedException();
     }
 
     private void Net_ToggleControls(int connId, int channelId, int recHostId, Net_ToggleControls msg)
@@ -244,9 +253,10 @@ public class Client : MonoBehaviour
         SendToServer(at);
     }
 
-    public void SendFinishBuild()
+    public void SendFinishBuild(int magicAmount)
     {
         Net_FinishBuild fb = new Net_FinishBuild();
+        fb.MagicBought = magicAmount;
         SendToServer(fb);
     }
 

@@ -13,6 +13,7 @@
     public const int ChangeScene = 70;
     public const int PropogateTroop = 4;
     public const int ToggleControls = 60;
+    public const int SendMagic = 5;
 }
 
 [System.Serializable]
