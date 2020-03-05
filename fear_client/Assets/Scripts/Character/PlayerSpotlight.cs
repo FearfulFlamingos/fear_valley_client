@@ -37,7 +37,7 @@ public class PlayerSpotlight : MonoBehaviour
     private void Update()
     {
         //Debug.Log("Frame");
-        if (Input.GetMouseButtonDown(0))//TODO: C && Client.Instance.hasControl)
+        if (Input.GetMouseButtonDown(0) && Client.Instance.hasControl)
         {
             RaycastHit hit;
             Ray ray = camera1.ScreenPointToRay(Input.mousePosition);
