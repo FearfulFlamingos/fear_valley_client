@@ -10,14 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5266402843906947623}
   - component: {fileID: 5266402843906947620}
-  - component: {fileID: 114586466348519390}
-  - component: {fileID: 114439114265428832}
   - component: {fileID: 5266402843906947621}
   - component: {fileID: 5266402843906947618}
   - component: {fileID: 5266402843906947619}
-  - component: {fileID: 114328979511854192}
   m_Layer: 0
-  m_Name: Peasant
+  m_Name: PlaceablePeasant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,8 +30,7 @@ Transform:
   m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 2776767618884777452}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -46,38 +42,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5266402843906947615}
   m_Mesh: {fileID: 4300000, guid: 1ae3b6cad3254b848942cea678f244c7, type: 3}
---- !u!114 &114586466348519390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5266402843906947615}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bc7adb471d894331851b273094ca02e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  whatCanBeClickedOn:
-    serializedVersion: 2
-    m_Bits: 512
-  myGameObject: {fileID: 5266402843906947615}
---- !u!114 &114439114265428832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5266402843906947615}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 041264792cb0f4504a0ce62acad3afe8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  whatCanBeClickedOn:
-    serializedVersion: 2
-    m_Bits: 512
-  gameObject: {fileID: 5266402843906947615}
 --- !u!23 &5266402843906947621
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -223,35 +187,3 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!114 &114328979511854192
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5266402843906947615}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e0314c6d406f43d798616047737a9ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 0
-  health: 0
-  troopId: 0
-  charclass: 
-  attack: 0
-  damageBonus: 0
-  movement: 0
-  perception: 0
-  magicattack: 0
-  magicdamage: 0
-  bonus: 0
-  stealth: 0
-  damage: 0
-  isLeader: 0
-  myCircle: {fileID: 8047747297157948238}
-  attackRange: {fileID: 8047747297157948238}
-  character: {fileID: 5266402843906947615}
-  isFocused: 0
-  isAttacking: 0
-
