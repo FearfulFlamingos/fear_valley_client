@@ -73,24 +73,6 @@ public class PlayerSpotlight : MonoBehaviour
                     CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
                     if (gameObject.GetComponent<CharacterFeatures>().team == 1)
                         SpotlightChar(gameObject);
-                    //try
-                    //{
-                    //    Debug.Log($"currentplayer {currentPlayer} == {referenceScript.team}?");
-                    //    if (currentPlayer.currentPlayer == referenceScript.team)
-                    //    {
-                            
-                            
-
-                    //    }
-                    //}
-                    //catch (Exception ex)
-                    //{
-                    //    Debug.Log($"Non-troop object selected;\n{ex}");
-                    //}
-
-
-                    // Populate Panel
-                    // left string = 
 
                 }
             }
@@ -152,6 +134,7 @@ public class PlayerSpotlight : MonoBehaviour
         //lastClicked.GetComponent<PlayerMagic>().enabled = true;
         uiCanvas.SetActive(false);
         lastClicked.GetComponent<PlayerMagic>().PlaceExplosion();
+
     }
 
 

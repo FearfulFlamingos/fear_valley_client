@@ -53,6 +53,7 @@ public class Server : MonoBehaviour
         // Clear out Army table for database
         dbCont = new DatabaseController();
         dbCont.Update("DELETE FROM Army;");
+        dbCont.Update("DELETE FROM Magic;");
         dbCont.CloseDB();
 
         

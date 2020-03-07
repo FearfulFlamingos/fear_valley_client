@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44450113, g: 0.49399143, b: 0.5732917, a: 1}
+  m_IndirectSpecularColor: {r: 0.4445011, g: 0.49399108, b: 0.57329136, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -819,6 +819,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791112040076275367, guid: 4f8247d4543123c41aa54d45bbe49a70,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6791112040076275375, guid: 4f8247d4543123c41aa54d45bbe49a70,
         type: 3}
@@ -3001,8 +3006,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1998899700}
-        m_MethodName: PlaceExplosion
+      - m_Target: {fileID: 1998899701}
+        m_MethodName: CastSpell
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4657,7 +4662,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &6791112040339892663
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4709,21 +4714,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6791112040339892670}
     m_Modifications:
-    - target: {fileID: 3818750916697191934, guid: 554ce6d83f69f41b093df22f0b18220b,
-        type: 3}
-      propertyPath: m_Name
-      value: circleprefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 3818750916697191934, guid: 554ce6d83f69f41b093df22f0b18220b,
-        type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3818750916697191934, guid: 554ce6d83f69f41b093df22f0b18220b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9068197210032989020, guid: 554ce6d83f69f41b093df22f0b18220b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4779,6 +4769,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3818750916697191934, guid: 554ce6d83f69f41b093df22f0b18220b,
+        type: 3}
+      propertyPath: m_Name
+      value: circleprefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 3818750916697191934, guid: 554ce6d83f69f41b093df22f0b18220b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3818750916697191934, guid: 554ce6d83f69f41b093df22f0b18220b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 554ce6d83f69f41b093df22f0b18220b, type: 3}
 --- !u!1001 &7585704397833876395
@@ -4788,16 +4793,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3818750916697191934, guid: 554ce6d83f69f41b093df22f0b18220b,
-        type: 3}
-      propertyPath: m_Name
-      value: New Sprite
-      objectReference: {fileID: 0}
-    - target: {fileID: 3818750916697191934, guid: 554ce6d83f69f41b093df22f0b18220b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9068197210032989020, guid: 554ce6d83f69f41b093df22f0b18220b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4851,6 +4846,16 @@ PrefabInstance:
     - target: {fileID: 9068197210032989020, guid: 554ce6d83f69f41b093df22f0b18220b,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3818750916697191934, guid: 554ce6d83f69f41b093df22f0b18220b,
+        type: 3}
+      propertyPath: m_Name
+      value: New Sprite
+      objectReference: {fileID: 0}
+    - target: {fileID: 3818750916697191934, guid: 554ce6d83f69f41b093df22f0b18220b,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

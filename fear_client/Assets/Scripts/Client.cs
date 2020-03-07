@@ -159,7 +159,7 @@ public class Client : MonoBehaviour
 
     private void Net_SendMagic(int connId, int channelId, int recHostId, Net_SendMagic msg)
     {
-        throw new NotImplementedException();
+        GameObject.FindGameObjectWithTag("scripts").GetComponent<GameLoop>().SetMagic(msg.MagicAmount);
     }
 
     private void Net_ToggleControls(int connId, int channelId, int recHostId, Net_ToggleControls msg)

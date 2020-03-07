@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System;
 
 public class GameLoop : MonoBehaviour
 {
@@ -151,6 +152,12 @@ public class GameLoop : MonoBehaviour
         }
             
     }
+
+    internal void SetMagic(int magicAmount)
+    {
+        magicPoints = magicAmount;
+    }
+
     /// <summary>
     /// This function is called when the local player calls a retreat on their figure.
     /// </summary>
@@ -228,6 +235,16 @@ public class GameLoop : MonoBehaviour
 
     public void CastSpell()
     {
-
+        if (actionPoints < 3 || magicPoints < 1)
+        {
+            Debug.Log("You do not have enough action points or magic to cast a spell!");
+        }
+        else
+        {
+            gameObject.GetComponent<PlayerSpotlight>().PlaceExplosion();
+            magicPoints--;
+            actionPoints -= 3;
+        }
+        
     }
 }
