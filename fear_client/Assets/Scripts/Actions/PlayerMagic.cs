@@ -72,7 +72,7 @@ public class PlayerMagic : MonoBehaviour
         CharacterFeatures referenceScript2 = gameObject.GetComponent<CharacterFeatures>();
         GameLoop gamevars = scripts.GetComponent<GameLoop>();
 
-            if (random.Next(0, 20) + referenceScript2.magicattack >= referenceScript.bonus)
+            if (random.Next(0, 20) + referenceScript2.magicattack >= referenceScript.armorBonus)
             {
                 int damageTaken = random.Next(1, 12) + referenceScript2.magicdamage;
                 if ((referenceScript.health - damageTaken) <= 0)

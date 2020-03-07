@@ -12,6 +12,7 @@ public class Net_Propogate : NetMsg
     public int TeamNum { set; get; }
     public int Health { set; get; }
     public int AtkBonus { set; get; }
+    public int AtkRange { set; get; }
     public int MaxAttackVal { set; get; }
     public int DefenseMod { set; get; }
     public double AbsoluteXPos { set; get; }

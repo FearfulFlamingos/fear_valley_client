@@ -20,13 +20,13 @@ public class CharacterFeatures : MonoBehaviour
     public int perception;
     public int magicattack;
     public int magicdamage;
-    public int bonus;
+    public int armorBonus;
     public int stealth;
+    public int attackRange;
     public int damage;
     public int isLeader;
     public GameObject myCircle;
-    public GameObject attackRange;
-    public GameObject character;
+    //public GameObject attackRange;
     public bool isFocused, isAttacking;
     public int numMagAtk;
  
@@ -43,7 +43,7 @@ public class CharacterFeatures : MonoBehaviour
     /// </summary>
     void Update()
     {
-        var cubeRenderer = character.GetComponent<Renderer>();
+        var cubeRenderer = gameObject.GetComponent<Renderer>();
         if (isFocused)
         {
             myCircle.GetComponent<Renderer>().enabled = true;
@@ -67,19 +67,19 @@ public class CharacterFeatures : MonoBehaviour
             isFocused = false;
             myCircle.GetComponent<Renderer>().enabled = false;
             cubeRenderer.material.SetColor("_Color", Color.red);
-            attackRange.GetComponent<Renderer>().enabled = true;
+            //attackRange.GetComponent<Renderer>().enabled = true;
         }
         else
         {
             if (isFocused)
             {
-                attackRange.GetComponent<Renderer>().enabled = false;
+                //attackRange.GetComponent<Renderer>().enabled = false;
             }
             else
             {
                 Color mycolor = new Color32(223, 210, 194, 255);
                 cubeRenderer.material.SetColor("_Color", mycolor);
-                attackRange.GetComponent<Renderer>().enabled = false;
+                //attackRange.GetComponent<Renderer>().enabled = false;
             }
         }
     }

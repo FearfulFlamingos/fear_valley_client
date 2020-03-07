@@ -167,7 +167,7 @@ public class GameLoop : MonoBehaviour
         {
             uiCanvas.SetActive(false);
             Destroy(lastClicked.GetComponent<CharacterFeatures>().myCircle);
-            Destroy(lastClicked.GetComponent<CharacterFeatures>().attackRange);
+            //Destroy(lastClicked.GetComponent<CharacterFeatures>().attackRange);
             PlayerRemoval("Retreat", lastClicked.GetComponent<CharacterFeatures>().troopId, 1);
             Destroy(lastClicked);
             Client.Instance.SendRetreatData(lastClicked.GetComponent<CharacterFeatures>().troopId,2);

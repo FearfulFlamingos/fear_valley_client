@@ -120,6 +120,7 @@ public class DatabaseController
                 troops.GetString(2), //TroopType
                 (int) troops.GetDouble(16)+10, //Armor
                 (int) troops.GetDouble(8), //WeapMod
+                (int) troops.GetDouble(14), //WeaponRange
                 (int) troops.GetDouble(13), //WeapDmg
                 (int) troops.GetDouble(7), //Health
                 false,//troops.GetBoolean(4),//leader
