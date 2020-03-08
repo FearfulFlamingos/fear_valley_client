@@ -222,7 +222,7 @@ public class PopulateGrid : MonoBehaviour
 
     public void FinalizeArmy()
     {
-        for (int i=0; i <= numTroops; i++)
+        for (int i = 0; i <= numTroops; i++)
         {
             if (activetroops[$"troop{i}"])
             {
@@ -230,7 +230,9 @@ public class PopulateGrid : MonoBehaviour
 
                 Client.Instance.SendTroopRequest(reference.troop, reference.weapon, reference.armor, (int)activetroops[$"troop{i}"].transform.position[0], (int)activetroops[$"troop{i}"].transform.position[1]);
             }
+
         }
+        Client.Instance.SendFinishBuild(explosions.Count);
     }
 
 
