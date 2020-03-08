@@ -53,6 +53,7 @@ public class Server : MonoBehaviour
         // Clear out Army table for database
         dbCont = new DatabaseController();
         dbCont.Update("DELETE FROM Army;");
+        dbCont.Update("DELETE FROM Magic;");
         dbCont.CloseDB();
 
         
@@ -316,6 +317,7 @@ public class Server : MonoBehaviour
             np.AbsoluteXPos = t.XPos;
             np.AbsoluteZPos = t.ZPos;
             np.AtkBonus = t.TroopAtkBonus;
+            np.AtkRange = t.WeaponRange;
             np.Health = t.Health;
             np.MaxAttackVal = t.WeaponDamage;
             np.DefenseMod = t.Armor;

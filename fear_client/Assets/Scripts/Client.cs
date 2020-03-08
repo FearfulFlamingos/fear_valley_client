@@ -159,7 +159,7 @@ public class Client : MonoBehaviour
 
     private void Net_SendMagic(int connId, int channelId, int recHostId, Net_SendMagic msg)
     {
-        throw new NotImplementedException();
+        GameObject.FindGameObjectWithTag("scripts").GetComponent<GameLoop>().SetMagic(msg.MagicAmount);
     }
 
     private void Net_ToggleControls(int connId, int channelId, int recHostId, Net_ToggleControls msg)
@@ -204,12 +204,12 @@ public class Client : MonoBehaviour
         Debug.Log($"playerNum:{msg.ComingFrom},teamNum:{msg.TeamNum}");
         if (msg.TeamNum == msg.ComingFrom)
         {
-            popChar.DuplicateObjects(msg.TroopID,msg.Prefab, varx, varz, 1, msg.Health, msg.AtkBonus, 0, 0, 0, msg.DefenseMod, 0, 6, 0);
+            popChar.DuplicateObjects(msg.TroopID,msg.Prefab, varx, varz, 1, msg.Health, msg.AtkBonus, msg.AtkRange, 0, 0, 0, msg.DefenseMod, 0, 6, 0);
             //popChar.DuplicateObjects((msg.TroopID+1),msg.Prefab, varx, varz, 2, msg.Health, msg.AtkBonus, 0, 0, 0, msg.DefenseMod, 0, 6, 0);
         }
         else
         {
-            popChar.DuplicateObjects(msg.TroopID,msg.Prefab, varx, varz, 2, msg.Health, msg.AtkBonus, 0, 0, 0, msg.DefenseMod, 0, 6, 0);
+            popChar.DuplicateObjects(msg.TroopID,msg.Prefab, varx, varz, 2, msg.Health, msg.AtkBonus, msg.AtkRange, 0, 0, 0, msg.DefenseMod, 0, 6, 0);
         }
 
         //tile.transform.position = new Vector3(varx, 0, varz);
