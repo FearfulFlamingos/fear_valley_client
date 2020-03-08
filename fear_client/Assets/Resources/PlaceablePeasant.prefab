@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5266402843906947621}
   - component: {fileID: 5266402843906947618}
   - component: {fileID: 5266402843906947619}
+  - component: {fileID: 2172742046960728012}
   m_Layer: 0
   m_Name: PlaceablePeasant
   m_TagString: Untagged
@@ -187,3 +188,24 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &2172742046960728012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5266402843906947615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00d690bad6d0b4ab6a607fbb5088ef79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fname: 
+  troop: Peasant
+  weapon: 
+  armor: 
+  isactive: 0
+  texttroop: {fileID: 0}
+  textname: {fileID: 0}
+  textweapon: {fileID: 0}
+  textarmor: {fileID: 0}

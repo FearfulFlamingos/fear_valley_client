@@ -1,5 +1,22 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &114667181936687144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2508347992424954905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00d690bad6d0b4ab6a607fbb5088ef79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fname: 
+  troop: Magic User
+  weapon: 
+  armor: 
+  isactive: 0
 --- !u!1001 &9003136967282676414
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -72,3 +89,9 @@ PrefabInstance:
     - {fileID: 1459504201912633132, guid: 172c1c59704104b41a96df0330079c46, type: 3}
     - {fileID: 114946023468598234, guid: 172c1c59704104b41a96df0330079c46, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 172c1c59704104b41a96df0330079c46, type: 3}
+--- !u!1 &2508347992424954905 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6791112040076275367, guid: 172c1c59704104b41a96df0330079c46,
+    type: 3}
+  m_PrefabInstance: {fileID: 9003136967282676414}
+  m_PrefabAsset: {fileID: 0}

@@ -10,14 +10,39 @@ public class PopulateGrid : MonoBehaviour
     private GameObject explosionScrollView;
     private Stack<GameObject> explosions;
 
-    public GameObject selection;
+    public GameObject selection,lastclicked;
+    public GameObject UIcontrol,troopinfo, CurrentPanel;
     public Camera camera;
     [SerializeField]
     private TMP_Text remainingBudget;
     [SerializeField]
     private TMP_Text projectedCost;
+    [SerializeField]
+    private TMP_Text Budget, weapon, classid, fname, armor, nocash;
     public int budget= 300;
+    public int rollingbudget;
+    public int numTroops=1;
+    private Dictionary<string, GameObject> activetroops = new Dictionary<string, GameObject>();
+    Dictionary<string, int> costs = new Dictionary<string, int>()
+        {
+            {"Unarmored", 0 },
+            {"Light mundane armor", 20 },
+            {"Light magical armor", 30 },
+            {"Heavy mundane armor", 40 },
+            {"Heavy magical armor",50 },
 
+            { "Unarmed", 0 },
+            {"Polearm", 10 },
+            {"Two-handed weapon", 20 },
+            {"One-handed weapon", 15 },
+            {"Ranged attack", 25 },
+            {"Magical Explosion", 10 },
+
+            {"No troop",0 },
+            {"Peasant", 10 },
+            {"Trained Warrior", 50 },
+            {"Magic User", 100 }
+        };
     // Start is called before the first frame update
     void Start()
     {
@@ -43,9 +68,15 @@ public class PopulateGrid : MonoBehaviour
             selection = null;
         }
 
-        remainingBudget.text = $"Budget: {budget}";
+        Budget.text = $"Budget: {budget}";
+        projectedCost.text = $"Estimated Cost: {rollingbudget}";
+        remainingBudget.text = $"Estimated Cost: {budget-rollingbudget}";
     }
 
+    public void additem(string item)
+    {
+        rollingbudget += costs[item];
+    }
     //void Populate()
     //{
 
@@ -99,9 +130,84 @@ public class PopulateGrid : MonoBehaviour
         GameObject resource = (GameObject) Instantiate(Resources.Load(resourceName)) as GameObject;
         selection = resource;
         selection.transform.position = new Vector3(0,0.2f,10);
+        selection.GetComponent<FeaturesHolder>().uicontrol = UIcontrol;
+        selection.GetComponent<FeaturesHolder>().gamepiece = selection;
+        selection.GetComponent<FeaturesHolder>().isactive = true;
+        Debug.Log(selection.GetComponent<FeaturesHolder>().isactive);
+        troopinfo.SetActive(true);
+        lastclicked = selection;
 
     }
+    public void GetArmor(string ArmorClass)
+    {
+        //selection.armorclass
+        selection.GetComponent<FeaturesHolder>().armor = ArmorClass;
+    }
+    public void GetWeapon(string WeaponClass)
+    {
+        //selection.armorclass
+        selection.GetComponent<FeaturesHolder>().weapon = WeaponClass;
+        additem(WeaponClass);
 
+    }
+    public void GetCurrentPanel(GameObject panel)
+    {
+        CurrentPanel = panel;
+    }
+    public void ChangeChar(GameObject character)
+    {
+        FeaturesHolder reference = character.GetComponent<FeaturesHolder>();
+        classid.text = $"{reference.troop}";
+        fname.text = $"{reference.fname}";
+        weapon.text = $"{reference.weapon}";
+        armor.text = $"{reference.armor}";
+        CurrentPanel.SetActive(false);
+
+    }
+    public void ActivateButtons()
+    {
+        GameObject.Find("PeasantButton").GetComponent<Button>().interactable = true;
+        GameObject.Find("WizardButton").GetComponent<Button>().interactable = true;
+        GameObject.Find("WarriorButton").GetComponent<Button>().interactable = true;
+    }
+    public void DeactivateButtons()
+    {
+        GameObject.Find("PeasantButton").GetComponent<Button>().interactable = false;
+        GameObject.Find("WizardButton").GetComponent<Button>().interactable = false;
+        GameObject.Find("WarriorButton").GetComponent<Button>().interactable = false;
+    }
+    public void CancelPurchase()
+    {
+        rollingbudget = 0;
+        
+        troopinfo.SetActive(false);
+        nocash.text = "";
+        Destroy(lastclicked);
+        ActivateButtons();
+
+    }
+    public void ExecutePurchase()
+    {
+        if (budget - rollingbudget < 0)
+        {
+            Debug.Log("in");
+            nocash.text = $"Not Enough Money";
+        }
+        else
+        {
+            lastclicked.name = $"troop{numTroops}";
+            string dictName = lastclicked.name;
+            activetroops[dictName] = selection;
+            numTroops++;
+            troopinfo.SetActive(false);
+            budget -= rollingbudget;
+            rollingbudget = 0;
+            ActivateButtons();
+
+        }
+
+
+    }
     public void RemovePlacedObject()
     {
         Debug.Log("Checking");
@@ -114,6 +220,20 @@ public class PopulateGrid : MonoBehaviour
         }
     }
 
+    public void FinalizeArmy()
+    {
+        for (int i=0; i <= numTroops; i++)
+        {
+            if (activetroops[$"troop{i}"])
+            {
+                FeaturesHolder reference = activetroops[$"troop{i}"].GetComponent<FeaturesHolder>();
+
+                Client.Instance.SendTroopRequest(reference.troop, reference.weapon, reference.armor, (int)activetroops[$"troop{i}"].transform.position[0], (int)activetroops[$"troop{i}"].transform.position[1]);
+            }
+        }
+    }
+
+
     #endregion
 
     #region Lower Panel
@@ -124,6 +244,7 @@ public class PopulateGrid : MonoBehaviour
         {
             GameObject newExplosion = (GameObject)Instantiate(Resources.Load("UI/ArmyBuild/ExplosionImage"), explosionScrollView.transform);
             explosions.Push(newExplosion);
+            budget -= 10;
         }
     /// <summary>
     /// 
@@ -134,6 +255,7 @@ public class PopulateGrid : MonoBehaviour
         {
             GameObject oldExplosion = explosions.Pop();
             Destroy(oldExplosion);
+            budget += 10;
         }
         
     }
