@@ -37,7 +37,7 @@ public class ServerPreferences : MonoBehaviour
         IP_ADDR = serverNum.text;
         PORT_NUM = System.Int32.Parse(portNum.text);
         Debug.Log($"Read {IP_ADDR}:{PORT_NUM}");
-        SceneManager.LoadScene("ArmyBuild");
+        SceneManager.LoadScene(2);
     }
 
 

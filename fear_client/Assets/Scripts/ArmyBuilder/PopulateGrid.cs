@@ -22,7 +22,8 @@ public class PopulateGrid : MonoBehaviour
     public int budget= 300;
     public int rollingbudget;
     public int numTroops=1;
-    private Dictionary<string, GameObject> activetroops = new Dictionary<string, GameObject>();
+    private HashSet<GameObject> activetroops = new HashSet<GameObject>();
+   
     Dictionary<string, int> costs = new Dictionary<string, int>()
         {
             {"Unarmored", 0 },
@@ -196,8 +197,7 @@ public class PopulateGrid : MonoBehaviour
         else
         {
             lastclicked.name = $"troop{numTroops}";
-            string dictName = lastclicked.name;
-            activetroops[dictName] = selection;
+            activetroops.Add(lastclicked);
             numTroops++;
             troopinfo.SetActive(false);
             budget -= rollingbudget;
@@ -222,14 +222,12 @@ public class PopulateGrid : MonoBehaviour
 
     public void FinalizeArmy()
     {
-        for (int i = 0; i <= numTroops; i++)
+        foreach (GameObject troop in activetroops)
         {
-            if (activetroops[$"troop{i}"])
-            {
-                FeaturesHolder reference = activetroops[$"troop{i}"].GetComponent<FeaturesHolder>();
-
-                Client.Instance.SendTroopRequest(reference.troop, reference.weapon, reference.armor, (int)activetroops[$"troop{i}"].transform.position[0], (int)activetroops[$"troop{i}"].transform.position[1]);
-            }
+            Debug.Log(troop);
+            FeaturesHolder reference = troop.GetComponent<FeaturesHolder>();
+            Debug.Log(reference);
+            Client.Instance.SendTroopRequest(reference.troop, reference.weapon, reference.armor, (int)troop.transform.position[0], (int)troop.transform.position[1]);
 
         }
         Client.Instance.SendFinishBuild(explosions.Count);
