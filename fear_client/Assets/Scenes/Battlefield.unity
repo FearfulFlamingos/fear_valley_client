@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4445011, g: 0.49399108, b: 0.57329136, a: 1}
+  m_IndirectSpecularColor: {r: 0.44450113, g: 0.49399143, b: 0.5732917, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4010,6 +4010,7 @@ GameObject:
   - component: {fileID: 1998899699}
   - component: {fileID: 1998899700}
   - component: {fileID: 1998899701}
+  - component: {fileID: 1998899702}
   m_Layer: 0
   m_Name: SceneController
   m_TagString: scripts
@@ -4074,7 +4075,31 @@ MonoBehaviour:
   attackcanvas: {fileID: 563583643}
   victorycanvas: {fileID: 1508761711}
   lastClicked: {fileID: 0}
-  victoryStatement: {fileID: 1344478558}
+  battlefieldUI: {fileID: 0}
+--- !u!114 &1998899702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1998899698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9f86d5bf30e234b9b41a4170720f45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionsPanelLeftHandText: {fileID: 360982164}
+  actionsPanelRightHandText: {fileID: 1728586816}
+  moveButtonText: {fileID: 617039175}
+  attackButtonText: {fileID: 267940540}
+  retreatButtonText: {fileID: 1196585683}
+  attackPanelAttackInfo: {fileID: 120125075}
+  attackPanelEnemyInfo: {fileID: 1930489599}
+  confirmAttackButtonText: {fileID: 2125567856}
+  cancelAttackButtonText: {fileID: 1173723470}
+  closeButtonText: {fileID: 1463787130}
+  victoryText: {fileID: 1344478558}
+  exitButtonText: {fileID: 30321211}
 --- !u!1001 &2123222450
 PrefabInstance:
   m_ObjectHideFlags: 0

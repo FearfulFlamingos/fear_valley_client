@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -12,7 +11,6 @@ public class PlayerAttack : MonoBehaviour
     private bool canAttack, timeToDistroy;
     private Camera camera1;
     private GameObject xbutton, attackbutton, cancelbutton;
-    private TMP_Text attackChar;
     private GameObject uiCanvas;
     private GameObject scripts;
 
@@ -22,7 +20,6 @@ public class PlayerAttack : MonoBehaviour
         
         //uiCanvas = GameObject.FindGameObjectWithTag("PlayerAction");
         scripts = GameObject.FindGameObjectWithTag("scripts");
-        attackChar = scripts.GetComponent<PlayerSpotlight>().attackChar;
         uiCanvas = scripts.GetComponent<PlayerSpotlight>().attackcanvas;
         camera1 = scripts.GetComponent<PlayerSpotlight>().camera1;
         xbutton = scripts.GetComponent<PlayerSpotlight>().xbutton;
@@ -59,19 +56,25 @@ public class PlayerAttack : MonoBehaviour
                         //if(WithinRange(3.5F, attackObject.transform.position[0],attackObject.transform.position[2], myGameObject.transform.position[0], myGameObject.transform.position[2], false))
                         if(Vector3.Distance(gameObject.transform.position,attackObject.transform.position) < gameObject.GetComponent<CharacterFeatures>().attackRange)
                         {
-                            attackChar.text = $"Name: Roman\nHealth: {referenceScript.health}\nClass: {referenceScript.charclass}\nDefense: {referenceScript.damageBonus}\nWithin Range: Yes";
+                            string text = $"Name: Roman\nHealth: {referenceScript.health}\nClass: {referenceScript.charclass}\nDefense: {referenceScript.damageBonus}\nWithin Range: Yes";
+                            scripts.GetComponent<BfieldUIControl>().ChangeText(
+                                scripts.GetComponent<BfieldUIControl>().attackPanelEnemyInfo, text);
                             canAttack = true;
                         }
                         else
                         {
-                            attackChar.text = $"Name: Roman\nHealth: {referenceScript.health}\nClass: {referenceScript.charclass}\nDefense: {referenceScript.damageBonus}\nWithin Range: No";
+                            string text = $"Name: Roman\nHealth: {referenceScript.health}\nClass: {referenceScript.charclass}\nDefense: {referenceScript.damageBonus}\nWithin Range: No";
+                            scripts.GetComponent<BfieldUIControl>().ChangeText(
+                                scripts.GetComponent<BfieldUIControl>().attackPanelEnemyInfo, text);
                             canAttack = false;
                         }
 
                     }
                     else
                     {
-                        attackChar.text = $"You can not attack\nyour own team.";
+                        string text = $"You can not attack\nyour own team.";
+                        scripts.GetComponent<BfieldUIControl>().ChangeText(
+                            scripts.GetComponent<BfieldUIControl>().attackPanelEnemyInfo, text);
                     }
                     
                 }
@@ -137,7 +140,9 @@ public class PlayerAttack : MonoBehaviour
                 int damageTaken = random.Next(1, (referenceScript2.damage))+referenceScript2.damageBonus;
                 if ((referenceScript.health - damageTaken) <= 0)
                 {
-                    attackChar.text = $"You have dealt fatal damage\nto the player named Roman ";
+                    string text = $"You have dealt fatal damage\nto the player named Roman ";
+                    scripts.GetComponent<BfieldUIControl>().ChangeText(
+                        scripts.GetComponent<BfieldUIControl>().attackPanelEnemyInfo, text);
                     timeToDistroy = true;
 
                     gamevars.PlayerRemoval("Attack", attackObject.GetComponent<CharacterFeatures>().troopId,2);
@@ -150,13 +155,17 @@ public class PlayerAttack : MonoBehaviour
                 {
                     referenceScript.health = System.Convert.ToInt32(referenceScript.health - damageTaken);
                     Client.Instance.SendAttackData(referenceScript.troopId,damageTaken);
-                    attackChar.text = $"You attack was a success \nand you have dealt {damageTaken} damage\nto the player named Roman ";
+                    string text = $"You attack was a success \nand you have dealt {damageTaken} damage\nto the player named Roman ";
+                    scripts.GetComponent<BfieldUIControl>().ChangeText(
+                        scripts.GetComponent<BfieldUIControl>().attackPanelEnemyInfo, text);
                 }
                 
             }
             else
             {
-                attackChar.text = $"You could not get passed their armor\nyour attack has failed";
+                string text = $"You could not get passed their armor\nyour attack has failed";
+                scripts.GetComponent<BfieldUIControl>().ChangeText(
+                    scripts.GetComponent<BfieldUIControl>().attackPanelEnemyInfo, text);
             }
             xbutton.SetActive(true);
             attackbutton.SetActive(false);
@@ -164,7 +173,9 @@ public class PlayerAttack : MonoBehaviour
         }
         else
         {
-            attackChar.text = $"You can not attack this target\nthey are not in range. Select \nanother fighter to attack.";
+            string text = $"You can not attack this target\nthey are not in range. Select \nanother fighter to attack.";
+            scripts.GetComponent<BfieldUIControl>().ChangeText(
+                scripts.GetComponent<BfieldUIControl>().attackPanelEnemyInfo, text);
         }
     }
     /// <summary>
@@ -180,7 +191,9 @@ public class PlayerAttack : MonoBehaviour
         attackbutton.SetActive(true);
         cancelbutton.SetActive(true);
         referenceScript.isAttacking = false;
-        attackChar.text = $"Name: Health: \nClass: \nDefense: \nWithin Range: ";
+        string text = $"Name: Health: \nClass: \nDefense: \nWithin Range: ";
+        scripts.GetComponent<BfieldUIControl>().ChangeText(
+            scripts.GetComponent<BfieldUIControl>().attackPanelEnemyInfo, text);
         if (timeToDistroy)
         {
             Debug.Log("__________________________________________________________" + timeToDistroy);

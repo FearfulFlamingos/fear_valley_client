@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using System;
 
 public class PlayerSpotlight : MonoBehaviour
@@ -12,8 +11,7 @@ public class PlayerSpotlight : MonoBehaviour
     public GameObject uiCanvas;
     public GameObject attackcanvas;
     public GameObject xbutton, attackbutton, cancelbutton;
-    public TMP_Text leftText, rightText;
-    public TMP_Text yourChar, attackChar;
+    public GameObject battleUI;
     private GameObject scripts;
 
     private void Start()
@@ -121,7 +119,10 @@ public class PlayerSpotlight : MonoBehaviour
     /// </summary>
     public void ActivateAttack()
     {
-        yourChar.text = $"You are attacking with: {lastClicked.GetComponent<CharacterFeatures>().charclass}";
+        string text = $"You are attacking with: {lastClicked.GetComponent<CharacterFeatures>().charclass}";
+        gameObject.GetComponent<BfieldUIControl>().ChangeText(
+            gameObject.GetComponent<BfieldUIControl>().attackButtonText, text);
+
         uiCanvas.SetActive(false);
         attackcanvas.SetActive(true);
         xbutton.SetActive(false);
