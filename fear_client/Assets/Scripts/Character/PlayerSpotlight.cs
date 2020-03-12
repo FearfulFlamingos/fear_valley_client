@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using System;
 
 public class PlayerSpotlight : MonoBehaviour
@@ -12,8 +11,7 @@ public class PlayerSpotlight : MonoBehaviour
     public GameObject uiCanvas;
     public GameObject attackcanvas;
     public GameObject xbutton, attackbutton, cancelbutton;
-    public TMP_Text leftText, rightText;
-    public TMP_Text yourChar, attackChar;
+    public GameObject battleUI;
     private GameObject scripts;
 
     private void Start()
@@ -42,7 +40,7 @@ public class PlayerSpotlight : MonoBehaviour
             RaycastHit hit;
             Ray ray = camera1.ScreenPointToRay(Input.mousePosition);
             //Debug.Log(Physics.Raycast(ray, out hit, 100.0f));
-            if (Physics.Raycast(ray, out hit, 100.0f))
+            if (Physics.Raycast(ray, out hit, 100.0f,layerMask:1<<10))
             {
 
                 if (hit.transform != null)
@@ -73,24 +71,6 @@ public class PlayerSpotlight : MonoBehaviour
                     CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
                     if (gameObject.GetComponent<CharacterFeatures>().team == 1)
                         SpotlightChar(gameObject);
-                    //try
-                    //{
-                    //    Debug.Log($"currentplayer {currentPlayer} == {referenceScript.team}?");
-                    //    if (currentPlayer.currentPlayer == referenceScript.team)
-                    //    {
-                            
-                            
-
-                    //    }
-                    //}
-                    //catch (Exception ex)
-                    //{
-                    //    Debug.Log($"Non-troop object selected;\n{ex}");
-                    //}
-
-
-                    // Populate Panel
-                    // left string = 
 
                 }
             }
@@ -120,8 +100,8 @@ public class PlayerSpotlight : MonoBehaviour
             referenceScript.isFocused = true;
             uiCanvas.SetActive(true);
 
-            //leftText.text = $"Name: Roman\nAttack:+4\nAction Points:{currentPlayer.actionPoints}";
-            //rightText.text = $"Class: {referenceScript.charclass}\nDefense:13\nMovement:6";
+            leftText.text = $"Name: Roman\nAttack:+4\nAction Points:{currentPlayer.actionPoints}";
+            rightText.text = $"Class: {referenceScript.charclass}\nDefense:13\nMovement:6";
         }
     }
     /// <summary>
@@ -139,12 +119,23 @@ public class PlayerSpotlight : MonoBehaviour
     /// </summary>
     public void ActivateAttack()
     {
-        yourChar.text = $"You are attacking with: {lastClicked.GetComponent<CharacterFeatures>().charclass}";
+        string text = $"You are attacking with: {lastClicked.GetComponent<CharacterFeatures>().charclass}";
+        gameObject.GetComponent<BfieldUIControl>().ChangeText(
+            gameObject.GetComponent<BfieldUIControl>().attackButtonText, text);
+
         uiCanvas.SetActive(false);
         attackcanvas.SetActive(true);
         xbutton.SetActive(false);
         lastClicked.GetComponent<PlayerAttack>().enabled = true;
         lastClicked.GetComponent<PlayerAttack>().ActivateAttack();
+    }
+
+    public void PlaceExplosion()
+    {
+        //lastClicked.GetComponent<PlayerMagic>().enabled = true;
+        uiCanvas.SetActive(false);
+        lastClicked.GetComponent<PlayerMagic>().PlaceExplosion();
+
     }
 
 

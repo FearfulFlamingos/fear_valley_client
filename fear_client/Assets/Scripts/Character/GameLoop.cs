@@ -1,18 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using TMPro;
+using System;
 
 public class GameLoop : MonoBehaviour
 {
 	public int currentPlayer;
     public int actionPoints;
+    public int magicPoints;
     public GameObject uiCanvas;
     public GameObject attackcanvas,victorycanvas;
     public GameObject lastClicked;
-    public TMP_Text victoryStatement;
     public Dictionary<int,GameObject> p1CharsDict, p2CharsDict;
     private int numAttacks;
     private GameObject scripts;
@@ -150,6 +149,12 @@ public class GameLoop : MonoBehaviour
         }
             
     }
+
+    internal void SetMagic(int magicAmount)
+    {
+        magicPoints = magicAmount;
+    }
+
     /// <summary>
     /// This function is called when the local player calls a retreat on their figure.
     /// </summary>
@@ -159,7 +164,7 @@ public class GameLoop : MonoBehaviour
         {
             uiCanvas.SetActive(false);
             Destroy(lastClicked.GetComponent<CharacterFeatures>().myCircle);
-            Destroy(lastClicked.GetComponent<CharacterFeatures>().attackRange);
+            //Destroy(lastClicked.GetComponent<CharacterFeatures>().attackRange);
             PlayerRemoval("Retreat", lastClicked.GetComponent<CharacterFeatures>().troopId, 1);
             Destroy(lastClicked);
             Client.Instance.SendRetreatData(lastClicked.GetComponent<CharacterFeatures>().troopId,2);
@@ -186,7 +191,7 @@ public class GameLoop : MonoBehaviour
                 {
                     victorycanvas.SetActive(true);
                     attackcanvas.SetActive(false);
-                    //victoryStatement.text = $"Victory has been acheived for \nplayer 2 after player 1 retreated ";
+                    victoryStatement.text = $"Victory has been acheived for \nplayer 2 after player 1 retreated ";
                 }
             }
             else
@@ -196,7 +201,7 @@ public class GameLoop : MonoBehaviour
                 {
                     victorycanvas.SetActive(true);
                     attackcanvas.SetActive(false);
-                    //victoryStatement.text = $"Victory has been acheived for \nplayer 1 after player 2 retreated ";
+                    victoryStatement.text = $"Victory has been acheived for \nplayer 1 after player 2 retreated ";
                 }
             }
         }
@@ -209,7 +214,10 @@ public class GameLoop : MonoBehaviour
                 {
                     victorycanvas.SetActive(true);
                     attackcanvas.SetActive(false);
-                    victoryStatement.text = $"Victory has been acheived for \nplayer 1 after defeating player 2 ";
+                    string text = $"Victory has been acheived for \nplayer 1 after defeating player 2 ";
+                    gameObject.GetComponent<BfieldUIControl>().ChangeText(
+                        gameObject.GetComponent<BfieldUIControl>().victoryText, text);
+
                 }
             }
             else
@@ -219,9 +227,26 @@ public class GameLoop : MonoBehaviour
                 {
                     victorycanvas.SetActive(true);
                     attackcanvas.SetActive(false);
-                    victoryStatement.text = $"Victory has been acheived for \nplayer 2 after defeating player 1 ";
+                    string text = $"Victory has been acheived for \nplayer 2 after defeating player 1 ";
+                    gameObject.GetComponent<BfieldUIControl>().ChangeText(
+                        gameObject.GetComponent<BfieldUIControl>().victoryText, text);
                 }
             }
         }
+    }
+
+    public void CastSpell()
+    {
+        if (actionPoints < 3 || magicPoints < 1)
+        {
+            Debug.Log("You do not have enough action points or magic to cast a spell!");
+        }
+        else
+        {
+            gameObject.GetComponent<PlayerSpotlight>().PlaceExplosion();
+            magicPoints--;
+            actionPoints -= 3;
+        }
+        
     }
 }

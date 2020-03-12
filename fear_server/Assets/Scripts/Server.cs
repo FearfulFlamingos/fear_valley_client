@@ -19,6 +19,7 @@ public class Server : MonoBehaviour
 
     private DatabaseController dbCont;
     private List<Troop> allTroops = new List<Troop>();
+    private Dictionary<int, int> magics = new Dictionary<int, int>();
 
     #region Monobehavior
     private void Start()
@@ -52,6 +53,7 @@ public class Server : MonoBehaviour
         // Clear out Army table for database
         dbCont = new DatabaseController();
         dbCont.Update("DELETE FROM Army;");
+        dbCont.Update("DELETE FROM Magic;");
         dbCont.CloseDB();
 
         
@@ -184,6 +186,11 @@ public class Server : MonoBehaviour
 
     private void Net_FinishBuild(int connId, int channelId, int recHostId, Net_FinishBuild msg)
     {
+        // Add magic amount to DB
+        dbCont.OpenDB();
+        dbCont.AddMagicToDB(connId, msg.MagicBought);
+        dbCont.CloseDB();
+
         //Debug.Log($"{waitingConnections} left");
         ChangeScene("TempLoadingScene", connId);
         //ToggleControls(connId);
@@ -298,6 +305,7 @@ public class Server : MonoBehaviour
         Debug.Log("Sending troops");
         dbCont = new DatabaseController();
         allTroops = dbCont.GetAllTroops();
+        magics = dbCont.ReadMagicFromDB();
         dbCont.CloseDB();
 
         foreach (Troop t in allTroops)
@@ -309,6 +317,7 @@ public class Server : MonoBehaviour
             np.AbsoluteXPos = t.XPos;
             np.AbsoluteZPos = t.ZPos;
             np.AtkBonus = t.TroopAtkBonus;
+            np.AtkRange = t.WeaponRange;
             np.Health = t.Health;
             np.MaxAttackVal = t.WeaponDamage;
             np.DefenseMod = t.Armor;
@@ -334,11 +343,15 @@ public class Server : MonoBehaviour
                 SendToClient(0, 2, np);
             }
             
-            //for (int i = 1; i <= MAX_USER; i++)
-            //{
-            //    try { SendToClient(0, i, np); }
-            //    catch (Exception e) { Debug.Log($"No user {i}"); }
-            //}
+        }
+
+        Net_SendMagic sm = new Net_SendMagic();
+        
+        // send magic amount to client
+        foreach (KeyValuePair<int,int> entry in magics)
+        {
+            sm.MagicAmount = entry.Value;
+            SendToClient(0, entry.Key, sm);
         }
     }
 

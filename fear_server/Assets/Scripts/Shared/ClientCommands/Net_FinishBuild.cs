@@ -6,4 +6,5 @@ public class Net_FinishBuild : NetMsg
         OperationCode = NetOP.FinishBuild;
     }
 
+    public int MagicBought { set; get; }
 }

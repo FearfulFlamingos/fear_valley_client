@@ -7,7 +7,6 @@ public class PlayerMovement : MonoBehaviour
 {
     public LayerMask whatCanBeClickedOn;
     private NavMeshAgent myAgent;
-    public GameObject gameObject;
     private GameObject uiCanvas;
     private GameObject scripts;
 
@@ -29,13 +28,13 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && Client.Instance.hasControl)
+        if (Input.GetMouseButtonDown(0) && Client.Instance.hasControl && gameObject.GetComponent<CharacterFeatures>().team == 1)
         {
             Debug.Log("Mouse button clicked");
             Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitInfo;
 
-            if (Physics.Raycast (myRay, out hitInfo, 100, whatCanBeClickedOn) && gameObject.GetComponent<CharacterFeatures>().team == 1)
+            if (Physics.Raycast (myRay, out hitInfo, 100, whatCanBeClickedOn))
             {
                 float hitX = hitInfo.point[0];
                 float hitY = hitInfo.point[2];
@@ -76,9 +75,9 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log(newPos);
         CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
         GameObject Circle = referenceScript.myCircle;
-        GameObject Circle2 = referenceScript.attackRange;
+        //GameObject Circle2 = referenceScript.attackRange;
         Circle.transform.position = new Vector3(newPos[0], 0.2F, newPos[2]);
-        Circle2.transform.position = new Vector3(newPos[0], 0.2F, newPos[2]);
+        //Circle2.transform.position = new Vector3(newPos[0], 0.2F, newPos[2]);
     }
     /// <summary>
     /// This function disables the player spotlight scrit and everything else to activate movement is done before we get to this script.

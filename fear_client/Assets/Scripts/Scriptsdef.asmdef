@@ -1,0 +1,4 @@
+﻿{
+	"name": "Scriptsdef",
+    "references": [ "Unity.TextMeshPro"]
+}
