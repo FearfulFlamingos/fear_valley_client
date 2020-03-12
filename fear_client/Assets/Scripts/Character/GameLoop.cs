@@ -1,9 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using TMPro;
 using System;
 
 public class GameLoop : MonoBehaviour
@@ -14,7 +12,6 @@ public class GameLoop : MonoBehaviour
     public GameObject uiCanvas;
     public GameObject attackcanvas,victorycanvas;
     public GameObject lastClicked;
-    public TMP_Text victoryStatement;
     public Dictionary<int,GameObject> p1CharsDict, p2CharsDict;
     private int numAttacks;
     private GameObject scripts;
@@ -217,7 +214,10 @@ public class GameLoop : MonoBehaviour
                 {
                     victorycanvas.SetActive(true);
                     attackcanvas.SetActive(false);
-                    victoryStatement.text = $"Victory has been acheived for \nplayer 1 after defeating player 2 ";
+                    string text = $"Victory has been acheived for \nplayer 1 after defeating player 2 ";
+                    gameObject.GetComponent<BfieldUIControl>().ChangeText(
+                        gameObject.GetComponent<BfieldUIControl>().victoryText, text);
+
                 }
             }
             else
@@ -227,7 +227,9 @@ public class GameLoop : MonoBehaviour
                 {
                     victorycanvas.SetActive(true);
                     attackcanvas.SetActive(false);
-                    victoryStatement.text = $"Victory has been acheived for \nplayer 2 after defeating player 1 ";
+                    string text = $"Victory has been acheived for \nplayer 2 after defeating player 1 ";
+                    gameObject.GetComponent<BfieldUIControl>().ChangeText(
+                        gameObject.GetComponent<BfieldUIControl>().victoryText, text);
                 }
             }
         }
