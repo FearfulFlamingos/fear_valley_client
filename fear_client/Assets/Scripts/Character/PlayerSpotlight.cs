@@ -100,8 +100,12 @@ public class PlayerSpotlight : MonoBehaviour
             referenceScript.isFocused = true;
             uiCanvas.SetActive(true);
 
-            leftText.text = $"Name: Roman\nAttack:+4\nAction Points:{currentPlayer.actionPoints}";
-            rightText.text = $"Class: {referenceScript.charclass}\nDefense:13\nMovement:6";
+            string leftText = $"Name: Roman\nAttack:+4\nAction Points:{currentPlayer.actionPoints}";
+            string rightText = $"Class: {referenceScript.charclass}\nDefense:13\nMovement:6";
+            gameObject.GetComponent<BfieldUIControl>().ChangeText(
+                gameObject.GetComponent<BfieldUIControl>().actionsPanelLeftHandText, leftText);
+            gameObject.GetComponent<BfieldUIControl>().ChangeText(
+                 gameObject.GetComponent<BfieldUIControl>().actionsPanelRightHandText, rightText);
         }
     }
     /// <summary>

@@ -18,7 +18,8 @@ namespace Tests
             SceneManager.LoadScene("Battlefield");
             yield return 3;
             PopulateCharacter CreateFigure = new GameObject().AddComponent<PopulateCharacter>();
-            var NewGameObject = CreateFigure.DuplicateObjects(1, "Magic User", 1, 1, 1, 6, 4, 0, 0, 0, 2, 0, 6, 0);
+            //var NewGameObject = CreateFigure.DuplicateObjects(1, "Magic User", 1, 1, 1, 6, 4, 0, 0, 0, 2, 0, 6, 0);
+            var NewGameObject = CreateFigure.DuplicateObjects(1,"Magic User",1,1,1,6,4,0,0,0,2,6,24,2,0);
             //var NewGameObject = Resources.Load("Magic User");
             //Debug.Log(NewGameObjectID);
             Debug.Log(NewGameObject);
@@ -52,7 +53,7 @@ namespace Tests
             SceneManager.LoadScene("Battlefield");
             yield return 3;
             PopulateCharacter CreateFigure = new GameObject().AddComponent<PopulateCharacter>();
-            var NewGameObject = CreateFigure.DuplicateObjects(1, "Magic User", 1, 1, 1, 6, 4, 0, 0, 0, 2, 0, 6, 0);
+            var NewGameObject = CreateFigure.DuplicateObjects(1, "Magic User", 1, 1, 1, 6, 4, 0, 0, 0, 2, 6, 24, 2, 0);
             yield return null;
             GameObject sceneController = GameObject.Find("SceneController");
             PlayerSpotlight spotScript = sceneController.GetComponent<PlayerSpotlight>();
@@ -66,7 +67,7 @@ namespace Tests
             SceneManager.LoadScene("Battlefield");
             yield return 3;
             PopulateCharacter CreateFigure = new GameObject().AddComponent<PopulateCharacter>();
-            var NewGameObject = CreateFigure.DuplicateObjects(1, "Magic User", 1, 1, 1, 6, 4, 0, 0, 0, 2, 0, 6, 0);
+            var NewGameObject = CreateFigure.DuplicateObjects(1, "Magic User", 1, 1, 1, 6, 4, 0, 0, 0, 2, 6, 24, 2, 0);
             yield return null;
             GameObject sceneController = GameObject.Find("SceneController");
             PlayerSpotlight spotScript = sceneController.GetComponent<PlayerSpotlight>();
@@ -94,7 +95,7 @@ namespace Tests
             SceneManager.LoadScene("Battlefield");
             yield return 3;
             PopulateCharacter CreateFigure = new GameObject().AddComponent<PopulateCharacter>();
-            var NewGameObject = CreateFigure.DuplicateObjects(1, "Magic User", 1, 1, 1, 6, 4, 0, 0, 0, 2, 0, 6, 0);
+            var NewGameObject = CreateFigure.DuplicateObjects(1, "Magic User", 1, 1, 1, 6, 4, 0, 0, 0, 2, 6, 24, 2, 0);
             yield return null;
             GameObject sceneController = GameObject.Find("SceneController");
             PlayerSpotlight spotScript = sceneController.GetComponent<PlayerSpotlight>();
@@ -112,7 +113,7 @@ namespace Tests
             SceneManager.LoadScene("Battlefield");
             yield return 3;
             PopulateCharacter CreateFigure = new GameObject().AddComponent<PopulateCharacter>();
-            var NewGameObject = CreateFigure.DuplicateObjects(1, "Magic User", 1, 1, 1, 6, 4, 0, 0, 0, 2, 0, 6, 0);
+            var NewGameObject = CreateFigure.DuplicateObjects(1, "Magic User", 1, 1, 1, 6, 4, 0, 0, 0, 2, 6, 24, 2, 0);
             yield return null;
             GameObject sceneController = GameObject.Find("SceneController");
             PlayerSpotlight spotScript = sceneController.GetComponent<PlayerSpotlight>();

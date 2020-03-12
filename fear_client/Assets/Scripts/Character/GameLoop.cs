@@ -191,7 +191,9 @@ public class GameLoop : MonoBehaviour
                 {
                     victorycanvas.SetActive(true);
                     attackcanvas.SetActive(false);
-                    victoryStatement.text = $"Victory has been acheived for \nplayer 2 after player 1 retreated ";
+                    string text = $"Victory has been acheived for \nplayer 2 after player 1 retreated ";
+                    gameObject.GetComponent<BfieldUIControl>().ChangeText(
+                        gameObject.GetComponent<BfieldUIControl>().victoryText, text);
                 }
             }
             else
@@ -201,7 +203,9 @@ public class GameLoop : MonoBehaviour
                 {
                     victorycanvas.SetActive(true);
                     attackcanvas.SetActive(false);
-                    victoryStatement.text = $"Victory has been acheived for \nplayer 1 after player 2 retreated ";
+                    string text = $"Victory has been acheived for \nplayer 1 after player 2 retreated ";
+                    gameObject.GetComponent<BfieldUIControl>().ChangeText(
+                        gameObject.GetComponent<BfieldUIControl>().victoryText, text);
                 }
             }
         }
