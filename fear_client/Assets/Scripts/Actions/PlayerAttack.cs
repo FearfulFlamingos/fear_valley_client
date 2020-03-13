@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class PlayerAttack : MonoBehaviour
 {
     public LayerMask whatCanBeClickedOn;
-    private GameObject attackObject;
-    private bool canAttack, timeToDistroy;
+    public GameObject attackObject;
+    public bool canAttack, timeToDistroy;
     private Camera camera1;
     private GameObject xbutton, attackbutton, cancelbutton;
     private GameObject uiCanvas;
@@ -19,6 +19,10 @@ public class PlayerAttack : MonoBehaviour
     {
         
         //uiCanvas = GameObject.FindGameObjectWithTag("PlayerAction");
+        ActivateObjects();
+    }
+
+    public void ActivateObjects(){
         scripts = GameObject.FindGameObjectWithTag("scripts");
         uiCanvas = scripts.GetComponent<PlayerSpotlight>().attackcanvas;
         camera1 = scripts.GetComponent<PlayerSpotlight>().camera1;
@@ -154,7 +158,9 @@ public class PlayerAttack : MonoBehaviour
                 else
                 {
                     referenceScript.health = System.Convert.ToInt32(referenceScript.health - damageTaken);
-                    Client.Instance.SendAttackData(referenceScript.troopId,damageTaken);
+                    if (Client.Instance != null){
+                        Client.Instance.SendAttackData(referenceScript.troopId,damageTaken);
+                    }
                     string text = $"You attack was a success \nand you have dealt {damageTaken} damage\nto the player named Roman ";
                     scripts.GetComponent<BfieldUIControl>().ChangeText(
                         scripts.GetComponent<BfieldUIControl>().attackPanelEnemyInfo, text);

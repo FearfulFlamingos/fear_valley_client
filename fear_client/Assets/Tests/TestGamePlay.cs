@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
+using System;
 
 namespace Tests
 {
@@ -105,6 +106,10 @@ namespace Tests
 
             Assert.True(NewGameObject.GetComponent<PlayerMovement>().enabled);
 
+            NewGameObject.GetComponent<PlayerMovement>().DeactivateMovement();
+
+            Assert.False(NewGameObject.GetComponent<PlayerMovement>().enabled);
+
         }
 
         [UnityTest]
@@ -122,32 +127,90 @@ namespace Tests
             ClickButton("AttackButton");
 
             Assert.True(NewGameObject.GetComponent<PlayerAttack>().enabled);
+            NewGameObject.GetComponent<PlayerAttack>().ActivateObjects();
+            NewGameObject.GetComponent<PlayerAttack>().DeactivateAttack();
+            GameLoop loopScript = sceneController.GetComponent<GameLoop>();
+            loopScript.CancelAttack();
+
+            Assert.False(NewGameObject.GetComponent<PlayerAttack>().enabled);
 
         }
 
-        //[UnityTest]
-        //public IEnumerator TestRetreat()
-        //{
-        //    SceneManager.LoadScene("Battlefield");
-        //    yield return 3;
-        //    PopulateCharacter CreateFigure = new GameObject().AddComponent<PopulateCharacter>();
-        //    var NewGameObject = CreateFigure.DuplicateObjects(1, "Magic User", 1, 1, 1, 6, 4, 0, 0, 0, 2, 0, 6, 0);
-        //    yield return null;
-        //    GameObject sceneController = GameObject.Find("SceneController");
-        //    PlayerSpotlight spotScript = sceneController.GetComponent<PlayerSpotlight>();
-        //    spotScript.SpotlightChar(NewGameObject);
-        //    yield return null;
-        //    ClickButton("RetreatButton");
+		[UnityTest]
+		public IEnumerator TestRetreat()
+		{
+			SceneManager.LoadScene("Battlefield");
+			yield return 3;
+			PopulateCharacter CreateFigure = new GameObject().AddComponent<PopulateCharacter>();
+			var NewGameObject = CreateFigure.DuplicateObjects(1, "Magic User", 1, 1, 1, 6, 4, 0, 0, 0, 2, 6, 24, 2, 0);
+			NewGameObject.name = "testwiz";
+			yield return null;
+			GameObject sceneController = GameObject.Find("SceneController");
+			PlayerSpotlight spotScript = sceneController.GetComponent<PlayerSpotlight>();
+			spotScript.SpotlightChar(NewGameObject);
+			yield return null;
+			ClickButton("RetreatButton");
+			yield return 1;
 
-        //    Assert.Null(NewGameObject);
+			Assert.Null(GameObject.Find("testwiz"));
 
-        //}
+		}
+        [UnityTest]
+        public IEnumerator TestMovement(){
+            SceneManager.LoadScene("Battlefield");
+            yield return 3;
+            PopulateCharacter CreateFigure = new GameObject().AddComponent<PopulateCharacter>();
+            var NewGameObject = CreateFigure.DuplicateObjects(1, "Magic User", 1, 1, 1, 6, 4, 0, 0, 0, 2, 6, 24, 2, 0);
+            yield return null;
+            GameObject sceneController = GameObject.Find("SceneController");
+            PlayerSpotlight spotScript = sceneController.GetComponent<PlayerSpotlight>();
+            spotScript.SpotlightChar(NewGameObject);
+            yield return null;
+            ClickButton("MoveButton");
+            PlayerMovement testmove = NewGameObject.GetComponent<PlayerMovement>();
+            Vector3 newPos = new Vector3(4,0,4);
+            testmove.MoveMe(newPos);
+            yield return 4;
+            Debug.Log(NewGameObject.transform.position);
+            Assert.True(NewGameObject.transform.position == newPos);
+        }
+        [UnityTest]
+        public IEnumerator TestAttack()
+        {
+            SceneManager.LoadScene("Battlefield");
+            yield return 3;
+            PopulateCharacter CreateFigure = new GameObject().AddComponent<PopulateCharacter>();
+            var NewGameObject = CreateFigure.DuplicateObjects(1, "Magic User", 1, 1, 1, 6, 4, 0, 0, 0, 2, 6, 24, 2, 0);
+            var NewGameObject2 = CreateFigure.DuplicateObjects(2, "Peasant", 2, 2, 2, 6, 4, 0, 0, 0, 2, 6, 24, 2, 0);
+            yield return null;
+            GameObject sceneController = GameObject.Find("SceneController");
+            PlayerSpotlight spotScript = sceneController.GetComponent<PlayerSpotlight>();
+            spotScript.SpotlightChar(NewGameObject);
+            yield return null;
+            ClickButton("AttackButton");
 
-        ///Test movement
-        ///Test ui text population
-        ///test player is active
-        ///test activate attack/ movement
-        ///Look into testing server and client
-        ///
-    }
+            UnityEngine.Random.seed = 42;
+            NewGameObject.GetComponent<PlayerAttack>().attackObject = NewGameObject2;
+            NewGameObject.GetComponent<PlayerAttack>().canAttack = true;
+            NewGameObject.GetComponent<PlayerAttack>().ActivateObjects();
+            NewGameObject.GetComponent<PlayerAttack>().Attack();
+            Debug.Log(NewGameObject2.GetComponent<CharacterFeatures>().health);
+
+            Assert.True(NewGameObject2.GetComponent<CharacterFeatures>().health == 6);
+
+        }
+        // [UnityTest]
+        // public IEnumerator TestPopulateGrid(){
+
+        // }
+        
+	}
+
+    //     /Test movement
+    //     /Test ui text population
+    //     /test player is active
+    //     /test activate attack/ movement
+    //     /Look into testing server and client
+    //     /
+    // }
 }

@@ -37,7 +37,9 @@ public class GameLoop : MonoBehaviour
             currentPlayer = 1;// - currentPlayer;
             actionPoints = 3;
             numAttacks = 0;
-            Client.Instance.SendEndTurn();
+            if (Client.Instance != null){
+                Client.Instance.SendEndTurn();
+            }
         }
 
     }
@@ -166,8 +168,12 @@ public class GameLoop : MonoBehaviour
             Destroy(lastClicked.GetComponent<CharacterFeatures>().myCircle);
             //Destroy(lastClicked.GetComponent<CharacterFeatures>().attackRange);
             PlayerRemoval("Retreat", lastClicked.GetComponent<CharacterFeatures>().troopId, 1);
+            Debug.Log(lastClicked);
             Destroy(lastClicked);
-            Client.Instance.SendRetreatData(lastClicked.GetComponent<CharacterFeatures>().troopId,2);
+            if (Client.Instance != null){
+                Client.Instance.SendRetreatData(lastClicked.GetComponent<CharacterFeatures>().troopId,2);
+            }
+            Debug.Log(lastClicked);
             scripts.GetComponent<GameLoop>().actionPoints = 0;
 
         }

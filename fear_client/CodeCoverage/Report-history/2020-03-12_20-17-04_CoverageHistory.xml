@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<coverage version="1.0" date="2020-03-12_20-17-04" tag="">
+  <assembly name="Assembly-CSharp">
+    <class name="CameraRotate" coveredlines="0" coverablelines="4" totallines="13" coveredbranches="0" totalbranches="0" />
+  </assembly>
+  <assembly name="Scriptsdef">
+    <class name="BfieldUIControl" coveredlines="3" coverablelines="3" totallines="24" coveredbranches="0" totalbranches="0" />
+    <class name="BlowUpEnemies" coveredlines="0" coverablelines="22" totallines="35" coveredbranches="0" totalbranches="0" />
+    <class name="CharacterFeatures" coveredlines="37" coverablelines="37" totallines="86" coveredbranches="0" totalbranches="0" />
+    <class name="Client" coveredlines="1" coverablelines="161" totallines="300" coveredbranches="0" totalbranches="0" />
+    <class name="FeaturesHolder" coveredlines="0" coverablelines="7" totallines="25" coveredbranches="0" totalbranches="0" />
+    <class name="GameLoop" coveredlines="50" coverablelines="147" totallines="262" coveredbranches="0" totalbranches="0" />
+    <class name="MainMenuButtons" coveredlines="0" coverablelines="13" totallines="32" coveredbranches="0" totalbranches="0" />
+    <class name="Net_AddTroop" coveredlines="0" coverablelines="9" totallines="14" coveredbranches="0" totalbranches="0" />
+    <class name="Net_ATTACK" coveredlines="0" coverablelines="6" totallines="12" coveredbranches="0" totalbranches="0" />
+    <class name="Net_ChangeScene" coveredlines="0" coverablelines="5" totallines="10" coveredbranches="0" totalbranches="0" />
+    <class name="Net_EndTurn" coveredlines="0" coverablelines="4" totallines="9" coveredbranches="0" totalbranches="0" />
+    <class name="Net_FinishBuild" coveredlines="0" coverablelines="5" totallines="10" coveredbranches="0" totalbranches="0" />
+    <class name="Net_MOVE" coveredlines="0" coverablelines="7" totallines="13" coveredbranches="0" totalbranches="0" />
+    <class name="Net_Propogate" coveredlines="0" coverablelines="15" totallines="20" coveredbranches="0" totalbranches="0" />
+    <class name="Net_RETREAT" coveredlines="0" coverablelines="6" totallines="11" coveredbranches="0" totalbranches="0" />
+    <class name="Net_SendMagic" coveredlines="0" coverablelines="5" totallines="11" coveredbranches="0" totalbranches="0" />
+    <class name="Net_ToggleControls" coveredlines="0" coverablelines="4" totallines="9" coveredbranches="0" totalbranches="0" />
+    <class name="NetMsg" coveredlines="0" coverablelines="5" totallines="28" coveredbranches="0" totalbranches="0" />
+    <class name="PlayerAttack" coveredlines="18" coverablelines="102" totallines="207" coveredbranches="0" totalbranches="0" />
+    <class name="PlayerMagic" coveredlines="7" coverablelines="62" totallines="103" coveredbranches="0" totalbranches="0" />
+    <class name="PlayerMovement" coveredlines="23" coverablelines="60" totallines="102" coveredbranches="0" totalbranches="0" />
+    <class name="PlayerSpotlight" coveredlines="38" coverablelines="79" totallines="164" coveredbranches="0" totalbranches="0" />
+    <class name="PopulateCharacter" coveredlines="37" coverablelines="45" totallines="105" coveredbranches="0" totalbranches="0" />
+    <class name="PopulateGrid" coveredlines="0" coverablelines="124" totallines="263" coveredbranches="0" totalbranches="0" />
+    <class name="ServerPreferences" coveredlines="0" coverablelines="15" totallines="44" coveredbranches="0" totalbranches="0" />
+    <class name="UIPopulate" coveredlines="0" coverablelines="42" totallines="138" coveredbranches="0" totalbranches="0" />
+    <class name="VolumeControl" coveredlines="0" coverablelines="4" totallines="25" coveredbranches="0" totalbranches="0" />
+  </assembly>
+  <assembly name="Tests">
+    <class name="Tests.TestGamePlay" coveredlines="113" coverablelines="114" totallines="176" coveredbranches="0" totalbranches="0" />
+  </assembly>
+</coverage>

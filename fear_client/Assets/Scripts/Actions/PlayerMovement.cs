@@ -6,8 +6,8 @@ using UnityEngine.AI;
 public class PlayerMovement : MonoBehaviour
 {
     public LayerMask whatCanBeClickedOn;
-    private NavMeshAgent myAgent;
-    private GameObject uiCanvas;
+    public NavMeshAgent myAgent;
+    public GameObject uiCanvas;
     private GameObject scripts;
 
     // Start is called before the first frame update
@@ -71,7 +71,8 @@ public class PlayerMovement : MonoBehaviour
             newPos.z = 8- newPos.z;
             newPos.x = 8 - newPos.x;
         }
-        myAgent.SetDestination(newPos);
+        myAgent = gameObject.GetComponent<NavMeshAgent>();
+        gameObject.GetComponent<NavMeshAgent>().SetDestination(newPos);
         Debug.Log(newPos);
         CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
         GameObject Circle = referenceScript.myCircle;
@@ -94,6 +95,7 @@ public class PlayerMovement : MonoBehaviour
     public void DeactivateMovement()
     {
         scripts = GameObject.FindGameObjectWithTag("scripts");
+        uiCanvas = GameObject.FindGameObjectWithTag("PlayerAction");
         scripts.GetComponent<PlayerSpotlight>().enabled = true;
         uiCanvas.SetActive(false);
         gameObject.GetComponent<PlayerMovement>().enabled = false;
