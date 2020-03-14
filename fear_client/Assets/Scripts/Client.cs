@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using FearValleyNetwork;
 
 public class Client : MonoBehaviour
 {

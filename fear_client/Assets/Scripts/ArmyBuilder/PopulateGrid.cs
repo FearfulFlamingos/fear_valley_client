@@ -240,7 +240,7 @@ public class PopulateGrid : MonoBehaviour
     /// <summary>
     /// Adds an explosion to the bottom panel in the army build visual scene.
     /// </summary>
-    public void AddExplosion() //TODO: Update cost string
+    public void AddExplosion()
         {
             GameObject newExplosion = (GameObject)Instantiate(Resources.Load("UI/ArmyBuild/ExplosionImage"), explosionScrollView.transform);
             explosions.Push(newExplosion);
@@ -249,7 +249,7 @@ public class PopulateGrid : MonoBehaviour
     /// <summary>
     /// 
     /// </summary>
-    public void RemoveExplosion() //TODO: Update Cost string
+    public void RemoveExplosion()
     {
         if (explosions.Count != 0)
         {

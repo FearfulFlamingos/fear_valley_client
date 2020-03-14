@@ -10,8 +10,6 @@ public class PlayerAttack : MonoBehaviour
     private GameObject attackObject;
     private bool canAttack, timeToDistroy;
     private Camera camera1;
-    private GameObject xbutton, attackbutton, cancelbutton;
-    private GameObject uiCanvas;
     private GameObject scripts;
 
     // Start is called before the first frame update
@@ -20,12 +18,7 @@ public class PlayerAttack : MonoBehaviour
         
         //uiCanvas = GameObject.FindGameObjectWithTag("PlayerAction");
         scripts = GameObject.FindGameObjectWithTag("scripts");
-        uiCanvas = scripts.GetComponent<PlayerSpotlight>().attackcanvas;
         camera1 = scripts.GetComponent<PlayerSpotlight>().camera1;
-        xbutton = scripts.GetComponent<PlayerSpotlight>().xbutton;
-        attackbutton = scripts.GetComponent<PlayerSpotlight>().attackbutton;
-        cancelbutton = scripts.GetComponent<PlayerSpotlight>().cancelbutton;
-        timeToDistroy = false;
     }
 
 
@@ -57,15 +50,13 @@ public class PlayerAttack : MonoBehaviour
                         if(Vector3.Distance(gameObject.transform.position,attackObject.transform.position) < gameObject.GetComponent<CharacterFeatures>().attackRange)
                         {
                             string text = $"Name: Roman\nHealth: {referenceScript.health}\nClass: {referenceScript.charclass}\nDefense: {referenceScript.damageBonus}\nWithin Range: Yes";
-                            scripts.GetComponent<BfieldUIControl>().ChangeText(
-                                scripts.GetComponent<BfieldUIControl>().attackPanelEnemyInfo, text);
+                            scripts.GetComponent<BattleUIControl>().SetAttackPanelEnemyInfo(text);
                             canAttack = true;
                         }
                         else
                         {
                             string text = $"Name: Roman\nHealth: {referenceScript.health}\nClass: {referenceScript.charclass}\nDefense: {referenceScript.damageBonus}\nWithin Range: No";
-                            scripts.GetComponent<BfieldUIControl>().ChangeText(
-                                scripts.GetComponent<BfieldUIControl>().attackPanelEnemyInfo, text);
+                            scripts.GetComponent<BattleUIControl>().SetAttackPanelEnemyInfo(text);
                             canAttack = false;
                         }
 
@@ -73,8 +64,7 @@ public class PlayerAttack : MonoBehaviour
                     else
                     {
                         string text = $"You can not attack\nyour own team.";
-                        scripts.GetComponent<BfieldUIControl>().ChangeText(
-                            scripts.GetComponent<BfieldUIControl>().attackPanelEnemyInfo, text);
+                        scripts.GetComponent<BattleUIControl>().SetAttackPanelEnemyInfo(text);
                     }
                     
                 }
@@ -83,31 +73,6 @@ public class PlayerAttack : MonoBehaviour
 
     }
 
-    /// <summary>
-    /// This function is used to decide with the point on the screen clicked. This is used to view if the player clicked can be attacked from where the player is currently.
-    /// </summary>
-    /// <param name="maxDistance"></param>
-    /// <param name="newPointX"></param>
-    /// <param name="newPointZ"></param>
-    /// <param name="curPointX"></param>
-    /// <param name="curPointZ"></param>
-    /// <param name="ranged">There are special resitrictions for ranged attacks</param>
-    /// <returns></returns>
-    //public bool WithinRange(float maxDistance, float newPointX, float newPointZ, float curPointX, float curPointZ, bool ranged)
-    //{
-
-    //    float squaredX = (newPointX - curPointX) * (newPointX - curPointX);
-    //    float squaredZ = (newPointZ - curPointZ) * (newPointZ - curPointZ);
-    //    float result = Mathf.Sqrt(squaredX + squaredZ);
-    //    Debug.Log("IAMHERE");
-    //    Debug.Log(result);
-    //    if (maxDistance >= result)
-    //    {
-    //        return true;
-    //    }
-
-    //    return false;
-    //}
 
     /// <summary>
     /// This function is called to modify the game to "attack mode". It activates the attacking click options and deactivates the player spotlight clicked.
@@ -141,9 +106,8 @@ public class PlayerAttack : MonoBehaviour
                 if ((referenceScript.health - damageTaken) <= 0)
                 {
                     string text = $"You have dealt fatal damage\nto the player named Roman ";
-                    scripts.GetComponent<BfieldUIControl>().ChangeText(
-                        scripts.GetComponent<BfieldUIControl>().attackPanelEnemyInfo, text);
-                    timeToDistroy = true;
+                    scripts.GetComponent<BattleUIControl>().SetAttackPanelEnemyInfo(text);
+                    timeToDistroy = true; // This actually destroys the attacked object
 
                     gamevars.PlayerRemoval("Attack", attackObject.GetComponent<CharacterFeatures>().troopId,2);
                     //Destroy(attackObject);
@@ -156,26 +120,20 @@ public class PlayerAttack : MonoBehaviour
                     referenceScript.health = System.Convert.ToInt32(referenceScript.health - damageTaken);
                     Client.Instance.SendAttackData(referenceScript.troopId,damageTaken);
                     string text = $"You attack was a success \nand you have dealt {damageTaken} damage\nto the player named Roman ";
-                    scripts.GetComponent<BfieldUIControl>().ChangeText(
-                        scripts.GetComponent<BfieldUIControl>().attackPanelEnemyInfo, text);
+                    scripts.GetComponent<BattleUIControl>().SetAttackPanelEnemyInfo(text);
                 }
                 
             }
             else
             {
                 string text = $"You could not get passed their armor\nyour attack has failed";
-                scripts.GetComponent<BfieldUIControl>().ChangeText(
-                    scripts.GetComponent<BfieldUIControl>().attackPanelEnemyInfo, text);
+                scripts.GetComponent<BattleUIControl>().SetAttackPanelEnemyInfo(text);
             }
-            xbutton.SetActive(true);
-            attackbutton.SetActive(false);
-            cancelbutton.SetActive(false);
         }
         else
         {
             string text = $"You can not attack this target\nthey are not in range. Select \nanother fighter to attack.";
-            scripts.GetComponent<BfieldUIControl>().ChangeText(
-                scripts.GetComponent<BfieldUIControl>().attackPanelEnemyInfo, text);
+            scripts.GetComponent<BattleUIControl>().SetAttackPanelEnemyInfo(text);
         }
     }
     /// <summary>
@@ -188,18 +146,14 @@ public class PlayerAttack : MonoBehaviour
         scripts = GameObject.FindGameObjectWithTag("scripts");
         scripts.GetComponent<PlayerSpotlight>().enabled = true;
         CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
-        attackbutton.SetActive(true);
-        cancelbutton.SetActive(true);
         referenceScript.isAttacking = false;
         string text = $"Name: Health: \nClass: \nDefense: \nWithin Range: ";
-        scripts.GetComponent<BfieldUIControl>().ChangeText(
-            scripts.GetComponent<BfieldUIControl>().attackPanelEnemyInfo, text);
+        scripts.GetComponent<BattleUIControl>().SetAttackPanelEnemyInfo(text);
         if (timeToDistroy)
         {
-            Debug.Log("__________________________________________________________" + timeToDistroy);
+            Debug.Log("Deleting slain enemy");
             timeToDistroy = false;
             Destroy(attackObject.GetComponent<CharacterFeatures>().myCircle);
-            //Destroy(attackObject.GetComponent<CharacterFeatures>().attackRange);
             Destroy(attackObject);
         }
     }

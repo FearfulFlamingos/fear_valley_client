@@ -8,17 +8,12 @@ public class PlayerSpotlight : MonoBehaviour
 {
     public Camera camera1;
     public GameObject lastClicked, board;
-    public GameObject uiCanvas;
-    public GameObject attackcanvas;
-    public GameObject xbutton, attackbutton, cancelbutton;
     public GameObject battleUI;
     private GameObject scripts;
 
     private void Start()
     {
         camera1.gameObject.SetActive(true);
-        uiCanvas.SetActive(false);
-        attackcanvas.SetActive(false);
         scripts = GameObject.FindGameObjectWithTag("scripts");
         lastClicked = null;
 
@@ -65,7 +60,7 @@ public class PlayerSpotlight : MonoBehaviour
                     else
                     {
                         Debug.Log("Currentplayer == board");
-                        uiCanvas.SetActive(false);
+                        gameObject.GetComponent<BattleUIControl>().ToggleInfoPanel(false);
                     }
 
                     CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
@@ -92,28 +87,30 @@ public class PlayerSpotlight : MonoBehaviour
         scripts.GetComponent<GameLoop>().lastClicked = current;
         if (referenceScript.isFocused)
         {
-            referenceScript.isFocused = false;
-            uiCanvas.SetActive(false);
+            DeactivateFocus(referenceScript);
         }
         else
         {
             referenceScript.isFocused = true;
-            uiCanvas.SetActive(true);
+            gameObject.GetComponent<BattleUIControl>().ToggleInfoPanel(true);
+            gameObject.GetComponent<BattleUIControl>().ToggleActionPanel(true, referenceScript.charclass);
 
             string leftText = $"Name: Roman\nAttack:+4\nAction Points:{currentPlayer.actionPoints}";
             string rightText = $"Class: {referenceScript.charclass}\nDefense:13\nMovement:6";
-            gameObject.GetComponent<BfieldUIControl>().ChangeText(
-                gameObject.GetComponent<BfieldUIControl>().actionsPanelLeftHandText, leftText);
-            gameObject.GetComponent<BfieldUIControl>().ChangeText(
-                 gameObject.GetComponent<BfieldUIControl>().actionsPanelRightHandText, rightText);
+            gameObject.GetComponent<BattleUIControl>().SetInfoPanelFriendlyText(leftText, rightText);
         }
+    }
+
+    public void DeactivateFocus(CharacterFeatures referenceScript)
+    {
+        referenceScript.isFocused = false;
     }
     /// <summary>
     /// This function is used after the move buttion is clicked and it activates the movement script
     /// </summary>
     public void ActivateMovement()
     {
-        //uiCanvas.SetActive(false);
+        //gameObject.GetComponent<BfieldUIControl>().ToggleInfoPanel(false);
         lastClicked.GetComponent<PlayerMovement>().enabled = true;
         lastClicked.GetComponent<PlayerMovement>().ActivateMovement();
     }
@@ -124,12 +121,9 @@ public class PlayerSpotlight : MonoBehaviour
     public void ActivateAttack()
     {
         string text = $"You are attacking with: {lastClicked.GetComponent<CharacterFeatures>().charclass}";
-        gameObject.GetComponent<BfieldUIControl>().ChangeText(
-            gameObject.GetComponent<BfieldUIControl>().attackButtonText, text);
+        gameObject.GetComponent<BattleUIControl>().SetAttackPanelAttackerInfo(text);
+        gameObject.GetComponent<BattleUIControl>().ToggleInfoPanel(false);
 
-        uiCanvas.SetActive(false);
-        attackcanvas.SetActive(true);
-        xbutton.SetActive(false);
         lastClicked.GetComponent<PlayerAttack>().enabled = true;
         lastClicked.GetComponent<PlayerAttack>().ActivateAttack();
     }
@@ -137,28 +131,7 @@ public class PlayerSpotlight : MonoBehaviour
     public void PlaceExplosion()
     {
         //lastClicked.GetComponent<PlayerMagic>().enabled = true;
-        uiCanvas.SetActive(false);
+        gameObject.GetComponent<BattleUIControl>().ToggleInfoPanel(false);
         lastClicked.GetComponent<PlayerMagic>().PlaceExplosion();
-
     }
-
-
-    //private void switchCamera(int camPosition)
-    //{
-    //    if (camPosition > 1)
-    //    {
-    //        camPosition = 0;
-    //    }
-
-    //    PlayerPrefs.SetInt("CameraPosition", camPosition);
-    //    if (camPosition == 0)
-    //    {
-    //        camera1.SetActive(true);
-    //        camera2.SetActive(false);
-    //    }
-    //    if (camPosition == 1)
-    //    {
-    //        camera1.SetActive(false);
-    //        camera2.SetActive(true);
-    //    }
 }

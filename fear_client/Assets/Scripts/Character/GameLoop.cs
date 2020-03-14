@@ -9,8 +9,6 @@ public class GameLoop : MonoBehaviour
 	public int currentPlayer;
     public int actionPoints;
     public int magicPoints;
-    public GameObject uiCanvas;
-    public GameObject attackcanvas,victorycanvas;
     public GameObject lastClicked;
     public Dictionary<int,GameObject> p1CharsDict, p2CharsDict;
     private int numAttacks;
@@ -104,7 +102,7 @@ public class GameLoop : MonoBehaviour
     /// </summary>
     public void CancelAttack()
     {
-        attackcanvas.SetActive(false);
+        gameObject.GetComponent<BattleUIControl>().ToggleInfoPanel(false);
         lastClicked.GetComponent<PlayerAttack>().DeactivateAttack();
         lastClicked.GetComponent<PlayerAttack>().enabled = false;
     }
@@ -114,11 +112,8 @@ public class GameLoop : MonoBehaviour
     /// </summary>
     public void EndAttack()
     {
-        attackcanvas.SetActive(false);
-        lastClicked.GetComponent<PlayerAttack>().DeactivateAttack();
-        lastClicked.GetComponent<PlayerAttack>().enabled = false;
+        CancelAttack();
         numAttacks++;
-        //actionPoints++;
     }
     /// <summary>
     /// This function is called when the game is finished and the player clicks the x button.
@@ -127,6 +122,7 @@ public class GameLoop : MonoBehaviour
     {
         SceneManager.LoadScene("ArmyBuilder");
     }
+    
     /// <summary>
     /// This is a networking function used when other players call a retreat in the game.
     /// </summary>
@@ -162,9 +158,8 @@ public class GameLoop : MonoBehaviour
     {
         if (scripts.GetComponent<GameLoop>().actionPoints >= 3)
         {
-            uiCanvas.SetActive(false);
+            gameObject.GetComponent<BattleUIControl>().ToggleInfoPanel(false);
             Destroy(lastClicked.GetComponent<CharacterFeatures>().myCircle);
-            //Destroy(lastClicked.GetComponent<CharacterFeatures>().attackRange);
             PlayerRemoval("Retreat", lastClicked.GetComponent<CharacterFeatures>().troopId, 1);
             Destroy(lastClicked);
             Client.Instance.SendRetreatData(lastClicked.GetComponent<CharacterFeatures>().troopId,2);
@@ -189,11 +184,10 @@ public class GameLoop : MonoBehaviour
                 p1CharsDict.Remove(troopId);
                 if (p1CharsDict.Count == 0)
                 {
-                    victorycanvas.SetActive(true);
-                    attackcanvas.SetActive(false);
+                    gameObject.GetComponent<BattleUIControl>().ToggleVictoryPanel(true);
+                    gameObject.GetComponent<BattleUIControl>().ToggleInfoPanel(false);
                     string text = $"Victory has been acheived for \nplayer 2 after player 1 retreated ";
-                    gameObject.GetComponent<BfieldUIControl>().ChangeText(
-                        gameObject.GetComponent<BfieldUIControl>().victoryText, text);
+                    gameObject.GetComponent<BattleUIControl>().SetVictoryPanelText(text);
                 }
             }
             else
@@ -201,11 +195,10 @@ public class GameLoop : MonoBehaviour
                 p2CharsDict.Remove(troopId);
                 if (p2CharsDict.Count == 0)
                 {
-                    victorycanvas.SetActive(true);
-                    attackcanvas.SetActive(false);
+                    gameObject.GetComponent<BattleUIControl>().ToggleVictoryPanel(true);
+                    gameObject.GetComponent<BattleUIControl>().ToggleInfoPanel(false);
                     string text = $"Victory has been acheived for \nplayer 1 after player 2 retreated ";
-                    gameObject.GetComponent<BfieldUIControl>().ChangeText(
-                        gameObject.GetComponent<BfieldUIControl>().victoryText, text);
+                    gameObject.GetComponent<BattleUIControl>().SetVictoryPanelText(text);
                 }
             }
         }
@@ -216,11 +209,10 @@ public class GameLoop : MonoBehaviour
                 p2CharsDict.Remove(troopId);
                 if (p2CharsDict.Count == 0)
                 {
-                    victorycanvas.SetActive(true);
-                    attackcanvas.SetActive(false);
+                    gameObject.GetComponent<BattleUIControl>().ToggleVictoryPanel(true);
+                    gameObject.GetComponent<BattleUIControl>().ToggleInfoPanel(false);
                     string text = $"Victory has been acheived for \nplayer 1 after defeating player 2 ";
-                    gameObject.GetComponent<BfieldUIControl>().ChangeText(
-                        gameObject.GetComponent<BfieldUIControl>().victoryText, text);
+                    gameObject.GetComponent<BattleUIControl>().SetVictoryPanelText(text);
 
                 }
             }
@@ -229,11 +221,10 @@ public class GameLoop : MonoBehaviour
                 p1CharsDict.Remove(troopId);
                 if (p1CharsDict.Count == 0)
                 {
-                    victorycanvas.SetActive(true);
-                    attackcanvas.SetActive(false);
+                    gameObject.GetComponent<BattleUIControl>().ToggleVictoryPanel(true);
+                    gameObject.GetComponent<BattleUIControl>().ToggleInfoPanel(false);
                     string text = $"Victory has been acheived for \nplayer 2 after defeating player 1 ";
-                    gameObject.GetComponent<BfieldUIControl>().ChangeText(
-                        gameObject.GetComponent<BfieldUIControl>().victoryText, text);
+                    gameObject.GetComponent<BattleUIControl>().SetVictoryPanelText(text);
                 }
             }
         }

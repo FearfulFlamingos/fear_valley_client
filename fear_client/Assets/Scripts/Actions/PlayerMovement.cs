@@ -36,17 +36,17 @@ public class PlayerMovement : MonoBehaviour
 
             if (Physics.Raycast (myRay, out hitInfo, 100, whatCanBeClickedOn))
             {
-                float hitX = hitInfo.point[0];
-                float hitY = hitInfo.point[2];
-                float floating = 0.2F;
-                float playX = gameObject.transform.position[0];
-                float playY = gameObject.transform.position[2];
-                float squaredX = (hitX - playX) * (hitX - playX);
-                float squaredY = (hitY - playY) * (hitY - playY);
-                float result = Mathf.Sqrt(squaredX + squaredY);
+                //float hitX = hitInfo.point[0];
+                //float hitY = hitInfo.point[2];
+                //float floating = 0.2F;
+                //float playX = gameObject.transform.position[0];
+                //float playY = gameObject.transform.position[2];
+                //float squaredX = (hitX - playX) * (hitX - playX);
+                //float squaredY = (hitY - playY) * (hitY - playY);
+                //float result = Mathf.Sqrt(squaredX + squaredY);
 
                 ///Debug.Log(myAgent.nextPosition[0]);
-                if (result < 11) 
+                if (Vector3.Distance(gameObject.transform.position,hitInfo.point) < 11) 
                     {
                     GameLoop actionPoints = scripts.GetComponent<GameLoop>();
                     actionPoints.actionPoints = System.Convert.ToInt32(actionPoints.actionPoints) - 1;
