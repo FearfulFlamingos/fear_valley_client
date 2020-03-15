@@ -53,7 +53,10 @@ public class PopulateGrid : MonoBehaviour
     private void Update()
     {
         if (Input.GetMouseButtonDown(1))
+        {
             RemovePlacedObject();
+        }
+            
         if (selection != null)
         {
             RaycastHit hit;
@@ -64,9 +67,35 @@ public class PopulateGrid : MonoBehaviour
                 selection.transform.position = hit.point;
             }
         }
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Destroy(selection);
+            selection = null;
+            troopinfo.SetActive(false);
+            rollingbudget = 0;
+            ActivateButtons();
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             selection = null;
+            ExecutePurchase();
+        }
+        if (Input.GetMouseButtonDown(0) && selection == null)
+        {
+            RaycastHit checkGameObject;
+            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out checkGameObject, 100.0f, 1 << 10) && checkGameObject.transform != null)
+            {
+                Debug.Log("Highlighting player");
+                GameObject target = checkGameObject.transform.gameObject;
+                target.GetComponent<FeaturesHolder>().isactive = true;
+                troopinfo.SetActive(true);
+                //start coroutine to deactivate the ui
+
+                StartCoroutine(Unhighlight(target));
+            }
         }
 
         Budget.text = $"Budget: {budget}";
@@ -77,6 +106,14 @@ public class PopulateGrid : MonoBehaviour
     public void additem(string item)
     {
         rollingbudget += costs[item];
+    }
+
+    IEnumerator Unhighlight(GameObject target)
+    {
+        
+        yield return 20000;    //Wait one frame
+        troopinfo.SetActive(false);
+        target.GetComponent<FeaturesHolder>().isactive = false;
     }
     //void Populate()
     //{
@@ -165,6 +202,9 @@ public class PopulateGrid : MonoBehaviour
         CurrentPanel.SetActive(false);
 
     }
+    #endregion
+
+    #region Button Functions
     public void ActivateButtons()
     {
         GameObject.Find("PeasantButton").GetComponent<Button>().interactable = true;
@@ -182,6 +222,8 @@ public class PopulateGrid : MonoBehaviour
         rollingbudget = 0;
         
         troopinfo.SetActive(false);
+        budget += System.Convert.ToInt32(lastclicked.GetComponent<FeaturesHolder>().troop);
+        activetroops.Remove(lastclicked);
         nocash.text = "";
         Destroy(lastclicked);
         ActivateButtons();
@@ -199,14 +241,11 @@ public class PopulateGrid : MonoBehaviour
             lastclicked.name = $"troop{numTroops}";
             activetroops.Add(lastclicked);
             numTroops++;
-            troopinfo.SetActive(false);
             budget -= rollingbudget;
             rollingbudget = 0;
             ActivateButtons();
-
+            troopinfo.SetActive(false);
         }
-
-
     }
     public void RemovePlacedObject()
     {
@@ -217,6 +256,8 @@ public class PopulateGrid : MonoBehaviour
         {
             Debug.Log("Deleting placed");
             Destroy(checkGameObject.transform.gameObject);
+            lastclicked = checkGameObject.transform.gameObject;
+            CancelPurchase();
         }
     }
 
