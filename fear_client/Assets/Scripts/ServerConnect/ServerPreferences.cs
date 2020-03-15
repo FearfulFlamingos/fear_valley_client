@@ -40,5 +40,13 @@ public class ServerPreferences : MonoBehaviour
         SceneManager.LoadScene(2);
     }
 
+    public void TestLocalhost()
+    {
+        IP_ADDR = "127.0.0.1";
+        PORT_NUM = 50000;
+        Debug.Log($"Quick Connect to Localhost");
+        SceneManager.LoadScene(2);
+    }
+
 
 }

@@ -25,7 +25,6 @@ public class CharacterFeatures : MonoBehaviour
     public int attackRange;
     public int damage;
     public int isLeader;
-    public GameObject myCircle;
     //public GameObject attackRange;
     public bool isFocused, isAttacking;
     public int numMagAtk;
@@ -46,26 +45,19 @@ public class CharacterFeatures : MonoBehaviour
         var cubeRenderer = gameObject.GetComponent<Renderer>();
         if (isFocused)
         {
-            myCircle.GetComponent<Renderer>().enabled = true;
             cubeRenderer.material.SetColor("_Color", Color.red);
         }
         else
         {
-            if (isAttacking)
-            {
-                myCircle.GetComponent<Renderer>().enabled = false;
-            }
-            else
+            if (!isAttacking)
             {
                 Color mycolor = new Color32(223, 210, 194, 255);
                 cubeRenderer.material.SetColor("_Color", mycolor);
-                myCircle.GetComponent<Renderer>().enabled = false;
             }
         }
         if (isAttacking)
         {
             isFocused = false;
-            myCircle.GetComponent<Renderer>().enabled = false;
             cubeRenderer.material.SetColor("_Color", Color.red);
             //attackRange.GetComponent<Renderer>().enabled = true;
         }

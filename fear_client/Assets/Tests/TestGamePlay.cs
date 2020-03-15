@@ -72,7 +72,7 @@ namespace Tests
             GameObject sceneController = GameObject.Find("SceneController");
             PlayerSpotlight spotScript = sceneController.GetComponent<PlayerSpotlight>();
             spotScript.SpotlightChar(NewGameObject);
-            var spotlightCanvas = GameObject.Find("ActionsUI");
+            var spotlightCanvas = GameObject.Find("InformationPanel");
             Assert.True(spotlightCanvas.active);
 
         }

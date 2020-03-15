@@ -27,7 +27,7 @@ public class PlayerMagic : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, 100.0f, 1 << 9)) //Only look on ground layer
             {
-                if (Vector3.Distance(hit.point, startingPosition) < 20)
+                if (Vector3.Distance(hit.point, startingPosition) < 5)
                 {
                     selection.transform.position = hit.point;
                 } 
@@ -37,6 +37,11 @@ public class PlayerMagic : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 CreateExplosion();
+            }
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                CancelExplosion();
             }
         }
     }
@@ -55,6 +60,13 @@ public class PlayerMagic : MonoBehaviour
 
         Destroy(selection);
         
+    }
+
+    private void CancelExplosion()
+    {
+        placingExplosion = false;
+        Destroy(selection);
+        scripts.GetComponent<GameLoop>().CancelSpell();
     }
 
     public void PlaceExplosion()

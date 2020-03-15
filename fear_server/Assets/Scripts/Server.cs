@@ -311,17 +311,20 @@ public class Server : MonoBehaviour
 
         foreach (Troop t in allTroops)
         {
-            Net_Propogate np = new Net_Propogate();
-            np.Prefab = t.TroopType;
-            np.TroopID = t.TroopID;
-            np.TeamNum = t.TeamNum;
-            np.AbsoluteXPos = t.XPos;
-            np.AbsoluteZPos = t.ZPos;
-            np.AtkBonus = t.TroopAtkBonus;
-            np.AtkRange = t.WeaponRange;
-            np.Health = t.Health;
-            np.MaxAttackVal = t.WeaponDamage;
-            np.DefenseMod = t.Armor;
+            Net_Propogate np = new Net_Propogate
+            {
+                Prefab = t.TroopType,
+                TroopID = t.TroopID,
+                TeamNum = t.TeamNum,
+                AbsoluteXPos = t.XPos,
+                AbsoluteZPos = t.ZPos,
+                AtkBonus = t.TroopAtkBonus,
+                AtkRange = t.WeaponRange,
+                Health = t.Health,
+                MaxAttackVal = t.WeaponDamage,
+                DefenseMod = t.Armor
+            };
+            Debug.Log($"DBG>{np.Prefab}");
 
             if (np.TeamNum == 1)
             {
@@ -372,10 +375,14 @@ public class Server : MonoBehaviour
     /// These are test functions that are mapped to buttons in the server scene.
     /// </summary>
 
-    public void TESTPROPOGATEANDSWITCH()
+    public void RestartServer()
     {
-        ChangeScene("Battlefield", 2);
-        PropogateTroops();
+        waitingConnections = 2;
+        Debug.Log($"Reset waiting connections to {waitingConnections}");
+        Shutdown();
+        Debug.Log("Shut down server");
+        Init();
+        Debug.Log("Restarting server...");
     }
 
     #endregion

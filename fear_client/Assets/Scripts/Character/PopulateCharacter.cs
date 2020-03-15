@@ -35,7 +35,7 @@ public class PopulateCharacter : MonoBehaviour
     {
         //GameObject referenceTile = (GameObject)Instantiate(Resources.Load(prefab));
         GameObject tile = (GameObject)Instantiate(Resources.Load(prefab));
-        GameObject circle = (GameObject)Instantiate(Resources.Load("circleprefab"));
+        //GameObject circle = (GameObject)Instantiate(Resources.Load("circleprefab"));
         //GameObject circle2 = (GameObject)Instantiate(Resources.Load("circleprefab"));
         float floating = 0.2F;
         if (teamNum == 2)
@@ -47,13 +47,13 @@ public class PopulateCharacter : MonoBehaviour
         }
         // Placing objects where they need to be and scaling them
         tile.transform.position = new Vector3(xpos,0,zpos);
-        circle.transform.position = new Vector3(xpos,floating, zpos);
-        circle.transform.localScale = new Vector3(21, 21, 21);
+        //circle.transform.position = new Vector3(xpos,floating, zpos);
+        //circle.transform.localScale = new Vector3(21, 21, 21);
         //circle2.transform.position = new Vector3(xpos, floating, zpos);
         //circle2.transform.localScale = new Vector3(9, 9, 9);
 
         // Don't render the circles
-        circle.GetComponent<Renderer>().enabled = false;
+        //circle.GetComponent<Renderer>().enabled = false;
         //circle2.GetComponent<Renderer>().enabled = false;
 
         // fill prefab 
@@ -73,7 +73,7 @@ public class PopulateCharacter : MonoBehaviour
         referenceScript.stealth = System.Convert.ToInt32(armorStealth);
         referenceScript.damage = System.Convert.ToInt32(damage);
         referenceScript.isLeader = System.Convert.ToInt32(leader);
-        referenceScript.myCircle = circle;
+        //referenceScript.myCircle = circle;
         //referenceScript.attackRange = circle2;
         referenceScript.isFocused = false;
         

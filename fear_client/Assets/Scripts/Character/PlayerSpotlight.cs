@@ -10,6 +10,7 @@ public class PlayerSpotlight : MonoBehaviour
     public GameObject lastClicked, board;
     public GameObject battleUI;
     private GameObject scripts;
+    private bool selectingCharacter = true;
 
     private void Start()
     {
@@ -29,51 +30,52 @@ public class PlayerSpotlight : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        //Debug.Log("Frame");
-        if (Input.GetMouseButtonDown(0) && Client.Instance.hasControl)
+        if (selectingCharacter )//TODO: && Client.Instance.hasControl)
         {
-            RaycastHit hit;
-            Ray ray = camera1.ScreenPointToRay(Input.mousePosition);
-            //Debug.Log(Physics.Raycast(ray, out hit, 100.0f));
-            if (Physics.Raycast(ray, out hit, 100.0f,layerMask:1<<10))
+            if (Input.GetMouseButtonDown(0))
             {
-
-                if (hit.transform != null)
+                RaycastHit hit;
+                Ray ray = camera1.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit, 100.0f, layerMask: 1 << 10)) // if you hit something
                 {
-                    GameLoop currentPlayer = scripts.GetComponent<GameLoop>();
-                    GameObject gameObject = hit.transform.gameObject;
+                    GameLoop currentPlayerGameloop = scripts.GetComponent<GameLoop>();
+                    GameObject selection = hit.transform.gameObject;
                     Debug.Log($"Last clicked: {lastClicked}");
-                    if (lastClicked != null)
+                    if (lastClicked != null) // something has been selected before & we want to not focus it
                     {
-                        if (lastClicked != board)
-                        {
-                            Debug.Log("Last clicked != board");
-                            lastClicked.GetComponent<CharacterFeatures>().isFocused = false;
-                        }
-                    }
-                    if (currentPlayer != board)
-                    {
-                        Debug.Log("Currentplayer != board");
-                        lastClicked = gameObject;
-                        currentPlayer.lastClicked = gameObject;
+                        Debug.Log("Unfocusing last character");
+                        DeactivateFocus(lastClicked.GetComponent<CharacterFeatures>());
                     }
                     else
                     {
-                        Debug.Log("Currentplayer == board");
-                        gameObject.GetComponent<BattleUIControl>().ToggleInfoPanel(false);
+                        lastClicked = selection;
+                        Debug.Log($"Last clicked object: {selection.gameObject.name}");
+                        
+                        if (selection.GetComponent<CharacterFeatures>().team == 1)
+                        {
+                            currentPlayerGameloop.lastClicked = selection;
+                            SpotlightChar(selection);
+                        }
                     }
-
-                    CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
-                    if (gameObject.GetComponent<CharacterFeatures>().team == 1)
-                        SpotlightChar(gameObject);
-
+                }
+                else // Nothing was hit by a ray on character level
+                {
+                    if (Physics.Raycast(ray, out hit, 100.0f, layerMask: 1 <<9) && lastClicked != null)
+                    {
+                        Debug.Log("Unselecting characters");
+                        DeactivateFocus(lastClicked.GetComponent<CharacterFeatures>());
+                        lastClicked = null;
+                    }
                 }
             }
         }
-
-
-
     }
+
+    public void ActivateCharacterSelect(bool state)
+    {
+        selectingCharacter = state;
+    }
+
     /// <summary>
     /// This functions is called after a viable object has been selected and it focuses the
     /// object and then populates the ui canvas. 
@@ -100,17 +102,27 @@ public class PlayerSpotlight : MonoBehaviour
             gameObject.GetComponent<BattleUIControl>().SetInfoPanelFriendlyText(leftText, rightText);
         }
     }
-
+    
+    /// <summary>
+    /// Unfocuses a selected character and disables all panels.
+    /// </summary>
+    /// <param name="referenceScript">The CharacterFeatures script of the selected character.</param>
     public void DeactivateFocus(CharacterFeatures referenceScript)
     {
         referenceScript.isFocused = false;
+        gameObject.GetComponent<BattleUIControl>().DeactivateAllPanels();
+        lastClicked = null;
+        gameObject.GetComponent<GameLoop>().lastClicked = null;
+        selectingCharacter = true;
     }
+    
     /// <summary>
     /// This function is used after the move buttion is clicked and it activates the movement script
     /// </summary>
     public void ActivateMovement()
     {
         //gameObject.GetComponent<BfieldUIControl>().ToggleInfoPanel(false);
+        selectingCharacter = false;
         lastClicked.GetComponent<PlayerMovement>().enabled = true;
         lastClicked.GetComponent<PlayerMovement>().ActivateMovement();
     }
@@ -122,16 +134,19 @@ public class PlayerSpotlight : MonoBehaviour
     {
         string text = $"You are attacking with: {lastClicked.GetComponent<CharacterFeatures>().charclass}";
         gameObject.GetComponent<BattleUIControl>().SetAttackPanelAttackerInfo(text);
-        gameObject.GetComponent<BattleUIControl>().ToggleInfoPanel(false);
+        gameObject.GetComponent<BattleUIControl>().SwitchToAttackPanel();
+
 
         lastClicked.GetComponent<PlayerAttack>().enabled = true;
         lastClicked.GetComponent<PlayerAttack>().ActivateAttack();
     }
 
+    /// <summary>
+    /// </summary>
     public void PlaceExplosion()
     {
         //lastClicked.GetComponent<PlayerMagic>().enabled = true;
-        gameObject.GetComponent<BattleUIControl>().ToggleInfoPanel(false);
+        gameObject.GetComponent<BattleUIControl>().ToggleMagicInstructions(true);
         lastClicked.GetComponent<PlayerMagic>().PlaceExplosion();
     }
 }

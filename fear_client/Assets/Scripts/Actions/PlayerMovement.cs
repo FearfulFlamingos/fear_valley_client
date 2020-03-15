@@ -6,15 +6,16 @@ using UnityEngine.AI;
 public class PlayerMovement : MonoBehaviour
 {
     public LayerMask whatCanBeClickedOn;
+    public GameObject movementSelector;
+    private Vector3 startingPosition;
     private NavMeshAgent myAgent;
-    private GameObject uiCanvas;
     private GameObject scripts;
+
 
     // Start is called before the first frame update
     void Start()
     {
         myAgent = GetComponent<NavMeshAgent>();
-        uiCanvas = GameObject.FindGameObjectWithTag("PlayerAction");
         scripts = GameObject.FindGameObjectWithTag("scripts");
     }
         
@@ -28,37 +29,44 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && Client.Instance.hasControl && gameObject.GetComponent<CharacterFeatures>().team == 1)
+        if (Input.GetMouseButtonDown(0) && gameObject.GetComponent<CharacterFeatures>().team == 1)//TODO: && Client.Instance.hasControl)
         {
-            Debug.Log("Mouse button clicked");
-            Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hitInfo;
-
-            if (Physics.Raycast (myRay, out hitInfo, 100, whatCanBeClickedOn))
-            {
-                //float hitX = hitInfo.point[0];
-                //float hitY = hitInfo.point[2];
-                //float floating = 0.2F;
-                //float playX = gameObject.transform.position[0];
-                //float playY = gameObject.transform.position[2];
-                //float squaredX = (hitX - playX) * (hitX - playX);
-                //float squaredY = (hitY - playY) * (hitY - playY);
-                //float result = Mathf.Sqrt(squaredX + squaredY);
-
-                ///Debug.Log(myAgent.nextPosition[0]);
-                if (Vector3.Distance(gameObject.transform.position,hitInfo.point) < 11) 
-                    {
-                    GameLoop actionPoints = scripts.GetComponent<GameLoop>();
-                    actionPoints.actionPoints = System.Convert.ToInt32(actionPoints.actionPoints) - 1;
-                    gameObject.GetComponent<CharacterFeatures>().isFocused = false;
-                    MoveMe(hitInfo.point);
-                    Client.Instance.SendMoveData(gameObject.GetComponent<CharacterFeatures>().troopId, hitInfo.point[0], hitInfo.point[2]);
-                    DeactivateMovement();
-                }
-                    
-            }
+            CheckMovement();
         }
 
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit, 100.0f, 1 << 9)) //Only look on ground layer
+        {
+            if (Vector3.Distance(hit.point, startingPosition) < gameObject.GetComponent<CharacterFeatures>().movement)
+            {
+                movementSelector.transform.position = hit.point;
+            }
+
+        }
+
+    }
+
+    private void CheckMovement()
+    {
+        Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitInfo;
+        CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
+
+        if (Physics.Raycast(myRay, out hitInfo, 100, whatCanBeClickedOn))
+        {
+            if (Vector3.Distance(gameObject.transform.position, hitInfo.point) < referenceScript.movement)
+            {
+                GameLoop actionPoints = scripts.GetComponent<GameLoop>();
+                actionPoints.actionPoints = System.Convert.ToInt32(actionPoints.actionPoints) - 1;
+                scripts.GetComponent<PlayerSpotlight>().DeactivateFocus(referenceScript);
+
+                MoveMe(hitInfo.point);
+                DeactivateMovement();
+                //TODO: Client.Instance.SendMoveData(gameObject.GetComponent<CharacterFeatures>().troopId, hitInfo.point[0], hitInfo.point[2]);
+            }
+
+        }
     }
 
     /// <summary>
@@ -74,18 +82,17 @@ public class PlayerMovement : MonoBehaviour
         myAgent.SetDestination(newPos);
         Debug.Log(newPos);
         CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
-        GameObject Circle = referenceScript.myCircle;
-        //GameObject Circle2 = referenceScript.attackRange;
-        Circle.transform.position = new Vector3(newPos[0], 0.2F, newPos[2]);
-        //Circle2.transform.position = new Vector3(newPos[0], 0.2F, newPos[2]);
     }
+
     /// <summary>
-    /// This function disables the player spotlight scrit and everything else to activate movement is done before we get to this script.
+    /// This function stops PlayerSpotlight from selecting a new character. Everything else needed
+    /// to activate movement is done before we get to this script.
     /// </summary>
     public void ActivateMovement()
-    {
-        scripts = GameObject.FindGameObjectWithTag("scripts");
-        scripts.GetComponent<PlayerSpotlight>().enabled = false;
+    {        
+        movementSelector = Instantiate(Resources.Load("MovementCursor")) as GameObject;
+        startingPosition = transform.position;
+        movementSelector.transform.position = startingPosition;
 
     }
     /// <summary>
@@ -94,8 +101,10 @@ public class PlayerMovement : MonoBehaviour
     public void DeactivateMovement()
     {
         scripts = GameObject.FindGameObjectWithTag("scripts");
-        scripts.GetComponent<PlayerSpotlight>().enabled = true;
-        uiCanvas.SetActive(false);
+        scripts.GetComponent<PlayerSpotlight>().DeactivateFocus(
+            gameObject.GetComponent<CharacterFeatures>());
+
         gameObject.GetComponent<PlayerMovement>().enabled = false;
+        Destroy(movementSelector);
     }
 }

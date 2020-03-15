@@ -8,13 +8,16 @@ using System;
 public class BattleUIControl : MonoBehaviour
 {
     // Info Panel
+    [SerializeField]
     private TMP_Text actionsPanelLeftHandText, actionsPanelRightHandText, attackPanelAttackInfo, attackPanelEnemyInfo;
 
     // Victory Panel
+    [SerializeField]
     private TMP_Text victoryText, exitButtonText;
 
     // Panel References
-    private GameObject infoPanel, victoryPanel, stdActionPanel, magicActionPanel, attackPanel;
+    [SerializeField]
+    private GameObject infoPanel, victoryPanel, stdActionPanel, magicActionPanel, attackPanel, magicInstructionPanel;
 
     #region Monobehavior
     private void Start()
@@ -61,9 +64,7 @@ public class BattleUIControl : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
             Debug.Log("Cancel");
-            gameObject.GetComponent<PlayerSpotlight>().DeactivateFocus(
-                gameObject.GetComponent<PlayerSpotlight>().
-                lastClicked.GetComponent<CharacterFeatures>());
+            CancelButton();
         }
     }
 
@@ -94,13 +95,13 @@ public class BattleUIControl : MonoBehaviour
 
     public void CancelAttackPanel()
     {
-        attackPanel.SetActive(true);
+        attackPanel.SetActive(false);
+        ToggleActionPanel(true,
+            gameObject.GetComponent<PlayerSpotlight>()
+            .lastClicked.GetComponent<CharacterFeatures>().charclass);
         
     }
 
-    /// <summary>
-    /// Listen, it means I don't have to write that code again.
-    /// </summary>
     public void ToggleActionPanel(bool state, string charClass="")
     {
         if (charClass == "Magic User")
@@ -116,6 +117,35 @@ public class BattleUIControl : MonoBehaviour
     public void ToggleInfoPanel(bool state)
     {
         infoPanel.SetActive(state);   
+    }
+
+    /// <summary>
+    /// Toggles all relevant panels based on whether the Magic Instructions should be visible.
+    /// 
+    /// </summary>
+    /// <param name="state">Boolean value of whether magic instructions should be visible.</param>
+    public void ToggleMagicInstructions(bool state)
+    {
+        magicInstructionPanel.SetActive(state);
+        ToggleInfoPanel(!state);
+        ToggleActionPanel(!state, "Magic User");
+    }
+
+    public void DeactivateAllPanels()
+    {
+        infoPanel.SetActive(false);
+        victoryPanel.SetActive(false);
+        stdActionPanel.SetActive(false);
+        magicActionPanel.SetActive(false);
+        attackPanel.SetActive(false);
+        magicInstructionPanel.SetActive(false);
+    }
+
+    public void CancelButton()
+    {
+        gameObject.GetComponent<PlayerSpotlight>().DeactivateFocus(
+                gameObject.GetComponent<PlayerSpotlight>().
+                lastClicked.GetComponent<CharacterFeatures>());
     }
 
     public void ToggleVictoryPanel(bool state)
@@ -150,4 +180,5 @@ public class BattleUIControl : MonoBehaviour
     {
         victoryText.SetText(text);
     }
+
 }

@@ -103,6 +103,7 @@ public class GameLoop : MonoBehaviour
     public void CancelAttack()
     {
         gameObject.GetComponent<BattleUIControl>().ToggleInfoPanel(false);
+        gameObject.GetComponent<BattleUIControl>().CancelAttackPanel();
         lastClicked.GetComponent<PlayerAttack>().DeactivateAttack();
         lastClicked.GetComponent<PlayerAttack>().enabled = false;
     }
@@ -159,7 +160,7 @@ public class GameLoop : MonoBehaviour
         if (scripts.GetComponent<GameLoop>().actionPoints >= 3)
         {
             gameObject.GetComponent<BattleUIControl>().ToggleInfoPanel(false);
-            Destroy(lastClicked.GetComponent<CharacterFeatures>().myCircle);
+            //Destroy(lastClicked.GetComponent<CharacterFeatures>().myCircle);
             PlayerRemoval("Retreat", lastClicked.GetComponent<CharacterFeatures>().troopId, 1);
             Destroy(lastClicked);
             Client.Instance.SendRetreatData(lastClicked.GetComponent<CharacterFeatures>().troopId,2);
@@ -243,5 +244,13 @@ public class GameLoop : MonoBehaviour
             actionPoints -= 3;
         }
         
+    }
+
+    public void CancelSpell()
+    {
+        magicPoints++;
+        actionPoints += 3;
+        gameObject.GetComponent<BattleUIControl>().ToggleMagicInstructions(false);
+        gameObject.GetComponent<BattleUIControl>().ToggleActionPanel(true,lastClicked.GetComponent<CharacterFeatures>().charclass);
     }
 }

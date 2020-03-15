@@ -153,7 +153,7 @@ public class PlayerAttack : MonoBehaviour
         {
             Debug.Log("Deleting slain enemy");
             timeToDistroy = false;
-            Destroy(attackObject.GetComponent<CharacterFeatures>().myCircle);
+            //Destroy(attackObject.GetComponent<CharacterFeatures>().myCircle);
             Destroy(attackObject);
         }
     }
