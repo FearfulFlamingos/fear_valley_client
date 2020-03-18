@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4445011, g: 0.49399108, b: 0.57329136, a: 1}
+  m_IndirectSpecularColor: {r: 0.44450113, g: 0.49399143, b: 0.5732917, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -553,7 +553,7 @@ PrefabInstance:
     - target: {fileID: 5266402843906947615, guid: af8c1b714c4b8a84fa3cc58fd0adf884,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5266402843906947623, guid: af8c1b714c4b8a84fa3cc58fd0adf884,
         type: 3}
@@ -1645,7 +1645,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1998899702}
-        m_MethodName: CancelButton
+        m_MethodName: Cancel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1891,8 +1891,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1998899700}
-        m_MethodName: ActivateMovement
+      - m_Target: {fileID: 1998899702}
+        m_MethodName: Move
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2348,8 +2348,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1998899701}
-        m_MethodName: Leave
+      - m_Target: {fileID: 1998899702}
+        m_MethodName: Retreat
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2816,7 +2816,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1998899702}
-        m_MethodName: CancelButton
+        m_MethodName: Cancel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2897,7 +2897,7 @@ PrefabInstance:
     - target: {fileID: 5266402843906947615, guid: af8c1b714c4b8a84fa3cc58fd0adf884,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5266402843906947623, guid: af8c1b714c4b8a84fa3cc58fd0adf884,
         type: 3}
@@ -3038,8 +3038,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1998899700}
-        m_MethodName: ActivateAttack
+      - m_Target: {fileID: 1998899702}
+        m_MethodName: Attack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3397,8 +3397,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1998899701}
-        m_MethodName: Attack
+      - m_Target: {fileID: 1998899702}
+        m_MethodName: ExecuteAttack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3730,8 +3730,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1998899701}
-        m_MethodName: CastSpell
+      - m_Target: {fileID: 1998899702}
+        m_MethodName: Magic
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3859,8 +3859,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1998899700}
-        m_MethodName: ActivateAttack
+      - m_Target: {fileID: 1998899702}
+        m_MethodName: Attack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4018,8 +4018,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1998899700}
-        m_MethodName: ActivateMovement
+      - m_Target: {fileID: 1998899702}
+        m_MethodName: Move
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4306,7 +4306,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1998899701}
+      - m_Target: {fileID: 1998899702}
         m_MethodName: CancelAttack
         m_Mode: 1
         m_Arguments:
@@ -4840,8 +4840,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1998899701}
-        m_MethodName: Leave
+      - m_Target: {fileID: 1998899702}
+        m_MethodName: Retreat
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5671,6 +5671,7 @@ MonoBehaviour:
   lastClicked: {fileID: 0}
   board: {fileID: 1806173561}
   battleUI: {fileID: 0}
+  testing: 0
 --- !u!114 &1998899701
 MonoBehaviour:
   m_ObjectHideFlags: 0

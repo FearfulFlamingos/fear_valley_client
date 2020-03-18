@@ -3,10 +3,17 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using FearValleyNetwork;
 
+/// <summary>
+/// Attaches to a client object and handles all communication with the server.
+/// </summary>
+/// <remarks>
+/// There are a lot of precompiler options being used. This is to disable the warnings about 
+/// how Unity's netcode is being deprecated. Since the replacement has yet to come out and the 
+/// code is still valid in this version of unity, it's cleaner to disable the warnings.
+/// </remarks>
 public class Client : MonoBehaviour
 {
     public static Client Instance { private set; get; }
@@ -37,44 +44,69 @@ public class Client : MonoBehaviour
     }
     #endregion
 
+    /// <summary>
+    /// Starts the client.
+    /// </summary>
     public void Init()
     {
+
         SERVER_IP = GameObject.Find("/ServerJoinPrefs").GetComponent<ServerPreferences>().GetIP();
         PORT = GameObject.Find("/ServerJoinPrefs").GetComponent<ServerPreferences>().GetPort();
-        
-        NetworkTransport.Init();
 
+#pragma warning disable CS0618 // Type or member is obsolete
+        NetworkTransport.Init();
+#pragma warning restore CS0618 // Type or member is obsolete
+
+#pragma warning disable CS0618 // Type or member is obsolete
         ConnectionConfig cc = new ConnectionConfig();
+#pragma warning restore CS0618 // Type or member is obsolete
         reliableChannel = cc.AddChannel(QosType.Reliable);
 
+#pragma warning disable CS0618 // Type or member is obsolete
         HostTopology topo = new HostTopology(cc, MAX_USER);
+#pragma warning restore CS0618 // Type or member is obsolete
 
         // Client only code
-        
+
         if (SERVER_IP == "127.0.0.1")
         {
             Debug.Log("Running local instances");
+#pragma warning disable CS0618 // Type or member is obsolete
             hostId = NetworkTransport.AddHost(topo, 0);
+#pragma warning restore CS0618 // Type or member is obsolete
         }
         else
         {
+#pragma warning disable CS0618 // Type or member is obsolete
             hostId = NetworkTransport.AddHost(topo, PORT);
+#pragma warning restore CS0618 // Type or member is obsolete
         }
 
         //Debug.Log(hostId);
+#pragma warning disable CS0618 // Type or member is obsolete
         connectionId = NetworkTransport.Connect(hostId, SERVER_IP, PORT, 0, out error);
+#pragma warning restore CS0618 // Type or member is obsolete
         //NetworkTransport.Connect(1, SERVER_IP, PORT, 0, out error);
         Debug.Log("Connecting from standalone");
 
         isStarted = true;
         Debug.Log($"Attempting to connnect on {SERVER_IP}...");
     }
+
+    /// <summary>
+    /// Shuts down the server.
+    /// </summary>
     public void Shutdown()
     {
         isStarted = false;
+#pragma warning disable CS0618 // Type or member is obsolete
         NetworkTransport.Shutdown();
+#pragma warning restore CS0618 // Type or member is obsolete
     }
 
+    /// <summary>
+    /// Checks every frame for a new network event.
+    /// </summary>
     public void UpdateMessagePump()
     {
         if (!isStarted)
@@ -87,7 +119,9 @@ public class Client : MonoBehaviour
         byte[] recievedBuffer = new byte[BYTE_SIZE];
         int dataSize; // length of byte[] that data fills
 
+#pragma warning disable CS0618 // Type or member is obsolete
         NetworkEventType type = NetworkTransport.Receive(out recHostId,
+#pragma warning restore CS0618 // Type or member is obsolete
             out connectionId,
             out channelId,
             recievedBuffer,
@@ -119,80 +153,83 @@ public class Client : MonoBehaviour
     }
 
 #region OnData
+    // Blanket handler for all network data events.
     private void OnData(int connId, int channelId, int recHostId, NetMsg msg)
     {
         Debug.Log($"Recieved message of type {msg.OperationCode}");
         switch (msg.OperationCode)
         {
-            case NetOP.None:
+            case (byte) NetOP.Operation.None:
                 Debug.Log("Unexpected NETOP code");
                 break;
-            case NetOP.ChangeScene:
+            case (byte) NetOP.Operation.ChangeScene:
                 Debug.Log("NETOP: Change Scene");
                 Net_ChangeScene(connId, channelId, recHostId, (Net_ChangeScene)msg);
                 break;
-            case NetOP.PropogateTroop:
+            case (byte) NetOP.Operation.PropogateTroop:
                 Debug.Log("NETOP: Propogate troop");
                 Net_PropogateTroop(connId, channelId, recHostId, (Net_Propogate)msg);
                 break;
-            case NetOP.SendMagic:
+            case (byte) NetOP.Operation.SendMagic:
                 Debug.Log("NETOP: Magic Recieved");
                 Net_SendMagic(connId, channelId, recHostId, (Net_SendMagic)msg);
                 break;
-            case NetOP.MOVE:
+            case (byte) NetOP.Operation.MOVE:
                 Debug.Log("NETOP: Move Player");
                 Net_Move(connId, channelId, recHostId, (Net_MOVE)msg);
                 break;
-            case NetOP.ATTACK:
+            case (byte) NetOP.Operation.ATTACK:
                 Debug.Log("NETOP: Attack Player");
                 Net_Attack(connId, channelId, recHostId, (Net_ATTACK)msg);
                 break;
-            case NetOP.RETREAT:
+            case (byte) NetOP.Operation.RETREAT:
                 Debug.Log("NETOP: Attack Player");
                 Net_Retreat(connId, channelId, recHostId, (Net_RETREAT)msg);
                 break;
-            case NetOP.ToggleControls:
+            case (byte) NetOP.Operation.ToggleControls:
                 Debug.Log("NETOP: Toggle controls");
                 Net_ToggleControls(connId, channelId, recHostId, (Net_ToggleControls)msg);
                 break;
         }
     }
 
+    // Sets the number of spells that the player purchased.
     private void Net_SendMagic(int connId, int channelId, int recHostId, Net_SendMagic msg)
     {
         GameObject.FindGameObjectWithTag("scripts").GetComponent<GameLoop>().SetMagic(msg.MagicAmount);
     }
 
+    // Toggles the player's UI controls.
     private void Net_ToggleControls(int connId, int channelId, int recHostId, Net_ToggleControls msg)
     {
         Client.Instance.hasControl = !Client.Instance.hasControl;
         Debug.Log($"Toggling controls to {Client.Instance.hasControl}");
     }
 
+    // Moves an enemy character to a new position.
     private void Net_Move(int connId, int channelId, int recHostId, Net_MOVE msg)
     {
         GameObject scripts = GameObject.FindGameObjectWithTag("scripts");
         scripts.GetComponent<GameLoop>().MoveOther(msg.TroopID, msg.NewX, msg.NewZ);
     }
+
+    // Updates a friendly character's health after it is attacked.
     private void Net_Attack(int connId, int channelId, int recHostId, Net_ATTACK msg)
     {
         GameObject scripts = GameObject.FindGameObjectWithTag("scripts");
         scripts.GetComponent<GameLoop>().IveBeenAttacked(msg.TroopID,msg.NewHealth);
     }
+
+    // Causes a character to retreat.
     private void Net_Retreat(int connId, int channelId, int recHostId, Net_RETREAT msg)
     {
         GameObject scripts = GameObject.FindGameObjectWithTag("scripts");
         scripts.GetComponent<GameLoop>().OtherLeaves(msg.TroopID,msg.TeamNum);
     }
-    /// <summary>
-    /// Propogates the troops to the client. Note that every client thinks they are connection #1.
-    /// Normally this helps with keeping track of channels, etc. But for our purposes, the server
-    /// makes sure that P1 has troops chosen by P1 and the rest go to P1's enemy.
-    /// </summary>
-    /// <param name="connId"></param>
-    /// <param name="channelId"></param>
-    /// <param name="recHostId"></param>
-    /// <param name="msg"></param>
+
+    // Propogates the troops to the client. Note that every client thinks they are connection #1.
+    // Normally this helps with keeping track of channels, etc. But for our purposes, the server
+    // makes sure that P1 has troops chosen by P1 and the rest go to P1's enemy.
     private void Net_PropogateTroop(int connId, int channelId, int recHostId, Net_Propogate msg)
     {
         
@@ -216,6 +253,7 @@ public class Client : MonoBehaviour
         //tile.transform.position = new Vector3(varx, 0, varz);
     }
 
+    // Changes the player's scene.
     private void Net_ChangeScene(int connId, int channelId, int recHostId, Net_ChangeScene msg)
     {
         SceneManager.LoadScene(msg.SceneName);
@@ -224,6 +262,10 @@ public class Client : MonoBehaviour
 #endregion
 
 #region Send
+    /// <summary>
+    /// Base function to send a command to the server. 
+    /// </summary>
+    /// <param name="msg">Any net command.</param>
     public void SendToServer(NetMsg msg)
     {
         // hold data to send
@@ -234,7 +276,9 @@ public class Client : MonoBehaviour
         MemoryStream ms = new MemoryStream(buffer);
         formatter.Serialize(ms, msg);
 
+#pragma warning disable CS0618 // Type or member is obsolete
         NetworkTransport.Send(hostId,
+#pragma warning restore CS0618 // Type or member is obsolete
             connectionId, 
             reliableChannel, 
             buffer, 
@@ -242,53 +286,94 @@ public class Client : MonoBehaviour
             out error);
     }
 
+    /// <summary>
+    /// Sends a troop with information to the server's database.
+    /// </summary>
+    /// <param name="troop">Type of troop.</param>
+    /// <param name="weapon">Weapon used by troop.</param>
+    /// <param name="armor">Armor used by troop.</param>
+    /// <param name="xPos">X position of troop, relative to the player.</param>
+    /// <param name="yPos">Z position of the troop, relative to the player.</param>
     public void SendTroopRequest(string troop, string weapon, string armor, int xPos, int yPos)
     {
-        Net_AddTroop at = new Net_AddTroop();
-        at.TroopType = troop;
-        at.WeaponType = weapon;
-        at.ArmorType = armor;
-        at.XPosRelative = xPos;
-        at.ZPosRelative = yPos;
+        Net_AddTroop at = new Net_AddTroop
+        {
+            TroopType = troop,
+            WeaponType = weapon,
+            ArmorType = armor,
+            XPosRelative = xPos,
+            ZPosRelative = yPos
+        };
 
         SendToServer(at);
     }
 
+    /// <summary>
+    /// Tell the server that the player is finished building an army.
+    /// <para>Updates the number of spells the player bought in the database.</para>
+    /// </summary>
+    /// <param name="magicAmount">Number of spells the player bought.</param>
     public void SendFinishBuild(int magicAmount)
     {
-        Net_FinishBuild fb = new Net_FinishBuild();
-        fb.MagicBought = magicAmount;
+        Net_FinishBuild fb = new Net_FinishBuild
+        {
+            MagicBought = magicAmount
+        };
         SendToServer(fb);
     }
 
+    /// <summary>
+    /// Tells the server to move the character to a new position.
+    /// </summary>
+    /// <param name="TroopID">Troop to be moved.</param>
+    /// <param name="newX">New X position, relative to the player.</param>
+    /// <param name="newZ">New Z position, relative to the player.</param>
     public void SendMoveData(int TroopID, float newX, float newZ)
     {
-        Net_MOVE mv = new Net_MOVE();
-        mv.TroopID = TroopID;
-        mv.NewX = newX;
-        mv.NewZ = newZ;
-
+        Net_MOVE mv = new Net_MOVE
+        {
+            TroopID = TroopID,
+            NewX = newX,
+            NewZ = newZ
+        };
         SendToServer(mv);
     }
 
+    /// <summary>
+    /// Sends an attack to the server, updating the characters health.
+    /// </summary>
+    /// <param name="troopId">Troop that took damage.</param>
+    /// <param name="health">New health of troop.</param>
     public void SendAttackData(int troopId, int health)
     {
-        Net_ATTACK atk = new Net_ATTACK();
-        atk.TroopID = troopId;
-        atk.NewHealth = health;
+        Net_ATTACK atk = new Net_ATTACK
+        {
+            TroopID = troopId,
+            NewHealth = health
+        };
 
         SendToServer(atk);
     }
 
+    /// <summary>
+    /// Lets the server know a character has retreated or been slain.
+    /// </summary>
+    /// <param name="troopId">Specific troop.</param>
+    /// <param name="TeamNum">Team number of troop.</param>
     public void SendRetreatData(int troopId, int TeamNum)
     {
-        Net_RETREAT ret = new Net_RETREAT();
-        ret.TroopID = troopId;
-        ret.TeamNum = TeamNum;
+        Net_RETREAT ret = new Net_RETREAT
+        {
+            TroopID = troopId,
+            TeamNum = TeamNum
+        };
 
         SendToServer(ret);
     }
 
+    /// <summary>
+    /// Ends the players turn.
+    /// </summary>
     public void SendEndTurn()
     {
         //Client.Instance.hasControl = false;

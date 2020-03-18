@@ -6,22 +6,23 @@ using System;
 
 public class GameLoop : MonoBehaviour
 {
-	public int currentPlayer;
     public int actionPoints;
     public int magicPoints;
     public GameObject lastClicked;
     public Dictionary<int,GameObject> p1CharsDict, p2CharsDict;
     private int numAttacks;
-    private GameObject scripts;
-    
+    private PlayerSpotlight spotlight;
+    private BattleUIControl uiController;
+
+    #region Monobehavior
     // Start is called before the first frame update
     void Start()
     {
         actionPoints = 3;
-        scripts = GameObject.FindGameObjectWithTag("scripts");
+        spotlight = gameObject.GetComponent<PlayerSpotlight>();
         p1CharsDict = new Dictionary<int,GameObject>();
         p2CharsDict = new Dictionary<int,GameObject>();
-
+        uiController = gameObject.GetComponent<BattleUIControl>();
     }
 
     // Update is called once per frame
@@ -32,13 +33,14 @@ public class GameLoop : MonoBehaviour
     {
         if (actionPoints == 0)
         {
-            currentPlayer = 1;// - currentPlayer;
             actionPoints = 3;
             numAttacks = 0;
             Client.Instance.SendEndTurn();
         }
 
     }
+    #endregion
+
     /// <summary>
     /// This function is used to create dictionaries for each player. The dicitionaries are used to track
     /// the number of active figures each player currently has and it tracks a reference to the gameobjects.
@@ -88,13 +90,34 @@ public class GameLoop : MonoBehaviour
         CharacterFeatures reference = changing.GetComponent<CharacterFeatures>();
         reference.health = System.Convert.ToInt32(reference.health - damage);
     }
+
+    #region Build Game
+
+    internal void SetMagic(int magicAmount)
+    {
+        magicPoints = magicAmount;
+    }
+
+    #endregion
+
+    #region Player Actions
+
+    // MOVE
+    // TODO: Create movement functions to be called from here.
+
     /// <summary>
     /// This is called after an attack is triggered and sends the message to the player attack script.
     /// </summary>
     public void Attack()
     {
-        lastClicked.GetComponent<PlayerAttack>().Attack();
         actionPoints--;
+        spotlight.ActivateCharacterSelect(false);
+
+        string text = $"You are attacking with: {lastClicked.GetComponent<CharacterFeatures>().charclass}";
+        uiController.SetAttackPanelAttackerInfo(text);
+
+        lastClicked.GetComponent<PlayerAttack>().enabled = true;
+        lastClicked.GetComponent<PlayerAttack>().Attack();
     }
 
     /// <summary>
@@ -102,10 +125,7 @@ public class GameLoop : MonoBehaviour
     /// </summary>
     public void CancelAttack()
     {
-        gameObject.GetComponent<BattleUIControl>().ToggleInfoPanel(false);
-        gameObject.GetComponent<BattleUIControl>().CancelAttackPanel();
         lastClicked.GetComponent<PlayerAttack>().DeactivateAttack();
-        //lastClicked.GetComponent<PlayerAttack>().enabled = false;
     }
     /// <summary>
     /// This function is used after the end of an attack to deactivate attack mode and track the number
@@ -116,79 +136,114 @@ public class GameLoop : MonoBehaviour
         CancelAttack();
         numAttacks++;
     }
+
+    /// <summary>
+    /// Casts a spell if the player has enough magic points and action points.
+    /// </summary>
+    public void CastSpell()
+    {
+        if (actionPoints < 3 || magicPoints < 1)
+        {
+            Debug.Log("You do not have enough action points or magic to cast a spell!");
+        }
+        else
+        {
+            magicPoints--;
+            actionPoints -= 3;
+            spotlight.ActivateCharacterSelect(false);
+            spotlight.DeactivateFocus(lastClicked.GetComponent<CharacterFeatures>());
+            
+            lastClicked.GetComponent<PlayerMagic>().PlaceExplosion();
+        }
+
+    }
+    
+    /// <summary>
+    /// Cancels the spell and returns the action points and action points.
+    /// </summary>
+    public void CancelSpell()
+    {
+        magicPoints++;
+        actionPoints += 3;
+        uiController.CancelMagicExplosion();
+    }
+
+    /// <summary>
+    /// This function is called when the local player calls a retreat on their figure.
+    /// See <see cref="OtherLeaves(int, int)"/>
+    /// </summary>
+    public void Leave()
+    {
+        if (actionPoints >= 3)
+        {
+            PlayerRemoval(lastClicked.GetComponent<CharacterFeatures>().troopId, 1,true);
+            Destroy(lastClicked);
+            Client.Instance.SendRetreatData(lastClicked.GetComponent<CharacterFeatures>().troopId, 2);
+            actionPoints = 0;
+        }
+        else
+        {
+            Debug.Log("You don't have enough action points to retreat.");
+        }
+    }
+
     /// <summary>
     /// This function is called when the game is finished and the player clicks the x button.
     /// </summary>
-    public void endGame()
+    public void EndGame()
     {
         SceneManager.LoadScene("ArmyBuilder");
     }
-    
+    #endregion
+
+    #region Enemy Actions
     /// <summary>
     /// This is a networking function used when other players call a retreat in the game.
     /// </summary>
     /// <param name="troopId">Troop retreating</param>
     /// <param name="TeamNum">The team that is leaving</param>
-    public void OtherLeaves(int troopId,int TeamNum)
+    /// See <see cref="Leave"/>
+    public void OtherLeaves(int troopId, int TeamNum)
     {
         Debug.Log($"Retreat message received with {TeamNum} and {troopId}");
         if (TeamNum == 1)
         {
             GameObject destroy = p1CharsDict[troopId];
-            PlayerRemoval("Attack", troopId, TeamNum);
+            PlayerRemoval(troopId, TeamNum);
             Destroy(destroy);
         }
-        
-        else {
-            GameObject destroy = p2CharsDict[troopId];
-            PlayerRemoval("Retreat", troopId, TeamNum);
-            Destroy(destroy);
-        }
-            
-    }
 
-    internal void SetMagic(int magicAmount)
-    {
-        magicPoints = magicAmount;
-    }
-
-    /// <summary>
-    /// This function is called when the local player calls a retreat on their figure.
-    /// </summary>
-    public void Leave()
-    {
-        if (scripts.GetComponent<GameLoop>().actionPoints >= 3)
+        else
         {
-            gameObject.GetComponent<BattleUIControl>().ToggleInfoPanel(false);
-            //Destroy(lastClicked.GetComponent<CharacterFeatures>().myCircle);
-            PlayerRemoval("Retreat", lastClicked.GetComponent<CharacterFeatures>().troopId, 1);
-            Destroy(lastClicked);
-            Client.Instance.SendRetreatData(lastClicked.GetComponent<CharacterFeatures>().troopId,2);
-            scripts.GetComponent<GameLoop>().actionPoints = 0;
-
+            GameObject destroy = p2CharsDict[troopId];
+            PlayerRemoval(troopId, TeamNum, true);
+            Destroy(destroy);
         }
     }
+
+
+    #endregion
 
     /// <summary>
     /// This function is checked each time any damage is done. It checks to see if the player's health is
     /// 0. Following this the function checks if the endgame has been trigged.
     /// </summary>
-    /// <param name="action"></param>
     /// <param name="troopId"></param>
     /// <param name="playerInQuestion"></param>
-    public void PlayerRemoval(string action, int troopId, int playerInQuestion)
+    /// <param name="retreat"></param>
+    public void PlayerRemoval(int troopId, int playerInQuestion, bool retreat=false)
     {
-        if (action == "Retreat")
+        if (retreat)
         {
             if (playerInQuestion == 1)
             {
                 p1CharsDict.Remove(troopId);
                 if (p1CharsDict.Count == 0)
                 {
-                    gameObject.GetComponent<BattleUIControl>().ToggleVictoryPanel(true);
-                    gameObject.GetComponent<BattleUIControl>().ToggleInfoPanel(false);
+                    uiController.ToggleVictoryPanel(true);
+                    uiController.ToggleInfoPanel(false);
                     string text = $"Victory has been acheived for \nplayer 2 after player 1 retreated ";
-                    gameObject.GetComponent<BattleUIControl>().SetVictoryPanelText(text);
+                    uiController.SetVictoryPanelText(text);
                 }
             }
             else
@@ -196,10 +251,10 @@ public class GameLoop : MonoBehaviour
                 p2CharsDict.Remove(troopId);
                 if (p2CharsDict.Count == 0)
                 {
-                    gameObject.GetComponent<BattleUIControl>().ToggleVictoryPanel(true);
-                    gameObject.GetComponent<BattleUIControl>().ToggleInfoPanel(false);
+                    uiController.ToggleVictoryPanel(true);
+                    uiController.ToggleInfoPanel(false);
                     string text = $"Victory has been acheived for \nplayer 1 after player 2 retreated ";
-                    gameObject.GetComponent<BattleUIControl>().SetVictoryPanelText(text);
+                    uiController.SetVictoryPanelText(text);
                 }
             }
         }
@@ -210,10 +265,10 @@ public class GameLoop : MonoBehaviour
                 p2CharsDict.Remove(troopId);
                 if (p2CharsDict.Count == 0)
                 {
-                    gameObject.GetComponent<BattleUIControl>().ToggleVictoryPanel(true);
-                    gameObject.GetComponent<BattleUIControl>().ToggleInfoPanel(false);
+                    uiController.ToggleVictoryPanel(true);
+                    uiController.ToggleInfoPanel(false);
                     string text = $"Victory has been acheived for \nplayer 1 after defeating player 2 ";
-                    gameObject.GetComponent<BattleUIControl>().SetVictoryPanelText(text);
+                    uiController.SetVictoryPanelText(text);
 
                 }
             }
@@ -222,35 +277,14 @@ public class GameLoop : MonoBehaviour
                 p1CharsDict.Remove(troopId);
                 if (p1CharsDict.Count == 0)
                 {
-                    gameObject.GetComponent<BattleUIControl>().ToggleVictoryPanel(true);
-                    gameObject.GetComponent<BattleUIControl>().ToggleInfoPanel(false);
+                    uiController.ToggleVictoryPanel(true);
+                    uiController.ToggleInfoPanel(false);
                     string text = $"Victory has been acheived for \nplayer 2 after defeating player 1 ";
-                    gameObject.GetComponent<BattleUIControl>().SetVictoryPanelText(text);
+                    uiController.SetVictoryPanelText(text);
                 }
             }
         }
     }
 
-    public void CastSpell()
-    {
-        if (actionPoints < 3 || magicPoints < 1)
-        {
-            Debug.Log("You do not have enough action points or magic to cast a spell!");
-        }
-        else
-        {
-            gameObject.GetComponent<PlayerSpotlight>().PlaceExplosion();
-            magicPoints--;
-            actionPoints -= 3;
-        }
-        
-    }
-
-    public void CancelSpell()
-    {
-        magicPoints++;
-        actionPoints += 3;
-        gameObject.GetComponent<BattleUIControl>().ToggleMagicInstructions(false);
-        gameObject.GetComponent<BattleUIControl>().ToggleActionPanel(true,lastClicked.GetComponent<CharacterFeatures>().charclass);
-    }
+    
 }

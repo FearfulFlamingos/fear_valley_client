@@ -73,7 +73,7 @@ namespace Tests
             PlayerSpotlight spotScript = sceneController.GetComponent<PlayerSpotlight>();
             spotScript.SpotlightChar(NewGameObject);
             var spotlightCanvas = GameObject.Find("InformationPanel");
-            Assert.True(spotlightCanvas.active);
+            Assert.True(spotlightCanvas.activeSelf);
 
         }
         public static void ClickButton(string name)
@@ -111,18 +111,41 @@ namespace Tests
         public IEnumerator TestActivateAttack()
         {
             SceneManager.LoadScene("Battlefield");
+            GameObject serverPref = new GameObject();
+            serverPref.gameObject.name = "ServerJoinPrefs";
+            serverPref.AddComponent<ServerPreferences>();
+            serverPref.GetComponent<ServerPreferences>().SetValues("127.0.0.1", 50000);
+
+            GameObject client = new GameObject();
+            client.AddComponent<Client>();
+            client.GetComponent<Client>().hasControl = true;
             yield return 3;
             PopulateCharacter CreateFigure = new GameObject().AddComponent<PopulateCharacter>();
             var NewGameObject = CreateFigure.DuplicateObjects(1, "Magic User", 1, 1, 1, 6, 4, 0, 0, 0, 2, 6, 24, 2, 0);
             yield return null;
+            
             GameObject sceneController = GameObject.Find("SceneController");
+            GameObject attackPanel = GameObject.Find("/Canvas/ActionsUIHolder/AttackPanel");
+            GameObject stdActionPanel = GameObject.Find("/Canvas/ActionsUIHolder/StandardPanel");
+            GameObject magicActionPanel = GameObject.Find("/Canvas/ActionsUIHolder/MagicPanel");
+            GameObject magicExplosionPanel = GameObject.Find("/Canvas/ActionsUIHolder/MagicExplosion");
+            GameObject victoryPanel = GameObject.Find("/Canvas/VictoryPanel");
+            GameObject infoPanel = GameObject.Find("InformationPanel");
+
             PlayerSpotlight spotScript = sceneController.GetComponent<PlayerSpotlight>();
+
+            spotScript.testing = true;
             spotScript.SpotlightChar(NewGameObject);
             yield return null;
             ClickButton("AttackButton");
 
             Assert.True(NewGameObject.GetComponent<PlayerAttack>().enabled);
-
+            //Assert.True(infoPanel.activeSelf);
+            Assert.True(attackPanel.activeSelf);
+            Assert.False(stdActionPanel.activeSelf);
+            Assert.False(magicActionPanel.activeSelf);
+            Assert.False(magicExplosionPanel.activeSelf);
+            //Assert.False(victoryPanel.activeSelf);
         }
 
         //[UnityTest]

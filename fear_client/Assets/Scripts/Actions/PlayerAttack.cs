@@ -107,7 +107,7 @@ public class PlayerAttack : MonoBehaviour
                     scripts.GetComponent<BattleUIControl>().SetAttackPanelEnemyInfo(text);
                     timeToDistroy = true; // This actually destroys the attacked object
 
-                    gamevars.PlayerRemoval("Attack", attackObject.GetComponent<CharacterFeatures>().troopId,2);
+                    gamevars.PlayerRemoval(attackObject.GetComponent<CharacterFeatures>().troopId,2, true);
                     //Destroy(attackObject);
                     Client.Instance.SendRetreatData(referenceScript.troopId,1);
                 }

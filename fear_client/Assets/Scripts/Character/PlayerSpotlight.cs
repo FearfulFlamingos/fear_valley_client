@@ -11,7 +11,9 @@ public class PlayerSpotlight : MonoBehaviour
     public GameObject battleUI;
     private GameObject scripts;
     private bool selectingCharacter = true;
+    public bool testing;
 
+    #region Monobehavior
     private void Start()
     {
         camera1.gameObject.SetActive(true);
@@ -20,14 +22,11 @@ public class PlayerSpotlight : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    /// <summary>
-    /// This function is constantly checking, what has been clicked on the screen. This is used
-    /// by the player to select a figure which is on their team. Once the figure has been selected
-    /// they are given a menu with options on what they would like to do with the figure. They
-    /// select the option they would like to pursue by clicking the button on the menu which is
-    /// linked to the functions below.
-    /// </summary>
+    // This function is constantly checking, what has been clicked on the screen. This is used
+    // by the player to select a figure which is on their team. Once the figure has been selected
+    // they are given a menu with options on what they would like to do with the figure. They
+    // select the option they would like to pursue by clicking the button on the menu which is
+    // linked to the functions below.
     private void Update()
     {
         if (selectingCharacter && Client.Instance.hasControl)
@@ -36,12 +35,15 @@ public class PlayerSpotlight : MonoBehaviour
             {
                 RaycastHit hit;
                 Ray ray = camera1.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out hit, 100.0f, layerMask: 1 << 10)) // if you hit something
+                // if you hit something
+                if (Physics.Raycast(ray, out hit, 100.0f, layerMask: 1 << 10)) 
                 {
                     GameLoop currentPlayerGameloop = scripts.GetComponent<GameLoop>();
                     GameObject selection = hit.transform.gameObject;
                     Debug.Log($"Last clicked: {lastClicked}");
-                    if (lastClicked != null) // something has been selected before & we want to not focus it
+                    
+                    // something has been selected before & we want to not focus it
+                    if (lastClicked != null) 
                     {
                         Debug.Log("Unfocusing last character");
                         DeactivateFocus(lastClicked.GetComponent<CharacterFeatures>());
@@ -58,7 +60,8 @@ public class PlayerSpotlight : MonoBehaviour
                         }
                     }
                 }
-                else // Nothing was hit by a ray on character level
+                // Nothing was hit by a ray on character level
+                else
                 {
                     if (Physics.Raycast(ray, out hit, 100.0f, layerMask: 1 <<9) && lastClicked != null)
                     {
@@ -70,7 +73,12 @@ public class PlayerSpotlight : MonoBehaviour
             }
         }
     }
+    #endregion
 
+    /// <summary>
+    /// Toggles whether or not the LMB should select a character.
+    /// </summary>
+    /// <param name="state">Desired state of selection.</param>
     public void ActivateCharacterSelect(bool state)
     {
         selectingCharacter = state;
@@ -80,12 +88,11 @@ public class PlayerSpotlight : MonoBehaviour
     /// This functions is called after a viable object has been selected and it focuses the
     /// object and then populates the ui canvas. 
     /// </summary>
-    /// <param name="current"></param>
+    /// <param name="current">Selected character.</param>
     public void SpotlightChar(GameObject current)
     {
         CharacterFeatures referenceScript = current.GetComponent<CharacterFeatures>();
         GameLoop currentPlayer = scripts.GetComponent<GameLoop>();
-        lastClicked = current;
         scripts.GetComponent<GameLoop>().lastClicked = current;
         if (referenceScript.isFocused)
         {
@@ -104,13 +111,12 @@ public class PlayerSpotlight : MonoBehaviour
     }
     
     /// <summary>
-    /// Unfocuses a selected character and disables all panels.
+    /// Unfocuses a selected character.
     /// </summary>
-    /// <param name="referenceScript">The CharacterFeatures script of the selected character.</param>
+    /// <param name="referenceScript">The CharacterFeatures component of the selected character.</param>
     public void DeactivateFocus(CharacterFeatures referenceScript)
     {
         referenceScript.isFocused = false;
-        gameObject.GetComponent<BattleUIControl>().DeactivateAllPanels();
         gameObject.GetComponent<BattleUIControl>().SetAttackPanelAttackerInfo("");
         gameObject.GetComponent<BattleUIControl>().SetAttackPanelEnemyInfo("");
 
@@ -127,21 +133,6 @@ public class PlayerSpotlight : MonoBehaviour
         selectingCharacter = false;
         lastClicked.GetComponent<PlayerMovement>().enabled = true;
         lastClicked.GetComponent<PlayerMovement>().ActivateMovement();
-        gameObject.GetComponent<BattleUIControl>().DeactivateAllPanels();
-    }
-
-    /// <summary>
-    /// This function is used after the attack buttion is clicked and it activates the attack script
-    /// </summary>
-    public void ActivateAttack()
-    {
-        selectingCharacter = false;
-        string text = $"You are attacking with: {lastClicked.GetComponent<CharacterFeatures>().charclass}";
-        gameObject.GetComponent<BattleUIControl>().SetAttackPanelAttackerInfo(text);
-        gameObject.GetComponent<BattleUIControl>().SwitchToAttackPanel();
-
-        lastClicked.GetComponent<PlayerAttack>().enabled = true;
-        lastClicked.GetComponent<PlayerAttack>().ActivateAttack();
     }
 
     /// <summary>
@@ -150,7 +141,6 @@ public class PlayerSpotlight : MonoBehaviour
     {
         //lastClicked.GetComponent<PlayerMagic>().enabled = true;
         selectingCharacter = false;
-        gameObject.GetComponent<BattleUIControl>().ToggleMagicInstructions(true);
         lastClicked.GetComponent<PlayerMagic>().PlaceExplosion();
     }
 }
