@@ -105,7 +105,7 @@ public class GameLoop : MonoBehaviour
         gameObject.GetComponent<BattleUIControl>().ToggleInfoPanel(false);
         gameObject.GetComponent<BattleUIControl>().CancelAttackPanel();
         lastClicked.GetComponent<PlayerAttack>().DeactivateAttack();
-        lastClicked.GetComponent<PlayerAttack>().enabled = false;
+        //lastClicked.GetComponent<PlayerAttack>().enabled = false;
     }
     /// <summary>
     /// This function is used after the end of an attack to deactivate attack mode and track the number

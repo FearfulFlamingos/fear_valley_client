@@ -238,8 +238,6 @@ MonoBehaviour:
   attackRange: 0
   damage: 0
   isLeader: 0
-  myCircle: {fileID: 3818750916697191934, guid: 554ce6d83f69f41b093df22f0b18220b,
-    type: 3}
   isFocused: 0
   isAttacking: 0
   numMagAtk: 0
@@ -258,6 +256,8 @@ MonoBehaviour:
   whatCanBeClickedOn:
     serializedVersion: 2
     m_Bits: 0
+  movementSelector: {fileID: 5328913848475790285, guid: 7ef8ae6901f921744acfceff3f8a9ba2,
+    type: 3}
 --- !u!114 &2266210557266149865
 MonoBehaviour:
   m_ObjectHideFlags: 0

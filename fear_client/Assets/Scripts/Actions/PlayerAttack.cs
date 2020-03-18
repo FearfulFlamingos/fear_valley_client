@@ -46,7 +46,6 @@ public class PlayerAttack : MonoBehaviour
 
                     if (referenceScript.team != gameObject.GetComponent<CharacterFeatures>().team)
                     {
-                        //if(WithinRange(3.5F, attackObject.transform.position[0],attackObject.transform.position[2], myGameObject.transform.position[0], myGameObject.transform.position[2], false))
                         if(Vector3.Distance(gameObject.transform.position,attackObject.transform.position) < gameObject.GetComponent<CharacterFeatures>().attackRange)
                         {
                             string text = $"Name: Roman\nHealth: {referenceScript.health}\nClass: {referenceScript.charclass}\nDefense: {referenceScript.damageBonus}\nWithin Range: Yes";
@@ -72,7 +71,6 @@ public class PlayerAttack : MonoBehaviour
         }
 
     }
-
 
     /// <summary>
     /// This function is called to modify the game to "attack mode". It activates the attacking click options and deactivates the player spotlight clicked.
@@ -112,15 +110,13 @@ public class PlayerAttack : MonoBehaviour
                     gamevars.PlayerRemoval("Attack", attackObject.GetComponent<CharacterFeatures>().troopId,2);
                     //Destroy(attackObject);
                     Client.Instance.SendRetreatData(referenceScript.troopId,1);
-                    //Destroy(attackObject.GetComponent<CharacterFeatures>().myCircle);
-                    //Destroy(attackObject.GetComponent<CharacterFeatures>().attackRange);
                 }
                 else
                 {
                     referenceScript.health = System.Convert.ToInt32(referenceScript.health - damageTaken);
-                    Client.Instance.SendAttackData(referenceScript.troopId,damageTaken);
                     string text = $"You attack was a success \nand you have dealt {damageTaken} damage\nto the player named Roman ";
                     scripts.GetComponent<BattleUIControl>().SetAttackPanelEnemyInfo(text);
+                    Client.Instance.SendAttackData(referenceScript.troopId,damageTaken);
                 }
                 
             }
@@ -143,12 +139,6 @@ public class PlayerAttack : MonoBehaviour
 
     public void DeactivateAttack()
     {
-        scripts = GameObject.FindGameObjectWithTag("scripts");
-        scripts.GetComponent<PlayerSpotlight>().enabled = true;
-        CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
-        referenceScript.isAttacking = false;
-        string text = $"Name: Health: \nClass: \nDefense: \nWithin Range: ";
-        scripts.GetComponent<BattleUIControl>().SetAttackPanelEnemyInfo(text);
         if (timeToDistroy)
         {
             Debug.Log("Deleting slain enemy");
@@ -156,6 +146,14 @@ public class PlayerAttack : MonoBehaviour
             //Destroy(attackObject.GetComponent<CharacterFeatures>().myCircle);
             Destroy(attackObject);
         }
+        scripts = GameObject.FindGameObjectWithTag("scripts");
+        CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
+        referenceScript.isAttacking = false;
+        string text = $"Name: Health: \nClass: \nDefense: \nWithin Range: ";
+        scripts.GetComponent<BattleUIControl>().SetAttackPanelEnemyInfo(text);
+        scripts.GetComponent<PlayerSpotlight>().DeactivateFocus(referenceScript);
+        gameObject.GetComponent<PlayerAttack>().enabled = false;
+
     }
 }
 

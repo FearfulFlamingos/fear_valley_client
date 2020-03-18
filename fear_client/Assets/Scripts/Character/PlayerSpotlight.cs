@@ -30,7 +30,7 @@ public class PlayerSpotlight : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (selectingCharacter )//TODO: && Client.Instance.hasControl)
+        if (selectingCharacter && Client.Instance.hasControl)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -111,6 +111,9 @@ public class PlayerSpotlight : MonoBehaviour
     {
         referenceScript.isFocused = false;
         gameObject.GetComponent<BattleUIControl>().DeactivateAllPanels();
+        gameObject.GetComponent<BattleUIControl>().SetAttackPanelAttackerInfo("");
+        gameObject.GetComponent<BattleUIControl>().SetAttackPanelEnemyInfo("");
+
         lastClicked = null;
         gameObject.GetComponent<GameLoop>().lastClicked = null;
         selectingCharacter = true;
@@ -121,10 +124,10 @@ public class PlayerSpotlight : MonoBehaviour
     /// </summary>
     public void ActivateMovement()
     {
-        //gameObject.GetComponent<BfieldUIControl>().ToggleInfoPanel(false);
         selectingCharacter = false;
         lastClicked.GetComponent<PlayerMovement>().enabled = true;
         lastClicked.GetComponent<PlayerMovement>().ActivateMovement();
+        gameObject.GetComponent<BattleUIControl>().DeactivateAllPanels();
     }
 
     /// <summary>
@@ -132,10 +135,10 @@ public class PlayerSpotlight : MonoBehaviour
     /// </summary>
     public void ActivateAttack()
     {
+        selectingCharacter = false;
         string text = $"You are attacking with: {lastClicked.GetComponent<CharacterFeatures>().charclass}";
         gameObject.GetComponent<BattleUIControl>().SetAttackPanelAttackerInfo(text);
         gameObject.GetComponent<BattleUIControl>().SwitchToAttackPanel();
-
 
         lastClicked.GetComponent<PlayerAttack>().enabled = true;
         lastClicked.GetComponent<PlayerAttack>().ActivateAttack();
@@ -146,6 +149,7 @@ public class PlayerSpotlight : MonoBehaviour
     public void PlaceExplosion()
     {
         //lastClicked.GetComponent<PlayerMagic>().enabled = true;
+        selectingCharacter = false;
         gameObject.GetComponent<BattleUIControl>().ToggleMagicInstructions(true);
         lastClicked.GetComponent<PlayerMagic>().PlaceExplosion();
     }

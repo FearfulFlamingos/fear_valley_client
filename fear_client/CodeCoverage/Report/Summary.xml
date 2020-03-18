@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <CoverageReport scope="Summary">
   <Summary>
-    <Generatedon>3/14/2020 - 2:50:20 PM</Generatedon>
-    <Parser>MultiReportParser (2x CoberturaParser, 2x OpenCoverParser)</Parser>
+    <Generatedon>3/15/2020 - 4:51:07 PM</Generatedon>
+    <Parser>MultiReportParser (3x CoberturaParser, 3x OpenCoverParser)</Parser>
     <Assemblies>3</Assemblies>
     <Classes>18</Classes>
     <Files>18</Files>
-    <Coveredlines>271</Coveredlines>
-    <Uncoveredlines>799</Uncoveredlines>
-    <Coverablelines>1070</Coverablelines>
-    <Totallines>2139</Totallines>
-    <Linecoverage>25.3</Linecoverage>
+    <Coveredlines>346</Coveredlines>
+    <Uncoveredlines>899</Uncoveredlines>
+    <Coverablelines>1245</Coverablelines>
+    <Totallines>2211</Totallines>
+    <Linecoverage>27.7</Linecoverage>
     <Coveredbranches>0</Coveredbranches>
     <Totalbranches>0</Totalbranches>
   </Summary>
@@ -18,21 +18,21 @@
     <Assembly name="Assembly-CSharp" classes="1" coverage="0" coveredlines="0" coverablelines="4" totallines="13" branchcoverage="" coveredbranches="0" totalbranches="0">
       <Class name="CameraRotate" coverage="0" coveredlines="0" coverablelines="4" totallines="13" branchcoverage="" coveredbranches="0" totalbranches="0" />
     </Assembly>
-    <Assembly name="Scriptsdef" classes="16" coverage="19.2" coveredlines="190" coverablelines="985" totallines="1973" branchcoverage="" coveredbranches="0" totalbranches="0">
-      <Class name="BattleUIControl" coverage="34.7" coveredlines="33" coverablelines="95" totallines="165" branchcoverage="" coveredbranches="0" totalbranches="0" />
+    <Assembly name="Scriptsdef" classes="16" coverage="22.8" coveredlines="265" coverablelines="1160" totallines="2045" branchcoverage="" coveredbranches="0" totalbranches="0">
+      <Class name="BattleUIControl" coverage="51.9" coveredlines="67" coverablelines="129" totallines="184" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="BlowUpEnemies" coverage="0" coveredlines="0" coverablelines="22" totallines="35" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="CharacterFeatures" coverage="100" coveredlines="37" coverablelines="37" totallines="86" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="CharacterFeatures" coverage="100" coveredlines="43" coverablelines="43" totallines="78" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="Client" coverage="0" coveredlines="0" coverablelines="161" totallines="301" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="FeaturesHolder" coverage="0" coveredlines="0" coverablelines="7" totallines="25" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="GameLoop" coverage="10.7" coveredlines="15" coverablelines="140" totallines="248" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="FeaturesHolder" coverage="0" coveredlines="0" coverablelines="12" totallines="27" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="GameLoop" coverage="10.2" coveredlines="15" coverablelines="146" totallines="256" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="MainMenuButtons" coverage="0" coveredlines="0" coverablelines="13" totallines="32" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="PlayerAttack" coverage="14.1" coveredlines="13" coverablelines="92" totallines="161" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="PlayerMagic" coverage="11.2" coveredlines="7" coverablelines="62" totallines="103" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="PlayerMovement" coverage="29.1" coveredlines="14" coverablelines="48" totallines="104" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="PlayerSpotlight" coverage="43.5" coveredlines="34" coverablelines="78" totallines="138" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="PlayerAttack" coverage="14" coveredlines="16" coverablelines="114" totallines="159" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="PlayerMagic" coverage="9.6" coveredlines="8" coverablelines="83" totallines="115" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="PlayerMovement" coverage="29.7" coveredlines="22" coverablelines="74" totallines="110" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="PlayerSpotlight" coverage="50.4" coveredlines="57" coverablelines="113" totallines="156" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="PopulateCharacter" coverage="82.2" coveredlines="37" coverablelines="45" totallines="105" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="PopulateGrid" coverage="0" coveredlines="0" coverablelines="124" totallines="263" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="ServerPreferences" coverage="0" coveredlines="0" coverablelines="15" totallines="44" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="PopulateGrid" coverage="0" coveredlines="0" coverablelines="138" totallines="272" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="ServerPreferences" coverage="0" coveredlines="0" coverablelines="21" totallines="52" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="UIPopulate" coverage="0" coveredlines="0" coverablelines="42" totallines="138" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="VolumeControl" coverage="0" coveredlines="0" coverablelines="4" totallines="25" branchcoverage="" coveredbranches="0" totalbranches="0" />
     </Assembly>

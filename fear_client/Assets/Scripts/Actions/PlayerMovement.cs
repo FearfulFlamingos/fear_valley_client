@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 startingPosition;
     private NavMeshAgent myAgent;
     private GameObject scripts;
+    public bool moving;
 
 
     // Start is called before the first frame update
@@ -29,14 +30,14 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && gameObject.GetComponent<CharacterFeatures>().team == 1)//TODO: && Client.Instance.hasControl)
+        if (Input.GetMouseButtonDown(0) && gameObject.GetComponent<CharacterFeatures>().team == 1 && Client.Instance.hasControl)
         {
             CheckMovement();
         }
 
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit, 100.0f, 1 << 9)) //Only look on ground layer
+        if (Physics.Raycast(ray, out hit, 100.0f, 1 << 9) && moving) //Only look on ground layer
         {
             if (Vector3.Distance(hit.point, startingPosition) < gameObject.GetComponent<CharacterFeatures>().movement)
             {
@@ -63,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
 
                 MoveMe(hitInfo.point);
                 DeactivateMovement();
-                //TODO: Client.Instance.SendMoveData(gameObject.GetComponent<CharacterFeatures>().troopId, hitInfo.point[0], hitInfo.point[2]);
+                Client.Instance.SendMoveData(gameObject.GetComponent<CharacterFeatures>().troopId, hitInfo.point[0], hitInfo.point[2]);
             }
 
         }
@@ -89,7 +90,8 @@ public class PlayerMovement : MonoBehaviour
     /// to activate movement is done before we get to this script.
     /// </summary>
     public void ActivateMovement()
-    {        
+    {
+        moving = true;
         movementSelector = Instantiate(Resources.Load("MovementCursor")) as GameObject;
         startingPosition = transform.position;
         movementSelector.transform.position = startingPosition;
@@ -100,6 +102,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     public void DeactivateMovement()
     {
+        moving = false;
         scripts = GameObject.FindGameObjectWithTag("scripts");
         scripts.GetComponent<PlayerSpotlight>().DeactivateFocus(
             gameObject.GetComponent<CharacterFeatures>());

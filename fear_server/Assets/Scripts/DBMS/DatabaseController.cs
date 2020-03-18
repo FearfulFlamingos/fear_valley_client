@@ -123,6 +123,7 @@ public class DatabaseController
                 (int) troops.GetDouble(14), //WeaponRange
                 (int) troops.GetDouble(13), //WeapDmg
                 (int) troops.GetDouble(7), //Health
+                (int) troops.GetDouble(10), //Movement
                 false,//troops.GetBoolean(4),//leader
                 troops.GetDouble(5),//xpos
                 troops.GetDouble(6));//zPos

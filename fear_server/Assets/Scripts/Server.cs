@@ -321,6 +321,7 @@ public class Server : MonoBehaviour
                 AtkBonus = t.TroopAtkBonus,
                 AtkRange = t.WeaponRange,
                 Health = t.Health,
+                Movement = t.Movement,
                 MaxAttackVal = t.WeaponDamage,
                 DefenseMod = t.Armor
             };
@@ -381,8 +382,8 @@ public class Server : MonoBehaviour
         Debug.Log($"Reset waiting connections to {waitingConnections}");
         Shutdown();
         Debug.Log("Shut down server");
-        Init();
         Debug.Log("Restarting server...");
+        Init();
     }
 
     #endregion
