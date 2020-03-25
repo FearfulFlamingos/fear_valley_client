@@ -553,7 +553,7 @@ PrefabInstance:
     - target: {fileID: 5266402843906947615, guid: af8c1b714c4b8a84fa3cc58fd0adf884,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5266402843906947623, guid: af8c1b714c4b8a84fa3cc58fd0adf884,
         type: 3}
@@ -5684,7 +5684,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfd7b7358bdd04eb4a41a3209869c94b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPlayer: 0
   actionPoints: 0
   magicPoints: 0
   lastClicked: {fileID: 0}
@@ -5705,7 +5704,6 @@ MonoBehaviour:
   attackPanelAttackInfo: {fileID: 120125075}
   attackPanelEnemyInfo: {fileID: 1930489599}
   victoryText: {fileID: 1344478558}
-  exitButtonText: {fileID: 30321211}
   infoPanel: {fileID: 1150058616}
   victoryPanel: {fileID: 1508761711}
   stdActionPanel: {fileID: 1250716505}
