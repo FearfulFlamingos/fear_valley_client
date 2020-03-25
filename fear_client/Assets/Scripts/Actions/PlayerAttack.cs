@@ -3,157 +3,151 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Scripts.Controller;
+using Scripts.Networking;
+using Scripts.Character;
 
-public class PlayerAttack : MonoBehaviour
+namespace Scripts.Actions
 {
-    public LayerMask whatCanBeClickedOn;
-    private GameObject attackObject;
-    private bool canAttack, timeToDistroy;
-    private Camera camera1;
-    private GameObject scripts;
-
-    // Start is called before the first frame update
-    void Start()
+    public class PlayerAttack : MonoBehaviour
     {
-        
-        //uiCanvas = GameObject.FindGameObjectWithTag("PlayerAction");
-        scripts = GameObject.FindGameObjectWithTag("scripts");
-        camera1 = scripts.GetComponent<PlayerSpotlight>().camera1;
-    }
+        public LayerMask whatCanBeClickedOn;
+        private GameObject attackObject;
+        private bool canAttack, timeToDistroy;
+        private BattleUIControl uiController;
+        private GameLoop gameLoop;
 
-
-
-    // Update is called once per frame
-    /// <summary>
-    /// This function is called once per frame while attack is active. It is similar to player spotlight
-    /// in that it is constantly checking to see if someone has been clicked on and updating the UI.
-    /// </summary>
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0) && Client.Instance.hasControl)
+        // Start is called before the first frame update
+        void Start()
         {
-            RaycastHit hit;
-            Ray ray = camera1.ScreenPointToRay(Input.mousePosition);
-            //Debug.Log(Physics.Raycast(ray, out hit, 100.0f));
-            if (Physics.Raycast(ray, out hit, 100.0f, layerMask:1<<10))
+            uiController = GameObject.FindGameObjectWithTag("scripts").GetComponent<BattleUIControl>();
+            gameLoop = GameObject.FindGameObjectWithTag("scripts").GetComponent<GameLoop>();
+        }
+
+
+
+        // Update is called once per frame
+        /// <summary>
+        /// This function is called once per frame while attack is active. It is similar to player spotlight
+        /// in that it is constantly checking to see if someone has been clicked on and updating the UI.
+        /// </summary>
+        void Update()
+        {
+            if (Input.GetMouseButtonDown(0) && Client.Instance.HasControl())
             {
-
-                if (hit.transform != null)
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                //Debug.Log(Physics.Raycast(ray, out hit, 100.0f));
+                if (Physics.Raycast(ray, out hit, 100.0f, layerMask: 1 << 10))
                 {
-                    attackObject = hit.transform.gameObject;
-                    
-                    CharacterFeatures referenceScript = attackObject.GetComponent<CharacterFeatures>();
 
-                    if (referenceScript.team != gameObject.GetComponent<CharacterFeatures>().team)
+                    if (hit.transform != null)
                     {
-                        if(Vector3.Distance(gameObject.transform.position,attackObject.transform.position) < gameObject.GetComponent<CharacterFeatures>().attackRange)
+                        attackObject = hit.transform.gameObject;
+
+                        CharacterFeatures referenceScript = attackObject.GetComponent<CharacterFeatures>();
+
+                        if (referenceScript.Team != gameObject.GetComponent<CharacterFeatures>().Team)
                         {
-                            string text = $"Name: Roman\nHealth: {referenceScript.health}\nClass: {referenceScript.charclass}\nDefense: {referenceScript.damageBonus}\nWithin Range: Yes";
-                            scripts.GetComponent<BattleUIControl>().SetAttackPanelEnemyInfo(text);
-                            canAttack = true;
+                            if (Vector3.Distance(gameObject.transform.position, attackObject.transform.position) < gameObject.GetComponent<CharacterFeatures>().AttackRange)
+                            {
+                                string text = $"Name: Roman\nHealth: {referenceScript.Health}\nClass: {referenceScript.Charclass}\nDefense: {referenceScript.DamageBonus}\nWithin Range: Yes";
+                                uiController.SetAttackPanelEnemyInfo(text);
+                                canAttack = true;
+                            }
+                            else
+                            {
+                                string text = $"Name: Roman\nHealth: {referenceScript.Health}\nClass: {referenceScript.Charclass}\nDefense: {referenceScript.DamageBonus}\nWithin Range: No";
+                                uiController.SetAttackPanelEnemyInfo(text);
+                                canAttack = false;
+                            }
+
                         }
                         else
                         {
-                            string text = $"Name: Roman\nHealth: {referenceScript.health}\nClass: {referenceScript.charclass}\nDefense: {referenceScript.damageBonus}\nWithin Range: No";
-                            scripts.GetComponent<BattleUIControl>().SetAttackPanelEnemyInfo(text);
-                            canAttack = false;
+                            string text = $"You can not attack\nyour own team.";
+                            uiController.SetAttackPanelEnemyInfo(text);
                         }
 
                     }
-                    else
-                    {
-                        string text = $"You can not attack\nyour own team.";
-                        scripts.GetComponent<BattleUIControl>().SetAttackPanelEnemyInfo(text);
-                    }
-                    
                 }
             }
+
         }
 
-    }
-
-    /// <summary>
-    /// This function is called to modify the game to "attack mode". It activates the attacking click options and deactivates the player spotlight clicked.
-    /// This function is always the first function called to get to other functions.
-    /// </summary>
-    public void ActivateAttack()
-    {
-        scripts = GameObject.FindGameObjectWithTag("scripts");
-        scripts.GetComponent<PlayerSpotlight>().enabled = false;
-        CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
-        referenceScript.isAttacking = true;
-
-    }
-    /// <summary>
-    /// This is the base funciton for all attacks. The trigger for this function to be used is a button on the UI canvas.
-    /// Once the button is triggered the player must have already selected a figure to attack or it will get an error. Additionally,
-    /// this function will take away any health if need be or it can even trigger the destruction of an object. 
-    /// </summary>
-    public void Attack()
-    {
-        System.Random random = new System.Random();
-        CharacterFeatures referenceScript = attackObject.GetComponent<CharacterFeatures>();
-        CharacterFeatures referenceScript2 = gameObject.GetComponent<CharacterFeatures>();
-        GameLoop gamevars = scripts.GetComponent<GameLoop>();
-        if (canAttack)
+        /// <summary>
+        /// This is the base funciton for all attacks. The trigger for this function to be used is a button on the UI canvas.
+        /// Once the button is triggered the player must have already selected a figure to attack or it will get an error.
+        /// <para><paramref name="fudgeHit"/> is used for testing-- add or subtract a large number from the roll to ensure it's success or failure.</para>
+        /// <para><paramref name="fudgeDamage"/> is like fudgeHit, but for the damage "roll".</para>
+        /// </summary>
+        /// <remarks>
+        ///  This function will take away any health if need be or it can even trigger the destruction of an object. 
+        /// </remarks>
+        /// <param name="fudgeHit">Amount to add to the die rolls.</param>
+        public void Attack(int fudgeHit = 0, int fudgeDamage = 0)
         {
-            
-            if (random.Next(0,20)+referenceScript2.attack >= referenceScript.armorBonus)
+            System.Random random = new System.Random();
+            CharacterFeatures referenceScript = attackObject.GetComponent<CharacterFeatures>();
+            referenceScript.IsAttacking = true;
+            CharacterFeatures referenceScript2 = gameObject.GetComponent<CharacterFeatures>();
+            if (canAttack)
             {
-                int damageTaken = random.Next(1, (referenceScript2.damage))+referenceScript2.damageBonus;
-                if ((referenceScript.health - damageTaken) <= 0)
-                {
-                    string text = $"You have dealt fatal damage\nto the player named Roman ";
-                    scripts.GetComponent<BattleUIControl>().SetAttackPanelEnemyInfo(text);
-                    timeToDistroy = true; // This actually destroys the attacked object
 
-                    gamevars.PlayerRemoval(attackObject.GetComponent<CharacterFeatures>().troopId,2, true);
-                    //Destroy(attackObject);
-                    Client.Instance.SendRetreatData(referenceScript.troopId,1);
+                if (random.Next(0, 20) + referenceScript2.Attack + fudgeHit >= referenceScript.ArmorBonus)
+                {
+                    int damageTaken = random.Next(1, (referenceScript2.Damage)) + referenceScript2.DamageBonus + fudgeDamage;
+                    if ((referenceScript.Health - damageTaken) <= 0)
+                    {
+                        string text = $"You have dealt fatal damage\nto the player named Roman ";
+                        uiController.SetAttackPanelEnemyInfo(text);
+                        timeToDistroy = true; // This actually destroys the attacked object
+
+                        gameLoop.PlayerRemoval(attackObject.GetComponent<CharacterFeatures>().TroopId, 2, true);
+                        //Destroy(attackObject);
+                        Client.Instance.SendRetreatData(referenceScript.TroopId, 1);
+                    }
+                    else
+                    {
+                        referenceScript.Health = System.Convert.ToInt32(referenceScript.Health - damageTaken);
+                        string text = $"You attack was a success \nand you have dealt {damageTaken} damage\nto the player named Roman ";
+                        uiController.SetAttackPanelEnemyInfo(text);
+                        Client.Instance.SendAttackData(referenceScript.TroopId, damageTaken);
+                    }
+
                 }
                 else
                 {
-                    referenceScript.health = System.Convert.ToInt32(referenceScript.health - damageTaken);
-                    string text = $"You attack was a success \nand you have dealt {damageTaken} damage\nto the player named Roman ";
-                    scripts.GetComponent<BattleUIControl>().SetAttackPanelEnemyInfo(text);
-                    Client.Instance.SendAttackData(referenceScript.troopId,damageTaken);
+                    string text = $"You could not get passed their armor\nyour attack has failed";
+                    uiController.SetAttackPanelEnemyInfo(text);
                 }
-                
+                DeactivateAttack();
+                gameLoop.EndAttack();
             }
             else
             {
-                string text = $"You could not get passed their armor\nyour attack has failed";
-                scripts.GetComponent<BattleUIControl>().SetAttackPanelEnemyInfo(text);
+                string text = $"You can not attack this target\nthey are not in range. Select \nanother fighter to attack.";
+                uiController.SetAttackPanelEnemyInfo(text);
             }
         }
-        else
+
+        /// <summary>
+        /// This function is used after an attack and deactivates this script.
+        /// The function will also destroy any object that has been destroyed.
+        /// </summary>
+        public void DeactivateAttack()
         {
-            string text = $"You can not attack this target\nthey are not in range. Select \nanother fighter to attack.";
-            scripts.GetComponent<BattleUIControl>().SetAttackPanelEnemyInfo(text);
+            if (timeToDistroy)
+            {
+                Debug.Log("Deleting slain enemy");
+                timeToDistroy = false;
+                Destroy(attackObject);
+            }
+            CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
+            referenceScript.IsAttacking = false;
+            string text = $"Name: Health: \nClass: \nDefense: \nWithin Range: ";
+            uiController.SetAttackPanelEnemyInfo(text);
         }
     }
-    /// <summary>
-    /// This function is used after an attack and is used to enable the player spotlight script and deactivate this script.
-    /// The function will also destroy any object that has been destroyed.
-    /// </summary>
 
-    public void DeactivateAttack()
-    {
-        if (timeToDistroy)
-        {
-            Debug.Log("Deleting slain enemy");
-            timeToDistroy = false;
-            //Destroy(attackObject.GetComponent<CharacterFeatures>().myCircle);
-            Destroy(attackObject);
-        }
-        scripts = GameObject.FindGameObjectWithTag("scripts");
-        CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
-        referenceScript.isAttacking = false;
-        string text = $"Name: Health: \nClass: \nDefense: \nWithin Range: ";
-        scripts.GetComponent<BattleUIControl>().SetAttackPanelEnemyInfo(text);
-        scripts.GetComponent<PlayerSpotlight>().DeactivateFocus(referenceScript);
-        gameObject.GetComponent<PlayerAttack>().enabled = false;
-
-    }
 }
-

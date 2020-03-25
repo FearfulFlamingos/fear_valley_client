@@ -3,23 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class VolumeControl : MonoBehaviour
+namespace Scripts.Menus
 {
-    [SerializeField]
-    private AudioMixer mixer;
-
-    public enum channel {
-        MasterVolume,
-        BGMVolume,
-        SFXVolume
-    };
-
-    public channel dropdown = channel.MasterVolume;
-
-    //public var dropdown = (int) channel.MasterVolume;
-
-    public void SetLevel (float sliderValue)
+    public class VolumeControl : MonoBehaviour
     {
-        mixer.SetFloat(dropdown.ToString(), Mathf.Log10(sliderValue) * 20);
+        [SerializeField]
+        private AudioMixer mixer;
+
+        public enum channel
+        {
+            MasterVolume,
+            BGMVolume,
+            SFXVolume
+        };
+
+        public channel dropdown = channel.MasterVolume;
+
+        //public var dropdown = (int) channel.MasterVolume;
+
+        public void SetLevel(float sliderValue)
+        {
+            mixer.SetFloat(dropdown.ToString(), Mathf.Log10(sliderValue) * 20);
+        }
     }
 }

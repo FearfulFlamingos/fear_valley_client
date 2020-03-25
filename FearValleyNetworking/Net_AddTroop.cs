@@ -21,8 +21,8 @@
         /// <summary>Armor carried by troop.</summary>
         public string ArmorType { set; get; }
         /// <summary>X position where they were placed, relative to thier perspective.</summary>
-        public int XPosRelative { set; get; }
+        public float XPosRelative { set; get; }
         /// <summary>Z position where they were placed, relative to their perspective.</summary>
-        public int ZPosRelative { set; get; }
+        public float ZPosRelative { set; get; }
     }
 }

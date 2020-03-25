@@ -2,77 +2,122 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// This script is largely used to keep track of information on each of the game objects vital to making the game work
-/// </summary>
-public class CharacterFeatures : MonoBehaviour
+namespace Scripts.Character
 {
-
-    public int team;
-    public int health;
-    public int troopId;
-    public string charclass;
-    //public string armclass;
-    //public string weapon;
-    public int attack;
-    public int damageBonus;
-    public int movement;
-    public int perception;
-    public int magicattack;
-    public int magicdamage;
-    public int armorBonus;
-    public int stealth;
-    public int attackRange;
-    public int damage;
-    public int isLeader;
-    //public GameObject attackRange;
-    public bool isFocused, isAttacking;
-    public int numMagAtk;
- 
-
-    void Start()
-    {
-        isAttacking = false;
-    }
-
-    // Update is called once per frame
     /// <summary>
-    /// This function called once per frame is used to update the colors and activation of the circles as they
-    /// are changed by functions like player attack and player spotlight. This allows us to simplify code in other functions
+    /// This script is largely used to keep track of information on each of the game objects vital to making the game work
     /// </summary>
-    void Update()
+    public class CharacterFeatures // : MonoBehaviour
     {
-        var cubeRenderer = gameObject.GetComponent<Renderer>();
-        if (isFocused)
+
+        public int Team { get; set; }
+        public int Health { get; set; }
+        public int TroopId { get; set; }
+        public string Charclass { get; set; }
+        public int Attack { get; set; }
+        public int DamageBonus { get; set; }
+        public int Movement { get; set; }
+        public int Perception { get; set; }
+        public int ArmorBonus { get; set; }
+        public int Stealth { get; set; }
+        public int AttackRange { get; set; }
+        public int Damage { get; set; }
+        public int IsLeader { get; set; }
+        public bool IsFocused { get; set; }
+        public bool IsAttacking { get; set; }
+
+        private RandomNumberGenerator rng = new RandomNumberGenerator();
+
+        /// <summary>
+        /// Constructer method for a character's features.
+        /// </summary>
+        /// <param name="team">Team number for the character.</param>
+        /// <param name="health">Amount of health for the character.</param>
+        /// <param name="troopId">ID of the character.</param>
+        /// <param name="charclass">Prefab/Class of the character.</param>
+        /// <param name="attack">Attack bonus of the character.</param>
+        /// <param name="damageBonus">Damage bonus of the character.</param>
+        /// <param name="movement">Movement distance of the character.</param>
+        /// <param name="perception">Perception bonus.</param> UNUSED
+        /// <param name="armorBonus"></param>
+        /// <param name="stealth"></param>
+        /// <param name="attackRange"></param>
+        /// <param name="damage"></param>
+        /// <param name="isLeader"></param>
+        /// <param name="isFocused"></param>
+        /// <param name="isAttacking"></param>
+        /// <param name="numMagAtk"></param>
+        public CharacterFeatures(int team, int health, int troopId, string charclass, int attack, int damageBonus, int movement, int perception, int armorBonus, int stealth, int attackRange, int damage, int isLeader, bool isFocused, bool isAttacking)
         {
-            cubeRenderer.material.SetColor("_Color", Color.red);
+            this.Team = team;
+            this.Health = health;
+            this.TroopId = troopId;
+            this.Charclass = charclass;
+            this.Attack = attack;
+            this.DamageBonus = damageBonus;
+            this.Movement = movement;
+            this.Perception = perception;
+            this.ArmorBonus = armorBonus;
+            this.Stealth = stealth;
+            this.AttackRange = attackRange;
+            this.Damage = damage;
+            this.IsLeader = isLeader;
+            this.IsFocused = isFocused;
+            this.IsAttacking = isAttacking;
         }
-        else
+
+        /// <summary>
+        /// Blank constructor method.
+        /// </summary>
+        public CharacterFeatures()
         {
-            if (!isAttacking)
-            {
-                Color mycolor = new Color32(223, 210, 194, 255);
-                cubeRenderer.material.SetColor("_Color", mycolor);
-            }
+            this.Team = 1;
+            this.Health = 10;
+            this.TroopId = 0;
+            this.Charclass = "Peasant";
+            this.Attack = 0;
+            this.DamageBonus = 0;
+            this.Movement = 6;
+            this.Perception = 0;
+            this.ArmorBonus = 10;
+            this.Stealth = 0;
+            this.AttackRange = 1;
+            this.Damage = 1;
+            this.IsLeader = 0;
+            this.IsFocused = false;
+            this.IsAttacking = false;
         }
-        if (isAttacking)
+
+
+        public int DamageCharacter(int amount)
         {
-            isFocused = false;
-            cubeRenderer.material.SetColor("_Color", Color.red);
-            //attackRange.GetComponent<Renderer>().enabled = true;
-        }
-        else
-        {
-            if (isFocused)
-            {
-                //attackRange.GetComponent<Renderer>().enabled = false;
-            }
+            if (amount > Health)
+                return 0;
             else
             {
-                Color mycolor = new Color32(223, 210, 194, 255);
-                cubeRenderer.material.SetColor("_Color", mycolor);
-                //attackRange.GetComponent<Renderer>().enabled = false;
+                Health -= amount;
+                return Health;
             }
         }
+
+        public int GetAttackRoll() => rng.GetRandom(1, 20) + Attack;
+
+        public int GetDamageRoll() => rng.GetRandom(1, Damage) + DamageBonus;
+
+        public int GetMagicAttackRoll() => rng.GetRandom(1, 20) + 5;
+
+        public int GetMagicDamageRoll() => rng.GetRandom(1, 12) + 1;
+
+    }
+
+    interface IRandomNumberGenerator
+    {
+        int GetRandom(int min, int max);
+    }
+
+    class RandomNumberGenerator: IRandomNumberGenerator
+    {
+        Random random = new Random();
+        public int GetRandom(int min, int max) => Random.Range(min, max);
     }
 }

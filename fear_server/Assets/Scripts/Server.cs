@@ -5,6 +5,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.Networking;
 using FearValleyNetwork;
+using Scripts.DBMS;
 
 public class Server : MonoBehaviour
 {

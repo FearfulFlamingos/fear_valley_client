@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Scripts.Networking;
 
 public class PopulateGrid : MonoBehaviour
 {

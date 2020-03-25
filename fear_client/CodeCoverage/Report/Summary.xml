@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <CoverageReport scope="Summary">
   <Summary>
-    <Generatedon>3/15/2020 - 4:51:07 PM</Generatedon>
-    <Parser>MultiReportParser (3x CoberturaParser, 3x OpenCoverParser)</Parser>
+    <Generatedon>3/20/2020 - 11:56:13 AM</Generatedon>
+    <Parser>MultiReportParser (5x CoberturaParser, 3x OpenCoverParser)</Parser>
     <Assemblies>3</Assemblies>
     <Classes>18</Classes>
     <Files>18</Files>
-    <Coveredlines>346</Coveredlines>
-    <Uncoveredlines>899</Uncoveredlines>
-    <Coverablelines>1245</Coverablelines>
-    <Totallines>2211</Totallines>
-    <Linecoverage>27.7</Linecoverage>
+    <Coveredlines>351</Coveredlines>
+    <Uncoveredlines>1119</Uncoveredlines>
+    <Coverablelines>1470</Coverablelines>
+    <Totallines>2510</Totallines>
+    <Linecoverage>23.8</Linecoverage>
     <Coveredbranches>0</Coveredbranches>
     <Totalbranches>0</Totalbranches>
   </Summary>
@@ -18,26 +18,26 @@
     <Assembly name="Assembly-CSharp" classes="1" coverage="0" coveredlines="0" coverablelines="4" totallines="13" branchcoverage="" coveredbranches="0" totalbranches="0">
       <Class name="CameraRotate" coverage="0" coveredlines="0" coverablelines="4" totallines="13" branchcoverage="" coveredbranches="0" totalbranches="0" />
     </Assembly>
-    <Assembly name="Scriptsdef" classes="16" coverage="22.8" coveredlines="265" coverablelines="1160" totallines="2045" branchcoverage="" coveredbranches="0" totalbranches="0">
-      <Class name="BattleUIControl" coverage="51.9" coveredlines="67" coverablelines="129" totallines="184" branchcoverage="" coveredbranches="0" totalbranches="0" />
+    <Assembly name="Scriptsdef" classes="16" coverage="19.2" coveredlines="266" coverablelines="1380" totallines="2316" branchcoverage="" coveredbranches="0" totalbranches="0">
+      <Class name="BattleUIControl" coverage="23.2" coveredlines="40" coverablelines="172" totallines="303" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="BlowUpEnemies" coverage="0" coveredlines="0" coverablelines="22" totallines="35" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="CharacterFeatures" coverage="100" coveredlines="43" coverablelines="43" totallines="78" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="Client" coverage="0" coveredlines="0" coverablelines="161" totallines="301" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Client" coverage="14.5" coveredlines="34" coverablelines="233" totallines="386" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="FeaturesHolder" coverage="0" coveredlines="0" coverablelines="12" totallines="27" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="GameLoop" coverage="10.2" coveredlines="15" coverablelines="146" totallines="256" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="GameLoop" coverage="9.6" coveredlines="21" coverablelines="218" totallines="307" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="MainMenuButtons" coverage="0" coveredlines="0" coverablelines="13" totallines="32" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="PlayerAttack" coverage="14" coveredlines="16" coverablelines="114" totallines="159" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="PlayerAttack" coverage="10.5" coveredlines="13" coverablelines="123" totallines="147" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="PlayerMagic" coverage="9.6" coveredlines="8" coverablelines="83" totallines="115" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="PlayerMovement" coverage="29.7" coveredlines="22" coverablelines="74" totallines="110" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="PlayerSpotlight" coverage="50.4" coveredlines="57" coverablelines="113" totallines="156" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="PlayerMovement" coverage="15.9" coveredlines="14" coverablelines="88" totallines="123" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="PlayerSpotlight" coverage="38.3" coveredlines="43" coverablelines="112" totallines="148" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="PopulateCharacter" coverage="82.2" coveredlines="37" coverablelines="45" totallines="105" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="PopulateGrid" coverage="0" coveredlines="0" coverablelines="138" totallines="272" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="ServerPreferences" coverage="0" coveredlines="0" coverablelines="21" totallines="52" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="ServerPreferences" coverage="40.6" coveredlines="13" coverablelines="32" totallines="75" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="UIPopulate" coverage="0" coveredlines="0" coverablelines="42" totallines="138" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="VolumeControl" coverage="0" coveredlines="0" coverablelines="4" totallines="25" branchcoverage="" coveredbranches="0" totalbranches="0" />
     </Assembly>
-    <Assembly name="Tests" classes="1" coverage="100" coveredlines="81" coverablelines="81" totallines="153" branchcoverage="" coveredbranches="0" totalbranches="0">
-      <Class name="Tests.TestGamePlay" coverage="100" coveredlines="81" coverablelines="81" totallines="153" branchcoverage="" coveredbranches="0" totalbranches="0" />
+    <Assembly name="Tests" classes="1" coverage="98.8" coveredlines="85" coverablelines="86" totallines="181" branchcoverage="" coveredbranches="0" totalbranches="0">
+      <Class name="Tests.TestGamePlay" coverage="98.8" coveredlines="85" coverablelines="86" totallines="181" branchcoverage="" coveredbranches="0" totalbranches="0" />
     </Assembly>
   </Coverage>
 </CoverageReport>

@@ -36,8 +36,8 @@
         /// <summary>Armor value of the troop.</summary>
         public int DefenseMod { set; get; }
         /// <summary>True X position on the board.</summary>
-        public double AbsoluteXPos { set; get; }
+        public float AbsoluteXPos { set; get; }
         /// <summary>True Z position on the board.</summary>
-        public double AbsoluteZPos { set; get; }
+        public float AbsoluteZPos { set; get; }
     }
 }
