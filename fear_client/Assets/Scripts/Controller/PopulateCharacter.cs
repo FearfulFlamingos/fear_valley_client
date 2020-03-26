@@ -45,8 +45,8 @@ namespace Scripts.Controller
             {
                 // These positions need to be mirrored across x AND z axes, otherwise movements
                 // start looking pretty strange as someone across the map suddenly hits you
-                zpos = 7 - zpos;
-                xpos = 7 - xpos;
+                zpos = 7.0f - zpos;
+                xpos = 7.0f - xpos;
             }
             // Placing objects where they need to be and scaling them
             tile.transform.position = new Vector3(xpos, 0, zpos);
@@ -60,11 +60,11 @@ namespace Scripts.Controller
             //circle2.GetComponent<Renderer>().enabled = false;
 
             // fill prefab 
-            CharacterFeatures referenceScript = tile.GetComponent<CharacterFeatures>();
+            CharacterFeatures referenceScript = new CharacterFeatures();
             referenceScript.Team = System.Convert.ToInt32(teamNum);
             referenceScript.Health = System.Convert.ToInt32(health);
             referenceScript.TroopId = TroopID;
-            referenceScript.Attack = System.Convert.ToInt32(attack);
+            referenceScript.AttackBonus = System.Convert.ToInt32(attack);
             referenceScript.DamageBonus = System.Convert.ToInt32(damageBonus);
             referenceScript.AttackRange = System.Convert.ToInt32(range);
             referenceScript.Movement = System.Convert.ToInt32(movement);
@@ -74,7 +74,7 @@ namespace Scripts.Controller
             //referenceScript.magicdamage = System.Convert.ToInt32(characterInfo.magicDamage);
             referenceScript.ArmorBonus = System.Convert.ToInt32(armorBonus);
             referenceScript.Stealth = System.Convert.ToInt32(armorStealth);
-            referenceScript.Damage = System.Convert.ToInt32(damage);
+            referenceScript.MaxAttackVal = System.Convert.ToInt32(damage);
             referenceScript.IsLeader = System.Convert.ToInt32(leader);
             //referenceScript.myCircle = circle;
             //referenceScript.attackRange = circle2;

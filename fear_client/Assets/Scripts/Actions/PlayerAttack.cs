@@ -33,12 +33,11 @@ namespace Scripts.Actions
         /// </summary>
         void Update()
         {
-            if (Input.GetMouseButtonDown(0) && Client.Instance.HasControl())
+            if (InputManager.GetAttackButtonDown() && Client.Instance.HasControl())
             {
                 RaycastHit hit;
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                //Debug.Log(Physics.Raycast(ray, out hit, 100.0f));
-                if (Physics.Raycast(ray, out hit, 100.0f, layerMask: 1 << 10))
+                if (Physics.Raycast(ray, out hit, 100.0f, layerMask: 1 << 11))
                 {
 
                     if (hit.transform != null)
@@ -87,32 +86,33 @@ namespace Scripts.Actions
         /// <param name="fudgeHit">Amount to add to the die rolls.</param>
         public void Attack(int fudgeHit = 0, int fudgeDamage = 0)
         {
-            System.Random random = new System.Random();
-            CharacterFeatures referenceScript = attackObject.GetComponent<CharacterFeatures>();
-            referenceScript.IsAttacking = true;
-            CharacterFeatures referenceScript2 = gameObject.GetComponent<CharacterFeatures>();
+            CharacterFeatures defendingCharacter = attackObject.GetComponent<Character.Character>().Features;
+            defendingCharacter.IsAttacking = true;
+            CharacterFeatures attackingCharacter = gameObject.GetComponent<Character.Character>().Features;
             if (canAttack)
             {
 
-                if (random.Next(0, 20) + referenceScript2.Attack + fudgeHit >= referenceScript.ArmorBonus)
+                if (attackingCharacter.GetAttackRoll() >= defendingCharacter.ArmorBonus)
                 {
-                    int damageTaken = random.Next(1, (referenceScript2.Damage)) + referenceScript2.DamageBonus + fudgeDamage;
-                    if ((referenceScript.Health - damageTaken) <= 0)
+                    int damageTaken = attackingCharacter.GetDamageRoll() + fudgeDamage;
+                    defendingCharacter.DamageCharacter(damageTaken);
+                    if (defendingCharacter.Health == 0)
                     {
                         string text = $"You have dealt fatal damage\nto the player named Roman ";
                         uiController.SetAttackPanelEnemyInfo(text);
-                        timeToDistroy = true; // This actually destroys the attacked object
+                        //timeToDistroy = true; // This actually destroys the attacked object
+
 
                         gameLoop.PlayerRemoval(attackObject.GetComponent<CharacterFeatures>().TroopId, 2, true);
                         //Destroy(attackObject);
-                        Client.Instance.SendRetreatData(referenceScript.TroopId, 1);
+                        Client.Instance.SendRetreatData(defendingCharacter.TroopId, 1);
                     }
                     else
                     {
-                        referenceScript.Health = System.Convert.ToInt32(referenceScript.Health - damageTaken);
+                        defendingCharacter.Health = System.Convert.ToInt32(defendingCharacter.Health - damageTaken);
                         string text = $"You attack was a success \nand you have dealt {damageTaken} damage\nto the player named Roman ";
                         uiController.SetAttackPanelEnemyInfo(text);
-                        Client.Instance.SendAttackData(referenceScript.TroopId, damageTaken);
+                        Client.Instance.SendAttackData(defendingCharacter.TroopId, damageTaken);
                     }
 
                 }

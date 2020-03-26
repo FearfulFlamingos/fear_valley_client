@@ -8,10 +8,10 @@ using Scripts.Character;
 
 namespace Scripts.Controller
 {
-    public class PlayerSpotlight : MonoBehaviour, IPlayerSpotlight
+    public class PlayerSpotlight : MonoBehaviour
     {
         public Camera camera1;
-        public GameObject lastClicked, board;
+        public GameObject board;
         public GameObject battleUI;
         private bool selectingCharacter = true;
         public bool testing;
@@ -25,7 +25,6 @@ namespace Scripts.Controller
             camera1.gameObject.SetActive(true);
             uiController = gameObject.GetComponent<BattleUIControl>();
             gameLoop = gameObject.GetComponent<GameLoop>();
-            lastClicked = null;
 
         }
 
@@ -36,75 +35,51 @@ namespace Scripts.Controller
         // linked to the functions below.
         private void Update()
         {
-            if (Client.Instance.HasControl() && selectingCharacter && InputManager.GetLeftMouseClick()  )
+            if (selectingCharacter && InputManager.GetLeftMouseClick()) //TODO: && Client.Instance.HasControl())
             {
                 RaycastHit hit;
-                Ray ray = camera1.ScreenPointToRay(Input.mousePosition);
+                Ray ray = camera1.ScreenPointToRay(InputManager.mousePosition());
                 if (Physics.Raycast(ray, out hit, 100.0f, layerMask: 1 << 10))
                 {
-                    CheckSelection(hit.transform.gameObject, lastClicked);
+                    ChangeSelection(hit.transform.gameObject);
+                    SpotlightChar();
                 }
                 else
                 {
-                    // Nothing was hit by a ray on character level
-                    if (Physics.Raycast(ray, out hit, 100.0f, layerMask: 1 << 9) && lastClicked != null)
-                    {
-                        Debug.Log("Unselecting characters");
-                        DeactivateCurrentFocus();
-                        lastClicked = null;
-                    }
+                    DeactivateCurrentFocus();
+                    gameLoop.lastClicked = null;
                 }
             }
         }
 
         #endregion
 
-        #region Spotlight Checking
-
-        void CheckSelection(object clicked, object lastClicked)
+        /// <summary>
+        /// Changes the selected object to match the one just clicked on.
+        /// </summary>
+        /// <param name="selection"></param>
+        private void ChangeSelection(GameObject selection)
         {
-            GameObject selection = (GameObject)clicked;
-            Debug.Log($"Last clicked: {lastClicked}");
+            Debug.Log($"Last clicked: {gameLoop.lastClicked}");
 
-            // something has been selected before & we want to not focus it
-            // but also focus the new one
-            if (lastClicked != null)
+            // Something was already focused and we want to switch it
+            if (gameLoop.lastClicked != null)
             {
                 Debug.Log("Unfocusing last character");
                 DeactivateCurrentFocus();
-
-                Debug.Log("Focusing new character");
-                lastClicked = selection;
-                Debug.Log($"Last clicked object: {selection.gameObject.name}");
-
-                if (selection.GetComponent<CharacterFeatures>().Team == 1)
-                {
-                    gameLoop.lastClicked = selection;
-                    SpotlightChar(selection);
-                }
             }
-            else
-            {
-                lastClicked = selection;
-                Debug.Log($"Last clicked object: {selection.gameObject.name}");
-
-                if (selection.GetComponent<CharacterFeatures>().Team == 1)
-                {
-                    gameLoop.lastClicked = selection;
-                    SpotlightChar(selection);
-                }
-            }
+            Debug.Log("Focusing new character");
+            gameLoop.lastClicked = selection;
+            Debug.Log($"Last clicked object: {gameLoop.lastClicked.gameObject.name}");
         }
 
-
-        #endregion
         /// <summary>
         /// Toggles whether or not the LMB should select a character.
         /// </summary>
-        /// <param name="state">Desired state of selection.</param>
-        public void SetCharacterSelect(bool state)
+        /// 
+        public void DisableCharacterSelect()
         {
-            selectingCharacter = state;
+            selectingCharacter = false;
         }
 
         /// <summary>
@@ -112,23 +87,22 @@ namespace Scripts.Controller
         /// object and then populates the ui canvas. 
         /// </summary>
         /// <param name="current">Selected character.</param>
-        public void SpotlightChar(GameObject current)
+        private void SpotlightChar()
         {
-            CharacterFeatures referenceScript = current.GetComponent<CharacterFeatures>();
-            gameLoop.lastClicked = current;
-            if (referenceScript.IsFocused)
+            Character.Character character = gameLoop.lastClicked.GetComponent<Character.Character>();
+            if (character.CurrentState == Character.Character.State.Selected)
             {
                 DeactivateCurrentFocus();
             }
             else
             {
-                //referenceScript.isFocused = true;
+                character.CurrentState = Character.Character.State.Selected;
                 ChangeFocusedColor(Color.red);
                 uiController.ToggleInfoPanel(true);
-                uiController.ToggleActionPanel(true, referenceScript.Charclass);
+                uiController.ToggleActionPanel(true, character.Features.Charclass);
 
                 string leftText = $"Name: Roman\nAttack:+4\nAction Points:{gameLoop.actionPoints}";
-                string rightText = $"Class: {referenceScript.Charclass}\nDefense:13\nMovement:6";
+                string rightText = $"Class: {character.Features.Charclass}\nDefense:13\nMovement:6";
                 uiController.SetInfoPanelFriendlyText(leftText, rightText);
             }
         }
@@ -140,25 +114,23 @@ namespace Scripts.Controller
         public void DeactivateCurrentFocus()
         {
             ChangeFocusedColor(223, 210, 194, 255);
-            CharacterFeatures referenceScript = lastClicked.GetComponent<CharacterFeatures>();
-            referenceScript.IsFocused = false;
+            gameLoop.lastClicked.GetComponent<Character.Character>().CurrentState = Character.Character.State.None;
             uiController.SetAttackPanelAttackerInfo("");
             uiController.SetAttackPanelEnemyInfo("");
             uiController.DeactivateAllPanels();
 
-            lastClicked = null;
             gameLoop.lastClicked = null;
             selectingCharacter = true;
         }
 
         private void ChangeFocusedColor(Color color)
         {
-            lastClicked.GetComponent<Renderer>().material.SetColor("_Color", color);
+            gameLoop.lastClicked.GetComponent<Renderer>().material.SetColor("_Color", color);
         }
 
         private void ChangeFocusedColor(byte red, byte green, byte blue, byte alpha)
         {
-            lastClicked.GetComponent<Renderer>().material.SetColor("_Color", new Color32(red, green, blue, alpha));
+            gameLoop.lastClicked.GetComponent<Renderer>().material.SetColor("_Color", new Color32(red, green, blue, alpha));
         }
     }
 

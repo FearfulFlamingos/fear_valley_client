@@ -11,6 +11,8 @@ namespace Scripts.Controller
     {
         internal static bool GetLeftMouseClick() => Input.GetMouseButtonDown(0);
         internal static bool GetRightMouseClick() => Input.GetMouseButtonDown(1);
+        internal static Vector3 mousePosition() => Input.mousePosition;
+
         internal static bool GetMoveButtonDown() => Input.GetKeyDown(KeyCode.Q);
         internal static bool GetAttackButtonDown() => Input.GetKeyDown(KeyCode.W);
         internal static bool GetMagicButtonDown() => Input.GetKeyDown(KeyCode.E);

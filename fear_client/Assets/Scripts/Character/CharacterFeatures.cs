@@ -14,14 +14,14 @@ namespace Scripts.Character
         public int Health { get; set; }
         public int TroopId { get; set; }
         public string Charclass { get; set; }
-        public int Attack { get; set; }
+        public int AttackBonus { get; set; }
         public int DamageBonus { get; set; }
         public int Movement { get; set; }
         public int Perception { get; set; }
         public int ArmorBonus { get; set; }
         public int Stealth { get; set; }
         public int AttackRange { get; set; }
-        public int Damage { get; set; }
+        public int MaxAttackVal { get; set; }
         public int IsLeader { get; set; }
         public bool IsFocused { get; set; }
         public bool IsAttacking { get; set; }
@@ -47,24 +47,24 @@ namespace Scripts.Character
         /// <param name="isFocused"></param>
         /// <param name="isAttacking"></param>
         /// <param name="numMagAtk"></param>
-        public CharacterFeatures(int team, int health, int troopId, string charclass, int attack, int damageBonus, int movement, int perception, int armorBonus, int stealth, int attackRange, int damage, int isLeader, bool isFocused, bool isAttacking)
-        {
-            this.Team = team;
-            this.Health = health;
-            this.TroopId = troopId;
-            this.Charclass = charclass;
-            this.Attack = attack;
-            this.DamageBonus = damageBonus;
-            this.Movement = movement;
-            this.Perception = perception;
-            this.ArmorBonus = armorBonus;
-            this.Stealth = stealth;
-            this.AttackRange = attackRange;
-            this.Damage = damage;
-            this.IsLeader = isLeader;
-            this.IsFocused = isFocused;
-            this.IsAttacking = isAttacking;
-        }
+        //public CharacterFeatures(int team, int health, int troopId, string charclass, int attack, int damageBonus, int movement, int perception, int armorBonus, int stealth, int attackRange, int damage, int isLeader, bool isFocused, bool isAttacking)
+        //{
+        //    this.Team = team;
+        //    this.Health = health;
+        //    this.TroopId = troopId;
+        //    this.Charclass = charclass;
+        //    this.AttackBonus = attack;
+        //    this.DamageBonus = damageBonus;
+        //    this.Movement = movement;
+        //    this.Perception = perception;
+        //    this.ArmorBonus = armorBonus;
+        //    this.Stealth = stealth;
+        //    this.AttackRange = attackRange;
+        //    this.MaxAttackVal = damage;
+        //    this.IsLeader = isLeader;
+        //    this.IsFocused = isFocused;
+        //    this.IsAttacking = isAttacking;
+        //}
 
         /// <summary>
         /// Blank constructor method.
@@ -75,34 +75,31 @@ namespace Scripts.Character
             this.Health = 10;
             this.TroopId = 0;
             this.Charclass = "Peasant";
-            this.Attack = 0;
+            this.AttackBonus = 0;
             this.DamageBonus = 0;
             this.Movement = 6;
             this.Perception = 0;
             this.ArmorBonus = 10;
             this.Stealth = 0;
             this.AttackRange = 1;
-            this.Damage = 1;
+            this.MaxAttackVal = 1;
             this.IsLeader = 0;
             this.IsFocused = false;
             this.IsAttacking = false;
         }
 
 
-        public int DamageCharacter(int amount)
+        public void DamageCharacter(int amount)
         {
             if (amount > Health)
-                return 0;
+                Health = 0;
             else
-            {
                 Health -= amount;
-                return Health;
-            }
         }
 
-        public int GetAttackRoll() => rng.GetRandom(1, 20) + Attack;
+        public int GetAttackRoll() => rng.GetRandom(1, 20) + AttackBonus;
 
-        public int GetDamageRoll() => rng.GetRandom(1, Damage) + DamageBonus;
+        public int GetDamageRoll() => rng.GetRandom(1, MaxAttackVal) + DamageBonus;
 
         public int GetMagicAttackRoll() => rng.GetRandom(1, 20) + 5;
 

@@ -112,7 +112,7 @@ namespace Scripts.Controller
         /// </summary>
         public void Move()
         {
-            spotlight.SetCharacterSelect(false);
+            spotlight.DisableCharacterSelect();
             lastClicked.GetComponent<Character.Character>().CurrentState = Character.Character.State.Moving;
         }
 
@@ -121,7 +121,7 @@ namespace Scripts.Controller
         /// </summary>
         public void Attack()
         {
-            spotlight.SetCharacterSelect(false);
+            spotlight.DisableCharacterSelect();
 
             string text = $"You are attacking with: {lastClicked.GetComponent<CharacterFeatures>().Charclass}";
             uiController.SetAttackPanelAttackerInfo(text);
@@ -172,7 +172,7 @@ namespace Scripts.Controller
             {
                 magicPoints--;
                 actionPoints -= 3;
-                spotlight.SetCharacterSelect(false);
+                spotlight.DisableCharacterSelect();
                 spotlight.DeactivateCurrentFocus();
 
                 lastClicked.GetComponent<PlayerMagic>().PlaceExplosion();
@@ -247,67 +247,60 @@ namespace Scripts.Controller
         #endregion
 
         /// <summary>
-        /// This function is checked each time any damage is done. It checks to see if the player's health is
-        /// 0. Following this the function checks if the endgame has been trigged.
+        /// This function is checked each time a character dies. It removes them from the internal team dictionaries, then checks if the endgame has been triggered.
         /// </summary>
+        /// <remarks>
+        /// This used to have a separate set of checks for if the enemy/player retreated thier last troop,
+        /// but I think it's unnecessary. 
+        /// </remarks>
         /// <param name="troopId"></param>
-        /// <param name="playerInQuestion"></param>
+        /// <param name="team"></param>
         /// <param name="retreat"></param>
-        public void PlayerRemoval(int troopId, int playerInQuestion, bool retreat = false)
+        public void PlayerRemoval(int troopId, int team, bool retreat = false)
         {
-            if (retreat)
+            switch (team)
             {
-                if (playerInQuestion == 1)
-                {
+                case 1:
                     p1CharsDict.Remove(troopId);
-                    if (p1CharsDict.Count == 0)
-                    {
-                        uiController.ToggleVictoryPanel(true);
-                        uiController.ToggleInfoPanel(false);
-                        string text = $"Victory has been acheived for \nplayer 2 after player 1 retreated ";
-                        uiController.SetVictoryPanelText(text);
-                    }
-                }
-                else
-                {
+                    break;
+                case 2:
                     p2CharsDict.Remove(troopId);
-                    if (p2CharsDict.Count == 0)
-                    {
-                        uiController.ToggleVictoryPanel(true);
-                        uiController.ToggleInfoPanel(false);
-                        string text = $"Victory has been acheived for \nplayer 1 after player 2 retreated ";
-                        uiController.SetVictoryPanelText(text);
-                    }
-                }
+                    break;
             }
-            else
-            {
-                if (playerInQuestion == 2)
-                {
-                    p2CharsDict.Remove(troopId);
-                    if (p2CharsDict.Count == 0)
-                    {
-                        uiController.ToggleVictoryPanel(true);
-                        uiController.ToggleInfoPanel(false);
-                        string text = $"Victory has been acheived for \nplayer 1 after defeating player 2 ";
-                        uiController.SetVictoryPanelText(text);
+            CheckVictoryState(team);
+        }
 
-                    }
-                }
-                else
-                {
-                    p1CharsDict.Remove(troopId);
-                    if (p1CharsDict.Count == 0)
+        /// <summary>
+        /// Check if either team is empty. 
+        /// </summary>
+        /// <param name="team"></param>
+        private void CheckVictoryState(int team)
+        {
+            // Since we know the team that the person died on, we only need to check if that dictionary is empty.
+            switch (team)
+            {
+                case 1:
+                    // You have lost
+                    if (p1CharsDict.Count == 0) 
                     {
                         uiController.ToggleVictoryPanel(true);
                         uiController.ToggleInfoPanel(false);
                         string text = $"Victory has been acheived for \nplayer 2 after defeating player 1 ";
                         uiController.SetVictoryPanelText(text);
                     }
-                }
+                    break;
+                case 2:
+                    // You have won!
+                    if (p2CharsDict.Count == 0)
+                    {
+                        uiController.ToggleVictoryPanel(true);
+                        uiController.ToggleInfoPanel(false);
+                        string text = $"Victory has been acheived for \nplayer 1 after defeating player 2 ";
+                        uiController.SetVictoryPanelText(text);
+                    }
+                    break;
             }
         }
-
 
     }
 }

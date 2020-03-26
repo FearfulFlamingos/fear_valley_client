@@ -39,16 +39,21 @@ namespace Scripts.Character
             switch (CurrentState)
             {
                 case State.Moving:
+                    Features.IsFocused = false;
                     _playerMovement.ActivateMovement();
                     break;
                 case State.Attacking:
+                    Features.IsFocused = false;
                     break;
                 case State.CastingSpell:
+                    Features.IsFocused = false;
                     break;
                 case State.Selected:
+                    Features.IsFocused = true;
                     break;
                 case State.None:
                 default:
+                    Features.IsFocused = false;
                     return;
             }
         }

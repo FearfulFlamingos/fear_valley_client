@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 2220466617547914974}
   - component: {fileID: 7854896416691516820}
   - component: {fileID: 7231102806146367618}
-  - component: {fileID: 9103937531855020512}
   - component: {fileID: 4570833420498781723}
   - component: {fileID: 2266210557266149865}
+  - component: {fileID: 3409588315671060960}
   m_Layer: 10
   m_Name: Trained Warrior
   m_TagString: Untagged
@@ -211,36 +211,6 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!114 &9103937531855020512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1810274083847610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e0314c6d406f43d798616047737a9ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  team: 0
-  health: 0
-  troopId: 0
-  charclass: 
-  attack: 0
-  damageBonus: 0
-  movement: 0
-  perception: 0
-  magicattack: 0
-  magicdamage: 0
-  armorBonus: 0
-  stealth: 0
-  attackRange: 0
-  damage: 0
-  isLeader: 0
-  isFocused: 0
-  isAttacking: 0
-  numMagAtk: 0
 --- !u!114 &4570833420498781723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,7 +218,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1810274083847610}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 041264792cb0f4504a0ce62acad3afe8, type: 3}
   m_Name: 
@@ -258,6 +228,7 @@ MonoBehaviour:
     m_Bits: 0
   movementSelector: {fileID: 5328913848475790285, guid: 7ef8ae6901f921744acfceff3f8a9ba2,
     type: 3}
+  selectingMovement: 0
 --- !u!114 &2266210557266149865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,7 +236,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1810274083847610}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0bc7adb471d894331851b273094ca02e, type: 3}
   m_Name: 
@@ -273,3 +244,15 @@ MonoBehaviour:
   whatCanBeClickedOn:
     serializedVersion: 2
     m_Bits: 0
+--- !u!114 &3409588315671060960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810274083847610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e53f999ca5870484f88d7d1945424784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -247,6 +247,21 @@ namespace Scripts.Networking
                 //CharacterFeatures characterFeatures = new CharacterFeatures(msg.TeamNum,msg.Health,msg.TroopID,msg.Prefab,msg.AtkBonus,msg.MaxAttackVal,msg.Movement,0,0,;
                 popChar.DuplicateObjects(msg.TroopID, msg.Prefab, msg.AbsoluteXPos, msg.AbsoluteZPos, 1, msg.Health, msg.AtkBonus, msg.AtkRange, 0, msg.Movement, 0, msg.DefenseMod, 0, msg.MaxAttackVal, 0);
                 //popChar.DuplicateObjects((msg.TroopID+1),msg.Prefab, varx, varz, 2, msg.Health, msg.AtkBonus, 0, 0, 0, msg.DefenseMod, 0, 6, 0);
+                
+                // This way of contstructing means that any values not set are left as default
+                CharacterFeatures features = new CharacterFeatures()
+                {
+                    Team = msg.TeamNum,
+                    Health = msg.Health,
+                    TroopId = msg.TroopID,
+                    Charclass = msg.Prefab,
+                    AttackBonus = msg.AtkBonus,
+                    DamageBonus = 0, // TODO: Fix this in FearValleyNetwork build
+                    Movement = msg.Movement,
+                    ArmorBonus = msg.DefenseMod,
+                    AttackRange = msg.AtkRange,
+                    MaxAttackVal = msg.MaxAttackVal
+                };
             }
             else
             {
