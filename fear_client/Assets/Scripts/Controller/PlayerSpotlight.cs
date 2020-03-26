@@ -42,7 +42,6 @@ namespace Scripts.Controller
                 if (Physics.Raycast(ray, out hit, 100.0f, layerMask: 1 << 10))
                 {
                     ChangeSelection(hit.transform.gameObject);
-                    SpotlightChar();
                 }
                 else
                 {
@@ -58,7 +57,7 @@ namespace Scripts.Controller
         /// Changes the selected object to match the one just clicked on.
         /// </summary>
         /// <param name="selection"></param>
-        private void ChangeSelection(GameObject selection)
+        public void ChangeSelection(GameObject selection)
         {
             Debug.Log($"Last clicked: {gameLoop.lastClicked}");
 
@@ -71,6 +70,7 @@ namespace Scripts.Controller
             Debug.Log("Focusing new character");
             gameLoop.lastClicked = selection;
             Debug.Log($"Last clicked object: {gameLoop.lastClicked.gameObject.name}");
+            SpotlightChar();
         }
 
         /// <summary>

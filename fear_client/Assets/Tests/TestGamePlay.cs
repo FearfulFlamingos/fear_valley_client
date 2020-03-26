@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using Scripts.Controller;
 using Scripts.Networking;
+using Scripts.Character;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,7 +20,8 @@ namespace Tests
             serverPref.AddComponent<ServerPreferences>();
             serverPref.GetComponent<ServerPreferences>().SetValues("127.0.0.1", 50000);
 
-            Client client = new Client();
+            GameObject client = new GameObject();
+            client.AddComponent<Client>();
             SceneManager.LoadScene("Battlefield");
         }
 
@@ -27,19 +29,34 @@ namespace Tests
         public IEnumerator TestSpawnLocation()
         {
             // Arrange
-            PopulateCharacter CreateFigure = new GameObject().AddComponent<PopulateCharacter>();
-            var NewGameObject = CreateFigure.DuplicateObjects(1,"Magic User",1,1,1,6,4,0,0,0,2,6,24,2,0);
-            var expected = new Vector3(1, 0.2f, 1);
-            yield return null;
+            
+            GameObject newGameObject = GameObject
+                .FindGameObjectWithTag("scripts")
+                .GetComponent<PopulateCharacter>()
+                .DuplicateObjects(new CharacterFeatures(), 1, 1);
+            GameObject enemyGameObject = GameObject
+                .FindGameObjectWithTag("scripts")
+                .GetComponent<PopulateCharacter>()
+                .DuplicateObjects(new CharacterFeatures() { Team = 2 }, 1, 1);
+
+            Vector3 expectedAllyPos = new Vector3(1, 0.2f, 1);
+            Vector3 expectedEnemyPos = new Vector3(6, 0.2f, 6);
+            
             // Act
-            //var MagicPrefab = Resources.Load("Magic User");
-            var location = NewGameObject.transform.position;
-            Debug.Log(location);
+            Vector3 actualAllyPos = newGameObject.transform.position;
+            Vector3 actualEnemyPos = enemyGameObject.transform.position;
+            Debug.Log(actualAllyPos);
             
             // Assert
-            Assert.AreEqual(expected[0], location[0]);
-            Assert.AreEqual(expected[1], location[1],0.1f);
-            Assert.AreEqual(expected[2], location[2]);
+            Assert.AreEqual(expectedAllyPos.x, actualAllyPos.x);
+            Assert.AreEqual(expectedAllyPos.y, actualAllyPos.y,0.1f);
+            Assert.AreEqual(expectedAllyPos.z, actualAllyPos.z);
+            Assert.AreEqual(10, newGameObject.layer);
+            Assert.AreEqual(expectedEnemyPos.x, actualEnemyPos.x);
+            Assert.AreEqual(expectedEnemyPos.y, actualEnemyPos.y,0.1f);
+            Assert.AreEqual(expectedEnemyPos.z, actualEnemyPos.z);
+            Assert.AreEqual(11, enemyGameObject.layer);
+            yield return null;
         }
 
         [UnityTest]
@@ -54,124 +71,136 @@ namespace Tests
         }
 
 
-        //[UnityTest]
-        //public IEnumerator TestPlayerHighlight()
-        //{
-        //    PopulateCharacter CreateFigure = new GameObject().AddComponent<PopulateCharacter>();
-        //    var NewGameObject = CreateFigure.DuplicateObjects(1, "Magic User", 1, 1, 1, 6, 4, 0, 0, 0, 2, 6, 24, 2, 0);
-        //    yield return null;
-        //    GameObject sceneController = GameObject.Find("SceneController");
-        //    PlayerSpotlight spotScript = sceneController.GetComponent<PlayerSpotlight>();
-        //    spotScript.SpotlightChar(NewGameObject);
-        //    Assert.True(NewGameObject.GetComponent<CharacterFeatures>().isFocused);
+        [UnityTest]
+        public IEnumerator TestPlayerHighlight()
+        {
+            GameObject newGameObject = GameObject
+                .FindGameObjectWithTag("scripts")
+                .GetComponent<PopulateCharacter>()
+                .DuplicateObjects(new CharacterFeatures(),1,1);
 
-        //}
-        //[UnityTest]
-        //public IEnumerator TestActivateCanvas()
-        //{
-        //    GameObject sceneController = GameObject.Find("SceneController");
-        //    PlayerSpotlight spotScript = sceneController.GetComponent<PlayerSpotlight>();
-        //    spotScript.SpotlightChar(magicUser);
-        //    var spotlightCanvas = GameObject.Find("InformationPanel");
-        //    GameObject magicPanel = GameObject.Find("MagicPanel");
-        //    GameObject stdPanel = GameObject.Find("Canvas/ActionsUIHolder/StandardPanel");
 
-        //    Assert.True(spotlightCanvas.activeSelf);
-        //    Assert.True(magicPanel.activeSelf);
-        //    Assert.False(stdPanel.activeSelf);
+            GameObject sceneController = GameObject.Find("SceneController");
+            PlayerSpotlight spotScript = sceneController.GetComponent<PlayerSpotlight>();
+            spotScript.ChangeSelection(newGameObject);
+            Assert.True(newGameObject.GetComponent<Character>().CurrentState == Character.State.Selected);
+            //Assert.Equals(newGameObject.name, sceneController.GetComponent<GameLoop>().lastClicked.name);
+            yield return null;
+        }
+            //[UnityTest]
+            //public IEnumerator TestActivateCanvas()
+            //{
+            //    GameObject sceneController = GameObject.Find("SceneController");
+            //    PlayerSpotlight spotScript = sceneController.GetComponent<PlayerSpotlight>();
+            //    spotScript.SpotlightChar(magicUser);
+            //    var spotlightCanvas = GameObject.Find("InformationPanel");
+            //    GameObject magicPanel = GameObject.Find("MagicPanel");
+            //    GameObject stdPanel = GameObject.Find("Canvas/ActionsUIHolder/StandardPanel");
 
-        //    spotScript.DeactivateCurrentFocus();
+            //    Assert.True(spotlightCanvas.activeSelf);
+            //    Assert.True(magicPanel.activeSelf);
+            //    Assert.False(stdPanel.activeSelf);
 
-        //    spotScript.SpotlightChar(trainedWarrior);
-        //    Assert.True(spotlightCanvas.activeSelf);
-        //    Assert.True(stdPanel.activeSelf);
-        //    Assert.False(magicPanel.activeSelf);
+            //    spotScript.DeactivateCurrentFocus();
 
-        //}
-        //public static void ClickButton(string name)
-        //{
-        //    // Find button Game Object
-        //    var go = GameObject.Find(name);
-        //    Assert.IsNotNull(go, "Missing button " + name);
+            //    spotScript.SpotlightChar(trainedWarrior);
+            //    Assert.True(spotlightCanvas.activeSelf);
+            //    Assert.True(stdPanel.activeSelf);
+            //    Assert.False(magicPanel.activeSelf);
 
-        //    // Set it selected for the Event System
-        //    EventSystem.current.SetSelectedGameObject(go);
+            //}
+            //public static void ClickButton(string name)
+            //{
+            //    // Find button Game Object
+            //    var go = GameObject.Find(name);
+            //    Assert.IsNotNull(go, "Missing button " + name);
 
-        //    // Invoke click
-        //    go.GetComponent<Button>().onClick.Invoke();
-        //}
+            //    // Set it selected for the Event System
+            //    EventSystem.current.SetSelectedGameObject(go);
 
-        //[UnityTest]
-        //public IEnumerator TestActivateMovement()
-        //{
-        //    PopulateCharacter CreateFigure = new GameObject().AddComponent<PopulateCharacter>();
-        //    var NewGameObject = CreateFigure.DuplicateObjects(1, "Magic User", 1, 1, 1, 6, 4, 0, 0, 0, 2, 6, 24, 2, 0);
-        //    yield return null;
-        //    GameObject sceneController = GameObject.Find("SceneController");
-        //    PlayerSpotlight spotScript = sceneController.GetComponent<PlayerSpotlight>();
-        //    spotScript.SpotlightChar(NewGameObject);
-        //    yield return null;
-        //    ClickButton("MoveButton");
+            //    // Invoke click
+            //    go.GetComponent<Button>().onClick.Invoke();
+            //}
 
-        //    Assert.True(NewGameObject.GetComponent<PlayerMovement>().enabled);
+            //[UnityTest]
+            //public IEnumerator TestActivateMovement()
+            //{
+            //    PopulateCharacter CreateFigure = new GameObject().AddComponent<PopulateCharacter>();
+            //    var NewGameObject = CreateFigure.DuplicateObjects(1, "Magic User", 1, 1, 1, 6, 4, 0, 0, 0, 2, 6, 24, 2, 0);
+            //    yield return null;
+            //    GameObject sceneController = GameObject.Find("SceneController");
+            //    PlayerSpotlight spotScript = sceneController.GetComponent<PlayerSpotlight>();
+            //    spotScript.SpotlightChar(NewGameObject);
+            //    yield return null;
+            //    ClickButton("MoveButton");
 
-        //}
-        
-        ///// The player "clicks" the attack button.
-        ///// The info panel remains active, and the Attack panel is activated.
-        ///// All other panels are inactive.
-        //[UnityTest]
-        //public IEnumerator TestAttack()
-        //{
-        //    PopulateCharacter CreateFigure = new GameObject().AddComponent<PopulateCharacter>();
-        //    var NewGameObject = CreateFigure.DuplicateObjects(1, "Magic User", 1, 1, 1, 6, 4, 0, 0, 0, 2, 6, 24, 2, 0);
-        //    yield return null;
-            
-        //    GameObject sceneController = GameObject.Find("SceneController");
-        //    GameObject attackPanel = GameObject.Find("/Canvas/ActionsUIHolder/AttackPanel");
-        //    GameObject stdActionPanel = GameObject.Find("/Canvas/ActionsUIHolder/StandardPanel");
-        //    GameObject magicActionPanel = GameObject.Find("/Canvas/ActionsUIHolder/MagicPanel");
-        //    GameObject magicExplosionPanel = GameObject.Find("/Canvas/ActionsUIHolder/MagicExplosion");
+            //    Assert.True(NewGameObject.GetComponent<PlayerMovement>().enabled);
 
-        //    PlayerSpotlight spotScript = sceneController.GetComponent<PlayerSpotlight>();
+            //}
 
-        //    spotScript.testing = true;
-        //    spotScript.SpotlightChar(NewGameObject);
-        //    yield return null;
-        //    ClickButton("AttackButton");
+            ///// The player "clicks" the attack button.
+            ///// The info panel remains active, and the Attack panel is activated.
+            ///// All other panels are inactive.
+            //[UnityTest]
+            //public IEnumerator TestAttack()
+            //{
+            //    PopulateCharacter CreateFigure = new GameObject().AddComponent<PopulateCharacter>();
+            //    var NewGameObject = CreateFigure.DuplicateObjects(1, "Magic User", 1, 1, 1, 6, 4, 0, 0, 0, 2, 6, 24, 2, 0);
+            //    yield return null;
 
-        //    Assert.True(NewGameObject.GetComponent<PlayerAttack>().enabled);
-        //    Assert.True(attackPanel.activeSelf);
-        //    Assert.False(stdActionPanel.activeSelf);
-        //    Assert.False(magicActionPanel.activeSelf);
-        //    Assert.False(magicExplosionPanel.activeSelf);
+            //    GameObject sceneController = GameObject.Find("SceneController");
+            //    GameObject attackPanel = GameObject.Find("/Canvas/ActionsUIHolder/AttackPanel");
+            //    GameObject stdActionPanel = GameObject.Find("/Canvas/ActionsUIHolder/StandardPanel");
+            //    GameObject magicActionPanel = GameObject.Find("/Canvas/ActionsUIHolder/MagicPanel");
+            //    GameObject magicExplosionPanel = GameObject.Find("/Canvas/ActionsUIHolder/MagicExplosion");
 
-        //    // Attack
-        //}
+            //    PlayerSpotlight spotScript = sceneController.GetComponent<PlayerSpotlight>();
 
-        //[UnityTest]
-        //public IEnumerator TestRetreat()
-        //{
-        //    SceneManager.LoadScene("Battlefield");
-        //    yield return 3;
-        //    PopulateCharacter CreateFigure = new GameObject().AddComponent<PopulateCharacter>();
-        //    var NewGameObject = CreateFigure.DuplicateObjects(1, "Magic User", 1, 1, 1, 6, 4, 0, 0, 0, 2, 0, 6, 0);
-        //    yield return null;
-        //    GameObject sceneController = GameObject.Find("SceneController");
-        //    PlayerSpotlight spotScript = sceneController.GetComponent<PlayerSpotlight>();
-        //    spotScript.SpotlightChar(NewGameObject);
-        //    yield return null;
-        //    ClickButton("RetreatButton");
+            //    spotScript.testing = true;
+            //    spotScript.SpotlightChar(NewGameObject);
+            //    yield return null;
+            //    ClickButton("AttackButton");
 
-        //    Assert.Null(NewGameObject);
+            //    Assert.True(NewGameObject.GetComponent<PlayerAttack>().enabled);
+            //    Assert.True(attackPanel.activeSelf);
+            //    Assert.False(stdActionPanel.activeSelf);
+            //    Assert.False(magicActionPanel.activeSelf);
+            //    Assert.False(magicExplosionPanel.activeSelf);
 
-        //}
+            //    // Attack
+            //}
 
-        ///Test movement
-        ///Test ui text population
-        ///test player is active
-        ///test activate attack/ movement
-        ///Look into testing server and client
-        ///
+            //[UnityTest]
+            //public IEnumerator TestRetreat()
+            //{
+            //    SceneManager.LoadScene("Battlefield");
+            //    yield return 3;
+            //    PopulateCharacter CreateFigure = new GameObject().AddComponent<PopulateCharacter>();
+            //    var NewGameObject = CreateFigure.DuplicateObjects(1, "Magic User", 1, 1, 1, 6, 4, 0, 0, 0, 2, 0, 6, 0);
+            //    yield return null;
+            //    GameObject sceneController = GameObject.Find("SceneController");
+            //    PlayerSpotlight spotScript = sceneController.GetComponent<PlayerSpotlight>();
+            //    spotScript.SpotlightChar(NewGameObject);
+            //    yield return null;
+            //    ClickButton("RetreatButton");
+
+            //    Assert.Null(NewGameObject);
+
+            //}
+
+            ///Test movement
+            ///Test ui text population
+            ///test player is active
+            ///test activate attack/ movement
+            ///Look into testing server and client
+            ///
+
+        // Teardown runs after every test
+        [TearDown]
+        public void TearDown()
+        {
+            GameObject.Find("SceneController").GetComponent<GameLoop>().p1CharsDict.Clear();
+            GameObject.Find("SceneController").GetComponent<GameLoop>().p2CharsDict.Clear();
+        }
     }
 }

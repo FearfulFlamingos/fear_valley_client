@@ -21,21 +21,25 @@ namespace Scripts.Networking
     public class Client : MonoBehaviour//, IClient
     {
         public static Client Instance { private set; get; }
-        private const int MAX_USER = 2;
+        private int MAX_USER;
         private int PORT;
         private string SERVER_IP;
-        private const int BYTE_SIZE = 1024; // standard packet size
+        private int BYTE_SIZE; // standard packet size
 
         private byte reliableChannel;
         private int connectionId;
         private int hostId;
-        private bool isStarted = false;
+        private bool isStarted;
         private byte error;
         private bool hasControl;
 
         #region Monobehavior
         private void Start()
         {
+            // Assignments
+            MAX_USER = 2;
+            BYTE_SIZE = 1024;
+            isStarted = false;
             DontDestroyOnLoad(gameObject);
             Init();
         }
@@ -238,35 +242,33 @@ namespace Scripts.Networking
         {
 
             Debug.Log($"Added troop {msg.TroopID}:{msg.Prefab}");
-            PopulateCharacter popChar = new PopulateCharacter();
+            GameObject sceneController = GameObject.FindGameObjectWithTag("scripts");
+            PopulateCharacter popChar = sceneController.GetComponent<PopulateCharacter>();
+
             //PopulateCharacter popChar2 = new PopulateCharacter();
             //GameObject tile = (GameObject)Instantiate(Resources.Load(msg.Prefab));
             Debug.Log($"playerNum:{msg.ComingFrom},teamNum:{msg.TeamNum}");
-            if (msg.TeamNum == msg.ComingFrom)
+            
+            // This way of contstructing means that any values not set are left as default
+            CharacterFeatures features = new CharacterFeatures()
             {
-                //CharacterFeatures characterFeatures = new CharacterFeatures(msg.TeamNum,msg.Health,msg.TroopID,msg.Prefab,msg.AtkBonus,msg.MaxAttackVal,msg.Movement,0,0,;
-                popChar.DuplicateObjects(msg.TroopID, msg.Prefab, msg.AbsoluteXPos, msg.AbsoluteZPos, 1, msg.Health, msg.AtkBonus, msg.AtkRange, 0, msg.Movement, 0, msg.DefenseMod, 0, msg.MaxAttackVal, 0);
-                //popChar.DuplicateObjects((msg.TroopID+1),msg.Prefab, varx, varz, 2, msg.Health, msg.AtkBonus, 0, 0, 0, msg.DefenseMod, 0, 6, 0);
-                
-                // This way of contstructing means that any values not set are left as default
-                CharacterFeatures features = new CharacterFeatures()
-                {
-                    Team = msg.TeamNum,
-                    Health = msg.Health,
-                    TroopId = msg.TroopID,
-                    Charclass = msg.Prefab,
-                    AttackBonus = msg.AtkBonus,
-                    DamageBonus = 0, // TODO: Fix this in FearValleyNetwork build
-                    Movement = msg.Movement,
-                    ArmorBonus = msg.DefenseMod,
-                    AttackRange = msg.AtkRange,
-                    MaxAttackVal = msg.MaxAttackVal
-                };
-            }
-            else
+                Team = msg.TeamNum,
+                Health = msg.Health,
+                TroopId = msg.TroopID,
+                Charclass = msg.Prefab,
+                AttackBonus = msg.AtkBonus,
+                DamageBonus = 0, // TODO: Fix this in FearValleyNetwork build
+                Movement = msg.Movement,
+                ArmorBonus = msg.DefenseMod,
+                AttackRange = msg.AtkRange,
+                MaxAttackVal = msg.MaxAttackVal
+            };
+
+            if (msg.TeamNum != msg.ComingFrom)
             {
-                popChar.DuplicateObjects(msg.TroopID, msg.Prefab, msg.AbsoluteXPos, msg.AbsoluteZPos, 2, msg.Health, msg.AtkBonus, msg.AtkRange, 0, msg.Movement, 0, msg.DefenseMod, 0, msg.MaxAttackVal, 0);
+                features.Team = 2;
             }
+            popChar.DuplicateObjects(features, msg.AbsoluteXPos, msg.AbsoluteZPos);
 
             //tile.transform.position = new Vector3(varx, 0, varz);
         }

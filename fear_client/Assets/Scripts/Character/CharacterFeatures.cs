@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
 
 namespace Scripts.Character
 {
     /// <summary>
     /// This script is largely used to keep track of information on each of the game objects vital to making the game work
     /// </summary>
-    public class CharacterFeatures // : MonoBehaviour
+    public class CharacterFeatures //: MonoBehaviour
     {
 
         public int Team { get; set; }
@@ -26,45 +24,7 @@ namespace Scripts.Character
         public bool IsFocused { get; set; }
         public bool IsAttacking { get; set; }
 
-        private RandomNumberGenerator rng = new RandomNumberGenerator();
-
-        /// <summary>
-        /// Constructer method for a character's features.
-        /// </summary>
-        /// <param name="team">Team number for the character.</param>
-        /// <param name="health">Amount of health for the character.</param>
-        /// <param name="troopId">ID of the character.</param>
-        /// <param name="charclass">Prefab/Class of the character.</param>
-        /// <param name="attack">Attack bonus of the character.</param>
-        /// <param name="damageBonus">Damage bonus of the character.</param>
-        /// <param name="movement">Movement distance of the character.</param>
-        /// <param name="perception">Perception bonus.</param> UNUSED
-        /// <param name="armorBonus"></param>
-        /// <param name="stealth"></param>
-        /// <param name="attackRange"></param>
-        /// <param name="damage"></param>
-        /// <param name="isLeader"></param>
-        /// <param name="isFocused"></param>
-        /// <param name="isAttacking"></param>
-        /// <param name="numMagAtk"></param>
-        //public CharacterFeatures(int team, int health, int troopId, string charclass, int attack, int damageBonus, int movement, int perception, int armorBonus, int stealth, int attackRange, int damage, int isLeader, bool isFocused, bool isAttacking)
-        //{
-        //    this.Team = team;
-        //    this.Health = health;
-        //    this.TroopId = troopId;
-        //    this.Charclass = charclass;
-        //    this.AttackBonus = attack;
-        //    this.DamageBonus = damageBonus;
-        //    this.Movement = movement;
-        //    this.Perception = perception;
-        //    this.ArmorBonus = armorBonus;
-        //    this.Stealth = stealth;
-        //    this.AttackRange = attackRange;
-        //    this.MaxAttackVal = damage;
-        //    this.IsLeader = isLeader;
-        //    this.IsFocused = isFocused;
-        //    this.IsAttacking = isAttacking;
-        //}
+        private readonly RandomNumberGenerator rng = new RandomNumberGenerator();
 
         /// <summary>
         /// Blank constructor method.
@@ -114,7 +74,7 @@ namespace Scripts.Character
 
     class RandomNumberGenerator: IRandomNumberGenerator
     {
-        Random random = new Random();
-        public int GetRandom(int min, int max) => Random.Range(min, max);
+        readonly Random random = new Random();
+        public int GetRandom(int min, int max) => random.Next(min, max);
     }
 }

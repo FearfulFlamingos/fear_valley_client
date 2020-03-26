@@ -122,8 +122,11 @@ namespace Scripts.Controller
         {
             attackPanel.SetActive(false);
             ToggleActionPanel(true,
-                gameObject.GetComponent<PlayerSpotlight>()
-                .lastClicked.GetComponent<CharacterFeatures>().Charclass);
+                gameLoop
+                .lastClicked
+                .GetComponent<Character.Character>()
+                .Features
+                .Charclass);
 
         }
 
