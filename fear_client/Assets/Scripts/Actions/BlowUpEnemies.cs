@@ -7,8 +7,13 @@ namespace Scripts.Actions
 {
     public class BlowUpEnemies : MonoBehaviour
     {
-        HashSet<GameObject> enemiesInBlast = new HashSet<GameObject>();
+        public HashSet<GameObject> EnemiesInBlast { private set;  get; }
         public int countEnemiesInBlast = 0;
+
+        private void Awake()
+        {
+            EnemiesInBlast = new HashSet<GameObject>();
+        }
 
         private void OnTriggerEnter(Collider other)
         {
@@ -16,7 +21,7 @@ namespace Scripts.Actions
             {
                 Debug.Log("Object entered");
                 Debug.Log($"{other.gameObject.layer}");
-                enemiesInBlast.Add(other.gameObject);
+                EnemiesInBlast.Add(other.gameObject);
                 countEnemiesInBlast++;
             }
         }
@@ -26,14 +31,9 @@ namespace Scripts.Actions
             if (other.gameObject.layer == 10 && other.gameObject.GetComponent<CharacterFeatures>().Team == 2)
             {
                 Debug.Log("Object exited");
-                enemiesInBlast.Remove(other.gameObject);
+                EnemiesInBlast.Remove(other.gameObject);
                 countEnemiesInBlast--;
             }
-        }
-
-        public HashSet<GameObject> GetEnemiesInBlast()
-        {
-            return enemiesInBlast;
         }
     }
 }

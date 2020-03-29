@@ -57,7 +57,7 @@ namespace Scripts.Actions
             ParticleSystem ex = Instantiate(explosionEffect, selection.transform.position, Quaternion.identity);
             ex.Play();
 
-            HashSet<GameObject> enemies = selection.GetComponent<BlowUpEnemies>().GetEnemiesInBlast();
+            HashSet<GameObject> enemies = selection.GetComponent<BlowUpEnemies>().EnemiesInBlast;
             foreach (GameObject enemy in enemies)
             {
                 MagicAttack(enemy);

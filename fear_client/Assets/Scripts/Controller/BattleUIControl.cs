@@ -62,30 +62,30 @@ namespace Scripts.Controller
         #endregion
 
         // Main loop of the BattleUIController script. Intercepts keyboard input.
-        private void CheckForKeyboardInput()
+        public void CheckForKeyboardInput()
         {
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (InputManager.GetMoveButtonDown())
             {
                 Debug.Log("Move");
                 Move();
             }
-            else if (Input.GetKeyDown(KeyCode.W))
+            else if (InputManager.GetAttackButtonDown())
             {
                 Debug.Log("Attack");
                 Attack();
             }
-            else if (Input.GetKeyDown(KeyCode.E) && magicActionPanel.activeSelf)
+            else if (InputManager.GetMagicButtonDown() && magicActionPanel.activeSelf)
             {
                 Debug.Log("Magic");
                 Magic();
             }
-            else if (Input.GetKeyDown(KeyCode.R))
+            else if (InputManager.GetRetreatButtonDown())
             {
                 Debug.Log("Retreat");
                 Retreat();
 
             }
-            else if (Input.GetKeyDown(KeyCode.Escape))
+            else if (InputManager.GetCancelButtonDown())
             {
                 Debug.Log("Cancel");
                 Cancel();
@@ -95,11 +95,11 @@ namespace Scripts.Controller
         // Secondary loop of the BattleUIController. While attack panel is active, intercepts keyboard input.
         private void AttackKeyboardInput()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (InputManager.GetSpaceKeyDown())
             {
                 ExecuteAttack();
             }
-            else if (Input.GetKeyDown(KeyCode.Escape))
+            else if (InputManager.GetCancelButtonDown())
             {
                 CancelAttack();
             }
@@ -110,7 +110,7 @@ namespace Scripts.Controller
 
         #region Panel toggling
         // Disables action panels and enables the Attack panel.
-        private void SwitchToAttackPanel()
+        public void SwitchToAttackPanel()
         {
             stdActionPanel.SetActive(false);
             magicActionPanel.SetActive(false);
@@ -118,7 +118,7 @@ namespace Scripts.Controller
         }
 
         // Disables the Attack panel and enables the appropriate action panel.
-        private void CancelAttackPanel()
+        public void CancelAttackPanel()
         {
             attackPanel.SetActive(false);
             ToggleActionPanel(true,

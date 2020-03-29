@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Scripts.Character
+﻿namespace Scripts.Character
 {
     /// <summary>
     /// This script is largely used to keep track of information on each of the game objects vital to making the game work
@@ -24,7 +22,7 @@ namespace Scripts.Character
         public bool IsFocused { get; set; }
         public bool IsAttacking { get; set; }
 
-        private readonly RandomNumberGenerator rng = new RandomNumberGenerator();
+        public IRandomNumberGenerator Rng { set; get; }
 
         /// <summary>
         /// Blank constructor method.
@@ -57,24 +55,13 @@ namespace Scripts.Character
                 Health -= amount;
         }
 
-        public int GetAttackRoll() => rng.GetRandom(1, 20) + AttackBonus;
+        public int GetAttackRoll() => Rng.GetRandom(1, 20) + AttackBonus;
 
-        public int GetDamageRoll() => rng.GetRandom(1, MaxAttackVal) + DamageBonus;
+        public int GetDamageRoll() => Rng.GetRandom(1, MaxAttackVal) + DamageBonus;
 
-        public int GetMagicAttackRoll() => rng.GetRandom(1, 20) + 5;
+        public int GetMagicAttackRoll() => Rng.GetRandom(1, 20) + 5;
 
-        public int GetMagicDamageRoll() => rng.GetRandom(1, 12) + 1;
+        public int GetMagicDamageRoll() => Rng.GetRandom(1, 12) + 1;
 
-    }
-
-    interface IRandomNumberGenerator
-    {
-        int GetRandom(int min, int max);
-    }
-
-    class RandomNumberGenerator: IRandomNumberGenerator
-    {
-        readonly Random random = new Random();
-        public int GetRandom(int min, int max) => random.Next(min, max);
     }
 }

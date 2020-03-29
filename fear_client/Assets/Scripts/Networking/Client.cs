@@ -248,7 +248,7 @@ namespace Scripts.Networking
             //PopulateCharacter popChar2 = new PopulateCharacter();
             //GameObject tile = (GameObject)Instantiate(Resources.Load(msg.Prefab));
             Debug.Log($"playerNum:{msg.ComingFrom},teamNum:{msg.TeamNum}");
-            
+
             // This way of contstructing means that any values not set are left as default
             CharacterFeatures features = new CharacterFeatures()
             {
@@ -261,7 +261,8 @@ namespace Scripts.Networking
                 Movement = msg.Movement,
                 ArmorBonus = msg.DefenseMod,
                 AttackRange = msg.AtkRange,
-                MaxAttackVal = msg.MaxAttackVal
+                MaxAttackVal = msg.MaxAttackVal,
+                Rng = new RandomNumberGenerator()
             };
 
             if (msg.TeamNum != msg.ComingFrom)
