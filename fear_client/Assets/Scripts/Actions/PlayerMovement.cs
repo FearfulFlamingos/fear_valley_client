@@ -4,127 +4,103 @@ using UnityEngine;
 using UnityEngine.AI;
 using Scripts.Controller;
 using Scripts.Networking;
-using Scripts.Character;
+using Scripts.CharacterClass;
 
 namespace Scripts.Actions
 {
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovement : MonoBehaviour, IPlayerMovement
     {
         public LayerMask whatCanBeClickedOn;
         public GameObject movementSelector;
         private Vector3 startingPosition;
-        private NavMeshAgent myAgent;
+        private Vector3 targetPosition;
+        public NavMeshAgent myAgent;
         private GameObject scripts;
         public bool selectingMovement;
         private bool movement;
+        public IInputManager InputManager { set; get; }
 
-
-        // Start is called before the first frame update
         void Start()
         {
-            myAgent = GetComponent<NavMeshAgent>();
+            myAgent = gameObject.GetComponent<NavMeshAgent>();
             scripts = GameObject.FindGameObjectWithTag("scripts");
+            if (InputManager == null)
+                InputManager = scripts.GetComponent<InputManager>();
         }
-
-
-
-        // Update is called once per frame
-        /// <summary>
-        /// This function called once per frame and takes in the information upon the mouse click. Once the mouse is clicked
-        /// it is processed to see if the hit point is valid. Once this is confirmed Moveme is called to move the game object,
-        /// and then the movement is sent to the server. The function also takes away action points.
-        /// </summary>
+        
         void Update()
         {
             if (movement)
             {
-                if (Input.GetMouseButtonDown(0) && gameObject.GetComponent<CharacterFeatures>().Team == 1 && Client.Instance.HasControl())
-                {
-                    CheckMovement();
-                }
-
-                RaycastHit hit;
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out hit, 100.0f, 1 << 9) && selectingMovement) //Only look on ground layer
-                {
-                    if (Vector3.Distance(hit.point, startingPosition) < gameObject.GetComponent<CharacterFeatures>().Movement)
-                    {
-                        movementSelector.transform.position = hit.point;
-                    }
-                }
+                MoveSelector();
+                
+                if (InputDetected())
+                    FinishMovementAndReturn();
             }
         }
 
-        /// <summary>
-        /// Toggle whether or not the character should be moving.
-        /// </summary>
-        /// <param name="state">State of movement.</param>
-        public void SetMovement(bool state)
+        /// <summary>Moves the movement cursor around the screen to follow the actual cursor.</summary>
+        private void MoveSelector()
         {
-            movement = state;
-        }
+            Ray ray = Camera.main.ScreenPointToRay(InputManager.MousePosition());
 
-        private void CheckMovement()
-        {
-            Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hitInfo;
-            CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
-
-            if (Physics.Raycast(myRay, out hitInfo, 100, whatCanBeClickedOn))
+            if (Physics.Raycast(ray, out RaycastHit hit, 100.0f, 1 << 9) && selectingMovement) //Only look on ground layer
             {
-                if (Vector3.Distance(gameObject.transform.position, hitInfo.point) < referenceScript.Movement)
+                if (Vector3.Distance(hit.point, startingPosition) < gameObject.GetComponent<Character>().Features.Movement)
                 {
-                    GameLoop actionPoints = scripts.GetComponent<GameLoop>();
-                    actionPoints.actionPoints = System.Convert.ToInt32(actionPoints.actionPoints) - 1;
-                    scripts.GetComponent<PlayerSpotlight>().DeactivateCurrentFocus();
-
-                    Destroy(movementSelector);
-                    MoveMe(hitInfo.point);
-                    Client.Instance.SendMoveData(gameObject.GetComponent<CharacterFeatures>().TroopId, hitInfo.point[0], hitInfo.point[2]);
-                    DeactivateMovement();
+                    movementSelector.transform.position = hit.point;
+                    targetPosition = hit.point;
                 }
-
             }
         }
 
+        /// <summary>Checks for player input and ability to move a character</summary>
+        /// <returns>Boolean value of input.</returns>
+        public bool InputDetected() => InputManager.GetLeftMouseClick() && Client.Instance.HasControl();
+
         /// <summary>
-        /// This function takes the new destination of the player and activates the agent to move the object there.
+        /// This is a private function that triggers movement, sends a client request, and toggles the checks for
+        /// this script. It also resets the character state via a call to PlayerSpotlight.
         /// </summary>
-        /// <param name="newPos">This is the new vector where the object is put</param>
-        public void MoveMe(Vector3 newPos)
+        public void FinishMovementAndReturn()
         {
-            if (gameObject.GetComponent<CharacterFeatures>().Team == 2)
+            selectingMovement = false;
+            movement = false;
+            scripts.GetComponent<PlayerSpotlight>().DeactivateCurrentFocus();
+            Destroy(movementSelector);
+            Move(targetPosition);
+            Client.Instance.SendMoveData(
+                gameObject.GetComponent<Character>().Features.TroopId,
+                targetPosition[0],
+                targetPosition[2]);
+        }
+
+        /// <summary>Moves the gameobject to <paramref name="newPos"/> with the navmeshagent.</summary>
+        /// <param name="newPos">This is the new vector where the object is put</param>
+        public void Move(Vector3 newPos)
+        {
+            if (gameObject.GetComponent<Character>().Features.Team == 2)
             {
                 newPos.z = 8 - newPos.z;
                 newPos.x = 8 - newPos.x;
             }
+            Debug.Log(myAgent);
             myAgent.SetDestination(newPos);
             Debug.Log(newPos);
-            CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
         }
 
         /// <summary>
-        /// This function stops PlayerSpotlight from selecting a new character. Everything else needed
-        /// to activate movement is done before we get to this script.
+        /// Creates a movement selector from a prefab and sets its position 
+        /// to the character's position.
         /// </summary>
         public void ActivateMovement()
         {
             movement = true;
             selectingMovement = true;
-            movementSelector = Instantiate(Resources.Load("MovementCursor")) as GameObject;
+            movementSelector = (GameObject) Instantiate(Resources.Load("MovementCursor"));
             startingPosition = transform.position;
             movementSelector.transform.position = startingPosition;
 
-        }
-        /// <summary>
-        /// This function activates the player spotlight script and deactivates this script.
-        /// </summary>
-        private void DeactivateMovement()
-        {
-            selectingMovement = false;
-            movement = false;
-            scripts = GameObject.FindGameObjectWithTag("scripts");
-            scripts.GetComponent<PlayerSpotlight>().DeactivateCurrentFocus();
         }
     }
 }

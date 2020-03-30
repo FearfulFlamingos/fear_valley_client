@@ -1,4 +1,4 @@
-﻿using Scripts.Character;
+﻿using Scripts.CharacterClass;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +14,7 @@ namespace Scripts.Controller
         /// <param name="features">The POCO character class instance.</param>
         /// <param name="xpos">Absolute x position on the board.</param>
         /// <param name="zpos">Absolute z position on the board.</param>
-        public GameObject DuplicateObjects(CharacterFeatures features, float xpos, float zpos)
+        public GameObject DuplicateObjects(ICharacterFeatures features, float xpos, float zpos)
         {
             GameObject tile = (GameObject)Instantiate(Resources.Load(features.Charclass));
 
@@ -29,7 +29,7 @@ namespace Scripts.Controller
             // Placing objects where they need to be and scaling them
             tile.transform.position = new Vector3(xpos, 0.2f, zpos);
 
-            tile.GetComponent<Character.Character>().Features = features;
+            tile.GetComponent<Character>().Features = features;
 
             GameLoop getdictionary = gameObject.GetComponent<GameLoop>();
             getdictionary.AddtoDict(features.Team, features.TroopId, tile);

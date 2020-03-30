@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Scripts.Character;
+using Scripts.CharacterClass;
 
 namespace Scripts.Actions
 {

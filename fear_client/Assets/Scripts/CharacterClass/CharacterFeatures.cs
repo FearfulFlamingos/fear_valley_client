@@ -1,9 +1,10 @@
-﻿namespace Scripts.Character
+﻿namespace Scripts.CharacterClass
 {
     /// <summary>
     /// This script is largely used to keep track of information on each of the game objects vital to making the game work
     /// </summary>
-    public class CharacterFeatures //: MonoBehaviour
+    public class CharacterFeatures : ICharacterFeatures
+    //: MonoBehaviour
     {
 
         public int Team { get; set; }

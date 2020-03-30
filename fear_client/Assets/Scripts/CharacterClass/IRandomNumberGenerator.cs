@@ -1,4 +1,4 @@
-﻿namespace Scripts.Character
+﻿namespace Scripts.CharacterClass
 {
     public interface IRandomNumberGenerator
     {

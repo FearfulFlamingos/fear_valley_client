@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using FearValleyNetwork;
 using Scripts.Controller;
-using Scripts.Character;
+using Scripts.CharacterClass;
 
 namespace Scripts.Networking
 {
@@ -18,9 +18,9 @@ namespace Scripts.Networking
     /// how Unity's netcode is being deprecated. Since the replacement has yet to come out and the 
     /// code is still valid in this version of unity, it's cleaner to disable the warnings.
     /// </remarks>
-    public class Client : MonoBehaviour//, IClient
+    public class Client : MonoBehaviour, IClient
     {
-        public static Client Instance { private set; get; }
+        public static IClient Instance { set; get; }
         private int MAX_USER;
         private int PORT;
         private string SERVER_IP;
@@ -36,6 +36,8 @@ namespace Scripts.Networking
         #region Monobehavior
         private void Start()
         {
+            if (Instance == null)
+                Instance = this;
             // Assignments
             MAX_USER = 2;
             BYTE_SIZE = 1024;
@@ -54,8 +56,6 @@ namespace Scripts.Networking
         /// </summary>
         public void Init()
         {
-            Instance = this;
-
             SERVER_IP = GameObject.Find("/ServerJoinPrefs").GetComponent<ServerPreferences>().GetIP();
             PORT = GameObject.Find("/ServerJoinPrefs").GetComponent<ServerPreferences>().GetPort();
 
@@ -204,14 +204,14 @@ namespace Scripts.Networking
         // Sets the number of spells that the player purchased.
         private void Net_SendMagic(int connId, int channelId, int recHostId, Net_SendMagic msg)
         {
-            GameObject.FindGameObjectWithTag("scripts").GetComponent<GameLoop>().SetMagic(msg.MagicAmount);
+            GameLoop.MagicPoints = msg.MagicAmount;
         }
 
         // Toggles the player's UI controls.
         private void Net_ToggleControls(int connId, int channelId, int recHostId, Net_ToggleControls msg)
         {
-            Instance.hasControl = !Instance.hasControl;
-            Debug.Log($"Toggling controls to {Client.Instance.hasControl}");
+            hasControl = !hasControl;
+            Debug.Log($"Toggling controls to {Instance.HasControl()}");
         }
 
         // Moves an enemy character to a new position.

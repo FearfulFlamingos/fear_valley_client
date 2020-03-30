@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Scripts.Character
+namespace Scripts.CharacterClass
 {
     public class RandomNumberGenerator : IRandomNumberGenerator
     {

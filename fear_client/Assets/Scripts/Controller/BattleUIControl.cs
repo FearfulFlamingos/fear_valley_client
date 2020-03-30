@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
-using Scripts.Character;
+using Scripts.CharacterClass;
 
 namespace Scripts.Controller
 {
@@ -40,12 +40,16 @@ namespace Scripts.Controller
 
         private PlayerSpotlight spotlight;
         private GameLoop gameLoop;
+        private IInputManager InputManager { set; get; }
 
         #region Monobehavior
         private void Start()
         {
             spotlight = gameObject.GetComponent<PlayerSpotlight>();
             gameLoop = gameObject.GetComponent<GameLoop>();
+
+            if (InputManager == null)
+                InputManager = gameObject.GetComponent<InputManager>();
 
         }
         private void Update()
@@ -122,9 +126,9 @@ namespace Scripts.Controller
         {
             attackPanel.SetActive(false);
             ToggleActionPanel(true,
-                gameLoop
-                .lastClicked
-                .GetComponent<Character.Character>()
+                GameLoop
+                .SelectedCharacter
+                .GetComponent<Character>()
                 .Features
                 .Charclass);
 

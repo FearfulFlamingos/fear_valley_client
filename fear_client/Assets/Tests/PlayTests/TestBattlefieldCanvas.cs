@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using Scripts.Actions;
-using Scripts.Character;
+using Scripts.CharacterClass;
 using Scripts.Controller;
 using Scripts.Networking;
 using System.Collections;
@@ -70,11 +70,10 @@ namespace PlayTests
         {
             // Arrange
             BattleUIControl battleUIControl = GameObject.Find("SceneController").GetComponent<BattleUIControl>();
-            GameLoop gameLoop = GameObject.Find("SceneController").GetComponent<GameLoop>();
             GameObject dummy = new GameObject();
             dummy.AddComponent<Character>();
             dummy.GetComponent<Character>().Features = new CharacterFeatures() { Charclass = "Peasant" };
-            gameLoop.lastClicked = dummy;
+            GameLoop.SelectedCharacter = dummy;
 
             GameObject attackPanel = GameObject.Find("/Canvas/ActionsUIHolder/AttackPanel");
             GameObject stdPanel = GameObject.Find("/Canvas/ActionsUIHolder/StandardPanel");
@@ -93,11 +92,10 @@ namespace PlayTests
         {
             // Arrange
             BattleUIControl battleUIControl = GameObject.Find("SceneController").GetComponent<BattleUIControl>();
-            GameLoop gameLoop = GameObject.Find("SceneController").GetComponent<GameLoop>();
             GameObject dummy = new GameObject();
             dummy.AddComponent<Character>();
             dummy.GetComponent<Character>().Features = new CharacterFeatures() { Charclass = "Magic User" };
-            gameLoop.lastClicked = dummy;
+            GameLoop.SelectedCharacter = dummy;
 
             GameObject attackPanel = GameObject.Find("/Canvas/ActionsUIHolder/AttackPanel");
             GameObject magicPanel = GameObject.Find("/Canvas/ActionsUIHolder/MagicPanel");
@@ -116,11 +114,10 @@ namespace PlayTests
         {
             // Arrange
             BattleUIControl battleUIControl = GameObject.Find("SceneController").GetComponent<BattleUIControl>();
-            GameLoop gameLoop = GameObject.Find("SceneController").GetComponent<GameLoop>();
             GameObject dummy = new GameObject();
             dummy.AddComponent<Character>();
             dummy.AddComponent<MeshRenderer>();
-            gameLoop.lastClicked = dummy;
+            GameLoop.SelectedCharacter = dummy;
 
             //GameObject infoPanel = GameObject.Find("InformationPanel");
             GameObject stdPanel = GameObject.Find("/Canvas/ActionsUIHolder/StandardPanel");

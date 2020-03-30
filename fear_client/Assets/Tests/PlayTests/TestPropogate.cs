@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using Scripts.Controller;
 using Scripts.Networking;
-using Scripts.Character;
+using Scripts.CharacterClass;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,7 +9,7 @@ using UnityEngine.TestTools;
 
 namespace PlayTests
 {
-    public class TestGamePlay
+    public class TestPropogate
     {
 
         [OneTimeSetUp]
@@ -70,44 +70,6 @@ namespace PlayTests
             Assert.True(spotScript.enabled);
         }
 
-
-        [UnityTest]
-        public IEnumerator TestPlayerHighlight()
-        {
-            GameObject newGameObject = GameObject
-                .FindGameObjectWithTag("scripts")
-                .GetComponent<PopulateCharacter>()
-                .DuplicateObjects(new CharacterFeatures(),1,1);
-
-
-            GameObject sceneController = GameObject.Find("SceneController");
-            PlayerSpotlight spotScript = sceneController.GetComponent<PlayerSpotlight>();
-            spotScript.ChangeSelection(newGameObject);
-            Assert.True(newGameObject.GetComponent<Character>().CurrentState == Character.State.Selected);
-            yield return null;
-        }
-
-        [UnityTest]
-        public IEnumerator TestHighlightAndSwitchSelection()
-        {
-            GameObject newGameObject = GameObject
-                .FindGameObjectWithTag("scripts")
-                .GetComponent<PopulateCharacter>()
-                .DuplicateObjects(new CharacterFeatures(),1,1);
-            GameObject secondPlayer = GameObject
-                .FindGameObjectWithTag("scripts")
-                .GetComponent<PopulateCharacter>()
-                .DuplicateObjects(new CharacterFeatures() { TroopId = 2 },1,1);
-
-
-            GameObject sceneController = GameObject.Find("SceneController");
-            PlayerSpotlight spotScript = sceneController.GetComponent<PlayerSpotlight>();
-            spotScript.ChangeSelection(newGameObject);
-            spotScript.ChangeSelection(secondPlayer);
-            Assert.False(newGameObject.GetComponent<Character>().CurrentState == Character.State.Selected);
-            Assert.True(secondPlayer.GetComponent<Character>().CurrentState == Character.State.Selected);
-            yield return null;
-        }
             //[UnityTest]
             //public IEnumerator TestActivateCanvas()
             //{
@@ -216,12 +178,5 @@ namespace PlayTests
             ///Look into testing server and client
             ///
 
-        // Teardown runs after every test
-        [TearDown]
-        public void TearDown()
-        {
-            GameObject.Find("SceneController").GetComponent<GameLoop>().p1CharsDict.Clear();
-            GameObject.Find("SceneController").GetComponent<GameLoop>().p2CharsDict.Clear();
-        }
     }
 }

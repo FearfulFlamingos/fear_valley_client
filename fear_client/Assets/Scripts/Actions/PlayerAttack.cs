@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Scripts.Controller;
 using Scripts.Networking;
-using Scripts.Character;
+using Scripts.CharacterClass;
 
 namespace Scripts.Actions
 {
@@ -16,12 +16,15 @@ namespace Scripts.Actions
         private bool canAttack, timeToDistroy;
         private BattleUIControl uiController;
         private GameLoop gameLoop;
+        public IInputManager InputManager { set; get; }
 
         // Start is called before the first frame update
         void Start()
         {
             uiController = GameObject.FindGameObjectWithTag("scripts").GetComponent<BattleUIControl>();
             gameLoop = GameObject.FindGameObjectWithTag("scripts").GetComponent<GameLoop>();
+            if (InputManager == null)
+                InputManager = GameObject.Find("SceneController").GetComponent<InputManager>();
         }
 
 
@@ -84,17 +87,17 @@ namespace Scripts.Actions
         ///  This function will take away any health if need be or it can even trigger the destruction of an object. 
         /// </remarks>
         /// <param name="fudgeHit">Amount to add to the die rolls.</param>
-        public void Attack(int fudgeHit = 0, int fudgeDamage = 0)
+        public void Attack()
         {
-            CharacterFeatures defendingCharacter = attackObject.GetComponent<Character.Character>().Features;
+            ICharacterFeatures defendingCharacter = attackObject.GetComponent<Character>().Features;
             defendingCharacter.IsAttacking = true;
-            CharacterFeatures attackingCharacter = gameObject.GetComponent<Character.Character>().Features;
+            ICharacterFeatures attackingCharacter = gameObject.GetComponent<Character>().Features;
             if (canAttack)
             {
 
                 if (attackingCharacter.GetAttackRoll() >= defendingCharacter.ArmorBonus)
                 {
-                    int damageTaken = attackingCharacter.GetDamageRoll() + fudgeDamage;
+                    int damageTaken = attackingCharacter.GetDamageRoll();
                     defendingCharacter.DamageCharacter(damageTaken);
                     if (defendingCharacter.Health == 0)
                     {

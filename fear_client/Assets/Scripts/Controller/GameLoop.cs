@@ -5,15 +5,15 @@ using UnityEngine.SceneManagement;
 using System;
 using Scripts.Actions;
 using Scripts.Networking;
-using Scripts.Character;
+using Scripts.CharacterClass;
 
 namespace Scripts.Controller
 {
     public class GameLoop : MonoBehaviour
     {
-        public int actionPoints;
-        public int magicPoints;
-        public GameObject lastClicked;
+        public static int ActionPoints { set; get; }
+        public static GameObject SelectedCharacter { set; get; }
+        public static int MagicPoints { set; get; }
         public Dictionary<int, GameObject> p1CharsDict, p2CharsDict;
         private int numAttacks;
         private PlayerSpotlight spotlight;
@@ -23,7 +23,7 @@ namespace Scripts.Controller
         // Start is called before the first frame update
         void Start()
         {
-            actionPoints = 3;
+            ActionPoints = 3;
             spotlight = gameObject.GetComponent<PlayerSpotlight>();
             p1CharsDict = new Dictionary<int, GameObject>();
             p2CharsDict = new Dictionary<int, GameObject>();
@@ -36,9 +36,9 @@ namespace Scripts.Controller
         /// </summary>
         void Update()
         {
-            if (actionPoints == 0)
+            if (ActionPoints == 0)
             {
-                actionPoints = 3;
+                ActionPoints = 3;
                 numAttacks = 0;
                 Client.Instance.SendEndTurn();
             }
@@ -81,7 +81,7 @@ namespace Scripts.Controller
             //float adjZ = 4 + (4 - newZ);
             Vector3 newVect = new Vector3(newX, 0, newZ);
             Debug.Log(newVect);
-            changing.GetComponent<PlayerMovement>().MoveMe(newVect);
+            changing.GetComponent<PlayerMovement>().Move(newVect);
         }
         /// <summary>
         /// This is another networking function and it currently is used to remove health from a specified
@@ -89,21 +89,12 @@ namespace Scripts.Controller
         /// </summary>
         /// <param name="troopid"></param>
         /// <param name="damage"></param>
-        public void IveBeenAttacked(float troopid, float damage)
+        public void IveBeenAttacked(float troopid, int damage)
         {
             GameObject changing = p1CharsDict[Convert.ToInt32(troopid)];
-            CharacterFeatures reference = changing.GetComponent<CharacterFeatures>();
-            reference.Health = Convert.ToInt32(reference.Health - damage);
+            ICharacterFeatures reference = changing.GetComponent<Character>().Features;
+            reference.DamageCharacter(damage);
         }
-
-        #region Build Game
-
-        internal void SetMagic(int magicAmount)
-        {
-            magicPoints = magicAmount;
-        }
-
-        #endregion
 
         #region Player Actions
 
@@ -112,8 +103,9 @@ namespace Scripts.Controller
         /// </summary>
         public void Move()
         {
+            ActionPoints--;
             spotlight.DisableCharacterSelect();
-            lastClicked.GetComponent<Character.Character>().CurrentState = Character.Character.State.Moving;
+            SelectedCharacter.GetComponent<Character>().CurrentState = Character.State.Moving;
         }
 
         /// <summary>
@@ -123,10 +115,10 @@ namespace Scripts.Controller
         {
             spotlight.DisableCharacterSelect();
 
-            string text = $"You are attacking with: {lastClicked.GetComponent<CharacterFeatures>().Charclass}";
+            string text = $"You are attacking with: {SelectedCharacter.GetComponent<Character>().Features.Charclass}";
             uiController.SetAttackPanelAttackerInfo(text);
 
-            lastClicked.GetComponent<PlayerAttack>().enabled = true;
+            SelectedCharacter.GetComponent<PlayerAttack>().enabled = true;
             //lastClicked.GetComponent<PlayerAttack>().Attack();
         }
 
@@ -135,9 +127,9 @@ namespace Scripts.Controller
         /// </summary>
         public void ConfirmAttack()
         {
-            actionPoints--;
+            ActionPoints--;
             numAttacks++;
-            lastClicked.GetComponent<PlayerAttack>().Attack();
+            SelectedCharacter.GetComponent<PlayerAttack>().Attack();
         }
 
         /// <summary>
@@ -146,7 +138,7 @@ namespace Scripts.Controller
         public void CancelAttack()
         {
             spotlight.DeactivateCurrentFocus();
-            lastClicked.GetComponent<PlayerAttack>().DeactivateAttack();
+            SelectedCharacter.GetComponent<PlayerAttack>().DeactivateAttack();
             EndAttack();
         }
         /// <summary>
@@ -155,7 +147,7 @@ namespace Scripts.Controller
         /// </summary>
         public void EndAttack()
         {
-            lastClicked.GetComponent<PlayerAttack>().enabled = false;
+            SelectedCharacter.GetComponent<PlayerAttack>().enabled = false;
             spotlight.DeactivateCurrentFocus();
         }
 
@@ -164,18 +156,18 @@ namespace Scripts.Controller
         /// </summary>
         public void CastSpell()
         {
-            if (actionPoints < 3 || magicPoints < 1)
+            if (ActionPoints < 3 || MagicPoints < 1)
             {
                 Debug.Log("You do not have enough action points or magic to cast a spell!");
             }
             else
             {
-                magicPoints--;
-                actionPoints -= 3;
+                MagicPoints--;
+                ActionPoints -= 3;
                 spotlight.DisableCharacterSelect();
                 spotlight.DeactivateCurrentFocus();
 
-                lastClicked.GetComponent<PlayerMagic>().PlaceExplosion();
+                SelectedCharacter.GetComponent<PlayerMagic>().PlaceExplosion();
             }
 
         }
@@ -185,8 +177,8 @@ namespace Scripts.Controller
         /// </summary>
         public void CancelSpell()
         {
-            magicPoints++;
-            actionPoints += 3;
+            MagicPoints++;
+            ActionPoints += 3;
             uiController.CancelMagicExplosion();
         }
 
@@ -196,12 +188,12 @@ namespace Scripts.Controller
         /// </summary>
         public void Leave()
         {
-            if (actionPoints >= 3)
+            if (ActionPoints >= 3)
             {
-                PlayerRemoval(lastClicked.GetComponent<CharacterFeatures>().TroopId, 1, true);
-                Destroy(lastClicked);
-                Client.Instance.SendRetreatData(lastClicked.GetComponent<CharacterFeatures>().TroopId, 2);
-                actionPoints = 0;
+                PlayerRemoval(SelectedCharacter.GetComponent<CharacterFeatures>().TroopId, 1, true);
+                Destroy(SelectedCharacter);
+                Client.Instance.SendRetreatData(SelectedCharacter.GetComponent<CharacterFeatures>().TroopId, 2);
+                ActionPoints = 0;
             }
             else
             {

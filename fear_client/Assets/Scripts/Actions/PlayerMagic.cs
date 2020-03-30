@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Scripts.Controller;
 using Scripts.Networking;
-using Scripts.Character;
+using Scripts.CharacterClass;
 
 namespace Scripts.Actions
 {
@@ -17,6 +17,7 @@ namespace Scripts.Actions
         private GameObject scripts;
 
         public ParticleSystem explosionEffect;
+        public IInputManager InputManager { set; get; }
 
         private void Start()
         {
@@ -28,26 +29,30 @@ namespace Scripts.Actions
         {
             if (placingExplosion)
             {
-                RaycastHit hit;
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out hit, 100.0f, 1 << 9)) //Only look on ground layer
-                {
-                    if (Vector3.Distance(hit.point, startingPosition) < 5)
-                    {
-                        selection.transform.position = hit.point;
-                    }
+                MoveExposionMarker();
+                CheckPlayerInput();
+            }
+        }
 
-                }
+        private void CheckPlayerInput()
+        {
+            if (InputManager.GetLeftMouseClick())
+            {
+                CreateExplosion();
+            }
 
-                if (Input.GetMouseButtonDown(0))
-                {
-                    CreateExplosion();
-                }
+            else if (InputManager.GetRightMouseClick())
+            {
+                CancelExplosion();
+            }
+        }
 
-                if (Input.GetMouseButtonDown(1))
-                {
-                    CancelExplosion();
-                }
+        private void MoveExposionMarker()
+        {
+            Ray ray = Camera.main.ScreenPointToRay(InputManager.MousePosition());
+            if (Physics.Raycast(ray, out RaycastHit hit, 100.0f, 1 << 9) && Vector3.Distance(hit.point, startingPosition) < 5) //Only look on ground layer
+            {
+                selection.transform.position = hit.point;
             }
         }
 
@@ -84,27 +89,27 @@ namespace Scripts.Actions
 
         public void MagicAttack(GameObject enemy)
         {
-            System.Random random = new System.Random();
-            CharacterFeatures referenceScript = enemy.GetComponent<Scripts.Character.Character>().Features;
+            ICharacterFeatures defendingCharacter = enemy.GetComponent<Character>().Features;
+            ICharacterFeatures attackingCharacter = gameObject.GetComponent<Character>().Features;
+
             GameLoop gamevars = scripts.GetComponent<GameLoop>();
 
-            if (random.Next(0, 20) + 5 >= referenceScript.ArmorBonus)
+            if (attackingCharacter.GetMagicAttackRoll() >= defendingCharacter.ArmorBonus)
             {
-                int damageTaken = random.Next(1, 12) + 2;
-                if ((referenceScript.Health - damageTaken) <= 0)
+                int damage = attackingCharacter.GetMagicDamageRoll();
+                defendingCharacter.DamageCharacter(damage);
+                if (defendingCharacter.Health == 0)
                 {
                     //attackChar.text = $"You have dealt fatal damage\nto the player named Roman ";
                     Debug.Log("Killed enemy");
-
                     gamevars.PlayerRemoval(enemy.GetComponent<CharacterFeatures>().TroopId, 2, false);
-                    Client.Instance.SendRetreatData(referenceScript.TroopId, 1);
+                    Client.Instance.SendRetreatData(defendingCharacter.TroopId, 1);
                 }
                 else
                 {
-                    referenceScript.Health = System.Convert.ToInt32(referenceScript.Health - damageTaken);
-                    Client.Instance.SendAttackData(referenceScript.TroopId, damageTaken);
+                    Client.Instance.SendAttackData(defendingCharacter.TroopId, damage);
                     //attackChar.text = $"You attack was a success \nand you have dealt {damageTaken} damage\nto the player named Roman ";
-                    Debug.Log($"Dealt {damageTaken} damage");
+                    Debug.Log($"Dealt {damage} damage");
                 }
 
             }
