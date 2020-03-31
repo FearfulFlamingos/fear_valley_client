@@ -15,7 +15,6 @@ namespace Scripts.Actions
         private Vector3 startingPosition;
         private Vector3 targetPosition;
         public NavMeshAgent myAgent;
-        private GameObject scripts;
         public bool selectingMovement;
         private bool movement;
         public IInputManager InputManager { set; get; }
@@ -23,9 +22,8 @@ namespace Scripts.Actions
         void Start()
         {
             myAgent = gameObject.GetComponent<NavMeshAgent>();
-            scripts = GameObject.FindGameObjectWithTag("scripts");
             if (InputManager == null)
-                InputManager = scripts.GetComponent<InputManager>();
+                InputManager = GameObject.FindGameObjectWithTag("scripts").GetComponent<InputManager>();
         }
         
         void Update()
@@ -66,7 +64,7 @@ namespace Scripts.Actions
         {
             selectingMovement = false;
             movement = false;
-            scripts.GetComponent<PlayerSpotlight>().DeactivateCurrentFocus();
+            PlayerSpotlight.Instance.DeactivateCurrentFocus();
             Destroy(movementSelector);
             Move(targetPosition);
             Client.Instance.SendMoveData(

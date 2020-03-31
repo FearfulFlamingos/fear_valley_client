@@ -38,19 +38,16 @@ namespace Scripts.Controller
         [SerializeField]
         private GameObject magicInstructionPanel;
 
-        private PlayerSpotlight spotlight;
-        private GameLoop gameLoop;
         private IInputManager InputManager { set; get; }
+        public static BattleUIControl Instance { set; get; }
 
         #region Monobehavior
         private void Start()
         {
-            spotlight = gameObject.GetComponent<PlayerSpotlight>();
-            gameLoop = gameObject.GetComponent<GameLoop>();
-
             if (InputManager == null)
                 InputManager = gameObject.GetComponent<InputManager>();
-
+            if (Instance == null)
+                Instance = this;
         }
         private void Update()
         {
@@ -156,8 +153,8 @@ namespace Scripts.Controller
             infoPanel.SetActive(state);
         }
 
-        // Toggles all relevant panels based on whether the Magic Instructions should be visible.
-        private void ToggleMagicInstructions(bool state)
+        ///<summary>Toggles all relevant panels based on whether the Magic Instructions should be visible.</summary>
+        public void ToggleMagicInstructions(bool state)
         {
             magicInstructionPanel.SetActive(state);
         }
@@ -194,7 +191,7 @@ namespace Scripts.Controller
         public void Move()
         {
             DeactivateAllPanels();
-            gameLoop.Move();
+            GameLoop.Instance.Move();
         }
 
         /// <summary>
@@ -203,7 +200,7 @@ namespace Scripts.Controller
         public void Attack()
         {
             SwitchToAttackPanel();
-            gameLoop.Attack();
+            GameLoop.Instance.Attack();
         }
 
         /// <summary>
@@ -214,7 +211,7 @@ namespace Scripts.Controller
             ToggleMagicInstructions(true);
             ToggleInfoPanel(false);
             ToggleActionPanel(false, "Magic User");
-            gameLoop.CastSpell();
+            GameLoop.Instance.CastSpell();
         }
 
         /// <summary>
@@ -223,7 +220,7 @@ namespace Scripts.Controller
         public void Retreat()
         {
             DeactivateAllPanels();
-            gameLoop.Leave();
+            GameLoop.Instance.Leave();
         }
 
         /// <summary>
@@ -232,7 +229,7 @@ namespace Scripts.Controller
         public void Cancel()
         {
             DeactivateAllPanels();
-            spotlight.DeactivateCurrentFocus();
+            PlayerSpotlight.Instance.DeactivateCurrentFocus();
         }
         #endregion
 
@@ -242,7 +239,7 @@ namespace Scripts.Controller
         /// </summary>
         public void ExecuteAttack()
         {
-            gameLoop.ConfirmAttack();
+            GameLoop.Instance.ConfirmAttack();
         }
 
         /// <summary>
@@ -251,7 +248,7 @@ namespace Scripts.Controller
         public void CancelAttack()
         {
             CancelAttackPanel();
-            gameLoop.CancelAttack();
+            GameLoop.Instance.CancelAttack();
         }
         #endregion
 

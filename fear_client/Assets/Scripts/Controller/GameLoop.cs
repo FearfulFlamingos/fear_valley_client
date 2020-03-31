@@ -11,23 +11,22 @@ namespace Scripts.Controller
 {
     public class GameLoop : MonoBehaviour
     {
+        public static GameLoop Instance { set; get; }
         public static int ActionPoints { set; get; }
         public static GameObject SelectedCharacter { set; get; }
         public static int MagicPoints { set; get; }
         public Dictionary<int, GameObject> p1CharsDict, p2CharsDict;
         private int numAttacks;
-        private PlayerSpotlight spotlight;
-        private BattleUIControl uiController;
 
         #region Monobehavior
         // Start is called before the first frame update
         void Start()
         {
             ActionPoints = 3;
-            spotlight = gameObject.GetComponent<PlayerSpotlight>();
             p1CharsDict = new Dictionary<int, GameObject>();
             p2CharsDict = new Dictionary<int, GameObject>();
-            uiController = gameObject.GetComponent<BattleUIControl>();
+            if (Instance == null)
+                Instance = this;
         }
 
         // Update is called once per frame
@@ -104,7 +103,7 @@ namespace Scripts.Controller
         public void Move()
         {
             ActionPoints--;
-            spotlight.DisableCharacterSelect();
+            PlayerSpotlight.Instance.DisableCharacterSelect();
             SelectedCharacter.GetComponent<Character>().CurrentState = Character.State.Moving;
         }
 
@@ -113,10 +112,10 @@ namespace Scripts.Controller
         /// </summary>
         public void Attack()
         {
-            spotlight.DisableCharacterSelect();
+            PlayerSpotlight.Instance.DisableCharacterSelect();
 
             string text = $"You are attacking with: {SelectedCharacter.GetComponent<Character>().Features.Charclass}";
-            uiController.SetAttackPanelAttackerInfo(text);
+            BattleUIControl.Instance.SetAttackPanelAttackerInfo(text);
 
             SelectedCharacter.GetComponent<PlayerAttack>().enabled = true;
             //lastClicked.GetComponent<PlayerAttack>().Attack();
@@ -137,8 +136,8 @@ namespace Scripts.Controller
         /// </summary>
         public void CancelAttack()
         {
-            spotlight.DeactivateCurrentFocus();
-            SelectedCharacter.GetComponent<PlayerAttack>().DeactivateAttack();
+            PlayerSpotlight.Instance.DeactivateCurrentFocus();
+            SelectedCharacter.GetComponent<PlayerAttack>().CancelOrEndAttack();
             EndAttack();
         }
         /// <summary>
@@ -148,7 +147,7 @@ namespace Scripts.Controller
         public void EndAttack()
         {
             SelectedCharacter.GetComponent<PlayerAttack>().enabled = false;
-            spotlight.DeactivateCurrentFocus();
+            PlayerSpotlight.Instance.DeactivateCurrentFocus();
         }
 
         /// <summary>
@@ -164,10 +163,8 @@ namespace Scripts.Controller
             {
                 MagicPoints--;
                 ActionPoints -= 3;
-                spotlight.DisableCharacterSelect();
-                spotlight.DeactivateCurrentFocus();
-
-                SelectedCharacter.GetComponent<PlayerMagic>().PlaceExplosion();
+                PlayerSpotlight.Instance.DisableCharacterSelect();
+                SelectedCharacter.GetComponent<Character>().CurrentState = Character.State.CastingSpell;
             }
 
         }
@@ -179,7 +176,7 @@ namespace Scripts.Controller
         {
             MagicPoints++;
             ActionPoints += 3;
-            uiController.CancelMagicExplosion();
+            BattleUIControl.Instance.CancelMagicExplosion();
         }
 
         /// <summary>
@@ -190,7 +187,7 @@ namespace Scripts.Controller
         {
             if (ActionPoints >= 3)
             {
-                PlayerRemoval(SelectedCharacter.GetComponent<CharacterFeatures>().TroopId, 1, true);
+                PlayerRemoval(SelectedCharacter.GetComponent<CharacterFeatures>().TroopId, 1);
                 Destroy(SelectedCharacter);
                 Client.Instance.SendRetreatData(SelectedCharacter.GetComponent<CharacterFeatures>().TroopId, 2);
                 ActionPoints = 0;
@@ -230,7 +227,7 @@ namespace Scripts.Controller
             else
             {
                 GameObject destroy = p2CharsDict[troopId];
-                PlayerRemoval(troopId, TeamNum, true);
+                PlayerRemoval(troopId, TeamNum);
                 Destroy(destroy);
             }
         }
@@ -245,10 +242,9 @@ namespace Scripts.Controller
         /// This used to have a separate set of checks for if the enemy/player retreated thier last troop,
         /// but I think it's unnecessary. 
         /// </remarks>
-        /// <param name="troopId"></param>
-        /// <param name="team"></param>
-        /// <param name="retreat"></param>
-        public void PlayerRemoval(int troopId, int team, bool retreat = false)
+        /// <param name="troopId">ID of the troop.</param>
+        /// <param name="team">Team that the character was removed from.</param>
+        public void PlayerRemoval(int troopId, int team)
         {
             switch (team)
             {
@@ -275,20 +271,20 @@ namespace Scripts.Controller
                     // You have lost
                     if (p1CharsDict.Count == 0) 
                     {
-                        uiController.ToggleVictoryPanel(true);
-                        uiController.ToggleInfoPanel(false);
+                        BattleUIControl.Instance.ToggleVictoryPanel(true);
+                        BattleUIControl.Instance.ToggleInfoPanel(false);
                         string text = $"Victory has been acheived for \nplayer 2 after defeating player 1 ";
-                        uiController.SetVictoryPanelText(text);
+                        BattleUIControl.Instance.SetVictoryPanelText(text);
                     }
                     break;
                 case 2:
                     // You have won!
                     if (p2CharsDict.Count == 0)
                     {
-                        uiController.ToggleVictoryPanel(true);
-                        uiController.ToggleInfoPanel(false);
+                        BattleUIControl.Instance.ToggleVictoryPanel(true);
+                        BattleUIControl.Instance.ToggleInfoPanel(false);
                         string text = $"Victory has been acheived for \nplayer 1 after defeating player 2 ";
-                        uiController.SetVictoryPanelText(text);
+                        BattleUIControl.Instance.SetVictoryPanelText(text);
                     }
                     break;
             }

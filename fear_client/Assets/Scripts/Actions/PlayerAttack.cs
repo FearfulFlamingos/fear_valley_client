@@ -13,7 +13,7 @@ namespace Scripts.Actions
     {
         public LayerMask whatCanBeClickedOn;
         private GameObject attackObject;
-        private bool canAttack, timeToDistroy;
+        private bool canAttack;
         private BattleUIControl uiController;
         private GameLoop gameLoop;
         public IInputManager InputManager { set; get; }
@@ -106,8 +106,9 @@ namespace Scripts.Actions
                         //timeToDistroy = true; // This actually destroys the attacked object
 
 
-                        gameLoop.PlayerRemoval(attackObject.GetComponent<CharacterFeatures>().TroopId, 2, true);
-                        //Destroy(attackObject);
+                        gameLoop.PlayerRemoval(attackObject.GetComponent<CharacterFeatures>().TroopId, 2);
+                        Destroy(attackObject);
+                        Debug.Log("Deleting slain enemy");
                         Client.Instance.SendRetreatData(defendingCharacter.TroopId, 1);
                     }
                     else
@@ -124,7 +125,7 @@ namespace Scripts.Actions
                     string text = $"You could not get passed their armor\nyour attack has failed";
                     uiController.SetAttackPanelEnemyInfo(text);
                 }
-                DeactivateAttack();
+                CancelOrEndAttack();
                 gameLoop.EndAttack();
             }
             else
@@ -138,14 +139,8 @@ namespace Scripts.Actions
         /// This function is used after an attack and deactivates this script.
         /// The function will also destroy any object that has been destroyed.
         /// </summary>
-        public void DeactivateAttack()
+        public void CancelOrEndAttack()
         {
-            if (timeToDistroy)
-            {
-                Debug.Log("Deleting slain enemy");
-                timeToDistroy = false;
-                Destroy(attackObject);
-            }
             CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
             referenceScript.IsAttacking = false;
             string text = $"Name: Health: \nClass: \nDefense: \nWithin Range: ";

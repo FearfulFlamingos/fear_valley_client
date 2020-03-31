@@ -13,15 +13,17 @@ namespace Scripts.Actions
 
         private bool placingExplosion = false;
         private Vector3 startingPosition;
-        private GameObject selection;
-        private GameObject scripts;
+        public GameObject selection;
 
         public ParticleSystem explosionEffect;
         public IInputManager InputManager { set; get; }
 
         private void Start()
         {
-            scripts = GameObject.FindGameObjectWithTag("scripts");
+            if (InputManager == null)
+            {
+                InputManager = GameObject.FindGameObjectWithTag("scripts").GetComponent<InputManager>();
+            }
         }
 
         // Update is called once per frame
@@ -70,13 +72,14 @@ namespace Scripts.Actions
 
             Destroy(selection);
 
+            PlayerSpotlight.Instance.DeactivateCurrentFocus();
         }
 
         private void CancelExplosion()
         {
             placingExplosion = false;
             Destroy(selection);
-            scripts.GetComponent<GameLoop>().CancelSpell();
+            GameLoop.Instance.CancelSpell();
         }
 
         public void PlaceExplosion()
@@ -92,8 +95,6 @@ namespace Scripts.Actions
             ICharacterFeatures defendingCharacter = enemy.GetComponent<Character>().Features;
             ICharacterFeatures attackingCharacter = gameObject.GetComponent<Character>().Features;
 
-            GameLoop gamevars = scripts.GetComponent<GameLoop>();
-
             if (attackingCharacter.GetMagicAttackRoll() >= defendingCharacter.ArmorBonus)
             {
                 int damage = attackingCharacter.GetMagicDamageRoll();
@@ -102,7 +103,7 @@ namespace Scripts.Actions
                 {
                     //attackChar.text = $"You have dealt fatal damage\nto the player named Roman ";
                     Debug.Log("Killed enemy");
-                    gamevars.PlayerRemoval(enemy.GetComponent<CharacterFeatures>().TroopId, 2, false);
+                    GameLoop.Instance.PlayerRemoval(defendingCharacter.TroopId, 2);
                     Client.Instance.SendRetreatData(defendingCharacter.TroopId, 1);
                 }
                 else

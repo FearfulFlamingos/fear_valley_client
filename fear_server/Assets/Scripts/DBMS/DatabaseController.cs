@@ -78,6 +78,10 @@ namespace Scripts.DBMS
         /// <summary>
         /// Adds a troop to the database. Assumes the client has enough money.
         /// </summary>
+        /// <remarks>
+        /// The important thing to notice here is that all characters have a unique ID. That means that the client needs to check
+        /// both dictionaries for the TroopID when deleting.
+        /// </remarks>
         /// <param name="teamNum">Player connection id</param>
         /// <param name="troop">Class.</param>
         /// <param name="weapon">Name of weapon.</param>

@@ -17,7 +17,8 @@ namespace Scripts.CharacterClass
             Moving,
             Attacking,
             CastingSpell,
-            Selected
+            Selected,
+            Waiting
         }
 
         public State CurrentState { set; get; }
@@ -44,16 +45,20 @@ namespace Scripts.CharacterClass
                 case State.Moving:
                     Features.IsFocused = false;
                     PlayerMovement.ActivateMovement();
+                    CurrentState = State.Waiting;
                     break;
                 case State.Attacking:
                     Features.IsFocused = false;
                     break;
                 case State.CastingSpell:
+                    PlayerMagic.PlaceExplosion();
                     Features.IsFocused = false;
+                    CurrentState = State.Waiting;
                     break;
                 case State.Selected:
                     Features.IsFocused = true;
                     break;
+                case State.Waiting:
                 case State.None:
                 default:
                     Features.IsFocused = false;

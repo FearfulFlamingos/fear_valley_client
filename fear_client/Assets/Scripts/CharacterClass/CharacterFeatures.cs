@@ -4,6 +4,7 @@
     /// This script is largely used to keep track of information on each of the game objects vital to making the game work
     /// </summary>
     public class CharacterFeatures : ICharacterFeatures
+
     //: MonoBehaviour
     {
 
