@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <CoverageReport scope="Summary">
   <Summary>
-    <Generatedon>3/12/2020 - 9:14:16 PM</Generatedon>
-    <Parser>MultiReportParser (15x CoberturaParser, 21x OpenCoverParser)</Parser>
+    <Generatedon>3/14/2020 - 3:28:45 PM</Generatedon>
+    <Parser>MultiReportParser (16x CoberturaParser, 21x OpenCoverParser)</Parser>
     <Assemblies>3</Assemblies>
     <Classes>29</Classes>
     <Files>29</Files>
     <Coveredlines>432</Coveredlines>
     <Uncoveredlines>759</Uncoveredlines>
     <Coverablelines>1191</Coverablelines>
-    <Totallines>2294</Totallines>
+    <Totallines>2298</Totallines>
     <Linecoverage>36.2</Linecoverage>
     <Coveredbranches>0</Coveredbranches>
     <Totalbranches>0</Totalbranches>
@@ -47,8 +47,8 @@
       <Class name="UIPopulate" coverage="0" coveredlines="0" coverablelines="42" totallines="138" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="VolumeControl" coverage="0" coveredlines="0" coverablelines="4" totallines="25" branchcoverage="" coveredbranches="0" totalbranches="0" />
     </Assembly>
-    <Assembly name="Tests" classes="1" coverage="98.6" coveredlines="150" coverablelines="152" totallines="212" branchcoverage="" coveredbranches="0" totalbranches="0">
-      <Class name="Tests.TestGamePlay" coverage="98.6" coveredlines="150" coverablelines="152" totallines="212" branchcoverage="" coveredbranches="0" totalbranches="0" />
+    <Assembly name="Tests" classes="1" coverage="98.6" coveredlines="150" coverablelines="152" totallines="216" branchcoverage="" coveredbranches="0" totalbranches="0">
+      <Class name="Tests.TestGamePlay" coverage="98.6" coveredlines="150" coverablelines="152" totallines="216" branchcoverage="" coveredbranches="0" totalbranches="0" />
     </Assembly>
   </Coverage>
 </CoverageReport>
