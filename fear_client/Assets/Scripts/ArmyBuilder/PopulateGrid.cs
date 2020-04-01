@@ -4,27 +4,31 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PopulateGrid : MonoBehaviour
-{
-    [SerializeField]
-    private GameObject explosionScrollView;
-    private Stack<GameObject> explosions;
 
-    public GameObject selection,lastclicked;
-    public GameObject UIcontrol,troopinfo, CurrentPanel;
-    public Camera camera;
-    [SerializeField]
-    private TMP_Text remainingBudget;
-    [SerializeField]
-    private TMP_Text projectedCost;
-    [SerializeField]
-    private TMP_Text Budget, weapon, classid, fname, armor, nocash;
-    public int budget= 300;
-    public int rollingbudget;
-    public int numTroops=1;
-    private HashSet<GameObject> activetroops = new HashSet<GameObject>();
-   
-    Dictionary<string, int> costs = new Dictionary<string, int>()
+namespace Scripts.ArmyBuilder
+{
+    public class PopulateGrid : MonoBehaviour
+    {
+        [SerializeField]
+        private GameObject explosionScrollView;
+        private Stack<GameObject> explosions;
+
+        public GameObject selection, lastclicked;
+        public GameObject UIcontrol, troopinfo, CurrentPanel;
+        public Camera camera;
+        [SerializeField]
+        private TMP_Text remainingBudget;
+        [SerializeField]
+        private TMP_Text projectedCost;
+        [SerializeField]
+        private TMP_Text Budget, weapon, classid, fname, armor, nocash;
+        public int budget = 300;
+        public int rollingbudget;
+        public int numTroops = 1;
+        public string current_weapon;
+        private HashSet<GameObject> activetroops = new HashSet<GameObject>();
+
+        Dictionary<string, int> costs = new Dictionary<string, int>()
         {
             {"Unarmored", 0 },
             {"Light mundane armor", 20 },
@@ -44,261 +48,263 @@ public class PopulateGrid : MonoBehaviour
             {"Trained Warrior", 50 },
             {"Magic User", 100 }
         };
-    // Start is called before the first frame update
-    void Start()
-    {
-        explosions = new Stack<GameObject>();
-    }
-
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(1))
+        // Start is called before the first frame update
+        void Start()
         {
-            RemovePlacedObject();
+            explosions = new Stack<GameObject>();
         }
-            
-        if (selection != null)
+
+        private void Update()
         {
-            RaycastHit hit;
-            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray,out hit,100.0f,1<<9))
+            if (Input.GetMouseButtonDown(1))
             {
-                Debug.Log("Moving");
-                selection.transform.position = hit.point;
+                RemovePlacedObject();
+            }
+
+            if (selection != null)
+            {
+                RaycastHit hit;
+                Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit, 100.0f, 1 << 9))
+                {
+                    Debug.Log("Moving");
+                    selection.transform.position = hit.point;
+                }
+            }
+            //Cancel a potential purchase with escape after clicking through the menus
+            if (Input.GetKey(KeyCode.Escape))
+            {
+                Destroy(selection);
+                selection = null;
+                troopinfo.SetActive(false);
+                rollingbudget = 0;
+                ActivateButtons();
+            }
+            //Execute a purchase upon click
+            if (Input.GetMouseButtonDown(0))
+            {
+                selection = null;
+                ExecutePurchase();
+            }
+            //Select a troop after the troop has been placed
+            if (Input.GetMouseButtonDown(0) && selection == null)
+            {
+                RaycastHit checkGameObject;
+                Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out checkGameObject, 100.0f, 1 << 10) && checkGameObject.transform != null)
+                {
+                    Debug.Log("Highlighting player");
+                    GameObject target = checkGameObject.transform.gameObject;
+                    target.GetComponent<FeaturesHolder>().isactive = true;
+                    troopinfo.SetActive(true);
+                    //start coroutine to deactivate the ui
+
+                    StartCoroutine(Unhighlight(target));
+                }
+            }
+
+            Budget.text = $"Budget: {budget}";
+            projectedCost.text = $"Estimated Cost: {rollingbudget}";
+            remainingBudget.text = $"Estimated Cost: {budget - rollingbudget}";
+        }
+
+        /// <summary>
+        /// Add the cost of an item to the adjusted budget
+        /// </summary>
+        /// <param name="item">This is the name of the item being added.</param>
+        public void additem(string item)
+        {
+            rollingbudget += costs[item];
+        }
+
+        /// <summary>
+        /// Deacitvate the canvas after a set amount of time. 
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        IEnumerator Unhighlight(GameObject target)
+        {
+
+            yield return 20000;    //Wait one frame
+            troopinfo.SetActive(false);
+            target.GetComponent<FeaturesHolder>().isactive = false;
+        }
+
+
+        #region Update Troop
+
+        /// <summary>
+        /// Update all of the features for the selection and add resources to the map. 
+        /// </summary>
+        /// <param name="resourceName"></param>
+        public void SetSelection(string resourceName)
+        {
+            GameObject resource = (GameObject)Instantiate(Resources.Load(resourceName)) as GameObject;
+            selection = resource;
+            selection.transform.position = new Vector3(0, 0.2f, 10);
+            selection.GetComponent<FeaturesHolder>().uicontrol = UIcontrol;
+            selection.GetComponent<FeaturesHolder>().gamepiece = selection;
+            selection.GetComponent<FeaturesHolder>().isactive = true;
+            Debug.Log(selection.GetComponent<FeaturesHolder>().isactive);
+            selection.GetComponent<FeaturesHolder>().weapon = current_weapon;
+            troopinfo.SetActive(true);
+            lastclicked = selection;
+
+        }
+        /// <summary>
+        /// Update the armor for an individual object. 
+        /// </summary>
+        /// <param name="ArmorClass"></param>
+        public void GetArmor(string ArmorClass)
+        {
+            //selection.armorclass
+            selection.GetComponent<FeaturesHolder>().armor = ArmorClass;
+        }
+
+        /// <summary>
+        /// Update weapon for an individual object.
+        /// </summary>
+        /// <param name="WeaponClass"></param>
+        public void GetWeapon(string WeaponClass)
+        {
+            //selection.armorclass
+            WeaponClass = current_weapon;
+            additem(WeaponClass);
+
+        }
+        /// <summary>
+        /// Set the panel that is currently being used. 
+        /// </summary>
+        /// <param name="panel"></param>
+        public void GetCurrentPanel(GameObject panel)
+        {
+            CurrentPanel = panel;
+        }
+
+        /// <summary>
+        /// Update the ui canvas for current player. 
+        /// </summary>
+        /// <param name="character"></param>
+        public void ChangeChar(GameObject character)
+        {
+            FeaturesHolder reference = character.GetComponent<FeaturesHolder>();
+            classid.text = $"{reference.troop}";
+            fname.text = $"{reference.fname}";
+            weapon.text = $"{reference.weapon}";
+            armor.text = $"{reference.armor}";
+            CurrentPanel.SetActive(false);
+
+        }
+        #endregion
+
+        #region Button Functions
+        public void ActivateButtons()
+        {
+            GameObject.Find("PeasantButton").GetComponent<Button>().interactable = true;
+            GameObject.Find("WizardButton").GetComponent<Button>().interactable = true;
+            GameObject.Find("WarriorButton").GetComponent<Button>().interactable = true;
+        }
+        public void DeactivateButtons()
+        {
+            GameObject.Find("PeasantButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("WizardButton").GetComponent<Button>().interactable = false;
+            GameObject.Find("WarriorButton").GetComponent<Button>().interactable = false;
+        }
+        /// <summary>
+        /// Helper funciton used with the escape button to back out of a purchase.
+        /// </summary>
+        public void CancelPurchase()
+        {
+            rollingbudget = 0;
+
+            troopinfo.SetActive(false);
+            budget += System.Convert.ToInt32(lastclicked.GetComponent<FeaturesHolder>().troop);
+            activetroops.Remove(lastclicked);
+            nocash.text = "";
+            Destroy(lastclicked);
+            ActivateButtons();
+
+        }
+        /// <summary>
+        /// Helper function called after a click.
+        /// </summary>
+        public void ExecutePurchase()
+        {
+            if (budget - rollingbudget < 0)
+            {
+                Debug.Log("in");
+                nocash.text = $"Not Enough Money";
+            }
+            else
+            {
+                lastclicked.name = $"troop{numTroops}";
+                activetroops.Add(lastclicked);
+                numTroops++;
+                budget -= rollingbudget;
+                rollingbudget = 0;
+                ActivateButtons();
+                troopinfo.SetActive(false);
             }
         }
-
-        if (Input.GetKey(KeyCode.Escape))
+        /// <summary>
+        /// Remove an obect that has been already been placed called from the right click.
+        /// </summary>
+        public void RemovePlacedObject()
         {
-            Destroy(selection);
-            selection = null;
-            troopinfo.SetActive(false);
-            rollingbudget = 0;
-            ActivateButtons();
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            selection = null;
-            ExecutePurchase();
-        }
-        if (Input.GetMouseButtonDown(0) && selection == null)
-        {
+            Debug.Log("Checking");
             RaycastHit checkGameObject;
             Ray ray = camera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out checkGameObject, 100.0f, 1 << 10) && checkGameObject.transform != null)
             {
-                Debug.Log("Highlighting player");
-                GameObject target = checkGameObject.transform.gameObject;
-                target.GetComponent<FeaturesHolder>().isactive = true;
-                troopinfo.SetActive(true);
-                //start coroutine to deactivate the ui
-
-                StartCoroutine(Unhighlight(target));
+                Debug.Log("Deleting placed");
+                Destroy(checkGameObject.transform.gameObject);
+                lastclicked = checkGameObject.transform.gameObject;
+                CancelPurchase();
             }
         }
 
-        Budget.text = $"Budget: {budget}";
-        projectedCost.text = $"Estimated Cost: {rollingbudget}";
-        remainingBudget.text = $"Estimated Cost: {budget-rollingbudget}";
-    }
-
-    public void additem(string item)
-    {
-        rollingbudget += costs[item];
-    }
-
-    IEnumerator Unhighlight(GameObject target)
-    {
-        
-        yield return 20000;    //Wait one frame
-        troopinfo.SetActive(false);
-        target.GetComponent<FeaturesHolder>().isactive = false;
-    }
-    //void Populate()
-    //{
-
-    //    GameObject newObj;
-    //    int maxX = 8, maxZ = 2;
-    //    Button[] buttons = new Button[numberOfButtons];
-
-    //    for (int i = 0; i< numberOfButtons; i++)
-    //    {
-    //        newObj = (GameObject) Instantiate(Resources.Load("UI/ArmyBuild/GUIButton"), transform) as GameObject;
-    //        buttons[i] = newObj.GetComponent<Button>();
-    //    }
-
-    #region button setting
-    //    buttons[0].onClick.AddListener(() => { MainUI.GetComponent<UIPopulate>().OnClickAddTroop(0, 1); buttons[0].interactable = false; });
-    //    buttons[1].onClick.AddListener(() => { MainUI.GetComponent<UIPopulate>().OnClickAddTroop(1, 1); buttons[1].interactable = false; });
-    //    buttons[2].onClick.AddListener(() => { MainUI.GetComponent<UIPopulate>().OnClickAddTroop(2, 1); buttons[2].interactable = false; });
-    //    buttons[3].onClick.AddListener(() => { MainUI.GetComponent<UIPopulate>().OnClickAddTroop(3, 1); buttons[3].interactable = false; });
-    //    buttons[4].onClick.AddListener(() => { MainUI.GetComponent<UIPopulate>().OnClickAddTroop(4, 1); buttons[4].interactable = false; });
-    //    buttons[5].onClick.AddListener(() => { MainUI.GetComponent<UIPopulate>().OnClickAddTroop(5, 1); buttons[5].interactable = false; });
-    //    buttons[6].onClick.AddListener(() => { MainUI.GetComponent<UIPopulate>().OnClickAddTroop(6, 1); buttons[6].interactable = false; });
-    //    buttons[7].onClick.AddListener(() => { MainUI.GetComponent<UIPopulate>().OnClickAddTroop(7, 1); buttons[7].interactable = false; });
-    //    buttons[8].onClick.AddListener(() => { MainUI.GetComponent<UIPopulate>().OnClickAddTroop(0, 0); buttons[8].interactable = false; });
-    //    buttons[9].onClick.AddListener(() => { MainUI.GetComponent<UIPopulate>().OnClickAddTroop(1, 0); buttons[9].interactable = false; });
-    //    buttons[10].onClick.AddListener(() => { MainUI.GetComponent<UIPopulate>().OnClickAddTroop(2, 0); buttons[10].interactable = false; });
-    //    buttons[11].onClick.AddListener(() => { MainUI.GetComponent<UIPopulate>().OnClickAddTroop(3, 0); buttons[11].interactable = false; });
-    //    buttons[12].onClick.AddListener(() => { MainUI.GetComponent<UIPopulate>().OnClickAddTroop(4, 0); buttons[12].interactable = false; });
-    //    buttons[13].onClick.AddListener(() => { MainUI.GetComponent<UIPopulate>().OnClickAddTroop(5, 0); buttons[13].interactable = false; });
-    //    buttons[14].onClick.AddListener(() => { MainUI.GetComponent<UIPopulate>().OnClickAddTroop(6, 0); buttons[14].interactable = false; });
-    //    buttons[15].onClick.AddListener(() => { MainUI.GetComponent<UIPopulate>().OnClickAddTroop(7, 0); buttons[15].interactable = false; });
-    //int halfway = buttons.Length / 2;
-    //for (int i = 0; i< halfway;i++)
-    //{
-    //    int temp = i;
-    //    //Debug.Log(temp);
-    //    buttons[i].onClick.AddListener(() => { MainUI.GetComponent<UIPopulate>().OnClickAddTroop(temp, 0); buttons[i].interactable = false; });
-    //}
-
-    //for (int i = halfway; i < buttons.Length; i++)
-    //{
-    //    int temp = i - halfway;
-    //    //Debug.Log(temp);
-    //    buttons[i].onClick.AddListener(() => { MainUI.GetComponent<UIPopulate>().OnClickAddTroop(temp, 1); buttons[i].interactable = false; });
-    //}
-
-    #endregion
-
-    #region Upper Panel
-    public void SetSelection(string resourceName)
-    {
-        GameObject resource = (GameObject) Instantiate(Resources.Load(resourceName)) as GameObject;
-        selection = resource;
-        selection.transform.position = new Vector3(0,0.2f,10);
-        selection.GetComponent<FeaturesHolder>().uicontrol = UIcontrol;
-        selection.GetComponent<FeaturesHolder>().gamepiece = selection;
-        selection.GetComponent<FeaturesHolder>().isactive = true;
-        Debug.Log(selection.GetComponent<FeaturesHolder>().isactive);
-        troopinfo.SetActive(true);
-        lastclicked = selection;
-
-    }
-    public void GetArmor(string ArmorClass)
-    {
-        //selection.armorclass
-        selection.GetComponent<FeaturesHolder>().armor = ArmorClass;
-    }
-    public void GetWeapon(string WeaponClass)
-    {
-        //selection.armorclass
-        selection.GetComponent<FeaturesHolder>().weapon = WeaponClass;
-        additem(WeaponClass);
-
-    }
-    public void GetCurrentPanel(GameObject panel)
-    {
-        CurrentPanel = panel;
-    }
-    public void ChangeChar(GameObject character)
-    {
-        FeaturesHolder reference = character.GetComponent<FeaturesHolder>();
-        classid.text = $"{reference.troop}";
-        fname.text = $"{reference.fname}";
-        weapon.text = $"{reference.weapon}";
-        armor.text = $"{reference.armor}";
-        CurrentPanel.SetActive(false);
-
-    }
-    #endregion
-
-    #region Button Functions
-    public void ActivateButtons()
-    {
-        GameObject.Find("PeasantButton").GetComponent<Button>().interactable = true;
-        GameObject.Find("WizardButton").GetComponent<Button>().interactable = true;
-        GameObject.Find("WarriorButton").GetComponent<Button>().interactable = true;
-    }
-    public void DeactivateButtons()
-    {
-        GameObject.Find("PeasantButton").GetComponent<Button>().interactable = false;
-        GameObject.Find("WizardButton").GetComponent<Button>().interactable = false;
-        GameObject.Find("WarriorButton").GetComponent<Button>().interactable = false;
-    }
-    public void CancelPurchase()
-    {
-        rollingbudget = 0;
-        
-        troopinfo.SetActive(false);
-        budget += System.Convert.ToInt32(lastclicked.GetComponent<FeaturesHolder>().troop);
-        activetroops.Remove(lastclicked);
-        nocash.text = "";
-        Destroy(lastclicked);
-        ActivateButtons();
-
-    }
-    public void ExecutePurchase()
-    {
-        if (budget - rollingbudget < 0)
+        /// <summary>
+        /// Finalize the army and send it to the client. 
+        /// </summary>
+        public void FinalizeArmy()
         {
-            Debug.Log("in");
-            nocash.text = $"Not Enough Money";
+            foreach (GameObject troop in activetroops)
+            {
+                Debug.Log(troop);
+                FeaturesHolder reference = troop.GetComponent<FeaturesHolder>();
+                Debug.Log(reference);
+                Client.Instance.SendTroopRequest(reference.troop, reference.weapon, reference.armor, (int)troop.transform.position[0], (int)troop.transform.position[1]);
+
+            }
+            Client.Instance.SendFinishBuild(explosions.Count);
         }
-        else
-        {
-            lastclicked.name = $"troop{numTroops}";
-            activetroops.Add(lastclicked);
-            numTroops++;
-            budget -= rollingbudget;
-            rollingbudget = 0;
-            ActivateButtons();
-            troopinfo.SetActive(false);
-        }
-    }
-    public void RemovePlacedObject()
-    {
-        Debug.Log("Checking");
-        RaycastHit checkGameObject;
-        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out checkGameObject, 100.0f,1<<10) && checkGameObject.transform != null)
-        {
-            Debug.Log("Deleting placed");
-            Destroy(checkGameObject.transform.gameObject);
-            lastclicked = checkGameObject.transform.gameObject;
-            CancelPurchase();
-        }
-    }
-
-    public void FinalizeArmy()
-    {
-        foreach (GameObject troop in activetroops)
-        {
-            Debug.Log(troop);
-            FeaturesHolder reference = troop.GetComponent<FeaturesHolder>();
-            Debug.Log(reference);
-            Client.Instance.SendTroopRequest(reference.troop, reference.weapon, reference.armor, (int)troop.transform.position[0], (int)troop.transform.position[1]);
-
-        }
-        Client.Instance.SendFinishBuild(explosions.Count);
-    }
 
 
-    #endregion
+        #endregion
 
-    #region Lower Panel
-    /// <summary>
-    /// Adds an explosion to the bottom panel in the army build visual scene.
-    /// </summary>
-    public void AddExplosion() //TODO: Update cost string
+        #region Lower Panel
+        /// <summary>
+        /// Adds an explosion to the bottom panel in the army build visual scene.
+        /// </summary>
+        public void AddExplosion() //TODO: Update cost string
         {
             GameObject newExplosion = (GameObject)Instantiate(Resources.Load("UI/ArmyBuild/ExplosionImage"), explosionScrollView.transform);
             explosions.Push(newExplosion);
             budget -= 10;
         }
-    /// <summary>
-    /// 
-    /// </summary>
-    public void RemoveExplosion() //TODO: Update Cost string
-    {
-        if (explosions.Count != 0)
+        /// <summary>
+        /// 
+        /// </summary>
+        public void RemoveExplosion() //TODO: Update Cost string
         {
-            GameObject oldExplosion = explosions.Pop();
-            Destroy(oldExplosion);
-            budget += 10;
+            if (explosions.Count != 0)
+            {
+                GameObject oldExplosion = explosions.Pop();
+                Destroy(oldExplosion);
+                budget += 10;
+            }
+
         }
-        
+        #endregion
     }
-    #endregion
 }

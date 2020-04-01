@@ -3,23 +3,27 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class FeaturesHolder : MonoBehaviour
+namespace Scripts.ArmyBuilder
 {
-    // Start is called before the first frame update
-    public string fname, troop, weapon, armor;
-    public bool isactive;
-    public GameObject uicontrol,gamepiece;
-
-    void Start()
+    public class FeaturesHolder : MonoBehaviour
     {
-        //isactive = false;
-    }
+        // Start is called before the first frame update
+        public string fname, troop, weapon, armor;
+        public bool isactive;
+        public GameObject uicontrol, gamepiece;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (isactive == true){
-            uicontrol.GetComponent<PopulateGrid>().ChangeChar(gamepiece);
+        void Start()
+        {
+            //isactive = false;
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (isactive == true)
+            {
+                uicontrol.GetComponent<PopulateGrid>().ChangeChar(gamepiece);
+            }
         }
     }
 }
