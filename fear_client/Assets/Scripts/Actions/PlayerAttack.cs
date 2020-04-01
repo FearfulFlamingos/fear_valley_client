@@ -28,7 +28,6 @@ namespace Scripts.Actions
         }
 
 
-
         // Update is called once per frame
         /// <summary>
         /// This function is called once per frame while attack is active. It is similar to player spotlight
