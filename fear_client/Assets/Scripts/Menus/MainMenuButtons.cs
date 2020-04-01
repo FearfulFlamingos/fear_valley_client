@@ -25,7 +25,7 @@ namespace Scripts.Menus
 
         }
 
-        private void SwitchCanvas(Canvas from, Canvas to)
+        public void SwitchCanvas(Canvas from, Canvas to)
         {
             from.gameObject.SetActive(false);
             to.gameObject.SetActive(true);

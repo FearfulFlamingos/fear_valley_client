@@ -241,14 +241,52 @@ namespace PlayTests
                 }, 4, 4);
 
             IInputManager input = Substitute.For<IInputManager>();
-            input.MousePosition().Returns(Camera.main.WorldToScreenPoint(new Vector3(4.9f, 0.2f, 4.9f)));
+            input.MousePosition().Returns(Camera.main.WorldToScreenPoint(new Vector3(3f, 0.2f, 3f)));
             character.GetComponent<PlayerMagic>().InputManager = input;
             yield return null;
 
             // Act
             character.GetComponent<PlayerMagic>().PlaceExplosion();
-            yield return null;
+            yield return new WaitForSeconds(3);
             int expected = 1;
+            int actual = character.GetComponent<PlayerMagic>().selection
+                .GetComponent<BlowUpEnemies>().EnemiesInBlast.Count;
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator TestExplosionMarkerCollisionTriggerExit()
+        {
+            // Arrange
+
+            GameObject character = GameLoop.Instance.gameObject.GetComponent<PopulateCharacter>()
+                .DuplicateObjects(new CharacterFeatures()
+                {
+                    Team = 1,
+                    Charclass = "Magic User"
+                }, 1, 1);
+            GameObject enemy = GameLoop.Instance.gameObject.GetComponent<PopulateCharacter>()
+                .DuplicateObjects(new CharacterFeatures()
+                {
+                    Team = 2,
+                    Charclass = "Peasant"
+                }, 4, 4);
+
+            IInputManager input = Substitute.For<IInputManager>();
+            input.MousePosition().Returns(Camera.main.WorldToScreenPoint(new Vector3(3f, 0.2f, 3f)));
+            character.GetComponent<PlayerMagic>().InputManager = input;
+            yield return null;
+
+            // Act
+            character.GetComponent<PlayerMagic>().PlaceExplosion();
+            yield return new WaitForSeconds(3);
+            input.MousePosition().Returns(Camera.main.WorldToScreenPoint(Vector3.zero));
+            yield return new WaitForSeconds(3);
+            int expected = 0;
             int actual = character.GetComponent<PlayerMagic>().selection
                 .GetComponent<BlowUpEnemies>().EnemiesInBlast.Count;
 
