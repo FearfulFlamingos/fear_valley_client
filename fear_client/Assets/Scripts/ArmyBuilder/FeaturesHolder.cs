@@ -6,7 +6,9 @@ using UnityEngine;
 public class FeaturesHolder : MonoBehaviour
 {
     // Start is called before the first frame update
-    public string fname, troop, weapon, armor;
+    public string fname, troop;
+    public string weapon = "Unarmed";
+    public string armor = "Unarmored";
     public bool isactive;
     public GameObject uicontrol,gamepiece;
 

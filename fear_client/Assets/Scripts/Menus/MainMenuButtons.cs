@@ -5,28 +5,31 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class MainMenuButtons : MonoBehaviour
+namespace Scripts.Menus
 {
-    public Button playButton, tutorialButton, quitButton, creditsButton, optionsButton;
-    public Canvas mainCanvas, optionsCanvas, creditsCanvas;
-    public Button optionsReturn, creditsReturn;
-
-    void Start()
+    public class MainMenuButtons : MonoBehaviour
     {
-        playButton.onClick.AddListener(() => SceneManager.LoadScene("ServerConnect"));
-        tutorialButton.onClick.AddListener(() => SceneManager.LoadScene("TempLoadingScene"));
-        quitButton.onClick.AddListener(() => Application.Quit());
-        creditsButton.onClick.AddListener(() => SwitchCanvas(mainCanvas,creditsCanvas));
-        optionsButton.onClick.AddListener(() => SwitchCanvas(mainCanvas,optionsCanvas));
-        optionsReturn.onClick.AddListener(() => SwitchCanvas(optionsCanvas,mainCanvas));
-        creditsReturn.onClick.AddListener(() => SwitchCanvas(creditsCanvas,mainCanvas));
+        public Button playButton, tutorialButton, quitButton, creditsButton, optionsButton;
+        public Canvas mainCanvas, optionsCanvas, creditsCanvas;
+        public Button optionsReturn, creditsReturn;
+
+        void Start()
+        {
+            playButton.onClick.AddListener(() => SceneManager.LoadScene("ServerConnect"));
+            tutorialButton.onClick.AddListener(() => SceneManager.LoadScene("TempLoadingScene"));
+            quitButton.onClick.AddListener(() => Application.Quit());
+            creditsButton.onClick.AddListener(() => SwitchCanvas(mainCanvas, creditsCanvas));
+            optionsButton.onClick.AddListener(() => SwitchCanvas(mainCanvas, optionsCanvas));
+            optionsReturn.onClick.AddListener(() => SwitchCanvas(optionsCanvas, mainCanvas));
+            creditsReturn.onClick.AddListener(() => SwitchCanvas(creditsCanvas, mainCanvas));
+
+        }
+
+        public void SwitchCanvas(Canvas from, Canvas to)
+        {
+            from.gameObject.SetActive(false);
+            to.gameObject.SetActive(true);
+        }
 
     }
-
-    private void SwitchCanvas(Canvas from, Canvas to)
-    {
-        from.gameObject.SetActive(false);
-        to.gameObject.SetActive(true);
-    }
-
 }

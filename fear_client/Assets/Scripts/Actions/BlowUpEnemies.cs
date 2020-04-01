@@ -1,35 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Scripts.CharacterClass;
 
-public class BlowUpEnemies : MonoBehaviour
+namespace Scripts.Actions
 {
-    HashSet<GameObject> enemiesInBlast = new HashSet<GameObject>();
-    public int countEnemiesInBlast = 0;
-    
-    private void OnTriggerEnter(Collider other)
+    public class BlowUpEnemies : MonoBehaviour
     {
-        if (other.gameObject.layer == 10 && other.gameObject.GetComponent<CharacterFeatures>().team == 2)
-        {
-            Debug.Log("Object entered");
-            Debug.Log($"{other.gameObject.layer}");
-            enemiesInBlast.Add(other.gameObject);
-            countEnemiesInBlast++;
-        }
-    }
+        public HashSet<GameObject> EnemiesInBlast { private set;  get; }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.layer == 10 && other.gameObject.GetComponent<CharacterFeatures>().team == 2)
+        private void Awake()
         {
-            Debug.Log("Object exited");
-            enemiesInBlast.Remove(other.gameObject);
-            countEnemiesInBlast--;
+            EnemiesInBlast = new HashSet<GameObject>();
         }
-    }
 
-    public HashSet<GameObject> GetEnemiesInBlast()
-    {
-        return enemiesInBlast;
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.layer == 11)
+            {
+                EnemiesInBlast.Add(other.gameObject);
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject.layer == 11)
+            {
+                EnemiesInBlast.Remove(other.gameObject);
+            }
+        }
     }
 }

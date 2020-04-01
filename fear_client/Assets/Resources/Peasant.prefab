@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 5266402843906947619}
   - component: {fileID: 114328979511854192}
   - component: {fileID: 4804127246001130623}
+  - component: {fileID: 7364553372747959065}
   m_Layer: 10
   m_Name: Peasant
   m_TagString: Untagged
@@ -53,7 +54,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5266402843906947615}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0bc7adb471d894331851b273094ca02e, type: 3}
   m_Name: 
@@ -68,7 +69,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5266402843906947615}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 041264792cb0f4504a0ce62acad3afe8, type: 3}
   m_Name: 
@@ -76,6 +77,10 @@ MonoBehaviour:
   whatCanBeClickedOn:
     serializedVersion: 2
     m_Bits: 512
+  movementSelector: {fileID: 5328913848475790285, guid: 7ef8ae6901f921744acfceff3f8a9ba2,
+    type: 3}
+  myAgent: {fileID: 7364553372747959065}
+  selectingMovement: 0
 --- !u!23 &5266402843906947621
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -90,6 +95,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -101,6 +107,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -141,6 +148,7 @@ LineRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials: []
@@ -151,6 +159,7 @@ LineRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -230,28 +239,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5266402843906947615}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e0314c6d406f43d798616047737a9ea, type: 3}
+  m_Script: {fileID: 11500000, guid: e53f999ca5870484f88d7d1945424784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: 0
-  health: 0
-  troopId: 0
-  charclass: 
-  attack: 0
-  damageBonus: 0
-  movement: 0
-  perception: 0
-  magicattack: 0
-  magicdamage: 0
-  armorBonus: 0
-  stealth: 0
-  attackRange: 20
-  damage: 0
-  isLeader: 0
-  myCircle: {fileID: 0}
-  isFocused: 0
-  isAttacking: 0
-  numMagAtk: 0
 --- !u!54 &4804127246001130623
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -266,5 +256,27 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!195 &7364553372747959065
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5266402843906947615}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.37795478
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.27
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Scripts.Networking;
 
 public class PopulateGrid : MonoBehaviour
 {
@@ -233,6 +234,15 @@ public class PopulateGrid : MonoBehaviour
         Client.Instance.SendFinishBuild(explosions.Count);
     }
 
+    public void QuickArmy()
+    {
+        Client.Instance.SendTroopRequest("Peasant","Ranged attack","Light mundane armor",0,0);
+        Client.Instance.SendTroopRequest("Trained Warrior","One-handed weapon","Heavy mundane armor",1,0);
+        Client.Instance.SendTroopRequest("Magic User","Unarmed","Unarmored",2,0);
+        Client.Instance.SendTroopRequest("Peasant","Polearm","Unarmored",3,0);
+
+        Client.Instance.SendFinishBuild(3);
+    }
 
     #endregion
 
@@ -240,7 +250,7 @@ public class PopulateGrid : MonoBehaviour
     /// <summary>
     /// Adds an explosion to the bottom panel in the army build visual scene.
     /// </summary>
-    public void AddExplosion() //TODO: Update cost string
+    public void AddExplosion()
         {
             GameObject newExplosion = (GameObject)Instantiate(Resources.Load("UI/ArmyBuild/ExplosionImage"), explosionScrollView.transform);
             explosions.Push(newExplosion);
@@ -249,7 +259,7 @@ public class PopulateGrid : MonoBehaviour
     /// <summary>
     /// 
     /// </summary>
-    public void RemoveExplosion() //TODO: Update Cost string
+    public void RemoveExplosion()
     {
         if (explosions.Count != 0)
         {

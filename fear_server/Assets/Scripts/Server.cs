@@ -4,6 +4,8 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.Networking;
+using FearValleyNetwork;
+using Scripts.DBMS;
 
 public class Server : MonoBehaviour
 {
@@ -36,16 +38,24 @@ public class Server : MonoBehaviour
 
     public void Init()
     {
+#pragma warning disable CS0618 // Type or member is obsolete
         NetworkTransport.Init();
+#pragma warning restore CS0618 // Type or member is obsolete
 
+#pragma warning disable CS0618 // Type or member is obsolete
         ConnectionConfig cc = new ConnectionConfig();
+#pragma warning restore CS0618 // Type or member is obsolete
         reliableChannel = cc.AddChannel(QosType.Reliable); // other channels available
         // need a QosType.ReliableFragmented if data needs to be bigger than 1024 bytes
 
+#pragma warning disable CS0618 // Type or member is obsolete
         HostTopology topo = new HostTopology(cc, MAX_USER); // "map" of channels
+#pragma warning restore CS0618 // Type or member is obsolete
 
         // Server only code
+#pragma warning disable CS0618 // Type or member is obsolete
         hostId = NetworkTransport.AddHost(topo, PORT);
+#pragma warning restore CS0618 // Type or member is obsolete
 
         isStarted = true;
         Debug.Log($"Started server on port {PORT}");
@@ -61,7 +71,9 @@ public class Server : MonoBehaviour
     public void Shutdown()
     {
         isStarted = false;
+#pragma warning disable CS0618 // Type or member is obsolete
         NetworkTransport.Shutdown();
+#pragma warning restore CS0618 // Type or member is obsolete
     }
 
     public void UpdateMessagePump()
@@ -76,7 +88,9 @@ public class Server : MonoBehaviour
         byte[] recievedBuffer = new byte[BYTE_SIZE];
         int dataSize; // length of byte[] that data fills
 
+#pragma warning disable CS0618 // Type or member is obsolete
         NetworkEventType type = NetworkTransport.Receive(out recHostId, 
+#pragma warning restore CS0618 // Type or member is obsolete
             out connectionId, 
             out channelId, 
             recievedBuffer, 
@@ -114,30 +128,30 @@ public class Server : MonoBehaviour
         Debug.Log($"Recieved message of type {msg.OperationCode}");
         switch (msg.OperationCode)
         {
-            case NetOP.None:
+            case (byte) NetOP.Operation.None:
                 Debug.Log("Unexpected NETOP code");
                 break;
-            case NetOP.AddTroop:
+            case (byte) NetOP.Operation.AddTroop:
                 Debug.Log("NETOP: Add Troop to DB");
                 Net_AddTroop(connId, channelId, recHostId, (Net_AddTroop)msg);
                 break;
-            case NetOP.FinishBuild:
+            case (byte) NetOP.Operation.FinishBuild:
                 Debug.Log($"NETOP: Player {connId} is finished");
                 Net_FinishBuild(connId, channelId, recHostId, (Net_FinishBuild)msg);
                 break;
-            case NetOP.MOVE:
+            case (byte) NetOP.Operation.MOVE:
                 Debug.Log("NETOP: Move troop");
                 Net_MOVE(connId, channelId, recHostId, (Net_MOVE)msg);
                 break;
-			case NetOP.ATTACK:
+			case (byte) NetOP.Operation.ATTACK:
 				Debug.Log("NETOP: Attack troop");
 				Net_ATTACK(connId, channelId, recHostId, (Net_ATTACK)msg);
 				break;
-            case NetOP.RETREAT:
+            case (byte) NetOP.Operation.RETREAT:
                 Debug.Log("NETOP: Attack troop");
                 Net_RETREAT(connId, channelId, recHostId, (Net_RETREAT)msg);
                 break;
-            case NetOP.EndTurn:
+            case (byte) NetOP.Operation.EndTurn:
                 Debug.Log($"NETOP: End P{connId} turn");
                 Net_EndTurn(connId, channelId, recHostId, (Net_EndTurn)msg);
                 break;
@@ -262,7 +276,9 @@ public class Server : MonoBehaviour
         //}
         //Debug.Log($"Transfer = {test} bytes");
 
+#pragma warning disable CS0618 // Type or member is obsolete
         NetworkTransport.Send(hostId,
+#pragma warning restore CS0618 // Type or member is obsolete
             connId,
             reliableChannel,
             buffer,
@@ -310,17 +326,21 @@ public class Server : MonoBehaviour
 
         foreach (Troop t in allTroops)
         {
-            Net_Propogate np = new Net_Propogate();
-            np.Prefab = t.TroopType;
-            np.TroopID = t.TroopID;
-            np.TeamNum = t.TeamNum;
-            np.AbsoluteXPos = t.XPos;
-            np.AbsoluteZPos = t.ZPos;
-            np.AtkBonus = t.TroopAtkBonus;
-            np.AtkRange = t.WeaponRange;
-            np.Health = t.Health;
-            np.MaxAttackVal = t.WeaponDamage;
-            np.DefenseMod = t.Armor;
+            Net_Propogate np = new Net_Propogate
+            {
+                Prefab = t.TroopType,
+                TroopID = t.TroopID,
+                TeamNum = t.TeamNum,
+                AbsoluteXPos = t.XPos,
+                AbsoluteZPos = t.ZPos,
+                AtkBonus = t.TroopAtkBonus,
+                AtkRange = t.WeaponRange,
+                Health = t.Health,
+                Movement = t.Movement,
+                MaxAttackVal = t.WeaponDamage,
+                DefenseMod = t.Armor
+            };
+            Debug.Log($"DBG>{np.Prefab}");
 
             if (np.TeamNum == 1)
             {
@@ -371,10 +391,14 @@ public class Server : MonoBehaviour
     /// These are test functions that are mapped to buttons in the server scene.
     /// </summary>
 
-    public void TESTPROPOGATEANDSWITCH()
+    public void RestartServer()
     {
-        ChangeScene("Battlefield", 2);
-        PropogateTroops();
+        waitingConnections = 2;
+        Debug.Log($"Reset waiting connections to {waitingConnections}");
+        Shutdown();
+        Debug.Log("Shut down server");
+        Debug.Log("Restarting server...");
+        Init();
     }
 
     #endregion
