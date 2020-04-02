@@ -13,6 +13,9 @@ namespace Scripts.Menus
         public Canvas mainCanvas, optionsCanvas, creditsCanvas;
         public Button optionsReturn, creditsReturn;
 
+        public static Canvas MainCanvas { set; get; }
+        public static Canvas OptionsCanvas { set; get; }
+
         void Start()
         {
             playButton.onClick.AddListener(() => SceneManager.LoadScene("ServerConnect"));
@@ -22,6 +25,9 @@ namespace Scripts.Menus
             optionsButton.onClick.AddListener(() => SwitchCanvas(mainCanvas, optionsCanvas));
             optionsReturn.onClick.AddListener(() => SwitchCanvas(optionsCanvas, mainCanvas));
             creditsReturn.onClick.AddListener(() => SwitchCanvas(creditsCanvas, mainCanvas));
+
+            MainCanvas = mainCanvas;
+            OptionsCanvas = optionsCanvas;
 
         }
 

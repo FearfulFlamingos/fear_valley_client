@@ -25,6 +25,7 @@ namespace PlayTests
             GameObject quitButton = GameObject.Find("/Main/LowerButtons/QuitButton");
             GameObject creditsButton = GameObject.Find("/Main/LowerButtons/CreditsButton");
             GameObject optionsButton = GameObject.Find("/Main/LowerButtons/OptionsButton");
+           
             yield return new WaitForSeconds(1);
             // Assert
             Assert.IsTrue(playButton.activeSelf);
@@ -40,8 +41,8 @@ namespace PlayTests
         [UnityTest]
         public IEnumerator TestCanvasSwitch()
         {
-            Canvas mainCanvas = GameObject.Find("/Main").GetComponent<Canvas>();
-            Canvas optionsCanvas = GameObject.Find("Options").GetComponent<Canvas>();
+            Canvas mainCanvas = MainMenuButtons.MainCanvas;
+            Canvas optionsCanvas = MainMenuButtons.OptionsCanvas;
             MainMenuButtons mainMenuButtons = GameObject.Find("ButtonController").GetComponent<MainMenuButtons>();
 
             // Act
@@ -53,6 +54,13 @@ namespace PlayTests
             Assert.IsTrue(optionsCanvas.gameObject.activeSelf);
 
             yield return null;
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            MainMenuButtons main = GameObject.Find("ButtonController").GetComponent<MainMenuButtons>();
+            main.SwitchCanvas(MainMenuButtons.OptionsCanvas, MainMenuButtons.MainCanvas);
         }
 
         // Volume Tester somewhere in here later

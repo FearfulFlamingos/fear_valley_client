@@ -18,38 +18,31 @@ namespace Scripts.Networking
     /// how Unity's netcode is being deprecated. Since the replacement has yet to come out and the 
     /// code is still valid in this version of unity, it's cleaner to disable the warnings.
     /// </remarks>
-    public class Client : MonoBehaviour, IClient
+    public class Client : IClient
     {
-        public static IClient Instance { set; get; }
-        private int MAX_USER;
+        //public static IClient Instance { set; get; }
+        private const int MAX_USER = 2;
         private int PORT;
         private string SERVER_IP;
-        private int BYTE_SIZE; // standard packet size
+        private const int BYTE_SIZE = 1024; // standard packet size
 
         private byte reliableChannel;
         private int connectionId;
         private int hostId;
-        private bool isStarted;
+        private bool isStarted = false;
         private byte error;
         private bool hasControl;
 
-        #region Monobehavior
-        private void Start()
-        {
-            if (Instance == null)
-                Instance = this;
-            // Assignments
-            MAX_USER = 2;
-            BYTE_SIZE = 1024;
-            isStarted = false;
-            DontDestroyOnLoad(gameObject);
-            Init();
-        }
-        private void Update()
-        {
-            UpdateMessagePump();
-        }
-        #endregion
+        //#region Monobehavior
+        //private void Start()
+        //{
+        //    Init();
+        //}
+        //private void Update()
+        //{
+        //    UpdateMessagePump();
+        //}
+        //#endregion
 
         /// <summary>
         /// Starts the client.
@@ -211,7 +204,7 @@ namespace Scripts.Networking
         private void Net_ToggleControls(int connId, int channelId, int recHostId, Net_ToggleControls msg)
         {
             hasControl = !hasControl;
-            Debug.Log($"Toggling controls to {Instance.HasControl()}");
+            Debug.Log($"Toggling controls to {HasControl()}");
         }
 
         // Moves an enemy character to a new position.

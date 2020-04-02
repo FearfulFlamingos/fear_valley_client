@@ -25,9 +25,9 @@ namespace PlayTests
             serverPref.GetComponent<ServerPreferences>().SetValues("127.0.0.1", 50000);
 
             GameObject client = new GameObject();
-            client.AddComponent<Client>();
-            Client.Instance = Substitute.For<IClient>();
-            Client.Instance.HasControl().Returns(true);
+            client.AddComponent<MonoClient>();
+            MonoClient.Instance = Substitute.For<IClient>();
+            MonoClient.Instance.HasControl().Returns(true);
             SceneManager.LoadScene("Battlefield");
         }
 
