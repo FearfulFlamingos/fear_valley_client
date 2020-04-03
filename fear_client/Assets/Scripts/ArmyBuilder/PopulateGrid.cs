@@ -279,21 +279,21 @@ namespace Scripts.ArmyBuilder
                 Debug.Log(troop);
                 FeaturesHolder reference = troop.GetComponent<FeaturesHolder>();
                 Debug.Log(reference);
-                Client.Instance.SendTroopRequest(reference.troop, reference.weapon, reference.armor, (int)troop.transform.position[0], (int)troop.transform.position[1]);
+                MonoClient.Instance.SendTroopRequest(reference.troop, reference.weapon, reference.armor, (int)troop.transform.position[0], (int)troop.transform.position[1]);
 
             }
-            Client.Instance.SendFinishBuild(explosions.Count);
+            MonoClient.Instance.SendFinishBuild(explosions.Count);
         }
 
     public void QuickArmy()
     {
         NSubstitute.Substitute.For<IClient>();
-        Client.Instance.SendTroopRequest("Peasant","Ranged attack","Light mundane armor",0,0);
-        Client.Instance.SendTroopRequest("Trained Warrior","One-handed weapon","Heavy mundane armor",1,0);
-        Client.Instance.SendTroopRequest("Magic User","Unarmed","Unarmored",2,0);
-        Client.Instance.SendTroopRequest("Peasant","Polearm","Unarmored",3,0);
+        MonoClient.Instance.SendTroopRequest("Peasant","Ranged attack","Light mundane armor",0,0);
+        MonoClient.Instance.SendTroopRequest("Trained Warrior","One-handed weapon","Heavy mundane armor",1,0);
+        MonoClient.Instance.SendTroopRequest("Magic User","Unarmed","Unarmored",2,0);
+        MonoClient.Instance.SendTroopRequest("Peasant","Polearm","Unarmored",3,0);
 
-        Client.Instance.SendFinishBuild(3);
+        MonoClient.Instance.SendFinishBuild(3);
     }
 
         #endregion
