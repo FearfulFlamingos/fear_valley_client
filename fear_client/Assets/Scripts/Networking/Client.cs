@@ -21,34 +21,23 @@ namespace Scripts.Networking
     public class Client : IClient
     {
         //public static IClient Instance { set; get; }
-        private const int MAX_USER = 2;
-        private int PORT;
-        private string SERVER_IP;
-        private const int BYTE_SIZE = 1024; // standard packet size
-
-        private byte reliableChannel;
-        private int connectionId;
-        private int hostId;
-        private bool isStarted = false;
+        // These can all be private, but for testing I set them public.
+        public int MAX_USER { set; get; }
+        public int PORT { set; get; }
+        public string SERVER_IP { set; get; }
+        public int BYTE_SIZE { set; get; }
+        public byte ReliableChannel { set; get; }
+        public int ConnectionId { set; get; }
+        public int HostId { set; get; }
+        public bool IsStarted { set; get; }
         private byte error;
-        private bool hasControl;
+        public bool hasControl;
+        public NetworkEventType LastEvent { set; get; }
 
-        //#region Monobehavior
-        //private void Start()
-        //{
-        //    Init();
-        //}
-        //private void Update()
-        //{
-        //    UpdateMessagePump();
-        //}
-        //#endregion
-
-        /// <summary>
-        /// Starts the client.
-        /// </summary>
         public void Init()
         {
+            MAX_USER = 2;
+            BYTE_SIZE = 1024; // standard packet 
             SERVER_IP = GameObject.Find("/ServerJoinPrefs").GetComponent<ServerPreferences>().GetIP();
             PORT = GameObject.Find("/ServerJoinPrefs").GetComponent<ServerPreferences>().GetPort();
 
@@ -59,7 +48,7 @@ namespace Scripts.Networking
 #pragma warning disable CS0618 // Type or member is obsolete
             ConnectionConfig cc = new ConnectionConfig();
 #pragma warning restore CS0618 // Type or member is obsolete
-            reliableChannel = cc.AddChannel(QosType.Reliable);
+            ReliableChannel = cc.AddChannel(QosType.Reliable);
 
 #pragma warning disable CS0618 // Type or member is obsolete
             HostTopology topo = new HostTopology(cc, MAX_USER);
@@ -71,24 +60,24 @@ namespace Scripts.Networking
             {
                 Debug.Log("Running local instances");
 #pragma warning disable CS0618 // Type or member is obsolete
-                hostId = NetworkTransport.AddHost(topo, 0);
+                HostId = NetworkTransport.AddHost(topo, 0);
 #pragma warning restore CS0618 // Type or member is obsolete
             }
             else
             {
 #pragma warning disable CS0618 // Type or member is obsolete
-                hostId = NetworkTransport.AddHost(topo, PORT);
+                HostId = NetworkTransport.AddHost(topo, PORT);
 #pragma warning restore CS0618 // Type or member is obsolete
             }
 
             //Debug.Log(hostId);
 #pragma warning disable CS0618 // Type or member is obsolete
-            connectionId = NetworkTransport.Connect(hostId, SERVER_IP, PORT, 0, out error);
+            ConnectionId = NetworkTransport.Connect(HostId, SERVER_IP, PORT, 0, out error);
 #pragma warning restore CS0618 // Type or member is obsolete
             //NetworkTransport.Connect(1, SERVER_IP, PORT, 0, out error);
             Debug.Log("Connecting from standalone");
 
-            isStarted = true;
+            IsStarted = true;
             Debug.Log($"Attempting to connnect on {SERVER_IP}...");
         }
 
@@ -97,7 +86,7 @@ namespace Scripts.Networking
         /// </summary>
         public void Shutdown()
         {
-            isStarted = false;
+            IsStarted = false;
 #pragma warning disable CS0618 // Type or member is obsolete
             NetworkTransport.Shutdown();
 #pragma warning restore CS0618 // Type or member is obsolete
@@ -108,7 +97,7 @@ namespace Scripts.Networking
         /// </summary>
         public void UpdateMessagePump()
         {
-            if (!isStarted)
+            if (!IsStarted)
                 return;
 
             int recHostId; // From web or standalone?
@@ -127,6 +116,12 @@ namespace Scripts.Networking
                 BYTE_SIZE,
                 out dataSize,
                 out error);
+
+            CheckMessageType(recHostId, connectionId, channelId, recievedBuffer, type);
+        }
+
+        public void CheckMessageType(int recHostId, int connectionId, int channelId, byte[] recievedBuffer, NetworkEventType type)
+        {
             switch (type)
             {
                 case NetworkEventType.Nothing:
@@ -149,6 +144,7 @@ namespace Scripts.Networking
                     Debug.Log("Unexpected network event type");
                     break;
             }
+            LastEvent = type;
         }
 
         public bool HasControl() => hasControl;
@@ -291,10 +287,10 @@ namespace Scripts.Networking
             formatter.Serialize(ms, msg);
 
 #pragma warning disable CS0618 // Type or member is obsolete
-            NetworkTransport.Send(hostId,
+            NetworkTransport.Send(HostId,
 #pragma warning restore CS0618 // Type or member is obsolete
-            connectionId,
-                reliableChannel,
+            ConnectionId,
+                ReliableChannel,
                 buffer,
                 BYTE_SIZE,
                 out error);
