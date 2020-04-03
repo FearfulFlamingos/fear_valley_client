@@ -54,7 +54,7 @@ namespace Scripts.Actions
 
         /// <summary>Checks for player input and ability to move a character</summary>
         /// <returns>Boolean value of input.</returns>
-        public bool InputDetected() => InputManager.GetLeftMouseClick() && Client.Instance.HasControl();
+        public bool InputDetected() => InputManager.GetLeftMouseClick() && MonoClient.Instance.HasControl();
 
         /// <summary>
         /// This is a private function that triggers movement, sends a client request, and toggles the checks for
@@ -67,7 +67,7 @@ namespace Scripts.Actions
             PlayerSpotlight.Instance.DeactivateCurrentFocus();
             Destroy(movementSelector);
             Move(targetPosition);
-            Client.Instance.SendMoveData(
+            MonoClient.Instance.SendMoveData(
                 gameObject.GetComponent<Character>().Features.TroopId,
                 targetPosition[0],
                 targetPosition[2]);

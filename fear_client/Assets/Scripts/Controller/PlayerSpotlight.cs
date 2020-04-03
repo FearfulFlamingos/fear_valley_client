@@ -41,7 +41,7 @@ namespace Scripts.Controller
         // linked to the functions below.
         private void Update()
         {
-            if (selectingCharacter && InputManager.GetLeftMouseClick() && Client.Instance.HasControl())
+            if (selectingCharacter && InputManager.GetLeftMouseClick() && MonoClient.Instance.HasControl())
             {
                 RaycastHit hit;
                 Ray ray = camera1.ScreenPointToRay(InputManager.MousePosition());

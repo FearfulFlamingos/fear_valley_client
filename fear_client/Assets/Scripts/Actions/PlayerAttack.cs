@@ -35,7 +35,7 @@ namespace Scripts.Actions
         /// </summary>
         void Update()
         {
-            if (InputManager.GetAttackButtonDown() && Client.Instance.HasControl())
+            if (InputManager.GetAttackButtonDown() && MonoClient.Instance.HasControl())
             {
                 RaycastHit hit;
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -108,14 +108,14 @@ namespace Scripts.Actions
                         gameLoop.PlayerRemoval(attackObject.GetComponent<CharacterFeatures>().TroopId, 2);
                         Destroy(attackObject);
                         Debug.Log("Deleting slain enemy");
-                        Client.Instance.SendRetreatData(defendingCharacter.TroopId, 1);
+                        MonoClient.Instance.SendRetreatData(defendingCharacter.TroopId, 1);
                     }
                     else
                     {
                         defendingCharacter.Health = System.Convert.ToInt32(defendingCharacter.Health - damageTaken);
                         string text = $"You attack was a success \nand you have dealt {damageTaken} damage\nto the player named Roman ";
                         uiController.SetAttackPanelEnemyInfo(text);
-                        Client.Instance.SendAttackData(defendingCharacter.TroopId, damageTaken);
+                        MonoClient.Instance.SendAttackData(defendingCharacter.TroopId, damageTaken);
                     }
 
                 }

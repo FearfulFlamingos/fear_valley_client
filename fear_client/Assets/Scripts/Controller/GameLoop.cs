@@ -39,7 +39,7 @@ namespace Scripts.Controller
             {
                 ActionPoints = 3;
                 numAttacks = 0;
-                Client.Instance.SendEndTurn();
+                MonoClient.Instance.SendEndTurn();
             }
 
         }
@@ -189,7 +189,7 @@ namespace Scripts.Controller
             {
                 PlayerRemoval(SelectedCharacter.GetComponent<CharacterFeatures>().TroopId, 1);
                 Destroy(SelectedCharacter);
-                Client.Instance.SendRetreatData(SelectedCharacter.GetComponent<CharacterFeatures>().TroopId, 2);
+                MonoClient.Instance.SendRetreatData(SelectedCharacter.GetComponent<CharacterFeatures>().TroopId, 2);
                 ActionPoints = 0;
             }
             else

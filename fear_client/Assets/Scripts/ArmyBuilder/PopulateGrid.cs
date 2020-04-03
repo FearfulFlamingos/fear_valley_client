@@ -285,17 +285,6 @@ namespace Scripts.ArmyBuilder
             MonoClient.Instance.SendFinishBuild(explosions.Count);
         }
 
-    public void QuickArmy()
-    {
-        NSubstitute.Substitute.For<IClient>();
-        MonoClient.Instance.SendTroopRequest("Peasant","Ranged attack","Light mundane armor",0,0);
-        MonoClient.Instance.SendTroopRequest("Trained Warrior","One-handed weapon","Heavy mundane armor",1,0);
-        MonoClient.Instance.SendTroopRequest("Magic User","Unarmed","Unarmored",2,0);
-        MonoClient.Instance.SendTroopRequest("Peasant","Polearm","Unarmored",3,0);
-
-        MonoClient.Instance.SendFinishBuild(3);
-    }
-
         #endregion
 
 
