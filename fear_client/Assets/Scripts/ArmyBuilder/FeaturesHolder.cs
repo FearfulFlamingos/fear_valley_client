@@ -22,7 +22,7 @@ namespace Scripts.ArmyBuilder
         {
             if (isactive == true)
             {
-                uicontrol.GetComponent<PopulateGrid>().ChangeChar(gamepiece);
+               uicontrol.GetComponent<PopulateGrid>().ChangeChar(gamepiece);
             }
         }
     }
