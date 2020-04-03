@@ -15,7 +15,7 @@ namespace Scripts.ArmyBuilder
         private GameObject explosionScrollView;
         private Stack<GameObject> explosions;
 
-        private GameObject selection, lastclicked;
+        public GameObject selection, lastclicked;
         public GameObject UIcontrol, troopinfo, CurrentPanel;
         public Camera camera;
         [SerializeField]

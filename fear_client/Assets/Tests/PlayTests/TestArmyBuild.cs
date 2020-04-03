@@ -51,10 +51,10 @@ namespace Tests
             GameObject panel = GameObject.FindGameObjectWithTag("TestPanel");
             Debug.Log(panel);
             holder.GetCurrentPanel(panel);
-            //GameObject NewObject = holder.lastclicked;
+            GameObject NewObject = holder.lastclicked;
             yield return null;
-            //Assert.AreEqual(NewObject.GetComponent<FeaturesHolder>().armor, "Light mundane armor");
-            //Assert.AreEqual(NewObject.GetComponent<FeaturesHolder>().weapon, "Polearm");
+            Assert.AreEqual(NewObject.GetComponent<FeaturesHolder>().armor, "Light mundane armor");
+            Assert.AreEqual(NewObject.GetComponent<FeaturesHolder>().weapon, "Polearm");
 
 
         }
