@@ -273,6 +273,20 @@ namespace EditorTests
         }
 
         [Test]
+        public void TestUnknownNetMessage()
+        {
+            Net_SendMagic message = new Net_SendMagic() { OperationCode = 0 };
+            byte[] buffer = new byte[1024];
+            BinaryFormatter formatter = new BinaryFormatter();
+            MemoryStream ms = new MemoryStream(buffer);
+            formatter.Serialize(ms, message);
+
+            MonoClient.Instance.CheckMessageType(0, 0, 0, buffer, NetworkEventType.DataEvent);
+
+            Assert.AreEqual(NetworkEventType.DataEvent, MonoClient.Instance.LastEvent);
+        }
+
+        [Test]
         public void TestNet_SendMagic()
         {
             // Arrange
