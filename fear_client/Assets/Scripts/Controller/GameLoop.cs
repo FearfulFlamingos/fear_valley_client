@@ -78,7 +78,7 @@ namespace Scripts.Controller
             //Debug.Log(newZ);
             //float adjX = 4 + (4 - newX);
             //float adjZ = 4 + (4 - newZ);
-            Vector3 newVect = new Vector3(newX, 0, newZ);
+            Vector3 newVect = new Vector3(newX, 0.2f, newZ);
             Debug.Log(newVect);
             changing.GetComponent<PlayerMovement>().Move(newVect);
         }

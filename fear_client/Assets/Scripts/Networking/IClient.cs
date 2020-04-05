@@ -5,7 +5,6 @@ namespace Scripts.Networking
 {
     public interface IClient
     {
-        int BYTE_SIZE { get; set; }
         int ConnectionId { get; set; }
         int HostId { get; set; }
         bool IsStarted { get; set; }
@@ -14,6 +13,7 @@ namespace Scripts.Networking
         byte ReliableChannel { get; set; }
         string SERVER_IP { get; set; }
         NetworkEventType LastEvent { get; set; }
+        NetMsg LastSent { get; set; }
 
         void CheckMessageType(int recHostId, int connectionId, int channelId, byte[] recievedBuffer, NetworkEventType type);
         bool HasControl();

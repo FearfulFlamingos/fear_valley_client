@@ -27,10 +27,10 @@ namespace EditorTests
             ServerPreferences pref = serverPref.GetComponent<ServerPreferences>();
             pref.SetValues("127.0.0.1", 50000);
 
-            controller = new GameObject("SceneController");
-            controller.tag = "scripts";
-            controller.AddComponent<GameLoop>();
-            controller.AddComponent<PopulateCharacter>();
+            //controller = new GameObject("SceneController");
+            //controller.tag = "scripts";
+            //controller.AddComponent<GameLoop>();
+            //controller.AddComponent<PopulateCharacter>();
 
 
         }
@@ -42,6 +42,7 @@ namespace EditorTests
             clientObj = new GameObject("Client");
             clientObj.AddComponent<MonoClient>();
             MonoClient.Instance = new Client();
+            MonoClient.Instance.Init();
         }
 
         [Test]
@@ -55,7 +56,25 @@ namespace EditorTests
             Assert.AreEqual(2,MonoClient.Instance.MAX_USER);
             Assert.AreEqual(50000,MonoClient.Instance.PORT);
             Assert.AreEqual("127.0.0.1",MonoClient.Instance.SERVER_IP);
-            Assert.AreEqual(1024,MonoClient.Instance.BYTE_SIZE);
+            Assert.IsTrue(MonoClient.Instance.IsStarted);
+        }
+
+        [Test]
+        public void TestClientInitWhereServerIsntLocal()
+        {
+            // Arrange
+            GameObject serverPrefs = GameObject.Find("ServerJoinPrefs");
+            serverPrefs.GetComponent<ServerPreferences>().SetValues("10.28.149.175", 50000);
+            MonoClient.Instance.Shutdown();
+            MonoClient.Instance = new Client();
+
+            // Act
+            MonoClient.Instance.Init();
+
+            // Assert
+            Assert.AreEqual(2, MonoClient.Instance.MAX_USER);
+            Assert.AreEqual(50000, MonoClient.Instance.PORT);
+            Assert.AreEqual("10.28.149.175", MonoClient.Instance.SERVER_IP);
             Assert.IsTrue(MonoClient.Instance.IsStarted);
         }
 
@@ -134,13 +153,124 @@ namespace EditorTests
             Assert.IsTrue(actual);
         }
 
-        //[Test]
-        //public void TestSendToServer()
-        //{
-        //    Net_ToggleControls ntc = new Net_ToggleControls();
+        [Test]
+        public void TestSendToServer()
+        {
+            Net_ToggleControls ntc = new Net_ToggleControls();
 
-        //    MonoClient.Instance.SendToServer(ntc);
-        //}
+            MonoClient.Instance.SendToServer(ntc);
+            Assert.AreEqual(ntc,(Net_ToggleControls) MonoClient.Instance.LastSent);
+        }
+
+        [Test]
+        public void TestSendTroopRequest()
+        {
+            // Arrange
+            string troop = "Peasant";
+            string weapon = "Unarmed";
+            string armor = "Unarmored";
+            float xPos = 1f;
+            float yPos = 1f;
+            Net_AddTroop expected = new Net_AddTroop()
+            {
+                TroopType = troop,
+                WeaponType = weapon,
+                ArmorType = armor,
+                XPosRelative = xPos,
+                ZPosRelative = yPos
+            };
+
+            // Act
+            MonoClient.Instance.SendTroopRequest(troop, weapon, armor, xPos, yPos);
+
+            // Assert
+            Net_AddTroop actual = (Net_AddTroop)MonoClient.Instance.LastSent;
+            Assert.AreEqual(expected.TroopType, actual.TroopType);
+            Assert.AreEqual(expected.WeaponType, actual.WeaponType);
+            Assert.AreEqual(expected.ArmorType, actual.ArmorType);
+            Assert.AreEqual(expected.XPosRelative, actual.XPosRelative);
+            Assert.AreEqual(expected.ZPosRelative, actual.ZPosRelative);
+        }
+
+        [Test]
+        public void TestSendFinishBuild()
+        {
+            // Arrange
+            int magic = 4;
+            Net_FinishBuild expected = new Net_FinishBuild() { MagicBought = 4 };
+
+            // Act
+            MonoClient.Instance.SendFinishBuild(magic);
+
+            // Assert
+            Net_FinishBuild actual = (Net_FinishBuild) MonoClient.Instance.LastSent;
+            Assert.AreEqual(expected.MagicBought, actual.MagicBought);
+        }
+
+        [Test]
+        public void TestSendMoveData()
+        {
+            // Arrange
+            int troop = 1;
+            float x = 0;
+            float z = 0;
+            Net_MOVE expected = new Net_MOVE() { TroopID = troop, NewX = x, NewZ = z };
+
+            // Act
+            MonoClient.Instance.SendMoveData(troop, x, z);
+            Net_MOVE actual = (Net_MOVE)MonoClient.Instance.LastSent;
+            
+            // Assert
+            Assert.AreEqual(expected.TroopID,actual.TroopID);
+            Assert.AreEqual(expected.NewX,actual.NewX);
+            Assert.AreEqual(expected.NewZ, actual.NewZ);
+        }
+
+        [Test]
+        public void TestSendAttackData()
+        {
+            // Arrange
+            int troop = 1;
+            int health = 4;
+            Net_ATTACK expected = new Net_ATTACK() { TroopID = troop, NewHealth = health };
+
+            // Act
+            MonoClient.Instance.SendAttackData(troop, health);
+            Net_ATTACK actual = (Net_ATTACK)MonoClient.Instance.LastSent;
+
+            // Assert
+            Assert.AreEqual(expected.TroopID, actual.TroopID);
+            Assert.AreEqual(expected.NewHealth, actual.NewHealth);
+        }
+
+        [Test]
+        public void TestSendRetreatData()
+        {
+            // Arrange
+            int troop = 1;
+            int teamNum = 4;
+            Net_RETREAT expected = new Net_RETREAT() { TroopID = troop, TeamNum = teamNum };
+
+            // Act
+            MonoClient.Instance.SendRetreatData(troop, teamNum);
+            Net_RETREAT actual = (Net_RETREAT) MonoClient.Instance.LastSent;
+
+            // Assert
+            Assert.AreEqual(expected.TroopID, actual.TroopID);
+            Assert.AreEqual(expected.TeamNum, actual.TeamNum);
+        }
+
+        [Test]
+        public void TestEndTurn()
+        {
+            // Arrange
+            Net_EndTurn expected = new Net_EndTurn();
+            // Act
+            MonoClient.Instance.SendEndTurn();
+            Net_EndTurn actual = (Net_EndTurn)MonoClient.Instance.LastSent;
+            // Assert
+            Assert.AreEqual(expected.OperationCode, actual.OperationCode);
+        }
 
         [Test]
         public void TestNet_SendMagic()
@@ -176,8 +306,6 @@ namespace EditorTests
             Assert.IsTrue(MonoClient.Instance.HasControl());
         }
 
-        
-
         // tests
         /* Public fn() to test:
          *   void Init() ✓
@@ -186,29 +314,30 @@ namespace EditorTests
          *   void UpdateMessagePump() but it isn't started ✓
          *   void CheckMessageType(int, int, int, byte[], NetworkEventType) ✓
          *   bool HasControl() ✓
-         *   void SendToServer()
-         *   void SendTroopRequest()
-         *   void SendFinishBuild()
-         *   void SendMoveData()
-         *   void SendAttackData()
-         *   void SendRetreatData()
-         *   void SendEndTurn()
+         *   void SendToServer() ✓
+         *   void SendTroopRequest() ✓
+         *   void SendFinishBuild() ✓
+         *   void SendMoveData() ✓
+         *   void SendAttackData() ✓
+         *   void SendRetreatData() ✓
+         *   void SendEndTurn() ✓
          * 
          * Private fn() to test:
          *   void OnData() ✓
          *   Net_SendMagic() ✓
          *   Net_ToggleControls() ✓
-         *   Net_Move() ==> Play test
-         *   Net_Attack() ==> Play test
-         *   Net_Retreat() ==> Play test
-         *   Net_Propogate() ==> Play test
-         *   Net_ChangeScene() ==> Play test
+         *   Net_Move() ==> Play test ✓
+         *   Net_Attack() ==> Play test ✓
+         *   Net_Retreat() ==> Play test ✓
+         *   Net_Propogate() ==> Play test ✓
+         *   Net_ChangeScene() ==> Play test ✓
          */
 
         // teardown
         [TearDown]
         public void Teardown()
         {
+            MonoClient.Instance.Shutdown();
             DestroyImmediate(clientObj);
         }
 
