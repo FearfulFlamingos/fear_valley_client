@@ -56,7 +56,6 @@ namespace Tests
             Assert.AreEqual(NewObject.GetComponent<FeaturesHolder>().armor, "Light mundane armor");
             Assert.AreEqual(NewObject.GetComponent<FeaturesHolder>().weapon, "Polearm");
 
-
         }
     }
 }
