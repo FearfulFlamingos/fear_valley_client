@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Scripts.Networking;
+using Scripts.Controller;
 
 
 namespace Scripts.ArmyBuilder
@@ -26,7 +27,8 @@ namespace Scripts.ArmyBuilder
         public int budget = 300;
         public int rollingbudget;
         public int numTroops = 1;
-        public string current_weapon;
+        public string current_armor;
+        public IInputManager InputManager { set; get; }
         private HashSet<GameObject> activetroops = new HashSet<GameObject>();
 
         Dictionary<string, int> costs = new Dictionary<string, int>()
@@ -53,11 +55,13 @@ namespace Scripts.ArmyBuilder
         void Start()
         {
             explosions = new Stack<GameObject>();
+            if (InputManager == null)
+                InputManager = GameObject.FindGameObjectWithTag("scripts").GetComponent<InputManager>();
         }
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(1))
+            if (InputManager.GetRightMouseClick())
             {
                 RemovePlacedObject();
             }
@@ -73,7 +77,7 @@ namespace Scripts.ArmyBuilder
                 }
             }
             //Cancel a potential purchase with escape after clicking through the menus
-            if (Input.GetKey(KeyCode.Escape))
+            if (InputManager.GetEscapeKeyDown())
             {
                 Destroy(selection);
                 selection = null;
@@ -82,13 +86,13 @@ namespace Scripts.ArmyBuilder
                 ActivateButtons();
             }
             //Execute a purchase upon click
-            if (Input.GetMouseButtonDown(0))
+            if (InputManager.GetLeftMouseClick() && selection!=null)
             {
                 selection = null;
                 ExecutePurchase();
             }
             //Select a troop after the troop has been placed
-            if (Input.GetMouseButtonDown(0) && selection == null)
+            if (InputManager.GetLeftMouseClick() && selection == null)
             {
                 RaycastHit checkGameObject;
                 Ray ray = camera.ScreenPointToRay(Input.mousePosition);
@@ -108,7 +112,7 @@ namespace Scripts.ArmyBuilder
             projectedCost.text = $"Estimated Cost: {rollingbudget}";
             remainingBudget.text = $"Estimated Cost: {budget - rollingbudget}";
         }
-
+        //public bool InputDetected() => InputManager.GetLeftMouseClick() && Client.Instance.HasControl();
         /// <summary>
         /// Add the cost of an item to the adjusted budget
         /// </summary>
@@ -147,7 +151,7 @@ namespace Scripts.ArmyBuilder
             selection.GetComponent<FeaturesHolder>().gamepiece = selection;
             selection.GetComponent<FeaturesHolder>().isactive = true;
             Debug.Log(selection.GetComponent<FeaturesHolder>().isactive);
-            selection.GetComponent<FeaturesHolder>().weapon = current_weapon;
+            selection.GetComponent<FeaturesHolder>().armor = current_armor;
             troopinfo.SetActive(true);
             lastclicked = selection;
 
@@ -159,7 +163,9 @@ namespace Scripts.ArmyBuilder
         public void GetArmor(string ArmorClass)
         {
             //selection.armorclass
-            selection.GetComponent<FeaturesHolder>().armor = ArmorClass;
+            current_armor = ArmorClass;
+            additem(ArmorClass);
+            
         }
 
         /// <summary>
@@ -169,8 +175,7 @@ namespace Scripts.ArmyBuilder
         public void GetWeapon(string WeaponClass)
         {
             //selection.armorclass
-            WeaponClass = current_weapon;
-            additem(WeaponClass);
+            selection.GetComponent<FeaturesHolder>().weapon = WeaponClass;
 
         }
         /// <summary>
@@ -193,7 +198,7 @@ namespace Scripts.ArmyBuilder
             fname.text = $"{reference.fname}";
             weapon.text = $"{reference.weapon}";
             armor.text = $"{reference.armor}";
-            CurrentPanel.SetActive(false);
+            //CurrentPanel.SetActive(false);
 
         }
         #endregion
@@ -279,16 +284,6 @@ namespace Scripts.ArmyBuilder
             }
             MonoClient.Instance.SendFinishBuild(explosions.Count);
         }
-
-    public void QuickArmy()
-    {
-        MonoClient.Instance.SendTroopRequest("Peasant","Ranged attack","Light mundane armor",0,0);
-        MonoClient.Instance.SendTroopRequest("Trained Warrior","One-handed weapon","Heavy mundane armor",1,0);
-        MonoClient.Instance.SendTroopRequest("Magic User","Unarmed","Unarmored",2,0);
-        MonoClient.Instance.SendTroopRequest("Peasant","Polearm","Unarmored",3,0);
-        
-        MonoClient.Instance.SendFinishBuild(3);
-    }
 
         #endregion
 

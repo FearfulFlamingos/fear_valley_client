@@ -11,6 +11,7 @@ namespace Scripts.Controller
     {
         public bool GetLeftMouseClick() => Input.GetMouseButtonDown(0);
         public bool GetRightMouseClick() => Input.GetMouseButtonDown(1);
+        public bool GetEscapeKeyDown() => Input.GetKey(KeyCode.Escape);
         public Vector3 MousePosition() => Input.mousePosition;
         public bool GetMoveButtonDown() => Input.GetKeyDown(KeyCode.Q);
         public bool GetAttackButtonDown() => Input.GetKeyDown(KeyCode.W);

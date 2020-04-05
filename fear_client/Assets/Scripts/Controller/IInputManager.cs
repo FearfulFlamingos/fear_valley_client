@@ -7,6 +7,7 @@ namespace Scripts.Controller
         bool GetAttackButtonDown();
         bool GetCancelButtonDown();
         bool GetLeftMouseClick();
+        bool GetEscapeKeyDown();
         bool GetMagicButtonDown();
         bool GetMoveButtonDown();
         bool GetRetreatButtonDown();

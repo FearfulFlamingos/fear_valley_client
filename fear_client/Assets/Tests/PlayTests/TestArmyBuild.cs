@@ -21,7 +21,7 @@ namespace Tests
             serverPref.GetComponent<ServerPreferences>().SetValues("127.0.0.1", 50000);
 
             GameObject client = new GameObject();
-            client.AddComponent<MonoClient>();
+            client.AddComponent<Client>();
             SceneManager.LoadScene("ArmyBuild-Visual");
         }
 
@@ -55,7 +55,6 @@ namespace Tests
             yield return null;
             Assert.AreEqual(NewObject.GetComponent<FeaturesHolder>().armor, "Light mundane armor");
             Assert.AreEqual(NewObject.GetComponent<FeaturesHolder>().weapon, "Polearm");
-
 
         }
     }
