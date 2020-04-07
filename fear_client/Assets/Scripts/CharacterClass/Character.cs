@@ -43,16 +43,13 @@ namespace Scripts.CharacterClass
             switch (CurrentState)
             {
                 case State.Moving:
-                    Features.IsFocused = false;
                     PlayerMovement.ActivateMovement();
                     CurrentState = State.Waiting;
                     break;
                 case State.Attacking:
-                    Features.IsFocused = false;
                     break;
                 case State.CastingSpell:
                     PlayerMagic.PlaceExplosion();
-                    Features.IsFocused = false;
                     CurrentState = State.Waiting;
                     break;
                 case State.Selected:
@@ -61,7 +58,6 @@ namespace Scripts.CharacterClass
                 case State.Waiting:
                 case State.None:
                 default:
-                    Features.IsFocused = false;
                     return;
             }
         }

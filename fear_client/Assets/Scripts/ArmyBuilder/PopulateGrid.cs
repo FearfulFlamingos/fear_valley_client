@@ -288,12 +288,11 @@ namespace Scripts.ArmyBuilder
 
         public void TESTQUICKARMY()
         {
-            MonoClient.Instance.SendTroopRequest("Peasant", "Unarmed", "Unarmored", 1, 1);
-            MonoClient.Instance.SendTroopRequest("Magic User", "Unarmed", "Unarmored", 2, 1);
-            MonoClient.Instance.SendTroopRequest("Trained Warrior", "Two-handed weapon", "Heavy mundane armor", 3, 1);
-            MonoClient.Instance.SendTroopRequest("Peasant", "One-handed weapon", "Light mundane armor", 4, 1);
-            MonoClient.Instance.SendTroopRequest("Peasant", "One-handed weapon", "Light magical armor", 5, 1);
-            MonoClient.Instance.SendFinishBuild(5);
+            MonoClient.Instance.SendTroopRequest("Peasant", "Ranged attack", "Light mundane armor", 0, 0);
+            MonoClient.Instance.SendTroopRequest("Trained Warrior", "One-handed weapon", "Heavy mundane armor", 1, 0);
+            MonoClient.Instance.SendTroopRequest("Magic User", "Unarmed", "Unarmored", 2, 0);
+            MonoClient.Instance.SendTroopRequest("Peasant", "Polearm", "Unarmored", 3, 0);
+            MonoClient.Instance.SendFinishBuild(3);
         }
         #endregion
 

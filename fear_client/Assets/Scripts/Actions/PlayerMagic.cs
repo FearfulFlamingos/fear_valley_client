@@ -73,13 +73,16 @@ namespace Scripts.Actions
             Destroy(selection);
 
             PlayerSpotlight.Instance.DeactivateCurrentFocus();
+            
+            GameLoop.MagicPoints--;
+            GameLoop.ActionPoints -= 3;
         }
 
         private void CancelExplosion()
         {
             placingExplosion = false;
             Destroy(selection);
-            GameLoop.Instance.CancelSpell();
+            BattleUIControl.Instance.CancelMagicExplosion();
         }
 
         public void PlaceExplosion()

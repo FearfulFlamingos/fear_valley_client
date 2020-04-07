@@ -43,16 +43,18 @@ namespace Scripts.Controller
         {
             if (selectingCharacter && InputManager.GetLeftMouseClick() && MonoClient.Instance.HasControl())
             {
-                RaycastHit hit;
                 Ray ray = camera1.ScreenPointToRay(InputManager.MousePosition());
-                if (Physics.Raycast(ray, out hit, 100.0f, layerMask: 1 << 10))
+                if (Physics.Raycast(ray, out RaycastHit hit, 100.0f, layerMask: 1 << 10 ))
                 {
                     ChangeSelection(hit.transform.gameObject);
                 }
                 else
                 {
-                    DeactivateCurrentFocus();
-                    GameLoop.SelectedCharacter = null;
+                    if (Physics.Raycast(ray, out RaycastHit uiHit, 100.0f, layerMask: 1<< 9) && GameLoop.SelectedCharacter != null)
+                    {
+                        DeactivateCurrentFocus();
+                        GameLoop.SelectedCharacter = null;
+                    }
                 }
             }
         }

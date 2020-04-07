@@ -67,6 +67,7 @@ namespace Scripts.Actions
             PlayerSpotlight.Instance.DeactivateCurrentFocus();
             Destroy(movementSelector);
             Move(targetPosition);
+            GameLoop.ActionPoints--;
             MonoClient.Instance.SendMoveData(
                 gameObject.GetComponent<Character>().Features.TroopId,
                 targetPosition[0],

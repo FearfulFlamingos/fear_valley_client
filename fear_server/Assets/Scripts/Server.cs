@@ -113,6 +113,7 @@ public class Server : MonoBehaviour
                 break;
             case NetworkEventType.DisconnectEvent:
                 Debug.Log($"User {connectionId} has disconnected");
+                waitingConnections++;
                 break;
             
             default:
