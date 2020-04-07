@@ -336,6 +336,7 @@ public class Server : MonoBehaviour
                 AbsoluteZPos = t.ZPos,
                 AtkBonus = t.TroopAtkBonus,
                 AtkRange = t.WeaponRange,
+                DamageBonus = t.TroopDamageBonus,
                 Health = t.Health,
                 Movement = t.Movement,
                 MaxAttackVal = t.WeaponDamage,
