@@ -216,7 +216,7 @@ namespace Scripts.Networking
         private void Net_Attack(int connId, int channelId, int recHostId, Net_ATTACK msg)
         {
             GameObject scripts = GameObject.FindGameObjectWithTag("scripts");
-            GameLoop.Instance.IveBeenAttacked(msg.TroopID, msg.NewHealth);
+            GameLoop.Instance.IveBeenAttacked(msg.TroopID, msg.DamageTaken);
         }
 
         // Causes a character to retreat.
@@ -250,7 +250,7 @@ namespace Scripts.Networking
                 TroopId = msg.TroopID,
                 Charclass = msg.Prefab,
                 AttackBonus = msg.AtkBonus,
-                DamageBonus = 0, // TODO: Fix this in FearValleyNetwork build
+                DamageBonus = msg.DamageBonus,
                 Movement = msg.Movement,
                 ArmorBonus = msg.DefenseMod,
                 AttackRange = msg.AtkRange,
@@ -364,7 +364,7 @@ namespace Scripts.Networking
             Net_ATTACK atk = new Net_ATTACK
             {
                 TroopID = troopId,
-                NewHealth = health
+                DamageTaken = health
             };
 
             SendToServer(atk);

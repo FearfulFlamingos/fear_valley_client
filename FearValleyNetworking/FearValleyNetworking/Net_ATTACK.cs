@@ -17,8 +17,8 @@
         }
         /// <summary>Specific troop that has taken damage.</summary>
         public int TroopID { set; get; }
-        /// <summary>New health of the damaged troop.</summary>
-        public int NewHealth { set; get; }
+        /// <summary>The damage to be taken by the troop.</summary>
+        public int DamageTaken { set; get; }
 
     }
 }

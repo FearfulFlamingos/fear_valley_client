@@ -19,7 +19,10 @@
         /// <summary>Troop ID number.</summary>
         public int TroopID { set; get; }
         /// <summary>Client connection number.</summary>
-        /// <remarks>This will either be 1 or 255, since all clients think they are connection #1.</remarks>
+        /// <remarks>
+        /// This will either be 1 or 255, since all clients think they are connection #1.
+        /// <para>However, since Unity v. 2019.3.6, clients now know which connection they are.</para>
+        /// </remarks>
         public int ComingFrom { set; get; }
         /// <summary>Troop team number.</summary>
         public int TeamNum { set; get; }
@@ -29,6 +32,8 @@
         public int Movement {set; get; }
         /// <summary>Bonus to attack rolls.</summary>
         public int AtkBonus { set; get; }
+        /// <summary>The bonus to damage that a troop has, by being a leader/trained warrior.</summary>
+        public int DamageBonus { set; get; }
         /// <summary>Range of attacks.</summary>
         public int AtkRange { set; get; }
         /// <summary>Size of the damage die.</summary>

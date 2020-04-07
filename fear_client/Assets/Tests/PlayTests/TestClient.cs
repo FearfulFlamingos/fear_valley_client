@@ -143,7 +143,7 @@ namespace PlayTests
         [UnityTest]
         public IEnumerator TestNet_Attack()
         {
-            Net_ATTACK message = new Net_ATTACK() { TroopID = 1, NewHealth = 1 }; // TODO: Change NewHealth to DamageTaken in FVN
+            Net_ATTACK message = new Net_ATTACK() { TroopID = 1, DamageTaken = 1 }; 
             GameObject character = GameLoop.Instance.gameObject.GetComponent<PopulateCharacter>()
                 .DuplicateObjects(new CharacterFeatures() { TroopId = 1, Charclass = "Peasant", Team = 1, Health = 10 }, 1, 1);
 
