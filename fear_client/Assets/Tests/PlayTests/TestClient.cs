@@ -18,7 +18,7 @@ namespace PlayTests
     {
 
         GameObject clientObj;
-        
+
         // one time setup
         [OneTimeSetUp]
         public void OneTimeSetup()
@@ -71,11 +71,6 @@ namespace PlayTests
             Assert.AreEqual(1, GameLoop.Instance.p1CharsDict.Count);
 
         }
-
-        [Test]
-
-
-
 
     }
 }

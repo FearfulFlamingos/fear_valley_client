@@ -13,10 +13,10 @@ namespace Scripts.ArmyBuilder
     {
         [SerializeField]
         private GameObject explosionScrollView;
-        private Stack<GameObject> explosions;
+        public Stack<GameObject> explosions;
 
         public GameObject selection, lastclicked;
-        public GameObject UIcontrol, troopinfo, CurrentPanel;
+        public GameObject UIcontrol, troopinfo;
         public Camera camera;
         [SerializeField]
         private TMP_Text remainingBudget;
@@ -29,7 +29,7 @@ namespace Scripts.ArmyBuilder
         public int numTroops = 1;
         public string current_armor;
         public IInputManager InputManager { set; get; }
-        private HashSet<GameObject> activetroops = new HashSet<GameObject>();
+        public HashSet<GameObject> activetroops = new HashSet<GameObject>();
 
         Dictionary<string, int> costs = new Dictionary<string, int>()
         {
@@ -63,13 +63,14 @@ namespace Scripts.ArmyBuilder
         {
             if (InputManager.GetRightMouseClick())
             {
+                Debug.Log("Deleting");
                 RemovePlacedObject();
             }
 
             if (selection != null)
             {
                 RaycastHit hit;
-                Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+                Ray ray = Camera.main.ScreenPointToRay(InputManager.MousePosition());
                 if (Physics.Raycast(ray, out hit, 100.0f, 1 << 9))
                 {
                     Debug.Log("Moving");
@@ -79,8 +80,10 @@ namespace Scripts.ArmyBuilder
             //Cancel a potential purchase with escape after clicking through the menus
             if (InputManager.GetEscapeKeyDown())
             {
+                Debug.Log("in");
                 Destroy(selection);
                 selection = null;
+                lastclicked = null;
                 troopinfo.SetActive(false);
                 rollingbudget = 0;
                 ActivateButtons();
@@ -89,24 +92,24 @@ namespace Scripts.ArmyBuilder
             if (InputManager.GetLeftMouseClick() && selection!=null)
             {
                 selection = null;
+                Debug.Log("Purchasing");
                 ExecutePurchase();
             }
             //Select a troop after the troop has been placed
-            if (InputManager.GetLeftMouseClick() && selection == null)
-            {
-                RaycastHit checkGameObject;
-                Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out checkGameObject, 100.0f, 1 << 10) && checkGameObject.transform != null)
-                {
-                    Debug.Log("Highlighting player");
-                    GameObject target = checkGameObject.transform.gameObject;
-                    target.GetComponent<FeaturesHolder>().isactive = true;
-                    troopinfo.SetActive(true);
-                    //start coroutine to deactivate the ui
+            //if (InputManager.GetLeftMouseClick() && selection == null)
+            //{
+            //    RaycastHit checkGameObject;
+            //    Ray ray = Camera.main.ScreenPointToRay(InputManager.MousePosition());
+            //    if (Physics.Raycast(ray, out checkGameObject, 100.0f, 1 << 10) && checkGameObject.transform != null)
+            //    {
+            //        GameObject target = checkGameObject.transform.gameObject;
+            //        target.GetComponent<FeaturesHolder>().isactive = true;
+            //        troopinfo.SetActive(true);
+            //        //start coroutine to deactivate the ui
 
-                    StartCoroutine(Unhighlight(target));
-                }
-            }
+            //        //StartCoroutine(Unhighlight(target));
+            //    }
+            //}
 
             Budget.text = $"Budget: {budget}";
             projectedCost.text = $"Estimated Cost: {rollingbudget}";
@@ -127,13 +130,13 @@ namespace Scripts.ArmyBuilder
         /// </summary>
         /// <param name="target"></param>
         /// <returns></returns>
-        IEnumerator Unhighlight(GameObject target)
-        {
+        //IEnumerator Unhighlight(GameObject target)
+        //{
 
-            yield return 20000;    //Wait one frame
-            troopinfo.SetActive(false);
-            target.GetComponent<FeaturesHolder>().isactive = false;
-        }
+        //    yield return 20000;    //Wait one frame
+        //    troopinfo.SetActive(false);
+        //    target.GetComponent<FeaturesHolder>().isactive = false;
+        //}
 
 
         #region Update Troop
@@ -178,14 +181,7 @@ namespace Scripts.ArmyBuilder
             selection.GetComponent<FeaturesHolder>().weapon = WeaponClass;
 
         }
-        /// <summary>
-        /// Set the panel that is currently being used. 
-        /// </summary>
-        /// <param name="panel"></param>
-        public void GetCurrentPanel(GameObject panel)
-        {
-            CurrentPanel = panel;
-        }
+
 
         /// <summary>
         /// Update the ui canvas for current player. 
@@ -224,6 +220,7 @@ namespace Scripts.ArmyBuilder
             rollingbudget = 0;
 
             troopinfo.SetActive(false);
+            Debug.Log(lastclicked);
             budget += System.Convert.ToInt32(lastclicked.GetComponent<FeaturesHolder>().troop);
             activetroops.Remove(lastclicked);
             nocash.text = "";
@@ -258,13 +255,12 @@ namespace Scripts.ArmyBuilder
         public void RemovePlacedObject()
         {
             Debug.Log("Checking");
-            RaycastHit checkGameObject;
-            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out checkGameObject, 100.0f, 1 << 10) && checkGameObject.transform != null)
+            Ray ray = Camera.main.ScreenPointToRay(InputManager.MousePosition());
+            if (Physics.Raycast(ray, out RaycastHit hit, 100.0f, 1<<10) && hit.transform != null)
             {
                 Debug.Log("Deleting placed");
-                Destroy(checkGameObject.transform.gameObject);
-                lastclicked = checkGameObject.transform.gameObject;
+                Debug.Log(hit.transform.gameObject);
+                lastclicked = hit.transform.gameObject;
                 CancelPurchase();
             }
         }

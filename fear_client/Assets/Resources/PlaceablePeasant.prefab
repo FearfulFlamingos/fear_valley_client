@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2172742046960728012}
   m_Layer: 10
   m_Name: PlaceablePeasant
-  m_TagString: Untagged
+  m_TagString: Friendlies
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
