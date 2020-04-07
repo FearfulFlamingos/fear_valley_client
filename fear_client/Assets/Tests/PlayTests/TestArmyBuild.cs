@@ -11,7 +11,7 @@ using NSubstitute;
 
 namespace Tests
 {
-    public class TestArmyBuild
+    public class TestArmyBuild: MonoBehaviour
     {
         [OneTimeSetUp]
         public void Init()
@@ -135,26 +135,34 @@ namespace Tests
         [UnityTest]
         public IEnumerator TestRemoveObject()
         {
-            GameObject UIController = GameObject.Find("UIController");
-            PopulateGrid holder = UIController.GetComponent<PopulateGrid>();
-            holder.additem("Peasant");
-            holder.GetArmor("Light mundane armor");
-            holder.SetSelection("PlaceablePeasant");
-            holder.GetWeapon("Polearm");
-            GameObject NewObject = holder.lastclicked;
-            yield return null;
-            IInputManager fakeInput2 = Substitute.For<IInputManager>();
-            holder.InputManager = fakeInput2;
-            fakeInput2.MousePosition().Returns(Camera.main.WorldToScreenPoint(new Vector3(4, 0.2f, 4)));
-            fakeInput2.GetLeftMouseClick().Returns(true);
-            Debug.Log(holder.activetroops.Count);
-            yield return new WaitForSeconds(1);
-            Debug.Log(holder.lastclicked);
-            fakeInput2.MousePosition().Returns(Camera.main.WorldToScreenPoint(new Vector3(4, 0.2f, 4)));
-            Debug.Log(holder.lastclicked);
-            fakeInput2.GetRightMouseClick().Returns(true);
+            // Arrange
+            // Make a character
+            GameObject character = (GameObject)Instantiate(Resources.Load("PlaceablePeasant"));
+            character.transform.position = new Vector3(4, 0.2f, 4);
+            character.name = "TEST CHARACTER";
+            FeaturesHolder featuresHolder = character.GetComponent<FeaturesHolder>();
+            featuresHolder.cost = 40;
 
+            // Set the budget, "place" the character
+            PopulateGrid holder = GameObject.Find("UIController").GetComponent<PopulateGrid>();
+            holder.activetroops.Add(character);
+            holder.budget = 260;
+
+            Debug.Log("Active troops: " + holder.activetroops.Count);
+
+            // move the mouse over the character and start right clicking
+            IInputManager input = Substitute.For<IInputManager>();
+            input.MousePosition().Returns(Camera.main.WorldToScreenPoint(character.transform.position));
+            input.GetRightMouseClick().Returns(true);
+            holder.InputManager = input;
+            yield return new WaitForSeconds(3);
+            // Act
+            //holder.RemovePlacedObject();
+
+            // Assert
             Assert.AreEqual(0, holder.activetroops.Count);
+            Assert.AreEqual(300, holder.budget);
+            yield return null;
         }
 
 

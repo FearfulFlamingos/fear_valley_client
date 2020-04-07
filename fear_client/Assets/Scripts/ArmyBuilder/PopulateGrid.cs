@@ -221,7 +221,7 @@ namespace Scripts.ArmyBuilder
 
             troopinfo.SetActive(false);
             Debug.Log(lastclicked);
-            budget += System.Convert.ToInt32(lastclicked.GetComponent<FeaturesHolder>().troop);
+            budget += lastclicked.GetComponent<FeaturesHolder>().cost;
             activetroops.Remove(lastclicked);
             nocash.text = "";
             Destroy(lastclicked);
@@ -241,6 +241,7 @@ namespace Scripts.ArmyBuilder
             else
             {
                 lastclicked.name = $"troop{numTroops}";
+                lastclicked.GetComponent<FeaturesHolder>().cost = rollingbudget;
                 activetroops.Add(lastclicked);
                 numTroops++;
                 budget -= rollingbudget;
@@ -256,7 +257,7 @@ namespace Scripts.ArmyBuilder
         {
             Debug.Log("Checking");
             Ray ray = Camera.main.ScreenPointToRay(InputManager.MousePosition());
-            if (Physics.Raycast(ray, out RaycastHit hit, 100.0f, 1<<10) && hit.transform != null)
+            if (Physics.Raycast(ray, out RaycastHit hit, 100.0f, 1<<10))
             {
                 Debug.Log("Deleting placed");
                 Debug.Log(hit.transform.gameObject);
