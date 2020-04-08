@@ -1,7 +1,6 @@
 ###
 # Unity folders and files
 ###
-<<<<<<< HEAD
 [Aa]ssets/AssetStoreTools*
 [Bb]uild/
 [Ll]ibrary/
@@ -9,21 +8,11 @@
 [Oo]bj/
 [Tt]emp/
 [Uu]nityGenerated/
+[Dd]ocs/
 # file on crash reports
 sysinfo.txt
 # Unity3D generated meta files
 *.pidb.meta
-=======
-[Aa]ssets/AssetStoreTools*
-[Bb]uild/
-[Ll]ibrary/
-[Ll]ocal[Cc]ache/
-[Oo]bj/
-[Tt]emp/
-[Uu]nityGenerated/
-# file on crash reports
-sysinfo.txt
-# Unity3D generated meta files
 
 *.sqlite
 fearful_data.sqlite
@@ -32,20 +21,6 @@ fearful_data.sqlite
 ###
 # VS/MD solution and project files
 ###
-<<<<<<< HEAD
-[Ee]xportedObj/
-*.booproj
-*.csproj
-*.sln
-*.suo
-*.svd
-*.unityproj
-*.user
-*.userprefs
-*.pidb
-*.sqlite
-.DS_Store
-=======
 .vs/
 [Ee]xportedObj/
 *.booproj
@@ -57,6 +32,7 @@ fearful_data.sqlite
 *.user
 *.userprefs
 *.pidb
+FearValleyNetwork/.vs/
 
 ###
 # OS generated

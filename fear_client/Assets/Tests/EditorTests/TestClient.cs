@@ -232,7 +232,7 @@ namespace EditorTests
             // Arrange
             int troop = 1;
             int health = 4;
-            Net_ATTACK expected = new Net_ATTACK() { TroopID = troop, NewHealth = health };
+            Net_ATTACK expected = new Net_ATTACK() { TroopID = troop, DamageTaken = health };
 
             // Act
             MonoClient.Instance.SendAttackData(troop, health);
@@ -240,7 +240,7 @@ namespace EditorTests
 
             // Assert
             Assert.AreEqual(expected.TroopID, actual.TroopID);
-            Assert.AreEqual(expected.NewHealth, actual.NewHealth);
+            Assert.AreEqual(expected.DamageTaken, actual.DamageTaken);
         }
 
         [Test]

@@ -113,6 +113,7 @@ public class Server : MonoBehaviour
                 break;
             case NetworkEventType.DisconnectEvent:
                 Debug.Log($"User {connectionId} has disconnected");
+                waitingConnections++;
                 break;
             
             default:
@@ -335,6 +336,7 @@ public class Server : MonoBehaviour
                 AbsoluteZPos = t.ZPos,
                 AtkBonus = t.TroopAtkBonus,
                 AtkRange = t.WeaponRange,
+                DamageBonus = t.TroopDamageBonus,
                 Health = t.Health,
                 Movement = t.Movement,
                 MaxAttackVal = t.WeaponDamage,

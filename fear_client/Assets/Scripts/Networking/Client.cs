@@ -216,7 +216,7 @@ namespace Scripts.Networking
         private void Net_Attack(int connId, int channelId, int recHostId, Net_ATTACK msg)
         {
             GameObject scripts = GameObject.FindGameObjectWithTag("scripts");
-            GameLoop.Instance.IveBeenAttacked(msg.TroopID, msg.NewHealth);
+            GameLoop.Instance.IveBeenAttacked(msg.TroopID, msg.DamageTaken);
         }
 
         // Causes a character to retreat.
@@ -229,6 +229,8 @@ namespace Scripts.Networking
         // Propogates the troops to the client. Note that every client thinks they are connection #1.
         // Normally this helps with keeping track of channels, etc. But for our purposes, the server
         // makes sure that P1 has troops chosen by P1 and the rest go to P1's enemy.
+        // APPARENTLY, some update from unity fixed the "clients think they're #1" issue. But I don't want to fix it,
+        // so we're just going to replicate it.
         private void Net_PropogateTroop(int connId, int channelId, int recHostId, Net_Propogate msg)
         {
 
@@ -243,12 +245,12 @@ namespace Scripts.Networking
             // This way of contstructing means that any values not set are left as default
             CharacterFeatures features = new CharacterFeatures()
             {
-                Team = msg.TeamNum,
+                Team = 1,
                 Health = msg.Health,
                 TroopId = msg.TroopID,
                 Charclass = msg.Prefab,
                 AttackBonus = msg.AtkBonus,
-                DamageBonus = 0, // TODO: Fix this in FearValleyNetwork build
+                DamageBonus = msg.DamageBonus,
                 Movement = msg.Movement,
                 ArmorBonus = msg.DefenseMod,
                 AttackRange = msg.AtkRange,
@@ -362,7 +364,7 @@ namespace Scripts.Networking
             Net_ATTACK atk = new Net_ATTACK
             {
                 TroopID = troopId,
-                NewHealth = health
+                DamageTaken = health
             };
 
             SendToServer(atk);

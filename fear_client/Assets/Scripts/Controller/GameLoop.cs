@@ -102,7 +102,6 @@ namespace Scripts.Controller
         /// </summary>
         public void Move()
         {
-            ActionPoints--;
             PlayerSpotlight.Instance.DisableCharacterSelect();
             SelectedCharacter.GetComponent<Character>().CurrentState = Character.State.Moving;
         }
@@ -161,22 +160,10 @@ namespace Scripts.Controller
             }
             else
             {
-                MagicPoints--;
-                ActionPoints -= 3;
                 PlayerSpotlight.Instance.DisableCharacterSelect();
                 SelectedCharacter.GetComponent<Character>().CurrentState = Character.State.CastingSpell;
             }
 
-        }
-
-        /// <summary>
-        /// Cancels the spell and returns the action points and action points.
-        /// </summary>
-        public void CancelSpell()
-        {
-            MagicPoints++;
-            ActionPoints += 3;
-            BattleUIControl.Instance.CancelMagicExplosion();
         }
 
         /// <summary>

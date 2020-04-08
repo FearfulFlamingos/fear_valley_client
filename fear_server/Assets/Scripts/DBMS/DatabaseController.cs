@@ -121,18 +121,23 @@ namespace Scripts.DBMS
                 "INNER JOIN Armor Ar ON Ay.armor = Ar.armor;");
             while (troops.Read())
             {
-                Troop t = new Troop(troops.GetInt32(0),//troopID
-                    troops.GetInt32(1), //teamNum
-                    troops.GetString(2), //TroopType
-                    (int)troops.GetDouble(16) + 10, //Armor
-                    (int)troops.GetDouble(8), //WeapMod
-                    (int)troops.GetDouble(14), //WeaponRange
-                    (int)troops.GetDouble(13), //WeapDmg
-                    (int)troops.GetDouble(7), //Health
-                    (int)troops.GetDouble(10), //Movement
-                    false,//troops.GetBoolean(4),//leader
-                    troops.GetFloat(5),//xpos
-                    troops.GetFloat(6));//zPos
+                Troop t = new Troop()
+                {
+                    TroopID = troops.GetInt32(0),
+                    TeamNum = troops.GetInt32(1), 
+                    TroopType = troops.GetString(2), 
+                    Armor = (int)troops.GetDouble(16) + 10, 
+                    TroopAtkBonus = (int)troops.GetDouble(8), 
+                    WeaponRange = (int)troops.GetDouble(14), 
+                    WeaponDamage = (int)troops.GetDouble(13), //WeapDmg
+                    TroopDamageBonus = (int)troops.GetDouble(9),
+                    Health = (int)troops.GetDouble(7), 
+                    Movement = (int)troops.GetDouble(10), 
+                    Leader = false,//troops.GetBoolean(4),
+                    XPos = troops.GetFloat(5),
+                    ZPos = troops.GetFloat(6)
+
+            };
                 allTroops.Add(t);
             }
 
