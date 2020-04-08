@@ -30,6 +30,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlaceableWarrior
       objectReference: {fileID: 0}
+    - target: {fileID: 1810274083847610, guid: 97aac0196307dd54a98e07cb5e38e554, type: 3}
+      propertyPath: m_TagString
+      value: Friendlies
+      objectReference: {fileID: 0}
     - target: {fileID: 4200693306526636, guid: 97aac0196307dd54a98e07cb5e38e554, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -17,6 +17,8 @@ MonoBehaviour:
   weapon: 
   armor: 
   isactive: 0
+  uicontrol: {fileID: 0}
+  gamepiece: {fileID: 0}
 --- !u!1001 &9003136967282676414
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28,6 +30,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlaceableMagic
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791112040076275367, guid: 172c1c59704104b41a96df0330079c46,
+        type: 3}
+      propertyPath: m_TagString
+      value: Friendlies
       objectReference: {fileID: 0}
     - target: {fileID: 6791112040076275375, guid: 172c1c59704104b41a96df0330079c46,
         type: 3}
