@@ -194,6 +194,7 @@ namespace Tests
                 Object.Destroy(friendly);
             }
             GameObject.Find("UIController").GetComponent<PopulateGrid>().activetroops.Clear();
+            GameObject.Find("UIController").GetComponent<PopulateGrid>().budget = 300;
         }
     }
 }
