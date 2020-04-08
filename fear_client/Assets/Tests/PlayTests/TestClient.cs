@@ -20,7 +20,7 @@ namespace PlayTests
     {
 
         GameObject clientObj;
-        
+
         // one time setup
         [OneTimeSetUp]
         public void OneTimeSetup()

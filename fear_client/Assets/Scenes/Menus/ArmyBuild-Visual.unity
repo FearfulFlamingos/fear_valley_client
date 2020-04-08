@@ -308,12 +308,12 @@ MonoBehaviour:
           m_StringArgument: Polearm
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1471363103}
-        m_MethodName: GetCurrentPanel
-        m_Mode: 2
+      - m_Target: {fileID: 455059629}
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
-          m_ObjectArgument: {fileID: 455059629}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -418,7 +418,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &61616722
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4312,7 +4312,6 @@ RectTransform:
   - {fileID: 424184272}
   - {fileID: 680523291}
   - {fileID: 1907385013}
-  - {fileID: 486510882}
   m_Father: {fileID: 1999183586}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5379,12 +5378,12 @@ MonoBehaviour:
           m_StringArgument: Two-handed weapon
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1471363103}
-        m_MethodName: GetCurrentPanel
-        m_Mode: 2
+      - m_Target: {fileID: 1015369326}
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
-          m_ObjectArgument: {fileID: 1015369326}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5627,7 +5626,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 486510881}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00001960179}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1591216141}
@@ -5635,13 +5634,13 @@ RectTransform:
   - {fileID: 1103853999}
   - {fileID: 1007172607}
   - {fileID: 1886835591}
-  m_Father: {fileID: 366950296}
-  m_RootOrder: 7
+  m_Father: {fileID: 547265601}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -785.54987, y: 365.34192}
-  m_SizeDelta: {x: 1565.1, y: -150.79999}
+  m_AnchoredPosition: {x: -2.999878, y: -1}
+  m_SizeDelta: {x: -0.00012207031, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &486510883
 MonoBehaviour:
@@ -6739,12 +6738,12 @@ MonoBehaviour:
           m_StringArgument: Ranged attack
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1471363103}
-        m_MethodName: GetCurrentPanel
-        m_Mode: 2
+      - m_Target: {fileID: 1015369326}
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
-          m_ObjectArgument: {fileID: 1015369326}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -7012,12 +7011,12 @@ MonoBehaviour:
           m_StringArgument: Two-handed weapon
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1471363103}
-        m_MethodName: GetCurrentPanel
-        m_Mode: 2
+      - m_Target: {fileID: 455059629}
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
-          m_ObjectArgument: {fileID: 535944242}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -7056,6 +7055,7 @@ RectTransform:
   - {fileID: 61616722}
   - {fileID: 455059630}
   - {fileID: 1217023128}
+  - {fileID: 486510882}
   - {fileID: 1015369327}
   m_Father: {fileID: 1999183586}
   m_RootOrder: 2
@@ -9730,12 +9730,12 @@ MonoBehaviour:
           m_StringArgument: One-handed weapon
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1471363103}
-        m_MethodName: GetCurrentPanel
-        m_Mode: 2
+      - m_Target: {fileID: 455059629}
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
-          m_ObjectArgument: {fileID: 692893833}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -13688,7 +13688,7 @@ RectTransform:
   - {fileID: 523143898}
   - {fileID: 1071219989}
   m_Father: {fileID: 547265601}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -14151,12 +14151,12 @@ MonoBehaviour:
           m_StringArgument: Unarmed
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1471363103}
-        m_MethodName: GetCurrentPanel
-        m_Mode: 2
+      - m_Target: {fileID: 455059629}
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
-          m_ObjectArgument: {fileID: 1023706200}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -14505,12 +14505,12 @@ MonoBehaviour:
           m_StringArgument: Unarmed
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1471363103}
-        m_MethodName: GetCurrentPanel
-        m_Mode: 2
+      - m_Target: {fileID: 1015369326}
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
-          m_ObjectArgument: {fileID: 1015369326}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -15798,12 +15798,12 @@ MonoBehaviour:
           m_StringArgument: One-handed weapon
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1471363103}
-        m_MethodName: GetCurrentPanel
-        m_Mode: 2
+      - m_Target: {fileID: 1015369326}
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
-          m_ObjectArgument: {fileID: 1015369326}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -16708,12 +16708,12 @@ MonoBehaviour:
           m_StringArgument: Polearm
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1471363103}
-        m_MethodName: GetCurrentPanel
-        m_Mode: 2
+      - m_Target: {fileID: 1015369326}
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
-          m_ObjectArgument: {fileID: 1015369326}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -20298,7 +20298,6 @@ MonoBehaviour:
   lastclicked: {fileID: 0}
   UIcontrol: {fileID: 1471363102}
   troopinfo: {fileID: 366950295}
-  CurrentPanel: {fileID: 0}
   camera: {fileID: 747691668}
   remainingBudget: {fileID: 1405920733}
   projectedCost: {fileID: 1174336405}
@@ -22858,12 +22857,12 @@ MonoBehaviour:
           m_StringArgument: Ranged attack
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1471363103}
-        m_MethodName: GetCurrentPanel
-        m_Mode: 2
+      - m_Target: {fileID: 455059629}
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
-          m_ObjectArgument: {fileID: 1729781479}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

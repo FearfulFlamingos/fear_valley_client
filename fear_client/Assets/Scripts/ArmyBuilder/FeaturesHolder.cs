@@ -11,6 +11,7 @@ namespace Scripts.ArmyBuilder
         public string fname, troop, weapon, armor;
         public bool isactive;
         public GameObject uicontrol, gamepiece;
+        public int cost;
 
         void Start()
         {
