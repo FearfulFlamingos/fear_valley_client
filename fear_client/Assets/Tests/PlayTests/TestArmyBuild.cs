@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using NSubstitute;
 
+
 namespace Tests
 {
     public class TestArmyBuild: MonoBehaviour
@@ -66,9 +67,6 @@ namespace Tests
             holder.SetSelection("PlaceablePeasant");
             holder.GetWeapon("Polearm");
             yield return null;
-            Debug.Log("here");
-            Debug.Log(holder.selection);
-            Debug.Log(holder.lastclicked);
             IInputManager fakeInput = Substitute.For<IInputManager>();
             holder.InputManager = fakeInput;
             fakeInput.MousePosition().Returns(Camera.main.WorldToScreenPoint(new Vector3(4, 0.2f, 4)));
@@ -76,9 +74,8 @@ namespace Tests
 
             yield return new WaitForSeconds(4);
             Vector3 expected = new Vector3(4, 0.2f, 4);
-            Debug.Log(holder.lastclicked);
+            //Debug.Break();
             Vector3 actual = holder.lastclicked.transform.position;
-            Debug.Log(actual);
             // Assert
             Assert.AreEqual(expected.x, actual.x, 0.1f);
             Assert.AreEqual(expected.y, actual.y, 0.1f);
@@ -97,10 +94,13 @@ namespace Tests
             yield return null;
             IInputManager fakeInput = Substitute.For<IInputManager>();
             holder.InputManager = fakeInput;
-            fakeInput.GetEscapeKeyDown().Returns(true);
+            fakeInput.GetCancelButtonDown().Returns(true);
+            yield return new WaitForSeconds(3);
+            fakeInput.GetCancelButtonDown().Returns(false);
             yield return new WaitForSeconds(1);
             // Assert
             Assert.AreEqual(0.0, holder.rollingbudget, 0.1f);
+
 
         }
 
@@ -163,6 +163,26 @@ namespace Tests
             Assert.AreEqual(0, holder.activetroops.Count);
             Assert.AreEqual(300, holder.budget);
             yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator TestOverBudget()
+        {
+            GameObject UIController = GameObject.Find("UIController");
+            PopulateGrid holder = UIController.GetComponent<PopulateGrid>();
+            holder.budget = 0;
+            holder.additem("Peasant");
+            holder.GetArmor("Light mundane armor");
+            holder.SetSelection("PlaceablePeasant");
+            holder.GetWeapon("Polearm");
+            yield return null;
+            IInputManager fakeInput = Substitute.For<IInputManager>();
+            holder.InputManager = fakeInput;
+            fakeInput.MousePosition().Returns(Camera.main.WorldToScreenPoint(new Vector3(4, 0.2f, 4)));
+            fakeInput.GetLeftMouseClick().Returns(true);
+            yield return new WaitForSeconds(3);
+            Assert.AreEqual(0, holder.activetroops.Count);
+
         }
 
 

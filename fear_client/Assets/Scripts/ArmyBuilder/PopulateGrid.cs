@@ -78,9 +78,9 @@ namespace Scripts.ArmyBuilder
                 }
             }
             //Cancel a potential purchase with escape after clicking through the menus
-            if (InputManager.GetEscapeKeyDown())
+            if (InputManager.GetCancelButtonDown())
             {
-                Debug.Log("in");
+                Debug.Log("Escaping");
                 Destroy(selection);
                 selection = null;
                 lastclicked = null;
@@ -149,12 +149,13 @@ namespace Scripts.ArmyBuilder
         {
             GameObject resource = (GameObject)Instantiate(Resources.Load(resourceName)) as GameObject;
             selection = resource;
+            Debug.Log("Setting Selection");
             selection.transform.position = new Vector3(0, 0.2f, 10);
             selection.GetComponent<FeaturesHolder>().uicontrol = UIcontrol;
             selection.GetComponent<FeaturesHolder>().gamepiece = selection;
             selection.GetComponent<FeaturesHolder>().isactive = true;
-            Debug.Log(selection.GetComponent<FeaturesHolder>().isactive);
             selection.GetComponent<FeaturesHolder>().armor = current_armor;
+            Debug.Log(selection);
             troopinfo.SetActive(true);
             lastclicked = selection;
 
@@ -235,7 +236,7 @@ namespace Scripts.ArmyBuilder
         {
             if (budget - rollingbudget < 0)
             {
-                Debug.Log("in");
+                Debug.Log("No Money");
                 nocash.text = $"Not Enough Money";
             }
             else
