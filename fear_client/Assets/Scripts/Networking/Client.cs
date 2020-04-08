@@ -25,19 +25,21 @@ namespace Scripts.Networking
         public int MAX_USER { set; get; }
         public int PORT { set; get; }
         public string SERVER_IP { set; get; }
-        public int BYTE_SIZE { set; get; }
+        public const int BYTE_SIZE = 1024; // standard packet
         public byte ReliableChannel { set; get; }
         public int ConnectionId { set; get; }
         public int HostId { set; get; }
         public bool IsStarted { set; get; }
         private byte error;
         public bool hasControl;
+
+        // Niether of these are needed except for testing
         public NetworkEventType LastEvent { set; get; }
+        public NetMsg LastSent { set; get; }
 
         public void Init()
         {
             MAX_USER = 2;
-            BYTE_SIZE = 1024; // standard packet 
             SERVER_IP = GameObject.Find("/ServerJoinPrefs").GetComponent<ServerPreferences>().GetIP();
             PORT = GameObject.Find("/ServerJoinPrefs").GetComponent<ServerPreferences>().GetPort();
 
@@ -207,21 +209,21 @@ namespace Scripts.Networking
         private void Net_Move(int connId, int channelId, int recHostId, Net_MOVE msg)
         {
             GameObject scripts = GameObject.FindGameObjectWithTag("scripts");
-            scripts.GetComponent<GameLoop>().MoveOther(msg.TroopID, msg.NewX, msg.NewZ);
+            GameLoop.Instance.MoveOther(msg.TroopID, msg.NewX, msg.NewZ);
         }
 
         // Updates a friendly character's health after it is attacked.
         private void Net_Attack(int connId, int channelId, int recHostId, Net_ATTACK msg)
         {
             GameObject scripts = GameObject.FindGameObjectWithTag("scripts");
-            scripts.GetComponent<GameLoop>().IveBeenAttacked(msg.TroopID, msg.NewHealth);
+            GameLoop.Instance.IveBeenAttacked(msg.TroopID, msg.NewHealth);
         }
 
         // Causes a character to retreat.
         private void Net_Retreat(int connId, int channelId, int recHostId, Net_RETREAT msg)
         {
             GameObject scripts = GameObject.FindGameObjectWithTag("scripts");
-            scripts.GetComponent<GameLoop>().OtherLeaves(msg.TroopID, msg.TeamNum);
+            GameLoop.Instance.OtherLeaves(msg.TroopID, msg.TeamNum);
         }
 
         // Propogates the troops to the client. Note that every client thinks they are connection #1.
@@ -278,6 +280,7 @@ namespace Scripts.Networking
         /// <param name="msg">Any net command.</param>
         public void SendToServer(NetMsg msg)
         {
+            LastSent = msg;
             // hold data to send
             byte[] buffer = new byte[BYTE_SIZE];
 

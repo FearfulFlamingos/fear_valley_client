@@ -8,6 +8,7 @@
 [Ll]ocal[Cc]ache/
 [Oo]bj/
 [Tt]emp/
+[Dd]ocs/
 [Uu]nityGenerated/
 # file on crash reports
 sysinfo.txt
