@@ -7,7 +7,6 @@
 [Ll]ocal[Cc]ache/
 [Oo]bj/
 [Tt]emp/
-[Dd]ocs/
 [Uu]nityGenerated/
 # file on crash reports
 sysinfo.txt
@@ -37,15 +36,6 @@ FearValleyNetwork/.vs/
 ###
 # OS generated
 ###
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-Icon?
-ehthumbs.db
-Thumbs.db
-=======
 .DS_Store
 .DS_Store?
 ._*
