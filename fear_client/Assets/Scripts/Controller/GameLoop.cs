@@ -116,8 +116,7 @@ namespace Scripts.Controller
             string text = $"You are attacking with: {SelectedCharacter.GetComponent<Character>().Features.Charclass}";
             BattleUIControl.Instance.SetAttackPanelAttackerInfo(text);
 
-            SelectedCharacter.GetComponent<PlayerAttack>().enabled = true;
-            //lastClicked.GetComponent<PlayerAttack>().Attack();
+            SelectedCharacter.GetComponent<Character>().CurrentState = Character.State.Attacking;
         }
 
         /// <summary>
@@ -145,7 +144,6 @@ namespace Scripts.Controller
         /// </summary>
         public void EndAttack()
         {
-            SelectedCharacter.GetComponent<PlayerAttack>().enabled = false;
             PlayerSpotlight.Instance.DeactivateCurrentFocus();
         }
 
@@ -236,9 +234,12 @@ namespace Scripts.Controller
             switch (team)
             {
                 case 1:
+                    Destroy(p1CharsDict[troopId]);
                     p1CharsDict.Remove(troopId);
+
                     break;
                 case 2:
+                    Destroy(p2CharsDict[troopId]);
                     p2CharsDict.Remove(troopId);
                     break;
             }

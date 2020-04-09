@@ -10,13 +10,14 @@ using UnityEngine.TestTools;
 using NSubstitute;
 
 
-namespace Tests
+namespace PlayTests
 {
     public class TestArmyBuild: MonoBehaviour
     {
         [OneTimeSetUp]
         public void Init()
         {
+            Time.timeScale = 20;
             GameObject serverPref = new GameObject();
             serverPref.gameObject.name = "ServerJoinPrefs";
             serverPref.AddComponent<ServerPreferences>();

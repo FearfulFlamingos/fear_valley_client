@@ -40,7 +40,7 @@ namespace PlayTests
                 .DuplicateObjects(new CharacterFeatures() { Team = 2 }, 1, 1);
 
             Vector3 expectedAllyPos = new Vector3(1, 0.2f, 1);
-            Vector3 expectedEnemyPos = new Vector3(6, 0.2f, 6);
+            Vector3 expectedEnemyPos = new Vector3(7, 0.2f, 7);
             
             // Act
             Vector3 actualAllyPos = newGameObject.transform.position;

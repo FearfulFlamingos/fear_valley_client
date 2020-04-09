@@ -107,7 +107,7 @@ namespace Scripts.Actions
                     //attackChar.text = $"You have dealt fatal damage\nto the player named Roman ";
                     Debug.Log("Killed enemy");
                     GameLoop.Instance.PlayerRemoval(defendingCharacter.TroopId, 2);
-                    MonoClient.Instance.SendRetreatData(defendingCharacter.TroopId, 1);
+                    MonoClient.Instance.SendRetreatData(defendingCharacter.TroopId, 2);
                 }
                 else
                 {
