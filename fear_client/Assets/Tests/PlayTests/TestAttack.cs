@@ -193,7 +193,7 @@ namespace PlayTests
 
             ICharacterFeatures enemyCharacter = Substitute.For<ICharacterFeatures>();
             enemyCharacter.Health.Returns(10);
-            enemyCharacter.ArmorBonus.Returns(1);
+            enemyCharacter.ArmorBonus.Returns(20);
             enemyCharacter.Team.Returns(2);
             enemyCharacter.TroopId.Returns(1);
             enemyCharacter.Charclass.Returns("Magic User");
@@ -207,6 +207,7 @@ namespace PlayTests
             playerAttack.CanAttack = true;
             playerAttack.attackObject = enemy;
             GameLoop.SelectedCharacter = character;
+
 
             // Act
             playerAttack.Attack();
@@ -305,7 +306,7 @@ namespace PlayTests
 
             // Assert
             string expected = "You can not attack this target\nthey are not in range. Select \nanother fighter to attack.";
-            string actual = BattleUIControl.Instance.TESTGETATTACKPANELINFO();
+            string actual = BattleUIControl.Instance.TESTGETATTACKPANELENEMYINFO();
 
             Assert.AreEqual(expected, actual);
 

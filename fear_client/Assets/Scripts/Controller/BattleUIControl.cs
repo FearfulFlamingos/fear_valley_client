@@ -308,7 +308,7 @@ namespace Scripts.Controller
         }
 
 
-        public string TESTGETATTACKPANELINFO() => attackPanelEnemyInfo.text;
+        public string TESTGETATTACKPANELENEMYINFO() => attackPanelEnemyInfo.text;
         #endregion
     }
 }

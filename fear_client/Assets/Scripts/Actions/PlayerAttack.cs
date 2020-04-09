@@ -116,6 +116,7 @@ namespace Scripts.Actions
                 }
                 else
                 {
+                    Debug.Log("Failed attack");
                     string text = $"You could not get passed their armor\nyour attack has failed";
                     BattleUIControl.Instance.SetAttackPanelEnemyInfo(text);
                 }
