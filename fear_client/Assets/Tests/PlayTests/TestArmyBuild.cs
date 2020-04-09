@@ -183,9 +183,7 @@ namespace PlayTests
             fakeInput.GetLeftMouseClick().Returns(true);
             yield return new WaitForSeconds(3);
             Assert.AreEqual(0, holder.activetroops.Count);
-
         }
-
 
         [TearDown]
         public void TearDown()
