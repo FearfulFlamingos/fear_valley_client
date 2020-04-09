@@ -47,6 +47,7 @@ namespace Scripts.CharacterClass
                     CurrentState = State.Waiting;
                     break;
                 case State.Attacking:
+                    PlayerAttack.ActivateAttack();
                     break;
                 case State.CastingSpell:
                     PlayerMagic.PlaceExplosion();

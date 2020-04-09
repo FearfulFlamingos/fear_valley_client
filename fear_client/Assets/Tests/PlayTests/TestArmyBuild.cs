@@ -10,13 +10,14 @@ using UnityEngine.TestTools;
 using NSubstitute;
 
 
-namespace Tests
+namespace PlayTests
 {
     public class TestArmyBuild: MonoBehaviour
     {
         [OneTimeSetUp]
         public void Init()
         {
+            Time.timeScale = 20;
             GameObject serverPref = new GameObject();
             serverPref.gameObject.name = "ServerJoinPrefs";
             serverPref.AddComponent<ServerPreferences>();
@@ -182,9 +183,7 @@ namespace Tests
             fakeInput.GetLeftMouseClick().Returns(true);
             yield return new WaitForSeconds(3);
             Assert.AreEqual(0, holder.activetroops.Count);
-
         }
-
 
         [TearDown]
         public void TearDown()

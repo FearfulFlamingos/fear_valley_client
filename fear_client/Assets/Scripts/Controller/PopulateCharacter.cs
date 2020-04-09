@@ -22,8 +22,8 @@ namespace Scripts.Controller
             {
                 // These positions need to be mirrored across x AND z axes, otherwise movements
                 // start looking pretty strange as someone across the map suddenly hits you
-                zpos = 7.0f - zpos;
-                xpos = 7.0f - xpos;
+                zpos = 8.0f - zpos;
+                xpos = 8.0f - xpos;
                 tile.layer = 11;
             }
             // Placing objects where they need to be and scaling them

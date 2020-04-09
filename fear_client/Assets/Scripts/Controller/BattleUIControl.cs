@@ -306,6 +306,9 @@ namespace Scripts.Controller
         {
             victoryText.SetText(text);
         }
+
+
+        public string TESTGETATTACKPANELENEMYINFO() => attackPanelEnemyInfo.text;
         #endregion
     }
 }

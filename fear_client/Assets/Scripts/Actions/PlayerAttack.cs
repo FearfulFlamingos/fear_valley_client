@@ -12,125 +12,121 @@ namespace Scripts.Actions
     public class PlayerAttack : MonoBehaviour
     {
         public LayerMask whatCanBeClickedOn;
-        private GameObject attackObject;
-        private bool canAttack;
-        private BattleUIControl uiController;
-        private GameLoop gameLoop;
+        public GameObject attackObject;
+        public bool CanAttack { set; get; } 
         public IInputManager InputManager { set; get; }
+        private bool attacking;
 
-        // Start is called before the first frame update
+
         void Start()
         {
-            uiController = GameObject.FindGameObjectWithTag("scripts").GetComponent<BattleUIControl>();
-            gameLoop = GameObject.FindGameObjectWithTag("scripts").GetComponent<GameLoop>();
             if (InputManager == null)
                 InputManager = GameObject.Find("SceneController").GetComponent<InputManager>();
         }
 
 
-        // Update is called once per frame
         /// <summary>
         /// This function is called once per frame while attack is active. It is similar to player spotlight
         /// in that it is constantly checking to see if someone has been clicked on and updating the UI.
         /// </summary>
         void Update()
         {
-            if (InputManager.GetAttackButtonDown() && MonoClient.Instance.HasControl())
+            if (Attacking() && InputManager.GetLeftMouseClick())
             {
-                RaycastHit hit;
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out hit, 100.0f, layerMask: 1 << 11))
+                CheckIfEnemyCanBeAttacked();
+            }
+        }
+
+        // 
+        private void CheckIfEnemyCanBeAttacked()
+        {
+            Ray ray = Camera.main.ScreenPointToRay(InputManager.MousePosition());
+            // Layer 11 has enemies
+            if (Physics.Raycast(ray, out RaycastHit hit, 100.0f, layerMask: 1 << 11))
+            {
+                attackObject = hit.transform.gameObject;
+                Debug.Log(attackObject);
+
+                ICharacterFeatures referenceScript = attackObject.GetComponent<Character>().Features;
+
+                if (Vector3.Distance(gameObject.transform.position, attackObject.transform.position) < gameObject.GetComponent<Character>().Features.AttackRange)
                 {
-
-                    if (hit.transform != null)
-                    {
-                        attackObject = hit.transform.gameObject;
-
-                        CharacterFeatures referenceScript = attackObject.GetComponent<CharacterFeatures>();
-
-                        if (referenceScript.Team != gameObject.GetComponent<CharacterFeatures>().Team)
-                        {
-                            if (Vector3.Distance(gameObject.transform.position, attackObject.transform.position) < gameObject.GetComponent<CharacterFeatures>().AttackRange)
-                            {
-                                string text = $"Name: Roman\nHealth: {referenceScript.Health}\nClass: {referenceScript.Charclass}\nDefense: {referenceScript.DamageBonus}\nWithin Range: Yes";
-                                uiController.SetAttackPanelEnemyInfo(text);
-                                canAttack = true;
-                            }
-                            else
-                            {
-                                string text = $"Name: Roman\nHealth: {referenceScript.Health}\nClass: {referenceScript.Charclass}\nDefense: {referenceScript.DamageBonus}\nWithin Range: No";
-                                uiController.SetAttackPanelEnemyInfo(text);
-                                canAttack = false;
-                            }
-
-                        }
-                        else
-                        {
-                            string text = $"You can not attack\nyour own team.";
-                            uiController.SetAttackPanelEnemyInfo(text);
-                        }
-
-                    }
+                    string text = $"Name: Roman\nHealth: {referenceScript.Health}\nClass: {referenceScript.Charclass}\nDefense: {referenceScript.DamageBonus}\nWithin Range: Yes";
+                    BattleUIControl.Instance.SetAttackPanelEnemyInfo(text);
+                    CanAttack = true;
+                }
+                else
+                {
+                    string text = $"Name: Roman\nHealth: {referenceScript.Health}\nClass: {referenceScript.Charclass}\nDefense: {referenceScript.DamageBonus}\nWithin Range: No";
+                    BattleUIControl.Instance.SetAttackPanelEnemyInfo(text);
+                    CanAttack = false;
                 }
             }
+        }
 
+        /// <summary>
+        /// The big if() block in the update loop hinges on this. The only way it's going to be called is if 
+        /// MonoClient.Instance has control, so we don't necessarily need to check that explicitly. 
+        /// </summary>
+        public bool Attacking() => attacking && MonoClient.Instance.HasControl();
+        
+        /// <summary>
+        /// Allows the PlayerAttack Update loop to start running.
+        /// </summary>
+        public void ActivateAttack()
+        {
+            attacking = true;
         }
 
         /// <summary>
         /// This is the base funciton for all attacks. The trigger for this function to be used is a button on the UI canvas.
         /// Once the button is triggered the player must have already selected a figure to attack or it will get an error.
-        /// <para><paramref name="fudgeHit"/> is used for testing-- add or subtract a large number from the roll to ensure it's success or failure.</para>
-        /// <para><paramref name="fudgeDamage"/> is like fudgeHit, but for the damage "roll".</para>
         /// </summary>
         /// <remarks>
         ///  This function will take away any health if need be or it can even trigger the destruction of an object. 
         /// </remarks>
-        /// <param name="fudgeHit">Amount to add to the die rolls.</param>
         public void Attack()
         {
             ICharacterFeatures defendingCharacter = attackObject.GetComponent<Character>().Features;
-            defendingCharacter.IsAttacking = true;
             ICharacterFeatures attackingCharacter = gameObject.GetComponent<Character>().Features;
-            if (canAttack)
+            Debug.Log(attackObject);
+            if (CanAttack)
             {
-
+                Debug.Log($"Can Attack {attackObject}");
                 if (attackingCharacter.GetAttackRoll() >= defendingCharacter.ArmorBonus)
                 {
+                    Debug.Log($"Successfully attacked {attackObject}");
                     int damageTaken = attackingCharacter.GetDamageRoll();
                     defendingCharacter.DamageCharacter(damageTaken);
                     if (defendingCharacter.Health == 0)
                     {
+                        Debug.Log($"Killed {attackObject}");
                         string text = $"You have dealt fatal damage\nto the player named Roman ";
-                        uiController.SetAttackPanelEnemyInfo(text);
-                        //timeToDistroy = true; // This actually destroys the attacked object
-
-
-                        gameLoop.PlayerRemoval(attackObject.GetComponent<CharacterFeatures>().TroopId, 2);
-                        Destroy(attackObject);
-                        Debug.Log("Deleting slain enemy");
-                        MonoClient.Instance.SendRetreatData(defendingCharacter.TroopId, 1);
+                        BattleUIControl.Instance.SetAttackPanelEnemyInfo(text);
+                        GameLoop.Instance.PlayerRemoval(defendingCharacter.TroopId, 2);
+                        MonoClient.Instance.SendRetreatData(defendingCharacter.TroopId, 2);
                     }
                     else
                     {
-                        defendingCharacter.Health = System.Convert.ToInt32(defendingCharacter.Health - damageTaken);
                         string text = $"You attack was a success \nand you have dealt {damageTaken} damage\nto the player named Roman ";
-                        uiController.SetAttackPanelEnemyInfo(text);
+                        BattleUIControl.Instance.SetAttackPanelEnemyInfo(text);
                         MonoClient.Instance.SendAttackData(defendingCharacter.TroopId, damageTaken);
                     }
 
                 }
                 else
                 {
+                    Debug.Log("Failed attack");
                     string text = $"You could not get passed their armor\nyour attack has failed";
-                    uiController.SetAttackPanelEnemyInfo(text);
+                    BattleUIControl.Instance.SetAttackPanelEnemyInfo(text);
                 }
                 CancelOrEndAttack();
-                gameLoop.EndAttack();
+                GameLoop.Instance.EndAttack();
             }
             else
             {
                 string text = $"You can not attack this target\nthey are not in range. Select \nanother fighter to attack.";
-                uiController.SetAttackPanelEnemyInfo(text);
+                BattleUIControl.Instance.SetAttackPanelEnemyInfo(text);
             }
         }
 
@@ -140,10 +136,10 @@ namespace Scripts.Actions
         /// </summary>
         public void CancelOrEndAttack()
         {
-            CharacterFeatures referenceScript = gameObject.GetComponent<CharacterFeatures>();
+            ICharacterFeatures referenceScript = gameObject.GetComponent<Character>().Features;
             referenceScript.IsAttacking = false;
             string text = $"Name: Health: \nClass: \nDefense: \nWithin Range: ";
-            uiController.SetAttackPanelEnemyInfo(text);
+            BattleUIControl.Instance.SetAttackPanelEnemyInfo(text);
         }
     }
 
