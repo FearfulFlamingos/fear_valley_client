@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -134,7 +134,6 @@ namespace Scripts.Controller
         /// </summary>
         public void CancelAttack()
         {
-            PlayerSpotlight.Instance.DeactivateCurrentFocus();
             SelectedCharacter.GetComponent<PlayerAttack>().CancelOrEndAttack();
             EndAttack();
         }
@@ -172,9 +171,9 @@ namespace Scripts.Controller
         {
             if (ActionPoints >= 3)
             {
-                PlayerRemoval(SelectedCharacter.GetComponent<CharacterFeatures>().TroopId, 1);
+                PlayerRemoval(SelectedCharacter.GetComponent<Character>().Features.TroopId, 1);
                 Destroy(SelectedCharacter);
-                MonoClient.Instance.SendRetreatData(SelectedCharacter.GetComponent<CharacterFeatures>().TroopId, 2);
+                MonoClient.Instance.SendRetreatData(SelectedCharacter.GetComponent<Character>().Features.TroopId, 2);
                 ActionPoints = 0;
             }
             else
@@ -188,7 +187,7 @@ namespace Scripts.Controller
         /// </summary>
         public void EndGame()
         {
-            SceneManager.LoadScene("ArmyBuilder");
+            SceneManager.LoadScene("MainMenu");
         }
         #endregion
 
