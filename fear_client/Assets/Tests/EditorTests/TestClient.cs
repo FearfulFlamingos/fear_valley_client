@@ -252,7 +252,7 @@ namespace EditorTests
             Net_RETREAT expected = new Net_RETREAT() { TroopID = troop, TeamNum = teamNum };
 
             // Act
-            MonoClient.Instance.SendRetreatData(troop, teamNum);
+            MonoClient.Instance.SendRetreatData(troop, teamNum, false);
             Net_RETREAT actual = (Net_RETREAT) MonoClient.Instance.LastSent;
 
             // Assert

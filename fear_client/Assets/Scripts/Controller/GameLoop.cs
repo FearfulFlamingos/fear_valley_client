@@ -165,15 +165,16 @@ namespace Scripts.Controller
 
         /// <summary>
         /// This function is called when the local player calls a retreat on their figure.
-        /// See <see cref="OtherLeaves(int, int)"/>
+        /// See <see cref="CharacterRemoval(int, int)"/>.
         /// </summary>
         public void Leave()
         {
             if (ActionPoints >= 3)
             {
-                PlayerRemoval(SelectedCharacter.GetComponent<Character>().Features.TroopId, 1);
-                Destroy(SelectedCharacter);
-                MonoClient.Instance.SendRetreatData(SelectedCharacter.GetComponent<Character>().Features.TroopId, 2);
+                // remove the character from this client's screen
+                CharacterRemoval(SelectedCharacter.GetComponent<Character>().Features.TroopId, 1);
+                // remove the character from the enemy's client
+                MonoClient.Instance.SendRetreatData(SelectedCharacter.GetComponent<Character>().Features.TroopId, 2, false);
                 ActionPoints = 0;
             }
             else
@@ -198,23 +199,23 @@ namespace Scripts.Controller
         /// <param name="troopId">Troop retreating</param>
         /// <param name="TeamNum">The team that is leaving</param>
         /// See <see cref="Leave"/>
-        public void OtherLeaves(int troopId, int TeamNum)
-        {
-            Debug.Log($"Retreat message received with {TeamNum} and {troopId}");
-            if (TeamNum == 1)
-            {
-                GameObject destroy = p1CharsDict[troopId];
-                PlayerRemoval(troopId, TeamNum);
-                Destroy(destroy);
-            }
+        //public void OtherLeaves(int troopId, int TeamNum)
+        //{
+        //    Debug.Log($"Retreat message received with {TeamNum} and {troopId}");
+        //    if (TeamNum == 1)
+        //    {
+        //        GameObject destroy = p1CharsDict[troopId];
+        //        PlayerRemoval(troopId, TeamNum);
+        //        Destroy(destroy);
+        //    }
 
-            else
-            {
-                GameObject destroy = p2CharsDict[troopId];
-                PlayerRemoval(troopId, TeamNum);
-                Destroy(destroy);
-            }
-        }
+        //    else
+        //    {
+        //        GameObject destroy = p2CharsDict[troopId];
+        //        PlayerRemoval(troopId, TeamNum);
+        //        Destroy(destroy);
+        //    }
+        //}
 
 
         #endregion
@@ -228,7 +229,7 @@ namespace Scripts.Controller
         /// </remarks>
         /// <param name="troopId">ID of the troop.</param>
         /// <param name="team">Team that the character was removed from.</param>
-        public void PlayerRemoval(int troopId, int team)
+        public void CharacterRemoval(int troopId, int team)
         {
             switch (team)
             {

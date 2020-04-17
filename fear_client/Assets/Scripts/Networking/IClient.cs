@@ -22,7 +22,7 @@ namespace Scripts.Networking
         void SendEndTurn();
         void SendFinishBuild(int magicAmount);
         void SendMoveData(int TroopID, float newX, float newZ);
-        void SendRetreatData(int troopId, int TeamNum);
+        void SendRetreatData(int troopId, int TeamNum, bool characterShouldDie);
         void SendToServer(NetMsg msg);
         void SendTroopRequest(string troop, string weapon, string armor, float xPos, float yPos);
         void Shutdown();

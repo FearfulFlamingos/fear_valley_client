@@ -142,7 +142,7 @@ namespace Tests
                     AttackRange = 3
                 }, 1, 1);
             GameLoop.SelectedCharacter = character;
-            GameLoop.Instance.OtherLeaves(character.GetComponent<Character>().Features.TroopId,2);
+            GameLoop.Instance.CharacterRemoval(character.GetComponent<Character>().Features.TroopId,2);
 
             Assert.False(GameLoop.Instance.p2CharsDict.ContainsKey(character.GetComponent<Character>().Features.TroopId));
 
