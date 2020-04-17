@@ -223,7 +223,7 @@ namespace Scripts.Networking
         private void Net_Retreat(int connId, int channelId, int recHostId, Net_RETREAT msg)
         {
             GameObject scripts = GameObject.FindGameObjectWithTag("scripts");
-            GameLoop.Instance.OtherLeaves(msg.TroopID, msg.TeamNum);
+            GameLoop.Instance.CharacterRemoval(msg.TroopID, msg.TeamNum);
         }
 
         // Propogates the troops to the client. Note that every client thinks they are connection #1.
@@ -375,12 +375,13 @@ namespace Scripts.Networking
         /// </summary>
         /// <param name="troopId">Specific troop.</param>
         /// <param name="TeamNum">Team number of troop.</param>
-        public void SendRetreatData(int troopId, int TeamNum)
+        public void SendRetreatData(int troopId, int TeamNum, bool characterShouldDie)
         {
             Net_RETREAT ret = new Net_RETREAT
             {
                 TroopID = troopId,
-                TeamNum = TeamNum
+                TeamNum = TeamNum,
+                ForceEnemyToRetreat = characterShouldDie
             };
 
             SendToServer(ret);
