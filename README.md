@@ -1,5 +1,5 @@
 # FEAR VALLEY
-[![code coverage](https://github.com/schuna05/senior_project/blob/master/docs/badge_linecoverage.png)](https://schuna05.github.io/senior_project)
+[![code coverage](https://github.com/FearfulFlamingos/fear_valley_client/blob/master/docs/Report/badge_linecoverage.png)](https://fearfulflamingos.github.io/fear_valley_client/Report/index.htm)
 ## Introduction
 *Fear Valley* is the name of the computer game we have created as our senior project. It is written in C# and implemented with the Unity engine. 
 
