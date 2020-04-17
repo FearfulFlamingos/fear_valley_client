@@ -26,6 +26,7 @@ namespace PlayTests
             GameObject client = new GameObject();
             client.AddComponent<MonoClient>();
             SceneManager.LoadScene("ArmyBuild-Visual");
+            Time.timeScale = 20f;
         }
 
         [UnityTest]
