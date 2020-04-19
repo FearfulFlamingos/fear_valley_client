@@ -121,7 +121,7 @@ namespace Scripts.Controller
         /// <param name="referenceScript">The CharacterFeatures component of the selected character.</param>
         public void DeactivateCurrentFocus()
         {
-            ChangeFocusedColor(223, 210, 194, 255);
+            ChangeFocusedColor(Color.white);
             GameLoop.SelectedCharacter.GetComponent<Character>().CurrentState = Character.State.None;
             uiController.SetAttackPanelAttackerInfo("");
             uiController.SetAttackPanelEnemyInfo("");
@@ -133,7 +133,13 @@ namespace Scripts.Controller
 
         private void ChangeFocusedColor(Color color)
         {
-            GameLoop.SelectedCharacter.GetComponent<Renderer>().material.SetColor("_Color", color);
+            GameLoop.SelectedCharacter.transform.GetChild(0).Find("Base").gameObject.GetComponent<Renderer>().material.SetColor("_Color", color);
+            //if (GameLoop.SelectedCharacter.GetComponent<Character>().Features.Charclass == "Trained Warrior")
+            //{
+            //    Debug.Log("selecting trained warrior");
+            //}
+            //else
+            //    GameLoop.SelectedCharacter.GetComponent<Renderer>().material.SetColor("_Color", color);
         }
 
         private void ChangeFocusedColor(byte red, byte green, byte blue, byte alpha)
