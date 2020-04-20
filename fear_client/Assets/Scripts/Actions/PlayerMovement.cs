@@ -54,7 +54,7 @@ namespace Scripts.Actions
 
         /// <summary>Checks for player input and ability to move a character</summary>
         /// <returns>Boolean value of input.</returns>
-        public bool InputDetected() => InputManager.GetLeftMouseClick() && MonoClient.Instance.HasControl();
+        public bool InputDetected() => InputManager.GetLeftMouseClick();// TODO: && MonoClient.Instance.HasControl();
 
         /// <summary>
         /// This is a private function that triggers movement, sends a client request, and toggles the checks for

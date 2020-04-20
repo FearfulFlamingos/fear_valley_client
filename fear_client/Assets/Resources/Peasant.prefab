@@ -607,10 +607,20 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: -2894154405670667947, guid: 1f7cf7b10bbf3c54098dd0b78d948dfc,
+        type: 3}
+      propertyPath: m_Name
+      value: Cleaver
+      objectReference: {fileID: 0}
     - target: {fileID: -1747517909058526400, guid: 1f7cf7b10bbf3c54098dd0b78d948dfc,
         type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -1747517909058526400, guid: 1f7cf7b10bbf3c54098dd0b78d948dfc,
+        type: 3}
+      propertyPath: m_Name
+      value: Base
       objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: 1f7cf7b10bbf3c54098dd0b78d948dfc,
         type: 3}
@@ -632,6 +642,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 2083549444459665615, guid: 1f7cf7b10bbf3c54098dd0b78d948dfc,
+        type: 3}
+      propertyPath: m_Name
+      value: Dagger
+      objectReference: {fileID: 0}
     - target: {fileID: 3126661799382943618, guid: 1f7cf7b10bbf3c54098dd0b78d948dfc,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -641,6 +656,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3432139381045956323, guid: 1f7cf7b10bbf3c54098dd0b78d948dfc,
+        type: 3}
+      propertyPath: m_Name
+      value: Body
       objectReference: {fileID: 0}
     - target: {fileID: 3457680161803895548, guid: 1f7cf7b10bbf3c54098dd0b78d948dfc,
         type: 3}

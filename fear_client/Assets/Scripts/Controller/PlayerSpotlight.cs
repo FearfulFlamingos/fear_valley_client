@@ -41,7 +41,7 @@ namespace Scripts.Controller
         // linked to the functions below.
         private void Update()
         {
-            if (selectingCharacter && InputManager.GetLeftMouseClick() && MonoClient.Instance.HasControl())
+            if (selectingCharacter && InputManager.GetLeftMouseClick())//TODO: && MonoClient.Instance.HasControl())
             {
                 Ray ray = camera1.ScreenPointToRay(InputManager.MousePosition());
                 if (Physics.Raycast(ray, out RaycastHit hit, 100.0f, layerMask: 1 << 10 ))
@@ -142,10 +142,10 @@ namespace Scripts.Controller
             //    GameLoop.SelectedCharacter.GetComponent<Renderer>().material.SetColor("_Color", color);
         }
 
-        private void ChangeFocusedColor(byte red, byte green, byte blue, byte alpha)
-        {
-            GameLoop.SelectedCharacter.GetComponent<Renderer>().material.SetColor("_Color", new Color32(red, green, blue, alpha));
-        }
+        //private void ChangeFocusedColor(byte red, byte green, byte blue, byte alpha)
+        //{
+        //    GameLoop.SelectedCharacter.GetComponent<Renderer>().material.SetColor("_Color", new Color32(red, green, blue, alpha));
+        //}
     }
 
 }

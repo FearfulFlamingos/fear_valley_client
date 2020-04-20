@@ -114,9 +114,10 @@ namespace PlayTests
         {
             // Arrange
             BattleUIControl battleUIControl = GameObject.Find("SceneController").GetComponent<BattleUIControl>();
-            GameObject dummy = new GameObject();
-            dummy.AddComponent<Character>();
-            dummy.AddComponent<MeshRenderer>();
+            GameObject dummy = GameLoop.Instance.gameObject.GetComponent<PopulateCharacter>().DuplicateObjects(new CharacterFeatures()
+            {
+                Charclass = "Magic User"
+            }, 1, 1);
             GameLoop.SelectedCharacter = dummy;
 
             //GameObject infoPanel = GameObject.Find("InformationPanel");

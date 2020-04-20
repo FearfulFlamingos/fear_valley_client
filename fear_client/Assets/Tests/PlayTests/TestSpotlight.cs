@@ -95,7 +95,7 @@ namespace PlayTests
             // Act
             spotlight.ChangeSelection(newGameObject);
             Color expected = Color.red;
-            Color actual = newGameObject.GetComponent<Renderer>().material.color;
+            Color actual = newGameObject.transform.GetChild(0).Find("Base").GetComponent<Renderer>().material.color;
 
             // Assert
             Assert.AreEqual(expected, actual);
