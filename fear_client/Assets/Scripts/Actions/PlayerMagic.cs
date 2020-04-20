@@ -87,7 +87,7 @@ namespace Scripts.Actions
 
         public void PlaceExplosion()
         {
-            selection = Instantiate(Resources.Load("MagicAttackAreaTemp")) as GameObject;
+            selection = Instantiate(Resources.Load("MagicAttackArea")) as GameObject;
             startingPosition = transform.position;
             selection.transform.position = startingPosition;
             placingExplosion = true;

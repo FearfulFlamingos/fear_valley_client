@@ -193,8 +193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selection: {fileID: 4833587266117876427, guid: 9bb1c291be002f045abad4fcc15e80b0,
     type: 3}
-  explosionEffect: {fileID: 6236891694905167519, guid: f191217437b815543885e10395957f78,
-    type: 3}
+  explosionEffect: {fileID: 19860236, guid: 2441d0bb1dafd7644b35f37b080c5ea9, type: 3}
 --- !u!114 &8314064577955733620
 MonoBehaviour:
   m_ObjectHideFlags: 0
