@@ -86,6 +86,7 @@ namespace Scripts.ArmyBuilder
                 lastclicked = null;
                 troopinfo.SetActive(false);
                 rollingbudget = 0;
+                DeactivateAllSubPanels();
                 ActivateButtons();
             }
             //Execute a purchase upon click
@@ -113,7 +114,7 @@ namespace Scripts.ArmyBuilder
 
             Budget.text = $"Budget: {budget}";
             projectedCost.text = $"Estimated Cost: {rollingbudget}";
-            remainingBudget.text = $"Estimated Cost: {budget - rollingbudget}";
+            remainingBudget.text = $"Remaining Budget: {budget - rollingbudget}";
         }
         //public bool InputDetected() => InputManager.GetLeftMouseClick() && Client.Instance.HasControl();
         /// <summary>
@@ -150,7 +151,7 @@ namespace Scripts.ArmyBuilder
             GameObject resource = (GameObject)Instantiate(Resources.Load("PlaceableCharacters/" + resourceName));
             selection = resource;
             Debug.Log("Setting Selection");
-            selection.transform.position = new Vector3(0, 0.2f, 10);
+            selection.transform.position = new Vector3(0, 0.2f, 5);
             selection.GetComponent<FeaturesHolder>().uicontrol = UIcontrol;
             selection.GetComponent<FeaturesHolder>().gamepiece = selection;
             selection.GetComponent<FeaturesHolder>().isactive = true;
@@ -226,9 +227,24 @@ namespace Scripts.ArmyBuilder
             activetroops.Remove(lastclicked);
             nocash.text = "";
             Destroy(lastclicked);
+            DeactivateAllSubPanels();
             ActivateButtons();
 
         }
+        
+        // Disables all of the active subpanels.
+        // This is used when the Cancel button is pressed.
+        private void DeactivateAllSubPanels()
+        {
+            GameObject subMenus = GameObject.Find("/MainCanvas/SubmenuHolder");
+            int subMenuCount = subMenus.transform.childCount;
+            for (int i = 0; i < subMenuCount; i++)
+            {
+                if (subMenus.transform.GetChild(i).gameObject.activeSelf)
+                    subMenus.transform.GetChild(i).gameObject.SetActive(false);
+            }
+        }
+
         /// <summary>
         /// Helper function called after a click.
         /// </summary>
@@ -248,6 +264,7 @@ namespace Scripts.ArmyBuilder
                 budget -= rollingbudget;
                 rollingbudget = 0;
                 ActivateButtons();
+                DeactivateAllSubPanels();
                 troopinfo.SetActive(false);
             }
         }
@@ -307,7 +324,7 @@ namespace Scripts.ArmyBuilder
         }
 
         /// <summary>
-        /// 
+        /// Removes an explosion from the bottom panel, if there are still explosions there.
         /// </summary>
         public void RemoveExplosion() 
         {
