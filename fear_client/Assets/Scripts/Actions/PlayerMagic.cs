@@ -85,9 +85,9 @@ namespace Scripts.Actions
             BattleUIControl.Instance.CancelMagicExplosion();
         }
 
-        public void PlaceExplosion()
+        public void StartExplosionSelector()
         {
-            selection = Instantiate(Resources.Load("MagicAttackArea")) as GameObject;
+            selection = Instantiate(Resources.Load("MagicSpell/MagicAttackArea")) as GameObject;
             startingPosition = transform.position;
             selection.transform.position = startingPosition;
             placingExplosion = true;
@@ -115,7 +115,6 @@ namespace Scripts.Actions
                     //attackChar.text = $"You attack was a success \nand you have dealt {damageTaken} damage\nto the player named Roman ";
                     Debug.Log($"Dealt {damage} damage");
                 }
-
             }
             else
             {

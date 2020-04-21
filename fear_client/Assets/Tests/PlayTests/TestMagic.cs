@@ -172,7 +172,7 @@ namespace PlayTests
             input.MousePosition().Returns(target);
             BattleUIControl.Instance.ToggleMagicInstructions(true);
             // Act
-            character.GetComponent<PlayerMagic>().PlaceExplosion();
+            character.GetComponent<PlayerMagic>().StartExplosionSelector();
             
             yield return new WaitForSeconds(5);
             bool actual = GameObject.Find("/Canvas/ActionsUIHolder/MagicExplosion").activeSelf;
@@ -210,7 +210,7 @@ namespace PlayTests
             BattleUIControl.Instance.ToggleMagicInstructions(true);
             GameLoop.SelectedCharacter = character;
             // Act
-            character.GetComponent<PlayerMagic>().PlaceExplosion();
+            character.GetComponent<PlayerMagic>().StartExplosionSelector();
             
             yield return new WaitForSeconds(5);
             bool actual = GameObject.Find("/Canvas/ActionsUIHolder/MagicExplosion").activeSelf;
@@ -246,7 +246,7 @@ namespace PlayTests
             yield return null;
 
             // Act
-            character.GetComponent<PlayerMagic>().PlaceExplosion();
+            character.GetComponent<PlayerMagic>().StartExplosionSelector();
             yield return new WaitForSeconds(3);
             int expected = 1;
             int actual = character.GetComponent<PlayerMagic>().selection
@@ -282,7 +282,7 @@ namespace PlayTests
             yield return null;
 
             // Act
-            character.GetComponent<PlayerMagic>().PlaceExplosion();
+            character.GetComponent<PlayerMagic>().StartExplosionSelector();
             yield return new WaitForSeconds(3);
             input.MousePosition().Returns(Camera.main.WorldToScreenPoint(Vector3.zero));
             yield return new WaitForSeconds(3);

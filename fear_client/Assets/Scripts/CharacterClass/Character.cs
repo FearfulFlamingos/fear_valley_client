@@ -50,7 +50,7 @@ namespace Scripts.CharacterClass
                     PlayerAttack.ActivateAttack();
                     break;
                 case State.CastingSpell:
-                    PlayerMagic.PlaceExplosion();
+                    PlayerMagic.StartExplosionSelector();
                     CurrentState = State.Waiting;
                     break;
                 case State.Selected:

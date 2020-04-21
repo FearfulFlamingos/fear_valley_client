@@ -147,7 +147,7 @@ namespace Scripts.ArmyBuilder
         /// <param name="resourceName"></param>
         public void SetSelection(string resourceName)
         {
-            GameObject resource = (GameObject)Instantiate(Resources.Load(resourceName)) as GameObject;
+            GameObject resource = (GameObject)Instantiate(Resources.Load("PlaceableCharacters/" + resourceName));
             selection = resource;
             Debug.Log("Setting Selection");
             selection.transform.position = new Vector3(0, 0.2f, 10);
@@ -299,7 +299,7 @@ namespace Scripts.ArmyBuilder
         /// <summary>
         /// Adds an explosion to the bottom panel in the army build visual scene.
         /// </summary>
-        public void AddExplosion() //TODO: Update cost string
+        public void AddExplosion() 
         {
             GameObject newExplosion = (GameObject)Instantiate(Resources.Load("UI/ArmyBuild/ExplosionImage"), explosionScrollView.transform);
             explosions.Push(newExplosion);
@@ -309,7 +309,7 @@ namespace Scripts.ArmyBuilder
         /// <summary>
         /// 
         /// </summary>
-        public void RemoveExplosion() //TODO: Update Cost string
+        public void RemoveExplosion() 
         {
             if (explosions.Count != 0)
             {

@@ -139,7 +139,7 @@ namespace PlayTests
         {
             // Arrange
             // Make a character
-            GameObject character = (GameObject)Instantiate(Resources.Load("PlaceablePeasant"));
+            GameObject character = (GameObject)Instantiate(Resources.Load("PlaceableCharacters/PlaceablePeasant"));
             character.transform.position = new Vector3(4, 0.2f, 4);
             character.name = "TEST CHARACTER";
             FeaturesHolder featuresHolder = character.GetComponent<FeaturesHolder>();
@@ -157,7 +157,7 @@ namespace PlayTests
             input.MousePosition().Returns(Camera.main.WorldToScreenPoint(character.transform.position));
             input.GetRightMouseClick().Returns(true);
             holder.InputManager = input;
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(1);
             // Act
             //holder.RemovePlacedObject();
 

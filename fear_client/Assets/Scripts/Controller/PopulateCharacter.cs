@@ -16,7 +16,7 @@ namespace Scripts.Controller
         /// <param name="zpos">Absolute z position on the board.</param>
         public GameObject DuplicateObjects(ICharacterFeatures features, float xpos, float zpos)
         {
-            GameObject tile = (GameObject)Instantiate(Resources.Load(features.Charclass));
+            GameObject tile = (GameObject)Instantiate(Resources.Load("GameCharacters/" + features.Charclass));
 
             if (features.Team == 2)
             {
