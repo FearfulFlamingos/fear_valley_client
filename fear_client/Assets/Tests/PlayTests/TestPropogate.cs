@@ -41,10 +41,12 @@ namespace PlayTests
 
             Vector3 expectedAllyPos = new Vector3(1, 0.2f, 1);
             Vector3 expectedEnemyPos = new Vector3(7, 0.2f, 7);
+            Vector3 expectedEnemyRotation = new Vector3(0, 180.0f, 0);
             
             // Act
             Vector3 actualAllyPos = newGameObject.transform.position;
             Vector3 actualEnemyPos = enemyGameObject.transform.position;
+            Vector3 actualEnemyRotation = enemyGameObject.transform.rotation.eulerAngles;
             Debug.Log(actualAllyPos);
             
             // Assert
@@ -55,6 +57,9 @@ namespace PlayTests
             Assert.AreEqual(expectedEnemyPos.x, actualEnemyPos.x);
             Assert.AreEqual(expectedEnemyPos.y, actualEnemyPos.y,0.1f);
             Assert.AreEqual(expectedEnemyPos.z, actualEnemyPos.z);
+
+            Assert.AreEqual(expectedEnemyRotation.y, actualEnemyRotation.y, 5);
+
             Assert.AreEqual(11, enemyGameObject.layer);
             yield return null;
         }

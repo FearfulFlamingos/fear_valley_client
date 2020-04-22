@@ -25,6 +25,7 @@ namespace Scripts.Controller
                 zpos = 8.0f - zpos;
                 xpos = 8.0f - xpos;
                 tile.layer = 11;
+                tile.transform.Rotate(0.0f, 180.0f, 0.0f, Space.World);
             }
             // Placing objects where they need to be and scaling them
             tile.transform.position = new Vector3(xpos, 0.2f, zpos);
