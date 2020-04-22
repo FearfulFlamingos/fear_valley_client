@@ -232,22 +232,22 @@ namespace PlayTests
                 {
                     Team = 1,
                     Charclass = "Magic User"
-                }, 1, 1);
+                }, 2, 2);
             GameObject enemy = GameLoop.Instance.gameObject.GetComponent<PopulateCharacter>()
                 .DuplicateObjects(new CharacterFeatures()
                 {
                     Team = 2,
                     Charclass = "Peasant"
-                }, 4, 4);
+                }, 5, 5);
 
             IInputManager input = Substitute.For<IInputManager>();
-            input.MousePosition().Returns(Camera.main.WorldToScreenPoint(new Vector3(3f, 0.2f, 3f)));
+            input.MousePosition().Returns(Camera.main.WorldToScreenPoint(new Vector3(5f, 0.2f, 5f)));
             character.GetComponent<PlayerMagic>().InputManager = input;
             yield return null;
-
             // Act
             character.GetComponent<PlayerMagic>().StartExplosionSelector();
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(10);
+
             int expected = 1;
             int actual = character.GetComponent<PlayerMagic>().selection
                 .GetComponent<BlowUpEnemies>().EnemiesInBlast.Count;

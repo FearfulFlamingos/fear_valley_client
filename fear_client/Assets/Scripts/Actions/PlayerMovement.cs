@@ -80,8 +80,8 @@ namespace Scripts.Actions
         {
             if (gameObject.GetComponent<Character>().Features.Team == 2)
             {
-                newPos.z = 8 - newPos.z;
-                newPos.x = 8 - newPos.x;
+                newPos.z = 10.0f - newPos.z;
+                newPos.x = 10.0f - newPos.x;
             }
             Debug.Log(myAgent);
             myAgent.SetDestination(newPos);

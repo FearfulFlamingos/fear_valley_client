@@ -17,13 +17,13 @@ namespace Scripts.Controller
         public GameObject DuplicateObjects(ICharacterFeatures features, float xpos, float zpos)
         {
             GameObject tile = (GameObject)Instantiate(Resources.Load("GameCharacters/" + features.Charclass));
-
+            GameObject board = GameObject.Find("/Cube");
             if (features.Team == 2)
             {
                 // These positions need to be mirrored across x AND z axes, otherwise movements
                 // start looking pretty strange as someone across the map suddenly hits you
-                zpos = 8.0f - zpos;
-                xpos = 8.0f - xpos;
+                zpos = board.transform.localScale.z - zpos;
+                xpos = board.transform.localScale.x - xpos;
                 tile.layer = 11;
                 tile.transform.Rotate(0.0f, 180.0f, 0.0f, Space.World);
             }

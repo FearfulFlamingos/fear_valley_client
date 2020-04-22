@@ -30,7 +30,7 @@ namespace Scripts.Actions
         private void Update()
         {
             if (placingExplosion)
-            {
+            {    
                 MoveExposionMarker();
                 CheckPlayerInput();
             }

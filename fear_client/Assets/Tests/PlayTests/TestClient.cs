@@ -129,7 +129,7 @@ namespace PlayTests
             // Act
             MonoClient.Instance.CheckMessageType(0, 1, 1, buffer, NetworkEventType.DataEvent);
             yield return new WaitForSeconds(4);
-            Vector3 expected = new Vector3(6, 0.2f, 6);
+            Vector3 expected = new Vector3(8, 0.2f, 8);
             Vector3 actual = character.transform.position; 
 
             // Assert

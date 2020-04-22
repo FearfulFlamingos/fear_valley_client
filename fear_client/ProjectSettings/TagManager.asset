@@ -8,6 +8,7 @@ TagManager:
   - PlayerAction
   - TestPanel
   - Friendlies
+  - Ground
   layers:
   - Default
   - TransparentFX

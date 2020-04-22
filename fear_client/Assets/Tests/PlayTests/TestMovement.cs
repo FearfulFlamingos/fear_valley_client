@@ -95,7 +95,7 @@ namespace PlayTests
             // Act
             Vector3 position = new Vector3(5, 0.2f, 5);
             enemy.GetComponent<PlayerMovement>().Move(position);
-            Vector3 expected = new Vector3(3, 0.2f, 3);
+            Vector3 expected = new Vector3(5, 0.2f, 5);
             yield return new WaitForSeconds(4);
 
             // Wait for movement to occur before checking new position
