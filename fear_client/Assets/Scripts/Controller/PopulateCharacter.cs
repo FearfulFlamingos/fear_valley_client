@@ -22,8 +22,8 @@ namespace Scripts.Controller
             {
                 // These positions need to be mirrored across x AND z axes, otherwise movements
                 // start looking pretty strange as someone across the map suddenly hits you
-                zpos = board.transform.localScale.z - zpos;
-                xpos = board.transform.localScale.x - xpos;
+                zpos = 8 - zpos;
+                xpos = 8 - xpos;
                 tile.layer = 11;
                 tile.transform.Rotate(0.0f, 180.0f, 0.0f, Space.World);
             }
