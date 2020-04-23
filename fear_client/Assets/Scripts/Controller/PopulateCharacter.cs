@@ -18,17 +18,20 @@ namespace Scripts.Controller
         {
             GameObject tile = (GameObject)Instantiate(Resources.Load("GameCharacters/" + features.Charclass));
             GameObject board = GameObject.Find("/Cube");
+            float trueX = xpos;
+            float trueZ = zpos;
             if (features.Team == 2)
             {
                 // These positions need to be mirrored across x AND z axes, otherwise movements
                 // start looking pretty strange as someone across the map suddenly hits you
-                zpos = 8 - zpos;
-                xpos = 8 - xpos;
+                trueZ = 9f - zpos;
+                trueX = 9f - xpos;
                 tile.layer = 11;
                 tile.transform.Rotate(0.0f, 180.0f, 0.0f, Space.World);
+                Debug.Log($"Expected: ({trueX},0.2f,{trueZ})");
             }
             // Placing objects where they need to be and scaling them
-            tile.transform.position = new Vector3(xpos, 0.2f, zpos);
+            tile.transform.position = new Vector3(trueX, 0.2f, trueZ);
 
             tile.GetComponent<Character>().Features = features;
 

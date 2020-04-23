@@ -241,7 +241,7 @@ namespace PlayTests
                 }, 5, 5);
 
             IInputManager input = Substitute.For<IInputManager>();
-            input.MousePosition().Returns(Camera.main.WorldToScreenPoint(new Vector3(3f, 0.2f, 3f)));
+            input.MousePosition().Returns(Camera.main.WorldToScreenPoint(new Vector3(5f, 0.2f, 5f)));
             character.GetComponent<PlayerMagic>().InputManager = input;
             yield return null;
             // Act
