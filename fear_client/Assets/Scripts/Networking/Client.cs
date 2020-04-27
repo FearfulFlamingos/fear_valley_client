@@ -182,14 +182,24 @@ namespace Scripts.Networking
                     Net_Attack(connId, channelId, recHostId, (Net_ATTACK)msg);
                     break;
                 case (byte)NetOP.Operation.RETREAT:
-                    Debug.Log("NETOP: Attack Player");
+                    Debug.Log("NETOP: Retreat");
                     Net_Retreat(connId, channelId, recHostId, (Net_RETREAT)msg);
                     break;
                 case (byte)NetOP.Operation.ToggleControls:
                     Debug.Log("NETOP: Toggle controls");
                     Net_ToggleControls(connId, channelId, recHostId, (Net_ToggleControls)msg);
                     break;
+                case (byte)NetOP.Operation.UpdateEnemyName:
+                    Debug.Log("NETOP: Update Enemy Name");
+                    Net_UpdateEnemyName(connId, channelId, recHostId, (Net_UpdateEnemyName)msg);
+                    break;
             }
+        }
+
+        // Updates the enemy's name in the battlefield scene.
+        private void Net_UpdateEnemyName(int connId, int channelId, int recHostId, Net_UpdateEnemyName msg)
+        {
+            BattleUIControl.Instance.UpdateEnemyName(msg.Name);
         }
 
         // Sets the number of spells that the player purchased.
@@ -326,6 +336,7 @@ namespace Scripts.Networking
         /// <summary>
         /// Tell the server that the player is finished building an army.
         /// <para>Updates the number of spells the player bought in the database.</para>
+        /// <para>Pulls the player name set in Options, if it is set.</para>
         /// </summary>
         /// <param name="magicAmount">Number of spells the player bought.</param>
         public void SendFinishBuild(int magicAmount)
@@ -335,6 +346,7 @@ namespace Scripts.Networking
                 MagicBought = magicAmount
             };
             SendToServer(fb);
+            SendUpdatedName();
         }
 
         /// <summary>
@@ -395,6 +407,19 @@ namespace Scripts.Networking
             //Client.Instance.hasControl = false;
             Net_EndTurn et = new Net_EndTurn();
             SendToServer(et);
+        }
+
+        /// <summary>
+        /// Pulls the stored name from PlayerPrefs and updates the server.
+        /// </summary>
+        public void SendUpdatedName()
+        {
+            Net_UpdateEnemyName uen = new Net_UpdateEnemyName()
+            {
+                Name = PlayerPrefs.HasKey("PlayerName") ? PlayerPrefs.GetString("PlayerName") : "Anonymous"
+            };
+
+            SendToServer(uen);
         }
 
         #endregion

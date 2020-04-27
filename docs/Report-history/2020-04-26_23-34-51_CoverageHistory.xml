@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<coverage version="1.0" date="2020-04-17_13-25-16" tag="">
+<coverage version="1.0" date="2020-04-26_23-34-51" tag="">
   <assembly name="Scriptsdef">
-    <class name="Scripts.Actions.BlowUpEnemies" coveredlines="16" coverablelines="16" totallines="33" coveredbranches="0" totalbranches="0" />
+    <class name="Scripts.Actions.BlowUpEnemies" coveredlines="13" coverablelines="16" totallines="33" coveredbranches="0" totalbranches="0" />
     <class name="Scripts.Actions.PlayerAttack" coveredlines="81" coverablelines="81" totallines="146" coveredbranches="0" totalbranches="0" />
-    <class name="Scripts.Actions.PlayerMagic" coveredlines="76" coverablelines="79" totallines="129" coveredbranches="0" totalbranches="0" />
+    <class name="Scripts.Actions.PlayerMagic" coveredlines="76" coverablelines="79" totallines="128" coveredbranches="0" totalbranches="0" />
     <class name="Scripts.Actions.PlayerMovement" coveredlines="52" coverablelines="52" totallines="105" coveredbranches="0" totalbranches="0" />
-    <class name="Scripts.ArmyBuilder.FeaturesHolder" coveredlines="8" coverablelines="8" totallines="30" coveredbranches="0" totalbranches="0" />
-    <class name="Scripts.ArmyBuilder.PopulateGrid" coveredlines="136" coverablelines="153" totallines="324" coveredbranches="0" totalbranches="0" />
-    <class name="Scripts.CharacterClass.Character" coveredlines="20" coverablelines="30" totallines="68" coveredbranches="0" totalbranches="0" />
+    <class name="Scripts.ArmyBuilder.FeaturesHolder" coveredlines="3" coverablelines="3" totallines="15" coveredbranches="0" totalbranches="0" />
+    <class name="Scripts.ArmyBuilder.PopulateGrid" coveredlines="186" coverablelines="203" totallines="430" coveredbranches="0" totalbranches="0" />
+    <class name="Scripts.CharacterClass.Character" coveredlines="19" coverablelines="30" totallines="68" coveredbranches="0" totalbranches="0" />
     <class name="Scripts.CharacterClass.CharacterFeatures" coveredlines="43" coverablelines="43" totallines="69" coveredbranches="0" totalbranches="0" />
     <class name="Scripts.CharacterClass.RandomNumberGenerator" coveredlines="2" coverablelines="2" totallines="10" coveredbranches="0" totalbranches="0" />
     <class name="Scripts.Controller.BattleUIControl" coveredlines="94" coverablelines="139" totallines="314" coveredbranches="0" totalbranches="0" />
     <class name="Scripts.Controller.GameLoop" coveredlines="114" coverablelines="114" totallines="282" coveredbranches="0" totalbranches="0" />
     <class name="Scripts.Controller.InputManager" coveredlines="9" coverablelines="9" totallines="37" coveredbranches="0" totalbranches="0" />
-    <class name="Scripts.Controller.PlayerSpotlight" coveredlines="58" coverablelines="75" totallines="145" coveredbranches="0" totalbranches="0" />
-    <class name="Scripts.Controller.PopulateCharacter" coveredlines="14" coverablelines="14" totallines="40" coveredbranches="0" totalbranches="0" />
-    <class name="Scripts.Menus.MainMenuButtons" coveredlines="17" coverablelines="17" totallines="41" coveredbranches="0" totalbranches="0" />
+    <class name="Scripts.Controller.PlayerSpotlight" coveredlines="55" coverablelines="72" totallines="151" coveredbranches="0" totalbranches="0" />
+    <class name="Scripts.Controller.PopulateCharacter" coveredlines="19" coverablelines="19" totallines="44" coveredbranches="0" totalbranches="0" />
+    <class name="Scripts.Menus.MainMenuButtons" coveredlines="23" coverablelines="41" totallines="71" coveredbranches="0" totalbranches="0" />
     <class name="Scripts.Menus.VolumeControl" coveredlines="1" coverablelines="4" totallines="29" coveredbranches="0" totalbranches="0" />
     <class name="Scripts.Networking.Client" coveredlines="152" coverablelines="152" totallines="403" coveredbranches="0" totalbranches="0" />
     <class name="Scripts.Networking.MonoClient" coveredlines="10" coverablelines="10" totallines="23" coveredbranches="0" totalbranches="0" />

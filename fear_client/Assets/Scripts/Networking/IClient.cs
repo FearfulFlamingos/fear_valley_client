@@ -25,6 +25,7 @@ namespace Scripts.Networking
         void SendRetreatData(int troopId, int TeamNum, bool characterShouldDie);
         void SendToServer(NetMsg msg);
         void SendTroopRequest(string troop, string weapon, string armor, float xPos, float yPos);
+        void SendUpdatedName();
         void Shutdown();
         void UpdateMessagePump();
     }

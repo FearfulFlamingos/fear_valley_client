@@ -320,6 +320,38 @@ namespace EditorTests
             Assert.IsTrue(MonoClient.Instance.HasControl());
         }
 
+        [Test]
+        public void TestSendANewEmptyName()
+        {
+            // Arrange
+            PlayerPrefs.DeleteKey("PlayerName");
+            Net_UpdateEnemyName expected = new Net_UpdateEnemyName();
+
+            // Act
+            MonoClient.Instance.SendUpdatedName();
+            Net_UpdateEnemyName actual = (Net_UpdateEnemyName)MonoClient.Instance.LastSent;
+
+            // Assert
+            Assert.AreEqual(expected.OperationCode, actual.OperationCode);
+            Assert.AreEqual("Anonymous", actual.Name);
+        }
+
+        [Test]
+        public void TestSendName()
+        {
+            // Arrange
+            PlayerPrefs.SetString("PlayerName", "Test Name");
+            Net_UpdateEnemyName expected = new Net_UpdateEnemyName();
+
+            // Act
+            MonoClient.Instance.SendUpdatedName();
+            Net_UpdateEnemyName actual = (Net_UpdateEnemyName)MonoClient.Instance.LastSent;
+
+            // Assert
+            Assert.AreEqual(expected.OperationCode, actual.OperationCode);
+            Assert.AreEqual("Test Name", actual.Name);
+        }
+
         // tests
         /* Public fn() to test:
          *   void Init() ✓
