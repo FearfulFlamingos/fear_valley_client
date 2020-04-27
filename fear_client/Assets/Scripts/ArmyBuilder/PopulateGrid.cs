@@ -115,7 +115,7 @@ namespace Scripts.ArmyBuilder
 
         private void Update()
         {
-            if (selection != null)
+            if (selection != null && selection.GetComponent<PlaceableCollision>().shouldMove)
             {
                 MoveUnplacedSelection();
             }
@@ -150,10 +150,16 @@ namespace Scripts.ArmyBuilder
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(InputManager.MousePosition());
-            if (Physics.Raycast(ray, out hit, 100.0f, 1 << 9))
+            if (Physics.Raycast(ray, out hit, 100.0f, 1<<9 ))
             {
-                Debug.Log("Moving");
-                selection.transform.position = hit.point;
+                if (!Physics.Raycast(ray, out RaycastHit hit2, 100.0f, layerMask: 1<<10))
+                {
+                    Debug.Log("Moving");
+                    selection.transform.SetPositionAndRotation(
+                        new Vector3(hit.point.x, 0.2f, hit.point.z),
+                        Quaternion.identity);
+                }
+                
             }
         }
 

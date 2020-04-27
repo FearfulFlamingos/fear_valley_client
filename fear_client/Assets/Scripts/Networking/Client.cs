@@ -23,7 +23,7 @@ namespace Scripts.Networking
         //public static IClient Instance { set; get; }
         // These can all be private, but for testing I set them public.
         public int MAX_USER { set; get; }
-        public int PORT { set; get; }
+        private const int PORT = 50000;
         public string SERVER_IP { set; get; }
         public const int BYTE_SIZE = 1024; // standard packet
         public byte ReliableChannel { set; get; }
@@ -41,7 +41,6 @@ namespace Scripts.Networking
         {
             MAX_USER = 2;
             SERVER_IP = GameObject.Find("/ServerJoinPrefs").GetComponent<ServerPreferences>().GetIP();
-            PORT = GameObject.Find("/ServerJoinPrefs").GetComponent<ServerPreferences>().GetPort();
 
 #pragma warning disable CS0618 // Type or member is obsolete
             NetworkTransport.Init();
@@ -345,8 +344,8 @@ namespace Scripts.Networking
             {
                 MagicBought = magicAmount
             };
-            SendToServer(fb);
             SendUpdatedName();
+            SendToServer(fb);
         }
 
         /// <summary>

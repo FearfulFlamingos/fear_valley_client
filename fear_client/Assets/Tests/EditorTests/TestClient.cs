@@ -54,7 +54,6 @@ namespace EditorTests
 
             // Assert
             Assert.AreEqual(2,MonoClient.Instance.MAX_USER);
-            Assert.AreEqual(50000,MonoClient.Instance.PORT);
             Assert.AreEqual("127.0.0.1",MonoClient.Instance.SERVER_IP);
             Assert.IsTrue(MonoClient.Instance.IsStarted);
         }
@@ -73,7 +72,6 @@ namespace EditorTests
 
             // Assert
             Assert.AreEqual(2, MonoClient.Instance.MAX_USER);
-            Assert.AreEqual(50000, MonoClient.Instance.PORT);
             Assert.AreEqual("10.28.149.175", MonoClient.Instance.SERVER_IP);
             Assert.IsTrue(MonoClient.Instance.IsStarted);
         }
