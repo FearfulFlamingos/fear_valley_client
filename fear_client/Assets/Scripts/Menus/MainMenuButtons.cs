@@ -19,7 +19,6 @@ namespace Scripts.Menus
         void Start()
         {
             playButton.onClick.AddListener(() => SceneManager.LoadScene("ServerConnect"));
-            tutorialButton.onClick.AddListener(() => SceneManager.LoadScene("TempLoadingScene"));
             quitButton.onClick.AddListener(() => Application.Quit());
             creditsButton.onClick.AddListener(() => SwitchCanvas(mainCanvas, creditsCanvas));
             optionsButton.onClick.AddListener(() => SwitchCanvas(mainCanvas, optionsCanvas));
