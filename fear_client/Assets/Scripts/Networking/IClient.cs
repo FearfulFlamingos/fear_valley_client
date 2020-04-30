@@ -9,6 +9,7 @@ namespace Scripts.Networking
         int HostId { get; set; }
         bool IsStarted { get; set; }
         int MAX_USER { get; set; }
+        int PORT { get; set; }
         byte ReliableChannel { get; set; }
         string SERVER_IP { get; set; }
         NetworkEventType LastEvent { get; set; }
@@ -24,7 +25,6 @@ namespace Scripts.Networking
         void SendRetreatData(int troopId, int TeamNum, bool characterShouldDie);
         void SendToServer(NetMsg msg);
         void SendTroopRequest(string troop, string weapon, string armor, float xPos, float yPos);
-        void SendUpdatedName();
         void Shutdown();
         void UpdateMessagePump();
     }
