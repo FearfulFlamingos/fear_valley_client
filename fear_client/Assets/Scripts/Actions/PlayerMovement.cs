@@ -5,6 +5,7 @@ using UnityEngine.AI;
 using Scripts.Controller;
 using Scripts.Networking;
 using Scripts.CharacterClass;
+using System;
 
 namespace Scripts.Actions
 {
@@ -99,7 +100,6 @@ namespace Scripts.Actions
             movementSelector = (GameObject) Instantiate(Resources.Load("MovementCursor"));
             startingPosition = transform.position;
             movementSelector.transform.position = startingPosition;
-
         }
     }
 }

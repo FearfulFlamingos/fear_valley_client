@@ -212,6 +212,26 @@ namespace PlayTests
             yield return null;
         }
 
+        [UnityTest]
+        public IEnumerator TestNet_UpdateEnemyName()
+        {
+            Net_UpdateEnemyName message = new Net_UpdateEnemyName() { Name = "Testing Name" };
+            byte[] buffer = new byte[1024];
+            BinaryFormatter formatter = new BinaryFormatter();
+            MemoryStream ms = new MemoryStream(buffer);
+            formatter.Serialize(ms, message);
+
+            // Act
+            MonoClient.Instance.CheckMessageType(0, 1, 1, buffer, NetworkEventType.DataEvent);
+            yield return null;
+            string actual = GameObject.Find("/Canvas/EnemyNamePanel/EnemyName")
+                .GetComponent<TMPro.TMP_Text>().text;
+
+            Assert.AreEqual("Testing Name", actual);
+
+            yield return null;
+        }
+
         [TearDown]
         public void TearDown()
         {
