@@ -37,12 +37,6 @@ namespace Scripts.Controller
         private GameObject attackPanel;
         [SerializeField]
         private GameObject magicInstructionPanel;
-        //[SerializeField]
-        //private GameObject inGameOptionsMenu;
-
-        // Text References
-        [SerializeField]
-        private TMP_Text enemyName;
 
         private IInputManager InputManager { set; get; }
         public static BattleUIControl Instance { set; get; }
@@ -284,15 +278,6 @@ namespace Scripts.Controller
         {
             actionsPanelLeftHandText.SetText(left);
             actionsPanelRightHandText.SetText(right);
-        }
-
-        /// <summary>
-        /// Updates the enemy name.
-        /// </summary>
-        /// <param name="name">New name to update.</param>
-        public void UpdateEnemyName(string name)
-        {
-            enemyName.SetText(name);
         }
 
         /// <summary>
