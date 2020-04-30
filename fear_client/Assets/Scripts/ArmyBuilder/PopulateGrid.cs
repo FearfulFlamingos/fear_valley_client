@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Scripts.Networking;
 using Scripts.Controller;
 
 
@@ -11,227 +10,284 @@ namespace Scripts.ArmyBuilder
 {
     public class PopulateGrid : MonoBehaviour
     {
+        private Build build;
+        private GameObject selection;
+        
         [SerializeField]
         private GameObject explosionScrollView;
-        public Stack<GameObject> explosions;
-
-        public GameObject selection, lastclicked;
-        public GameObject UIcontrol, troopinfo;
-        public Camera camera;
         [SerializeField]
         private TMP_Text remainingBudget;
         [SerializeField]
         private TMP_Text projectedCost;
         [SerializeField]
-        private TMP_Text Budget, weapon, classid, fname, armor, nocash;
-        public int budget = 300;
-        public int rollingbudget;
-        public int numTroops = 1;
-        public string current_armor;
+        private TMP_Text BudgetText, weapon, classid, fname, armor, nocash;
+        [SerializeField]
+        private GameObject troopInfoPanel;
+        [SerializeField]
+        private Button peasantTroopButton;
+        [SerializeField]
+        private Button warriorTroopButton;
+        [SerializeField]
+        private Button magicUserTroopButton;
+        
+        public int RollingBudget { set; get; }
+        public int Budget { set; get; }
+        public HashSet<GameObject> ActiveTroops { set; get; }
+        public static Stack<GameObject> Explosions { set; get; }
+        public static GameObject LastClicked { set; get; }
         public IInputManager InputManager { set; get; }
-        public HashSet<GameObject> activetroops = new HashSet<GameObject>();
 
-        Dictionary<string, int> costs = new Dictionary<string, int>()
+        #region Class Info
+        /// <summary>
+        /// Keep track of the player's choices so far.
+        /// </summary>
+        public struct Build
         {
-            {"Unarmored", 0 },
-            {"Light mundane armor", 20 },
-            {"Light magical armor", 30 },
-            {"Heavy mundane armor", 40 },
-            {"Heavy magical armor",50 },
+            public Armor ChosenArmor { set; get; }
+            public Weapon ChosenWeapon { set; get; }
+            public Troop ChosenTroop { set; get; }
 
-            { "Unarmed", 0 },
-            {"Polearm", 10 },
-            {"Two-handed weapon", 20 },
-            {"One-handed weapon", 15 },
-            {"Ranged attack", 25 },
-            {"Magical Explosion", 10 },
+            public Build DeepCopy()
+            {
+                Build copy = new Build
+                {
+                    ChosenArmor = ChosenArmor,
+                    ChosenWeapon = ChosenWeapon,
+                    ChosenTroop = ChosenTroop
+                };
+                return copy;
+            }
+            public override string ToString()
+            {
+                return $"<Build: Troop={ChosenTroop}, Armor={ChosenArmor}, Weapon={ChosenWeapon}>";
+            }
+        }
 
-            {"No troop",0 },
-            {"Peasant", 10 },
-            {"Trained Warrior", 50 },
-            {"Magic User", 100 }
-        };
+        /// <summary>
+        /// All armor options and their costs.
+        /// </summary>
+        public enum Armor
+        {
+            Unarmored = 0,
+            LightMundaneArmor = 20,
+            LightMagicalArmor = 30,
+            HeavyMundaneArmor = 40,
+            HeavyMagicalArmor = 50
+        }
+
+        /// <summary>
+        /// All weapon choices and thier costs.
+        /// </summary>
+        public enum Weapon
+        {
+            Unarmed = 0,
+            Polearm = 10,
+            TwoHandedWeapon = 20,
+            OneHandedWeapon = 15,
+            RangedAttack = 25
+        }
+
+        /// <summary>
+        /// All Troop choices and thier costs.
+        /// </summary>
+        public enum Troop
+        {
+            None = 0,
+            Peasant = 10,
+            TrainedWarrior = 50,
+            MagicUser = 100
+        }
+        #endregion
+
+        #region Monobehaviour
         // Start is called before the first frame update
         void Start()
         {
-            explosions = new Stack<GameObject>();
+            Explosions = new Stack<GameObject>();
+            ActiveTroops = new HashSet<GameObject>();
+            build = new Build();
+            Debug.Log(build.ToString());
+            RollingBudget = 0;
+            Budget = 300;
             if (InputManager == null)
                 InputManager = GameObject.FindGameObjectWithTag("scripts").GetComponent<InputManager>();
         }
 
         private void Update()
         {
+            if (selection != null)
+            {
+                MoveUnplacedSelection();
+            }
+            
             if (InputManager.GetRightMouseClick())
             {
                 Debug.Log("Deleting");
                 RemovePlacedObject();
             }
 
-            if (selection != null)
-            {
-                RaycastHit hit;
-                Ray ray = Camera.main.ScreenPointToRay(InputManager.MousePosition());
-                if (Physics.Raycast(ray, out hit, 100.0f, 1 << 9))
-                {
-                    Debug.Log("Moving");
-                    selection.transform.position = hit.point;
-                }
-            }
             //Cancel a potential purchase with escape after clicking through the menus
             if (InputManager.GetCancelButtonDown())
             {
-                Debug.Log("Escaping");
-                Destroy(selection);
-                selection = null;
-                lastclicked = null;
-                troopinfo.SetActive(false);
-                rollingbudget = 0;
-                DeactivateAllSubPanels();
-                ActivateButtons();
+                CancelPurchase();
             }
+
             //Execute a purchase upon click
             if (InputManager.GetLeftMouseClick() && selection!=null)
             {
-                selection = null;
-                Debug.Log("Purchasing");
                 ExecutePurchase();
             }
-            //Select a troop after the troop has been placed
-            //if (InputManager.GetLeftMouseClick() && selection == null)
-            //{
-            //    RaycastHit checkGameObject;
-            //    Ray ray = Camera.main.ScreenPointToRay(InputManager.MousePosition());
-            //    if (Physics.Raycast(ray, out checkGameObject, 100.0f, 1 << 10) && checkGameObject.transform != null)
-            //    {
-            //        GameObject target = checkGameObject.transform.gameObject;
-            //        target.GetComponent<FeaturesHolder>().isactive = true;
-            //        troopinfo.SetActive(true);
-            //        //start coroutine to deactivate the ui
 
-            //        //StartCoroutine(Unhighlight(target));
-            //    }
-            //}
-
-            Budget.text = $"Budget: {budget}";
-            projectedCost.text = $"Estimated Cost: {rollingbudget}";
-            remainingBudget.text = $"Remaining Budget: {budget - rollingbudget}";
+            BudgetText.text = $"Budget: {Budget}";
+            projectedCost.text = $"Estimated Cost: {RollingBudget}";
+            remainingBudget.text = $"Remaining Budget: {Budget - RollingBudget}";
         }
-        //public bool InputDetected() => InputManager.GetLeftMouseClick() && Client.Instance.HasControl();
-        /// <summary>
-        /// Add the cost of an item to the adjusted budget
-        /// </summary>
-        /// <param name="item">This is the name of the item being added.</param>
-        public void additem(string item)
+
+        #endregion
+
+        // This is only called in Update() when selection != null. Nowhere else.
+        private void MoveUnplacedSelection()
         {
-            rollingbudget += costs[item];
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(InputManager.MousePosition());
+            if (Physics.Raycast(ray, out hit, 100.0f, 1 << 9))
+            {
+                Debug.Log("Moving");
+                selection.transform.position = hit.point;
+            }
         }
-
-        /// <summary>
-        /// Deacitvate the canvas after a set amount of time. 
-        /// </summary>
-        /// <param name="target"></param>
-        /// <returns></returns>
-        //IEnumerator Unhighlight(GameObject target)
-        //{
-
-        //    yield return 20000;    //Wait one frame
-        //    troopinfo.SetActive(false);
-        //    target.GetComponent<FeaturesHolder>().isactive = false;
-        //}
-
 
         #region Update Troop
-
         /// <summary>
         /// Update all of the features for the selection and add resources to the map. 
         /// </summary>
-        /// <param name="resourceName"></param>
-        public void SetSelection(string resourceName)
+        /// <param name="resourceName">Prefab name to instantiate.</param>
+        public void InstantiateTroop(string resourceName)
         {
+            // Instantiate the troop
             GameObject resource = (GameObject)Instantiate(Resources.Load("PlaceableCharacters/" + resourceName));
             selection = resource;
             Debug.Log("Setting Selection");
             selection.transform.position = new Vector3(0, 0.2f, 5);
-            selection.GetComponent<FeaturesHolder>().uicontrol = UIcontrol;
-            selection.GetComponent<FeaturesHolder>().gamepiece = selection;
-            selection.GetComponent<FeaturesHolder>().isactive = true;
-            selection.GetComponent<FeaturesHolder>().armor = current_armor;
-            Debug.Log(selection);
-            troopinfo.SetActive(true);
-            lastclicked = selection;
-
-        }
-        /// <summary>
-        /// Update the armor for an individual object. 
-        /// </summary>
-        /// <param name="ArmorClass"></param>
-        public void GetArmor(string ArmorClass)
-        {
-            //selection.armorclass
-            current_armor = ArmorClass;
-            additem(ArmorClass);
             
-        }
-
-        /// <summary>
-        /// Update weapon for an individual object.
-        /// </summary>
-        /// <param name="WeaponClass"></param>
-        public void GetWeapon(string WeaponClass)
-        {
-            //selection.armorclass
-            selection.GetComponent<FeaturesHolder>().weapon = WeaponClass;
-
-        }
-
-
-        /// <summary>
-        /// Update the ui canvas for current player. 
-        /// </summary>
-        /// <param name="character"></param>
-        public void ChangeChar(GameObject character)
-        {
-            FeaturesHolder reference = character.GetComponent<FeaturesHolder>();
-            classid.text = $"{reference.troop}";
-            fname.text = $"{reference.fname}";
-            weapon.text = $"{reference.weapon}";
-            armor.text = $"{reference.armor}";
-            //CurrentPanel.SetActive(false);
-
-        }
-        #endregion
-
-        #region Button Functions
-        public void ActivateButtons()
-        {
-            GameObject.Find("PeasantButton").GetComponent<Button>().interactable = true;
-            GameObject.Find("WizardButton").GetComponent<Button>().interactable = true;
-            GameObject.Find("WarriorButton").GetComponent<Button>().interactable = true;
-        }
-        public void DeactivateButtons()
-        {
-            GameObject.Find("PeasantButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("WizardButton").GetComponent<Button>().interactable = false;
-            GameObject.Find("WarriorButton").GetComponent<Button>().interactable = false;
-        }
-        /// <summary>
-        /// Helper funciton used with the escape button to back out of a purchase.
-        /// </summary>
-        public void CancelPurchase()
-        {
-            rollingbudget = 0;
-
-            troopinfo.SetActive(false);
-            Debug.Log(lastclicked);
-            budget += lastclicked.GetComponent<FeaturesHolder>().cost;
-            activetroops.Remove(lastclicked);
-            nocash.text = "";
-            Destroy(lastclicked);
-            DeactivateAllSubPanels();
-            ActivateButtons();
-
+            // Set values
+            FeaturesHolder features = selection.GetComponent<FeaturesHolder>();
+            features.TroopInfo = build.DeepCopy();
+            features.Cost = RollingBudget;
+            features.IsActive = true;
+            Debug.Log(selection);
+            
+            // Update internal parameters
+            troopInfoPanel.SetActive(true);
+            LastClicked = selection;
         }
         
+        /* I've elected to set the Setters in thier own region, because they're cumbersome to look at.
+         * All you're missing is a long switch statement about which enum value it should be, since
+         * APPARENTLY you can't use a public enum from a button if it's not attached to said button 
+         * by a script. The other option is strings (prone to misspelling), or attach 28 little scripts 
+         * to buttons in the scene, or make another script which just assigns all of the functions on awake().
+         */
+        #region Setters For build struct
+        /// <summary>
+        /// Set the troop type for the current troop being purchased.
+        /// </summary>
+        /// <param name="type">Troop enum value.</param>
+        public void SetTroop(int type)
+        {
+            Troop actual;
+            switch(type)
+            {
+                case 10:
+                    actual = Troop.Peasant;
+                    break;
+                case 50:
+                    actual = Troop.TrainedWarrior;
+                    break;
+                case 100:
+                    actual = Troop.MagicUser;
+                    break;
+                default:
+                    actual = Troop.None;
+                    break;
+            }
+            build.ChosenTroop = actual;
+            RollingBudget += type;
+        }
+
+        /// <summary>
+        /// Set the armor for the current troop being purchased.
+        /// </summary>
+        /// <param name="type">Armor enum value.</param>
+        public void SetArmor(int type)
+        {
+            Armor actual;
+            switch(type)
+            {
+                case 20:
+                    actual = Armor.LightMundaneArmor;
+                    break;
+                case 30:
+                    actual = Armor.LightMagicalArmor;
+                    break;
+                case 40:
+                    actual = Armor.HeavyMundaneArmor;
+                    break;
+                case 50:
+                    actual = Armor.HeavyMagicalArmor;
+                    break;
+                default:
+                    actual = Armor.Unarmored;
+                    break;
+            }
+            build.ChosenArmor = actual;
+            RollingBudget += type;
+        }
+
+        /// <summary>
+        /// Set the weapon fro the current troop being purchased.
+        /// </summary>
+        /// <param name="type">Weapon enum value.</param>
+        public void SetWeapon(int type)
+        {
+            Weapon actual;
+            switch(type)
+            {
+                case 10:
+                    actual = Weapon.Polearm;
+                    break;
+                case 20:
+                    actual = Weapon.TwoHandedWeapon;
+                    break;
+                case 15:
+                    actual = Weapon.OneHandedWeapon;
+                    break;
+                case 25:
+                    actual = Weapon.RangedAttack;
+                    break;
+                default:
+                    actual = Weapon.Unarmed;
+                    break;
+            }
+            build.ChosenWeapon = actual;
+            RollingBudget += type;
+        }
+        #endregion
+        
+        #endregion
+
+        #region UI Controls
+        /// <summary>
+        /// Toggle the troop buttons interactable quality.
+        /// </summary>
+        /// <param name="state">Desired state for button interactibility.</param>
+        public void ToggleClassButtons(bool state)
+        {
+            peasantTroopButton.interactable = state;
+            warriorTroopButton.interactable = state;
+            magicUserTroopButton.interactable = state;
+        }
+
         // Disables all of the active subpanels.
         // This is used when the Cancel button is pressed.
         private void DeactivateAllSubPanels()
@@ -244,30 +300,52 @@ namespace Scripts.ArmyBuilder
                     subMenus.transform.GetChild(i).gameObject.SetActive(false);
             }
         }
+        #endregion
+
+        #region Purchasing and Returns
+        /// <summary>
+        /// Helper function used with the escape button to back out of a purchase.
+        /// </summary>
+        public void CancelPurchase()
+        {
+            RollingBudget = 0;
+
+            troopInfoPanel.SetActive(false);
+            if (LastClicked != null)
+                Destroy(LastClicked);
+            nocash.text = "";
+            DeactivateAllSubPanels();
+            ToggleClassButtons(true);
+        }
 
         /// <summary>
         /// Helper function called after a click.
         /// </summary>
         public void ExecutePurchase()
         {
-            if (budget - rollingbudget < 0)
+            selection = null;
+            Debug.Log("Purchasing");
+
+            if (Budget - RollingBudget < 0)
             {
                 Debug.Log("No Money");
                 nocash.text = $"Not Enough Money";
+                CancelPurchase();
             }
             else
             {
-                lastclicked.name = $"troop{numTroops}";
-                lastclicked.GetComponent<FeaturesHolder>().cost = rollingbudget;
-                activetroops.Add(lastclicked);
-                numTroops++;
-                budget -= rollingbudget;
-                rollingbudget = 0;
-                ActivateButtons();
+                LastClicked.GetComponent<FeaturesHolder>().Cost = RollingBudget;
+                LastClicked.GetComponent<FeaturesHolder>().IsActive = false;
+                ActiveTroops.Add(LastClicked);
+                Budget -= RollingBudget;
+                RollingBudget = 0;
+                ToggleClassButtons(true);
                 DeactivateAllSubPanels();
-                troopinfo.SetActive(false);
+                troopInfoPanel.SetActive(false);
+                build = new Build();
             }
         }
+
         /// <summary>
         /// Remove an obect that has been already been placed called from the right click.
         /// </summary>
@@ -279,7 +357,13 @@ namespace Scripts.ArmyBuilder
             {
                 Debug.Log("Deleting placed");
                 Debug.Log(hit.transform.gameObject);
-                lastclicked = hit.transform.gameObject;
+                LastClicked = hit.transform.gameObject;
+                if (!LastClicked.GetComponent<FeaturesHolder>().IsActive)
+                {
+                    Budget += LastClicked.GetComponent<FeaturesHolder>().Cost;
+                    ActiveTroops.Remove(LastClicked);
+                }
+                Destroy(LastClicked);
                 CancelPurchase();
             }
         }
@@ -289,28 +373,33 @@ namespace Scripts.ArmyBuilder
         /// </summary>
         public void FinalizeArmy()
         {
-            foreach (GameObject troop in activetroops)
+            foreach (GameObject troop in ActiveTroops)
             {
                 Debug.Log(troop);
                 FeaturesHolder reference = troop.GetComponent<FeaturesHolder>();
                 Debug.Log(reference);
-                MonoClient.Instance.SendTroopRequest(reference.troop, reference.weapon, reference.armor, (int)troop.transform.position[0], (int)troop.transform.position[1]);
+                Networking.MonoClient.Instance.SendTroopRequest(
+                    reference.TroopInfo.ChosenTroop.ToString(), 
+                    reference.TroopInfo.ChosenWeapon.ToString(), 
+                    reference.TroopInfo.ChosenArmor.ToString(), 
+                    troop.transform.position[0], 
+                    troop.transform.position[1]);
 
             }
-            MonoClient.Instance.SendFinishBuild(explosions.Count);
-        }
-
-
-        public void TESTQUICKARMY()
-        {
-            MonoClient.Instance.SendTroopRequest("Peasant", "Ranged attack", "Light mundane armor", 0, 0);
-            MonoClient.Instance.SendTroopRequest("Trained Warrior", "One-handed weapon", "Heavy mundane armor", 1, 0);
-            MonoClient.Instance.SendTroopRequest("Magic User", "Unarmed", "Unarmored", 2, 0);
-            MonoClient.Instance.SendTroopRequest("Peasant", "Polearm", "Unarmored", 3, 0);
-            MonoClient.Instance.SendFinishBuild(3);
+            Networking.MonoClient.Instance.SendFinishBuild(Explosions.Count);
         }
         #endregion
 
+        #region Manual Test Functions
+        public void TESTQUICKARMY()
+        {
+            Networking.MonoClient.Instance.SendTroopRequest("Peasant", "RangedAttack", "LightMundaneArmor", 0, 0);
+            Networking.MonoClient.Instance.SendTroopRequest("TrainedWarrior", "OneHandedWeapon", "HeavyMundaneArmor", 1, 0);
+            Networking.MonoClient.Instance.SendTroopRequest("MagicUser", "Unarmed", "Unarmored", 2, 0);
+            Networking.MonoClient.Instance.SendTroopRequest("Peasant", "Polearm", "Unarmored", 3, 0);
+            Networking.MonoClient.Instance.SendFinishBuild(3);
+        }
+        #endregion
 
         #region Lower Panel
         /// <summary>
@@ -319,8 +408,8 @@ namespace Scripts.ArmyBuilder
         public void AddExplosion() 
         {
             GameObject newExplosion = (GameObject)Instantiate(Resources.Load("UI/ArmyBuild/ExplosionImage"), explosionScrollView.transform);
-            explosions.Push(newExplosion);
-            budget -= 10;
+            Explosions.Push(newExplosion);
+            Budget -= 10;
         }
 
         /// <summary>
@@ -328,11 +417,11 @@ namespace Scripts.ArmyBuilder
         /// </summary>
         public void RemoveExplosion() 
         {
-            if (explosions.Count != 0)
+            if (Explosions.Count != 0)
             {
-                GameObject oldExplosion = explosions.Pop();
+                GameObject oldExplosion = Explosions.Pop();
                 Destroy(oldExplosion);
-                budget += 10;
+                Budget += 10;
             }
 
         }

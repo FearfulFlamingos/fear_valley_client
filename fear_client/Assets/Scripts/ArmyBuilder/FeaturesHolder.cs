@@ -8,23 +8,8 @@ namespace Scripts.ArmyBuilder
     public class FeaturesHolder : MonoBehaviour
     {
         // Start is called before the first frame update
-        public string fname, troop, weapon, armor;
-        public bool isactive;
-        public GameObject uicontrol, gamepiece;
-        public int cost;
-
-        void Start()
-        {
-            //isactive = false;
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            if (isactive == true)
-            {
-               uicontrol.GetComponent<PopulateGrid>().ChangeChar(gamepiece);
-            }
-        }
+        public PopulateGrid.Build TroopInfo { set; get; }
+        public int Cost { set; get; }
+        public bool IsActive { set; get; }
     }
 }

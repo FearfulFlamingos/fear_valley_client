@@ -134,7 +134,7 @@ namespace Scripts.Controller
         // Enables the appropriate action panel based on the character class.
         public void ToggleActionPanel(bool state, string charClass = "")
         {
-            if (charClass == "Magic User")
+            if (charClass == "MagicUser")
             {
                 magicActionPanel.SetActive(state);
             }
@@ -210,7 +210,7 @@ namespace Scripts.Controller
         {
             ToggleMagicInstructions(true);
             ToggleInfoPanel(false);
-            ToggleActionPanel(false, "Magic User");
+            ToggleActionPanel(false, "MagicUser");
             GameLoop.Instance.CastSpell();
         }
 
@@ -262,7 +262,7 @@ namespace Scripts.Controller
         {
             ToggleMagicInstructions(false);
             ToggleInfoPanel(true);
-            ToggleActionPanel(true, "Magic User");
+            ToggleActionPanel(true, "MagicUser");
         }
 
         #endregion

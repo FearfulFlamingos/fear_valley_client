@@ -9,34 +9,34 @@ using UnityEngine.TestTools;
 using NSubstitute;
 using Scripts.Actions;
 
-namespace Tests
+namespace PlayTests
 {
     public class TestGameLoop
     {
-		[OneTimeSetUp]
-		public void OneTimeSetup()
-		{
-			Time.timeScale = 20f;
-			GameObject serverPref = new GameObject();
-			serverPref.gameObject.name = "ServerJoinPrefs";
-			serverPref.AddComponent<ServerPreferences>();
-			serverPref.GetComponent<ServerPreferences>().SetValues("127.0.0.1", 50000);
+        [OneTimeSetUp]
+        public void OneTimeSetup()
+        {
+            Time.timeScale = 20f;
+            GameObject serverPref = new GameObject();
+            serverPref.gameObject.name = "ServerJoinPrefs";
+            serverPref.AddComponent<ServerPreferences>();
+            serverPref.GetComponent<ServerPreferences>().SetValues("127.0.0.1", 50000);
 
-			GameObject client = new GameObject();
-			client.AddComponent<MonoClient>();
-			MonoClient.Instance = Substitute.For<IClient>();
-			MonoClient.Instance.HasControl().Returns(true);
-			SceneManager.LoadScene("Battlefield");
-			Time.timeScale = 20f;
-		}
+            GameObject client = new GameObject();
+            client.AddComponent<MonoClient>();
+            MonoClient.Instance = Substitute.For<IClient>();
+            MonoClient.Instance.HasControl().Returns(true);
+            SceneManager.LoadScene("Battlefield");
+            Time.timeScale = 20f;
+        }
 
 
-		[UnityTest]
+        [UnityTest]
         public IEnumerator TestMove()
         {
-			// Use the Assert class to test conditions.
-			// Use yield to skip a frame.
-			GameObject character = GameObject.Find("SceneController").GetComponent<PopulateCharacter>().DuplicateObjects(new CharacterFeatures() { Charclass = "Peasant" }, 1, 1);
+            // Use the Assert class to test conditions.
+            // Use yield to skip a frame.
+            GameObject character = GameObject.Find("SceneController").GetComponent<PopulateCharacter>().DuplicateObjects(new CharacterFeatures() { Charclass = "Peasant" }, 1, 1);
             GameLoop.SelectedCharacter = character;
             GameLoop.Instance.Move();
 
@@ -94,12 +94,12 @@ namespace Tests
         {
             // Use the Assert class to test conditions.
             // Use yield to skip a frame.
-            GameObject character = GameObject.Find("SceneController").GetComponent<PopulateCharacter>().DuplicateObjects(new CharacterFeatures() { Charclass = "Magic User" }, 1, 1);
+            GameObject character = GameObject.Find("SceneController").GetComponent<PopulateCharacter>().DuplicateObjects(new CharacterFeatures() { Charclass = "MagicUser" }, 1, 1);
             GameLoop.SelectedCharacter = character;
             GameLoop.MagicPoints = 1;
             GameLoop.Instance.CastSpell();
 
-            
+
             Assert.True(character.GetComponent<Character>().CurrentState == Character.State.CastingSpell);
 
             //GameLoop.Instance.ConfirmAttack();
@@ -116,7 +116,7 @@ namespace Tests
         {
             // Use the Assert class to test conditions.
             // Use yield to skip a frame.
-            GameObject character = GameObject.Find("SceneController").GetComponent<PopulateCharacter>().DuplicateObjects(new CharacterFeatures() { Charclass = "Magic User" }, 1, 1);
+            GameObject character = GameObject.Find("SceneController").GetComponent<PopulateCharacter>().DuplicateObjects(new CharacterFeatures() { Charclass = "MagicUser" }, 1, 1);
             GameLoop.SelectedCharacter = character;
             GameLoop.ActionPoints = 1;
             GameLoop.Instance.Leave();
@@ -133,7 +133,7 @@ namespace Tests
         {
             // Use the Assert class to test conditions.
             // Use yield to skip a frame.
-            GameObject enemy = GameObject.Find("SceneController").GetComponent<PopulateCharacter>().DuplicateObjects(new CharacterFeatures() { Charclass = "Magic User" }, 1, 1);
+            GameObject enemy = GameObject.Find("SceneController").GetComponent<PopulateCharacter>().DuplicateObjects(new CharacterFeatures() { Charclass = "MagicUser" }, 1, 1);
             GameObject character = GameLoop.Instance.gameObject.GetComponent<PopulateCharacter>()
                 .DuplicateObjects(new CharacterFeatures()
                 {
@@ -142,7 +142,7 @@ namespace Tests
                     AttackRange = 3
                 }, 1, 1);
             GameLoop.SelectedCharacter = character;
-            GameLoop.Instance.CharacterRemoval(character.GetComponent<Character>().Features.TroopId,2);
+            GameLoop.Instance.CharacterRemoval(character.GetComponent<Character>().Features.TroopId, 2);
 
             Assert.False(GameLoop.Instance.p2CharsDict.ContainsKey(character.GetComponent<Character>().Features.TroopId));
 
@@ -167,17 +167,17 @@ namespace Tests
             //GameLoop gameLoop = GameObject.Find("SceneController").GetComponent<GameLoop>();
             foreach (var friendly in GameLoop.Instance.p1CharsDict)
             {
-                GameObject.Destroy(friendly.Value);
+                Object.Destroy(friendly.Value);
             }
             GameLoop.Instance.p1CharsDict.Clear();
 
             foreach (var enemy in GameLoop.Instance.p2CharsDict)
             {
-                GameObject.Destroy(enemy.Value);
+                Object.Destroy(enemy.Value);
             }
             GameLoop.Instance.p2CharsDict.Clear();
             GameLoop.ActionPoints = 3;
-            GameLoop.MagicPoints = 0; 
+            GameLoop.MagicPoints = 0;
         }
     }
 }

@@ -143,7 +143,7 @@ namespace PlayTests
             friendlyCharacter.GetAttackRoll().Returns(20);
             friendlyCharacter.GetDamageRoll().Returns(1);
             friendlyCharacter.Team.Returns(1);
-            friendlyCharacter.Charclass.Returns("Magic User");
+            friendlyCharacter.Charclass.Returns("MagicUser");
 
             GameObject character = GameObject.Find("SceneController")
                 .GetComponent<PopulateCharacter>()
@@ -154,7 +154,7 @@ namespace PlayTests
             enemyCharacter.ArmorBonus.Returns(1);
             enemyCharacter.Team.Returns(2);
             enemyCharacter.TroopId.Returns(1);
-            enemyCharacter.Charclass.Returns("Magic User");
+            enemyCharacter.Charclass.Returns("MagicUser");
 
             GameObject enemy = GameObject.Find("SceneController")
                 .GetComponent<PopulateCharacter>()
@@ -185,7 +185,7 @@ namespace PlayTests
             friendlyCharacter.GetAttackRoll().Returns(1);
             friendlyCharacter.GetDamageRoll().Returns(1);
             friendlyCharacter.Team.Returns(1);
-            friendlyCharacter.Charclass.Returns("Magic User");
+            friendlyCharacter.Charclass.Returns("MagicUser");
 
             GameObject character = GameObject.Find("SceneController")
                 .GetComponent<PopulateCharacter>()
@@ -196,7 +196,7 @@ namespace PlayTests
             enemyCharacter.ArmorBonus.Returns(20);
             enemyCharacter.Team.Returns(2);
             enemyCharacter.TroopId.Returns(1);
-            enemyCharacter.Charclass.Returns("Magic User");
+            enemyCharacter.Charclass.Returns("MagicUser");
 
             GameObject enemy = GameObject.Find("SceneController")
                 .GetComponent<PopulateCharacter>()
@@ -229,7 +229,7 @@ namespace PlayTests
             friendlyCharacter.GetAttackRoll().Returns(20);
             friendlyCharacter.GetDamageRoll().Returns(3);
             friendlyCharacter.Team.Returns(1);
-            friendlyCharacter.Charclass.Returns("Magic User");
+            friendlyCharacter.Charclass.Returns("MagicUser");
 
             GameObject character = GameObject.Find("SceneController")
                 .GetComponent<PopulateCharacter>()
@@ -240,7 +240,7 @@ namespace PlayTests
             enemyCharacter.ArmorBonus.Returns(1);
             enemyCharacter.Team.Returns(2);
             enemyCharacter.TroopId.Returns(1);
-            enemyCharacter.Charclass.Returns("Magic User");
+            enemyCharacter.Charclass.Returns("MagicUser");
 
             GameObject enemy = GameObject.Find("SceneController")
                 .GetComponent<PopulateCharacter>()
@@ -325,7 +325,7 @@ namespace PlayTests
                     new CharacterFeatures()
                     {
                         Team = 1,
-                        Charclass = "Magic User"
+                        Charclass = "MagicUser"
                     },
                     1,
                     1);
