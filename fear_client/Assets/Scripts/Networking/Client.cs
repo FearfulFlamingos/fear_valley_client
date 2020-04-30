@@ -23,7 +23,7 @@ namespace Scripts.Networking
         //public static IClient Instance { set; get; }
         // These can all be private, but for testing I set them public.
         public int MAX_USER { set; get; }
-        private const int PORT = 50000;
+        public int PORT { set; get; }
         public string SERVER_IP { set; get; }
         public const int BYTE_SIZE = 1024; // standard packet
         public byte ReliableChannel { set; get; }
@@ -41,6 +41,7 @@ namespace Scripts.Networking
         {
             MAX_USER = 2;
             SERVER_IP = GameObject.Find("/ServerJoinPrefs").GetComponent<ServerPreferences>().GetIP();
+            PORT = GameObject.Find("/ServerJoinPrefs").GetComponent<ServerPreferences>().GetPort();
 
 #pragma warning disable CS0618 // Type or member is obsolete
             NetworkTransport.Init();
@@ -181,24 +182,14 @@ namespace Scripts.Networking
                     Net_Attack(connId, channelId, recHostId, (Net_ATTACK)msg);
                     break;
                 case (byte)NetOP.Operation.RETREAT:
-                    Debug.Log("NETOP: Retreat");
+                    Debug.Log("NETOP: Attack Player");
                     Net_Retreat(connId, channelId, recHostId, (Net_RETREAT)msg);
                     break;
                 case (byte)NetOP.Operation.ToggleControls:
                     Debug.Log("NETOP: Toggle controls");
                     Net_ToggleControls(connId, channelId, recHostId, (Net_ToggleControls)msg);
                     break;
-                case (byte)NetOP.Operation.UpdateEnemyName:
-                    Debug.Log("NETOP: Update Enemy Name");
-                    Net_UpdateEnemyName(connId, channelId, recHostId, (Net_UpdateEnemyName)msg);
-                    break;
             }
-        }
-
-        // Updates the enemy's name in the battlefield scene.
-        private void Net_UpdateEnemyName(int connId, int channelId, int recHostId, Net_UpdateEnemyName msg)
-        {
-            BattleUIControl.Instance.UpdateEnemyName(msg.Name);
         }
 
         // Sets the number of spells that the player purchased.
@@ -335,7 +326,6 @@ namespace Scripts.Networking
         /// <summary>
         /// Tell the server that the player is finished building an army.
         /// <para>Updates the number of spells the player bought in the database.</para>
-        /// <para>Pulls the player name set in Options, if it is set.</para>
         /// </summary>
         /// <param name="magicAmount">Number of spells the player bought.</param>
         public void SendFinishBuild(int magicAmount)
@@ -344,7 +334,6 @@ namespace Scripts.Networking
             {
                 MagicBought = magicAmount
             };
-            SendUpdatedName();
             SendToServer(fb);
         }
 
@@ -406,19 +395,6 @@ namespace Scripts.Networking
             //Client.Instance.hasControl = false;
             Net_EndTurn et = new Net_EndTurn();
             SendToServer(et);
-        }
-
-        /// <summary>
-        /// Pulls the stored name from PlayerPrefs and updates the server.
-        /// </summary>
-        public void SendUpdatedName()
-        {
-            Net_UpdateEnemyName uen = new Net_UpdateEnemyName()
-            {
-                Name = PlayerPrefs.HasKey("PlayerName") ? PlayerPrefs.GetString("PlayerName") : "Anonymous"
-            };
-
-            SendToServer(uen);
         }
 
         #endregion
