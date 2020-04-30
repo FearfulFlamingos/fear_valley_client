@@ -7,15 +7,15 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/Menus/MainMenu.unity
-    guid: bdc72cd0391e410418bb03ffaaf6a7d2
+    guid: 4575c7cc1dbaac3418fdf2750833df82
   - enabled: 1
-    path: Assets/Scenes/ServerConnect.unity
+    path: Assets/Scenes/Menus/ServerConnect.unity
     guid: e44c2995c04d30e429464493d985c67b
   - enabled: 1
     path: Assets/Scenes/Menus/ArmyBuild-Visual.unity
     guid: 7b799f3f1a566e549b0db6f537ab6b72
   - enabled: 1
-    path: Assets/Scenes/TempLoadingScene.unity
+    path: Assets/Scenes/Menus/TempLoadingScene.unity
     guid: 1438ce6e71ff3b74dafbc4f06a9480be
   - enabled: 1
     path: Assets/Scenes/Battlefield.unity
