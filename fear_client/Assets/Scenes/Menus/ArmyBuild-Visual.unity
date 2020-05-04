@@ -4094,7 +4094,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 747691666}
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 4, y: 13.4, z: -5.3}
+  m_LocalPosition: {x: 4, y: 26.4, z: -18.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -10490,8 +10490,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 927050670}
   m_HandleRect: {fileID: 927050669}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -13071,7 +13071,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 747691668}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 5
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -14171,6 +14171,75 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1001 &4595754515769513347
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2271086272277236631, guid: 27f3bdc5a8118b5418ba20ef9bbd7d37,
+        type: 3}
+      propertyPath: m_Name
+      value: IcelandMountains
+      objectReference: {fileID: 0}
+    - target: {fileID: 2823629736019809044, guid: 27f3bdc5a8118b5418ba20ef9bbd7d37,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2823629736019809044, guid: 27f3bdc5a8118b5418ba20ef9bbd7d37,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2823629736019809044, guid: 27f3bdc5a8118b5418ba20ef9bbd7d37,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2823629736019809044, guid: 27f3bdc5a8118b5418ba20ef9bbd7d37,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2823629736019809044, guid: 27f3bdc5a8118b5418ba20ef9bbd7d37,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2823629736019809044, guid: 27f3bdc5a8118b5418ba20ef9bbd7d37,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2823629736019809044, guid: 27f3bdc5a8118b5418ba20ef9bbd7d37,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2823629736019809044, guid: 27f3bdc5a8118b5418ba20ef9bbd7d37,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2823629736019809044, guid: 27f3bdc5a8118b5418ba20ef9bbd7d37,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2823629736019809044, guid: 27f3bdc5a8118b5418ba20ef9bbd7d37,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2823629736019809044, guid: 27f3bdc5a8118b5418ba20ef9bbd7d37,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 27f3bdc5a8118b5418ba20ef9bbd7d37, type: 3}
 --- !u!33 &4716432990789701898
 MeshFilter:
   m_ObjectHideFlags: 0
