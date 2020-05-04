@@ -9,8 +9,7 @@ namespace Scripts.Networking
 {
     public class ServerPreferences : MonoBehaviour
     {
-        [SerializeField]
-        public TMP_InputField portNum;
+
         [SerializeField]
         public TMP_InputField serverNum;
 
@@ -48,7 +47,7 @@ namespace Scripts.Networking
         public void SetValues()
         {
             IP_ADDR = serverNum.text;
-            PORT_NUM = System.Int32.Parse(portNum.text);
+            PORT_NUM = 50000;
             Debug.Log($"Read {IP_ADDR}:{PORT_NUM}");
             SceneManager.LoadScene(2);
         }
