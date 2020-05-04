@@ -46,12 +46,6 @@ namespace Scripts.Menus
             storedName.SetText("Name: " + PlayerPrefs.GetString("PlayerName"));
             gamesPlayed.SetText($"Games Played: {gamesPlayedVal}");
             gamesWon.SetText($"Games Won: {gamesWonVal}");
-
-            int gamesPlayedVal = PlayerPrefs.HasKey("GamesPlayed") ? PlayerPrefs.GetInt("GamesPlayed") : 0;
-            int gamesWonVal = PlayerPrefs.HasKey("GamesWon") ? PlayerPrefs.GetInt("GamesWon") : 0;
-            storedName.SetText("Name: " + PlayerPrefs.GetString("PlayerName"));
-            gamesPlayed.SetText($"Games Played: {gamesPlayedVal}");
-            gamesWon.SetText($"Games Won: {gamesWonVal}");
         }
 
         public void SwitchCanvas(Canvas from, Canvas to)

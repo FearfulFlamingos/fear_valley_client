@@ -20,11 +20,11 @@ namespace PlayTests
         public IEnumerator TestWhetherButtonsAreActive()
         {
             // Arrange
-            GameObject playButton = GameObject.Find("/Main/PrimaryButtons/PlayButton");
-            GameObject tutorialButton = GameObject.Find("/Main/PrimaryButtons/TutorialButton");
-            GameObject quitButton = GameObject.Find("/Main/LowerButtons/QuitButton");
-            GameObject creditsButton = GameObject.Find("/Main/LowerButtons/CreditsButton");
-            GameObject optionsButton = GameObject.Find("/Main/LowerButtons/OptionsButton");
+            GameObject playButton = GameObject.Find("/MAINMENU MASTER/Main/PrimaryButtons/PlayButton");
+            GameObject tutorialButton = GameObject.Find("/MAINMENU MASTER/Main/PrimaryButtons/TutorialButton");
+            GameObject quitButton = GameObject.Find("/MAINMENU MASTER/Main/LowerButtons/QuitButton");
+            GameObject creditsButton = GameObject.Find("/MAINMENU MASTER/Main/LowerButtons/CreditsButton");
+            GameObject optionsButton = GameObject.Find("/MAINMENU MASTER/Main/LowerButtons/OptionsButton");
            
             yield return new WaitForSeconds(1);
             // Assert

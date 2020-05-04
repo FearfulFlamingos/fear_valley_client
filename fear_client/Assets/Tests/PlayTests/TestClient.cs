@@ -191,7 +191,7 @@ namespace PlayTests
         [UnityTest]
         public IEnumerator TestNet_ChangeScene()
         {
-            Net_ChangeScene message = new Net_ChangeScene() { SceneName = "Scenes/ServerConnect" };
+            Net_ChangeScene message = new Net_ChangeScene() { SceneName = "Scenes/Menus/ServerConnect" };
             byte[] buffer = new byte[1024];
             BinaryFormatter formatter = new BinaryFormatter();
             MemoryStream ms = new MemoryStream(buffer);
