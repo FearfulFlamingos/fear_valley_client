@@ -54,7 +54,6 @@ namespace EditorTests
 
             // Assert
             Assert.AreEqual(2,MonoClient.Instance.MAX_USER);
-            Assert.AreEqual(50000,MonoClient.Instance.PORT);
             Assert.AreEqual("127.0.0.1",MonoClient.Instance.SERVER_IP);
             Assert.IsTrue(MonoClient.Instance.IsStarted);
         }
@@ -73,7 +72,6 @@ namespace EditorTests
 
             // Assert
             Assert.AreEqual(2, MonoClient.Instance.MAX_USER);
-            Assert.AreEqual(50000, MonoClient.Instance.PORT);
             Assert.AreEqual("10.28.149.175", MonoClient.Instance.SERVER_IP);
             Assert.IsTrue(MonoClient.Instance.IsStarted);
         }
@@ -318,6 +316,38 @@ namespace EditorTests
 
             // Assert
             Assert.IsTrue(MonoClient.Instance.HasControl());
+        }
+
+        [Test]
+        public void TestSendANewEmptyName()
+        {
+            // Arrange
+            PlayerPrefs.DeleteKey("PlayerName");
+            Net_UpdateEnemyName expected = new Net_UpdateEnemyName();
+
+            // Act
+            MonoClient.Instance.SendUpdatedName();
+            Net_UpdateEnemyName actual = (Net_UpdateEnemyName)MonoClient.Instance.LastSent;
+
+            // Assert
+            Assert.AreEqual(expected.OperationCode, actual.OperationCode);
+            Assert.AreEqual("Anonymous", actual.Name);
+        }
+
+        [Test]
+        public void TestSendName()
+        {
+            // Arrange
+            PlayerPrefs.SetString("PlayerName", "Test Name");
+            Net_UpdateEnemyName expected = new Net_UpdateEnemyName();
+
+            // Act
+            MonoClient.Instance.SendUpdatedName();
+            Net_UpdateEnemyName actual = (Net_UpdateEnemyName)MonoClient.Instance.LastSent;
+
+            // Assert
+            Assert.AreEqual(expected.OperationCode, actual.OperationCode);
+            Assert.AreEqual("Test Name", actual.Name);
         }
 
         // tests

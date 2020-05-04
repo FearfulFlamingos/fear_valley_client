@@ -16,7 +16,6 @@ namespace Scripts.Menus
         public TMP_Text storedName, gamesPlayed, gamesWon;
         public GameObject nameSetAlert;
         public Button setDisplayName;
-
         public static Canvas MainCanvas { set; get; }
         public static Canvas OptionsCanvas { set; get; }
 
@@ -28,7 +27,7 @@ namespace Scripts.Menus
             optionsButton.onClick.AddListener(() => SwitchCanvas(mainCanvas, optionsCanvas));
             optionsReturn.onClick.AddListener(() => SwitchCanvas(optionsCanvas, mainCanvas));
             creditsReturn.onClick.AddListener(() => SwitchCanvas(creditsCanvas, mainCanvas));
-            setDisplayName.onClick.AddListener(() => 
+            setDisplayName.onClick.AddListener(() =>
             {
                 if (displayName.text != "")
                 {
@@ -48,6 +47,11 @@ namespace Scripts.Menus
             gamesPlayed.SetText($"Games Played: {gamesPlayedVal}");
             gamesWon.SetText($"Games Won: {gamesWonVal}");
 
+            int gamesPlayedVal = PlayerPrefs.HasKey("GamesPlayed") ? PlayerPrefs.GetInt("GamesPlayed") : 0;
+            int gamesWonVal = PlayerPrefs.HasKey("GamesWon") ? PlayerPrefs.GetInt("GamesWon") : 0;
+            storedName.SetText("Name: " + PlayerPrefs.GetString("PlayerName"));
+            gamesPlayed.SetText($"Games Played: {gamesPlayedVal}");
+            gamesWon.SetText($"Games Won: {gamesWonVal}");
         }
 
         public void SwitchCanvas(Canvas from, Canvas to)
