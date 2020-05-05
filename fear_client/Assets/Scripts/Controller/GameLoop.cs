@@ -192,45 +192,15 @@ namespace Scripts.Controller
         }
         #endregion
 
-        #region Enemy Actions
         /// <summary>
-        /// This is a networking function used when other players call a retreat in the game.
+        /// This function is checked each time a character dies or retreats. It removes them from the internal team dictionaries, 
+        /// then checks if the endgame has been triggered.
         /// </summary>
-        /// <param name="troopId">Troop retreating</param>
-        /// <param name="TeamNum">The team that is leaving</param>
-        /// See <see cref="Leave"/>
-        //public void OtherLeaves(int troopId, int TeamNum)
-        //{
-        //    Debug.Log($"Retreat message received with {TeamNum} and {troopId}");
-        //    if (TeamNum == 1)
-        //    {
-        //        GameObject destroy = p1CharsDict[troopId];
-        //        PlayerRemoval(troopId, TeamNum);
-        //        Destroy(destroy);
-        //    }
-
-        //    else
-        //    {
-        //        GameObject destroy = p2CharsDict[troopId];
-        //        PlayerRemoval(troopId, TeamNum);
-        //        Destroy(destroy);
-        //    }
-        //}
-
-
-        #endregion
-
-        /// <summary>
-        /// This function is checked each time a character dies. It removes them from the internal team dictionaries, then checks if the endgame has been triggered.
-        /// </summary>
-        /// <remarks>
-        /// This used to have a separate set of checks for if the enemy/player retreated thier last troop,
-        /// but I think it's unnecessary. 
-        /// </remarks>
         /// <param name="troopId">ID of the troop.</param>
         /// <param name="team">Team that the character was removed from.</param>
         public void CharacterRemoval(int troopId, int team)
         {
+            Debug.Log("Called CharacterRemoval()");
             switch (team)
             {
                 case 1:
@@ -239,42 +209,37 @@ namespace Scripts.Controller
 
                     break;
                 case 2:
+                    Debug.Log($"Deleting Enemy Character {troopId}");
                     Destroy(p2CharsDict[troopId]);
                     p2CharsDict.Remove(troopId);
                     break;
             }
-            CheckVictoryState(team);
+            CheckVictoryState();
         }
 
         /// <summary>
         /// Check if either team is empty. 
         /// </summary>
-        /// <param name="team"></param>
-        private void CheckVictoryState(int team)
+        private void CheckVictoryState()
         {
-            // Since we know the team that the person died on, we only need to check if that dictionary is empty.
-            switch (team)
+            Debug.Log($"Called CheckVictoryState() {p1CharsDict.Count} friendlies remaining, {p2CharsDict.Count} enemies remaining");
+            // You have lost
+            if (p1CharsDict.Count == 0)
             {
-                case 1:
-                    // You have lost
-                    if (p1CharsDict.Count == 0) 
-                    {
-                        BattleUIControl.Instance.ToggleVictoryPanel(true);
-                        BattleUIControl.Instance.ToggleInfoPanel(false);
-                        string text = $"Victory has been acheived for \nplayer 2 after defeating player 1 ";
-                        BattleUIControl.Instance.SetVictoryPanelText(text);
-                    }
-                    break;
-                case 2:
-                    // You have won!
-                    if (p2CharsDict.Count == 0)
-                    {
-                        BattleUIControl.Instance.ToggleVictoryPanel(true);
-                        BattleUIControl.Instance.ToggleInfoPanel(false);
-                        string text = $"Victory has been acheived for \nplayer 1 after defeating player 2 ";
-                        BattleUIControl.Instance.SetVictoryPanelText(text);
-                    }
-                    break;
+                BattleUIControl.Instance.ToggleVictoryPanel(true);
+                BattleUIControl.Instance.ToggleInfoPanel(false);
+                string text = $"You have suffered a terrible defeat!";
+                BattleUIControl.Instance.SetVictoryPanelText(text);
+            }
+
+            // You have won!
+            else if (p2CharsDict.Count == 0)
+            {
+                Debug.Log("Victory was acheived");
+                BattleUIControl.Instance.ToggleVictoryPanel(true);
+                BattleUIControl.Instance.ToggleInfoPanel(false);
+                string text = $"Victory has been acheived for \n{NameSetter.SelectedName}";
+                BattleUIControl.Instance.SetVictoryPanelText(text);
             }
         }
 

@@ -124,28 +124,33 @@ namespace PlayTests
             GameLoop.Instance.Leave();
 
             Assert.False(GameLoop.Instance.p1CharsDict.ContainsKey(character.GetComponent<Character>().Features.TroopId));
-
             yield return null;
         }
 
         [UnityTest]
         public IEnumerator TestOthersLeave()
         {
-            // Use the Assert class to test conditions.
-            // Use yield to skip a frame.
-            GameObject enemy = GameObject.Find("SceneController").GetComponent<PopulateCharacter>().DuplicateObjects(new CharacterFeatures() { Charclass = "MagicUser" }, 1, 1);
+            GameObject enemy = GameLoop.Instance.GetComponent<PopulateCharacter>().DuplicateObjects(
+                new CharacterFeatures()
+                {
+                    Charclass = "MagicUser",
+                    TroopId = 1,
+                    Team = 2
+                }
+                , 1, 1);
+
+            // Character exists so that victory is acheived
             GameObject character = GameLoop.Instance.gameObject.GetComponent<PopulateCharacter>()
                 .DuplicateObjects(new CharacterFeatures()
                 {
-                    Team = 2,
+                    TroopId = 4,
+                    Team = 1,
                     Charclass = "Peasant",
                     AttackRange = 3
                 }, 1, 1);
-            GameLoop.SelectedCharacter = character;
-            GameLoop.Instance.CharacterRemoval(character.GetComponent<Character>().Features.TroopId, 2);
+            GameLoop.Instance.CharacterRemoval(enemy.GetComponent<Character>().Features.TroopId, 2);
 
-            Assert.False(GameLoop.Instance.p2CharsDict.ContainsKey(character.GetComponent<Character>().Features.TroopId));
-
+            Assert.AreEqual(0, GameLoop.Instance.p2CharsDict.Count);
             yield return null;
         }
 
@@ -159,6 +164,46 @@ namespace PlayTests
 
             SceneManager.LoadScene("Battlefield");
             yield return new WaitForSeconds(1);
+        }
+
+        // This is a wierd one but bear with me
+        [UnityTest]
+        public IEnumerator TestEnemyIsKilledAndVictoryPanelActivates()
+        {
+            // Arrange
+            GameObject character = GameLoop.Instance.GetComponent<PopulateCharacter>()
+                .DuplicateObjects(new CharacterFeatures()
+                {
+                    Team = 1,
+                    Charclass = "Peasant",
+                    AttackBonus = 400,
+                    DamageBonus = 100,
+                    TroopId = 1,
+                    Rng = new RandomNumberGenerator()
+                }, 4, 4);
+
+            GameObject enemy = GameLoop.Instance.GetComponent<PopulateCharacter>()
+                .DuplicateObjects(new CharacterFeatures()
+                {
+                    Team = 2,
+                    Charclass = "Peasant",
+                    Health = 1,
+                    ArmorBonus = 0,
+                    TroopId = 2
+                }, 4, 4);
+            character.GetComponent<PlayerAttack>().attackObject = enemy;
+            character.GetComponent<PlayerAttack>().CanAttack = true;
+            GameLoop.SelectedCharacter = character;
+
+            // Act
+            character.GetComponent<PlayerAttack>().Attack();
+            yield return new WaitForSeconds(2);
+            // Assert
+            bool actual = BattleUIControl.Instance.TESTGETVICTORYPANELSTATUS();
+
+            Assert.IsTrue(actual);
+
+            yield return null;
         }
 
         [TearDown]

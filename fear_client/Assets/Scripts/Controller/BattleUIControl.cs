@@ -6,6 +6,7 @@ using TMPro;
 using System;
 using Scripts.CharacterClass;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 namespace Scripts.Controller
 {
@@ -40,7 +41,7 @@ namespace Scripts.Controller
         private GameObject magicInstructionPanel;
 
         [SerializeField]
-        private Button exitButton;
+        private UnityEngine.UI.Button exitButton;
         //[SerializeField]
         //private GameObject inGameOptionsMenu;
 
@@ -176,7 +177,7 @@ namespace Scripts.Controller
         public void DeactivateAllPanels()
         {
             infoPanel.SetActive(false);
-            victoryPanel.SetActive(false);
+            //victoryPanel.SetActive(false);
             stdActionPanel.SetActive(false);
             magicActionPanel.SetActive(false);
             attackPanel.SetActive(false);
@@ -189,7 +190,9 @@ namespace Scripts.Controller
         /// <param name="state">Desired state of the Victory panel.</param>
         public void ToggleVictoryPanel(bool state)
         {
+            Debug.Log($"Setting Victory Panel {state}");
             victoryPanel.SetActive(state);
+            Debug.Log(victoryPanel.activeSelf);
         }
 
         #endregion
@@ -328,7 +331,11 @@ namespace Scripts.Controller
         }
 
 
+        #endregion
+
+        #region Testing
         public string TESTGETATTACKPANELENEMYINFO() => attackPanelEnemyInfo.text;
+        public bool TESTGETVICTORYPANELSTATUS() => victoryPanel.activeSelf;
         #endregion
     }
 }
