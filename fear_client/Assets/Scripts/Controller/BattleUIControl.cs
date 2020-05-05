@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using Scripts.CharacterClass;
+using UnityEngine.SceneManagement;
 
 namespace Scripts.Controller
 {
@@ -37,6 +38,9 @@ namespace Scripts.Controller
         private GameObject attackPanel;
         [SerializeField]
         private GameObject magicInstructionPanel;
+
+        [SerializeField]
+        private Button exitButton;
         //[SerializeField]
         //private GameObject inGameOptionsMenu;
 
@@ -53,6 +57,8 @@ namespace Scripts.Controller
                 InputManager = gameObject.GetComponent<InputManager>();
             if (Instance == null)
                 Instance = this;
+            exitButton.onClick.AddListener(() => SceneManager.LoadScene(0));
+
         }
         private void Update()
         {

@@ -198,6 +198,7 @@ namespace Scripts.Networking
         // Updates the enemy's name in the battlefield scene.
         private void Net_UpdateEnemyName(int connId, int channelId, int recHostId, Net_UpdateEnemyName msg)
         {
+            Debug.Log(msg.Name);
             BattleUIControl.Instance.UpdateEnemyName(msg.Name);
         }
 
@@ -280,6 +281,7 @@ namespace Scripts.Networking
         private void Net_ChangeScene(int connId, int channelId, int recHostId, Net_ChangeScene msg)
         {
             SceneManager.LoadScene(msg.SceneName);
+            SendUpdatedName();
         }
 
         #endregion
@@ -415,7 +417,7 @@ namespace Scripts.Networking
         {
             Net_UpdateEnemyName uen = new Net_UpdateEnemyName()
             {
-                Name = PlayerPrefs.HasKey("PlayerName") ? PlayerPrefs.GetString("PlayerName") : "Anonymous"
+                Name = NameSetter.SelectedName
             };
 
             SendToServer(uen);

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using Scripts.Controller;
 
 namespace Scripts.Menus
 {
@@ -31,7 +32,7 @@ namespace Scripts.Menus
             {
                 if (displayName.text != "")
                 {
-                    PlayerPrefs.SetString("PlayerName", displayName.text);
+                    NameSetter.SelectedName = displayName.text;
                     nameSetAlert.GetComponent<CanvasGroup>().alpha = 1;
                     StartCoroutine(FadeOut(nameSetAlert.GetComponent<CanvasGroup>()));
                     storedName.SetText($"Name: {displayName.text}");
@@ -43,7 +44,7 @@ namespace Scripts.Menus
             OptionsCanvas = optionsCanvas;
             int gamesPlayedVal = PlayerPrefs.HasKey("GamesPlayed") ? PlayerPrefs.GetInt("GamesPlayed") : 0;
             int gamesWonVal = PlayerPrefs.HasKey("GamesWon") ? PlayerPrefs.GetInt("GamesWon") : 0;
-            storedName.SetText("Name: " + PlayerPrefs.GetString("PlayerName"));
+            storedName.SetText("Name: " + NameSetter.SelectedName);
             gamesPlayed.SetText($"Games Played: {gamesPlayedVal}");
             gamesWon.SetText($"Games Won: {gamesWonVal}");
         }
