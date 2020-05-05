@@ -281,7 +281,8 @@ namespace Scripts.Networking
         private void Net_ChangeScene(int connId, int channelId, int recHostId, Net_ChangeScene msg)
         {
             SceneManager.LoadScene(msg.SceneName);
-            SendUpdatedName();
+            if (msg.SceneName.Contains("Battlefield"))
+                SendUpdatedName();
         }
 
         #endregion
@@ -346,7 +347,7 @@ namespace Scripts.Networking
             {
                 MagicBought = magicAmount
             };
-            SendUpdatedName();
+            //SendUpdatedName();
             SendToServer(fb);
         }
 
