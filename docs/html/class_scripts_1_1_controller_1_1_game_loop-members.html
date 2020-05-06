@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -20,11 +24,12 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Fear Valley Client
    &#160;<span id="projectnumber">0.9</span>
    </div>
-   <div id="projectbrief">The client side game.</div>
+   <div id="projectbrief">The client build.</div>
   </td>
  </tr>
  </tbody>
@@ -47,6 +52,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('class_scripts_1_1_controller_1_1_game_loop.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,11 +83,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespace_scripts.html">Scripts</a></li><li class="navelem"><a class="el" href="namespace_scripts_1_1_controller.html">Controller</a></li><li class="navelem"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">GameLoop</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Scripts.Controller.GameLoop Member List</div>  </div>
@@ -74,7 +91,7 @@ $(function() {
 
 <p>This is the complete list of members for <a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">Scripts.Controller.GameLoop</a>, including all inherited members.</p>
 <table class="directory">
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>ActionPoints</b> (defined in <a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">Scripts.Controller.GameLoop</a>)</td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">Scripts.Controller.GameLoop</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#a4070582046a96d1f105250f9611b2509">ActionPoints</a></td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">Scripts.Controller.GameLoop</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#aef1d13faad804f51449de38243a869e9">AddtoDict</a>(int team, int troopid, GameObject reference)</td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">Scripts.Controller.GameLoop</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#a0e80c0be287233e3e4a87414fa8acf48">Attack</a>()</td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">Scripts.Controller.GameLoop</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#abd6f5e285cf0d345d73d379bad10bf27">CancelAttack</a>()</td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">Scripts.Controller.GameLoop</a></td><td class="entry"></td></tr>
@@ -83,20 +100,23 @@ $(function() {
   <tr class="even"><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#ab78c3f8726e40faec0c26a0920424efe">ConfirmAttack</a>()</td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">Scripts.Controller.GameLoop</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#ab51bfbf9387950ea96c5e81978520f41">EndAttack</a>()</td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">Scripts.Controller.GameLoop</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#a6ffdf9c5438c831773a8110ef26c429b">EndGame</a>()</td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">Scripts.Controller.GameLoop</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>Instance</b> (defined in <a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">Scripts.Controller.GameLoop</a>)</td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">Scripts.Controller.GameLoop</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#ae4687629004c71881cd337ccc0d31a31">Instance</a></td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">Scripts.Controller.GameLoop</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#ae1fdaa32c54bad96226e516877cac9f6">IveBeenAttacked</a>(float troopid, int damage)</td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">Scripts.Controller.GameLoop</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#a15cddf72065d07fc2405962eaaa2986e">Leave</a>()</td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">Scripts.Controller.GameLoop</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>MagicPoints</b> (defined in <a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">Scripts.Controller.GameLoop</a>)</td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">Scripts.Controller.GameLoop</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#af6823ced79a5259c233732710687b3e0">MagicPoints</a></td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">Scripts.Controller.GameLoop</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#a9bea000b2b1f322ba66d2ab53897cc43">Move</a>()</td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">Scripts.Controller.GameLoop</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#a7a2acee44f4670bcc6324d7e21d9a101">MoveOther</a>(int troopid, float newX, float newZ)</td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">Scripts.Controller.GameLoop</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>p1CharsDict</b> (defined in <a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">Scripts.Controller.GameLoop</a>)</td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">Scripts.Controller.GameLoop</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>SelectedCharacter</b> (defined in <a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">Scripts.Controller.GameLoop</a>)</td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">Scripts.Controller.GameLoop</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#af4dac8ce33024167e170517ff53f4057">p1CharsDict</a></td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">Scripts.Controller.GameLoop</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#af141dc6d0286777fe35220998a03f93e">SelectedCharacter</a></td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">Scripts.Controller.GameLoop</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
 </table></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.17
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated on Tue May 5 2020 19:44:28 for Fear Valley Client by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
 </body>
 </html>

@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -20,11 +24,12 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Fear Valley Client
    &#160;<span id="projectnumber">0.9</span>
    </div>
-   <div id="projectbrief">The client side game.</div>
+   <div id="projectbrief">The client build.</div>
   </td>
  </tr>
  </tbody>
@@ -47,6 +52,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('class_scripts_1_1_controller_1_1_player_spotlight.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,11 +83,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespace_scripts.html">Scripts</a></li><li class="navelem"><a class="el" href="namespace_scripts_1_1_controller.html">Controller</a></li><li class="navelem"><a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html">PlayerSpotlight</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Scripts.Controller.PlayerSpotlight Member List</div>  </div>
@@ -74,21 +91,24 @@ $(function() {
 
 <p>This is the complete list of members for <a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html">Scripts.Controller.PlayerSpotlight</a>, including all inherited members.</p>
 <table class="directory">
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>battleUI</b> (defined in <a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html">Scripts.Controller.PlayerSpotlight</a>)</td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html">Scripts.Controller.PlayerSpotlight</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>board</b> (defined in <a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html">Scripts.Controller.PlayerSpotlight</a>)</td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html">Scripts.Controller.PlayerSpotlight</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>camera1</b> (defined in <a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html">Scripts.Controller.PlayerSpotlight</a>)</td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html">Scripts.Controller.PlayerSpotlight</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html#a98a9204ac7161bf17d56525dba2e04e8">battleUI</a></td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html">Scripts.Controller.PlayerSpotlight</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html#a207d27dec5d3d51470a3bc1c149581b9">board</a></td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html">Scripts.Controller.PlayerSpotlight</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html#aa6e5f0a7ea3e8e9afcfdcbeccd0a015b">camera1</a></td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html">Scripts.Controller.PlayerSpotlight</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html#ab3b50ab44c32e319bc43ef632870fc62">ChangeSelection</a>(GameObject selection)</td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html">Scripts.Controller.PlayerSpotlight</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html#ae39e0c79346c5c302f4417a1d7377e15">DeactivateCurrentFocus</a>()</td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html">Scripts.Controller.PlayerSpotlight</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html#a89344d7dadb21f0459af8904cd00123d">DisableCharacterSelect</a>()</td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html">Scripts.Controller.PlayerSpotlight</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>InputManager</b> (defined in <a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html">Scripts.Controller.PlayerSpotlight</a>)</td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html">Scripts.Controller.PlayerSpotlight</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>Instance</b> (defined in <a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html">Scripts.Controller.PlayerSpotlight</a>)</td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html">Scripts.Controller.PlayerSpotlight</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>testing</b> (defined in <a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html">Scripts.Controller.PlayerSpotlight</a>)</td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html">Scripts.Controller.PlayerSpotlight</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html#a20bdd7e32ef3ba49fbc2cce5ba711cdd">InputManager</a></td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html">Scripts.Controller.PlayerSpotlight</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html#a57877da66e53a97134c85fd0d6cf4724">Instance</a></td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html">Scripts.Controller.PlayerSpotlight</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html#a5bbdc267e9cbbefcabd98825a2ff5e76">testing</a></td><td class="entry"><a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html">Scripts.Controller.PlayerSpotlight</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.17
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated on Tue May 5 2020 19:44:32 for Fear Valley Client by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
 </body>
 </html>

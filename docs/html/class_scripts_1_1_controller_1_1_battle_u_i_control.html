@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -20,11 +24,12 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Fear Valley Client
    &#160;<span id="projectnumber">0.9</span>
    </div>
-   <div id="projectbrief">The client side game.</div>
+   <div id="projectbrief">The client build.</div>
   </td>
  </tr>
  </tbody>
@@ -47,6 +52,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('class_scripts_1_1_controller_1_1_battle_u_i_control.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,11 +83,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespace_scripts.html">Scripts</a></li><li class="navelem"><a class="el" href="namespace_scripts_1_1_controller.html">Controller</a></li><li class="navelem"><a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html">BattleUIControl</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -75,6 +92,9 @@ $(function() {
 <div class="title">Scripts.Controller.BattleUIControl Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Attaches to the SceneController object and controls all of the UI in the Battlefield scene.  
+ <a href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for Scripts.Controller.BattleUIControl:</div>
 <div class="dyncontent">
@@ -84,20 +104,22 @@ Inheritance diagram for Scripts.Controller.BattleUIControl:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a02242ac0764e8ad9f15f4a2667a7e11f"><td class="memItemLeft" align="right" valign="top"><a id="a02242ac0764e8ad9f15f4a2667a7e11f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>CheckForKeyboardInput</b> ()</td></tr>
+<tr class="memitem:a02242ac0764e8ad9f15f4a2667a7e11f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a02242ac0764e8ad9f15f4a2667a7e11f">CheckForKeyboardInput</a> ()</td></tr>
+<tr class="memdesc:a02242ac0764e8ad9f15f4a2667a7e11f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main loop of the BattleUIController script. Intercepts keyboard input.  <a href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a02242ac0764e8ad9f15f4a2667a7e11f">More...</a><br /></td></tr>
 <tr class="separator:a02242ac0764e8ad9f15f4a2667a7e11f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c115189d30ce84fa36d74a2516607b7"><td class="memItemLeft" align="right" valign="top"><a id="a3c115189d30ce84fa36d74a2516607b7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SwitchToAttackPanel</b> ()</td></tr>
+<tr class="memitem:a3c115189d30ce84fa36d74a2516607b7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a3c115189d30ce84fa36d74a2516607b7">SwitchToAttackPanel</a> ()</td></tr>
 <tr class="separator:a3c115189d30ce84fa36d74a2516607b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1418a2342e749867c7166c86b17b90d6"><td class="memItemLeft" align="right" valign="top"><a id="a1418a2342e749867c7166c86b17b90d6"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>CancelAttackPanel</b> ()</td></tr>
+<tr class="memitem:a1418a2342e749867c7166c86b17b90d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a1418a2342e749867c7166c86b17b90d6">CancelAttackPanel</a> ()</td></tr>
+<tr class="memdesc:a1418a2342e749867c7166c86b17b90d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables the Attack panel and enables the appropriate action panel.  <a href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a1418a2342e749867c7166c86b17b90d6">More...</a><br /></td></tr>
 <tr class="separator:a1418a2342e749867c7166c86b17b90d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60d9655bef208834d73ea6335b96d308"><td class="memItemLeft" align="right" valign="top"><a id="a60d9655bef208834d73ea6335b96d308"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>ToggleActionPanel</b> (bool state, string charClass=&quot;&quot;)</td></tr>
+<tr class="memitem:a60d9655bef208834d73ea6335b96d308"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a60d9655bef208834d73ea6335b96d308">ToggleActionPanel</a> (bool state, string charClass=&quot;&quot;)</td></tr>
+<tr class="memdesc:a60d9655bef208834d73ea6335b96d308"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the appropriate action panel based on the character class.  <a href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a60d9655bef208834d73ea6335b96d308">More...</a><br /></td></tr>
 <tr class="separator:a60d9655bef208834d73ea6335b96d308"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed83fc19ab87bf3c9d7c0420c77ea682"><td class="memItemLeft" align="right" valign="top"><a id="aed83fc19ab87bf3c9d7c0420c77ea682"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>ToggleMagicInstructions</b> (bool state)</td></tr>
+<tr class="memitem:abfa86539921a9f21befee85fe48a778d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#abfa86539921a9f21befee85fe48a778d">ToggleInfoPanel</a> (bool state)</td></tr>
+<tr class="memdesc:abfa86539921a9f21befee85fe48a778d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Turns the Information Panel on or off.  <a href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#abfa86539921a9f21befee85fe48a778d">More...</a><br /></td></tr>
+<tr class="separator:abfa86539921a9f21befee85fe48a778d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed83fc19ab87bf3c9d7c0420c77ea682"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#aed83fc19ab87bf3c9d7c0420c77ea682">ToggleMagicInstructions</a> (bool state)</td></tr>
+<tr class="memdesc:aed83fc19ab87bf3c9d7c0420c77ea682"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toggles all relevant panels based on whether the Magic Instructions should be visible.  <a href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#aed83fc19ab87bf3c9d7c0420c77ea682">More...</a><br /></td></tr>
 <tr class="separator:aed83fc19ab87bf3c9d7c0420c77ea682"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5e9df21522b424e0ae9c04448387efa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#ae5e9df21522b424e0ae9c04448387efa">DeactivateAllPanels</a> ()</td></tr>
 <tr class="memdesc:ae5e9df21522b424e0ae9c04448387efa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deactivates all panels.  <a href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#ae5e9df21522b424e0ae9c04448387efa">More...</a><br /></td></tr>
@@ -132,6 +154,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>ToggleMagicInstructio
 <tr class="memitem:a1aa54f2f7fa478fad877333fbd81a831"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a1aa54f2f7fa478fad877333fbd81a831">SetInfoPanelFriendlyText</a> (string left, string right)</td></tr>
 <tr class="memdesc:a1aa54f2f7fa478fad877333fbd81a831"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the character info text.  <a href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a1aa54f2f7fa478fad877333fbd81a831">More...</a><br /></td></tr>
 <tr class="separator:a1aa54f2f7fa478fad877333fbd81a831"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a616fc32594dd913526681e48ebd66123"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a616fc32594dd913526681e48ebd66123">UpdateEnemyName</a> (string name)</td></tr>
+<tr class="memdesc:a616fc32594dd913526681e48ebd66123"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the enemy name.  <a href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a616fc32594dd913526681e48ebd66123">More...</a><br /></td></tr>
+<tr class="separator:a616fc32594dd913526681e48ebd66123"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20c8a8d33d52fe633978304b0bfd1fd8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a20c8a8d33d52fe633978304b0bfd1fd8">SetAttackPanelAttackerInfo</a> (string text)</td></tr>
 <tr class="memdesc:a20c8a8d33d52fe633978304b0bfd1fd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the character stats in the info box.  <a href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a20c8a8d33d52fe633978304b0bfd1fd8">More...</a><br /></td></tr>
 <tr class="separator:a20c8a8d33d52fe633978304b0bfd1fd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -141,17 +166,24 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>ToggleMagicInstructio
 <tr class="memitem:a4c40010994edfdd15b4bb583fec6ae81"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a4c40010994edfdd15b4bb583fec6ae81">SetVictoryPanelText</a> (string text)</td></tr>
 <tr class="memdesc:a4c40010994edfdd15b4bb583fec6ae81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the victory panel text.  <a href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a4c40010994edfdd15b4bb583fec6ae81">More...</a><br /></td></tr>
 <tr class="separator:a4c40010994edfdd15b4bb583fec6ae81"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43d6ce372a96125e3a871645868ec78b"><td class="memItemLeft" align="right" valign="top"><a id="a43d6ce372a96125e3a871645868ec78b"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>TESTGETATTACKPANELENEMYINFO</b> ()</td></tr>
+<tr class="memitem:a43d6ce372a96125e3a871645868ec78b"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a43d6ce372a96125e3a871645868ec78b">TESTGETATTACKPANELENEMYINFO</a> ()</td></tr>
+<tr class="memdesc:a43d6ce372a96125e3a871645868ec78b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used for Unit Testing.  <a href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a43d6ce372a96125e3a871645868ec78b">More...</a><br /></td></tr>
 <tr class="separator:a43d6ce372a96125e3a871645868ec78b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b3687aa213756cc2fd2ad356be273ef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a2b3687aa213756cc2fd2ad356be273ef">TESTGETVICTORYPANELSTATUS</a> ()</td></tr>
+<tr class="memdesc:a2b3687aa213756cc2fd2ad356be273ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used for Unit Testing.  <a href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a2b3687aa213756cc2fd2ad356be273ef">More...</a><br /></td></tr>
+<tr class="separator:a2b3687aa213756cc2fd2ad356be273ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a2c10cdc07de5f1a15b5c361070b308e4"><td class="memItemLeft" align="right" valign="top"><a id="a2c10cdc07de5f1a15b5c361070b308e4"></a>
-static <a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html">BattleUIControl</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Instance</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a82e08e4d34315fdd8470dc14de15ff9c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_scripts_1_1_controller_1_1_i_input_manager.html">IInputManager</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a82e08e4d34315fdd8470dc14de15ff9c">InputManager</a><code> [get, set]</code></td></tr>
+<tr class="separator:a82e08e4d34315fdd8470dc14de15ff9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c10cdc07de5f1a15b5c361070b308e4"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html">BattleUIControl</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a2c10cdc07de5f1a15b5c361070b308e4">Instance</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a2c10cdc07de5f1a15b5c361070b308e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static class instance, as there is only ever one.  <a href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a2c10cdc07de5f1a15b5c361070b308e4">More...</a><br /></td></tr>
 <tr class="separator:a2c10cdc07de5f1a15b5c361070b308e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Attaches to the SceneController object and controls all of the UI in the Battlefield scene. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a09a0ecac47896bdd06dc52388b245e35"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a09a0ecac47896bdd06dc52388b245e35">&#9670;&nbsp;</a></span>Attack()</h2>
 
@@ -209,6 +241,25 @@ static <a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.h
 
 </div>
 </div>
+<a id="a1418a2342e749867c7166c86b17b90d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1418a2342e749867c7166c86b17b90d6">&#9670;&nbsp;</a></span>CancelAttackPanel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Scripts.Controller.BattleUIControl.CancelAttackPanel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Disables the Attack panel and enables the appropriate action panel. </p>
+
+</div>
+</div>
 <a id="abad424a51e2e971f0b4318562edd34b1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abad424a51e2e971f0b4318562edd34b1">&#9670;&nbsp;</a></span>CancelMagicExplosion()</h2>
 
@@ -225,6 +276,25 @@ static <a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.h
 </div><div class="memdoc">
 
 <p>Disables magical instructions and enables the action panels. </p>
+
+</div>
+</div>
+<a id="a02242ac0764e8ad9f15f4a2667a7e11f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02242ac0764e8ad9f15f4a2667a7e11f">&#9670;&nbsp;</a></span>CheckForKeyboardInput()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Scripts.Controller.BattleUIControl.CheckForKeyboardInput </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Main loop of the BattleUIController script. Intercepts keyboard input. </p>
 
 </div>
 </div>
@@ -438,6 +508,146 @@ static <a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.h
 
 </div>
 </div>
+<a id="a3c115189d30ce84fa36d74a2516607b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c115189d30ce84fa36d74a2516607b7">&#9670;&nbsp;</a></span>SwitchToAttackPanel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Scripts.Controller.BattleUIControl.SwitchToAttackPanel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a43d6ce372a96125e3a871645868ec78b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43d6ce372a96125e3a871645868ec78b">&#9670;&nbsp;</a></span>TESTGETATTACKPANELENEMYINFO()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Scripts.Controller.BattleUIControl.TESTGETATTACKPANELENEMYINFO </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Used for Unit Testing. </p>
+<dl class="section return"><dt>Returns</dt><dd>Current Attack Panel::Enemy Info text.</dd></dl>
+
+</div>
+</div>
+<a id="a2b3687aa213756cc2fd2ad356be273ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b3687aa213756cc2fd2ad356be273ef">&#9670;&nbsp;</a></span>TESTGETVICTORYPANELSTATUS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Scripts.Controller.BattleUIControl.TESTGETVICTORYPANELSTATUS </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Used for Unit Testing. </p>
+<dl class="section return"><dt>Returns</dt><dd>Current State of the Victory Panel.</dd></dl>
+
+</div>
+</div>
+<a id="a60d9655bef208834d73ea6335b96d308"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60d9655bef208834d73ea6335b96d308">&#9670;&nbsp;</a></span>ToggleActionPanel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Scripts.Controller.BattleUIControl.ToggleActionPanel </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>charClass</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enables the appropriate action panel based on the character class. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>Desired state of the panel.</td></tr>
+    <tr><td class="paramname">charClass</td><td>Character class of the selected character.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="abfa86539921a9f21befee85fe48a778d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfa86539921a9f21befee85fe48a778d">&#9670;&nbsp;</a></span>ToggleInfoPanel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Scripts.Controller.BattleUIControl.ToggleInfoPanel </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>state</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Turns the Information Panel on or off. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>Desired state of the info panel.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aed83fc19ab87bf3c9d7c0420c77ea682"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed83fc19ab87bf3c9d7c0420c77ea682">&#9670;&nbsp;</a></span>ToggleMagicInstructions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Scripts.Controller.BattleUIControl.ToggleMagicInstructions </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>state</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Toggles all relevant panels based on whether the Magic Instructions should be visible. </p>
+
+</div>
+</div>
 <a id="a36c85fecb573faf2fefdae0cc132f696"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a36c85fecb573faf2fefdae0cc132f696">&#9670;&nbsp;</a></span>ToggleVictoryPanel()</h2>
 
@@ -464,15 +674,94 @@ static <a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.h
 
 </div>
 </div>
+<a id="a616fc32594dd913526681e48ebd66123"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a616fc32594dd913526681e48ebd66123">&#9670;&nbsp;</a></span>UpdateEnemyName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Scripts.Controller.BattleUIControl.UpdateEnemyName </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates the enemy name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>New name to update.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="a82e08e4d34315fdd8470dc14de15ff9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82e08e4d34315fdd8470dc14de15ff9c">&#9670;&nbsp;</a></span>InputManager</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="interface_scripts_1_1_controller_1_1_i_input_manager.html">IInputManager</a> Scripts.Controller.BattleUIControl.InputManager</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a id="a2c10cdc07de5f1a15b5c361070b308e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c10cdc07de5f1a15b5c361070b308e4">&#9670;&nbsp;</a></span>Instance</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html">BattleUIControl</a> Scripts.Controller.BattleUIControl.Instance</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static class instance, as there is only ever one. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>fear_client/Assets/Scripts/Controller/BattleUIControl.cs</li>
+<li>fear_client/Assets/Scripts/Controller/<a class="el" href="_battle_u_i_control_8cs.html">BattleUIControl.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.17
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_scripts.html">Scripts</a></li><li class="navelem"><a class="el" href="namespace_scripts_1_1_controller.html">Controller</a></li><li class="navelem"><a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html">BattleUIControl</a></li>
+    <li class="footer">Generated on Tue May 5 2020 19:44:27 for Fear Valley Client by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
 </body>
 </html>

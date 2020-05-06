@@ -1,13 +1,18 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using Scripts.Controller;
 
+/// <summary>
+/// All of the scripts in the Main Menu.
+/// </summary>
 namespace Scripts.Menus
 {
+    /// <summary>
+    /// Button Controller for the main menu.
+    /// </summary>
     public class MainMenuButtons : MonoBehaviour
     {
         public Button playButton, tutorialButton, quitButton, creditsButton, optionsButton;
@@ -17,7 +22,11 @@ namespace Scripts.Menus
         public TMP_Text storedName, gamesPlayed, gamesWon;
         public GameObject nameSetAlert;
         public Button setDisplayName;
+
+        /// <summary>Reference to the main canvas. Used for Testing.</summary>
         public static Canvas MainCanvas { set; get; }
+
+        /// <summary>Reference to the Options menu canvas. Used for Testing.</summary>
         public static Canvas OptionsCanvas { set; get; }
 
         void Start()
@@ -49,12 +58,22 @@ namespace Scripts.Menus
             gamesWon.SetText($"Games Won: {gamesWonVal}");
         }
 
+        /// <summary>
+        /// Switch the canvas from the <paramref name="from"/> canvas to the <paramref name="to"/> canvas.
+        /// </summary>
+        /// <param name="from">Canvas to switch from.</param>
+        /// <param name="to">Canvas to switch to.</param>
         public void SwitchCanvas(Canvas from, Canvas to)
         {
             from.gameObject.SetActive(false);
             to.gameObject.SetActive(true);
         }
 
+        /// <summary>
+        /// Coroutine to fade an alert after it is triggered. 
+        /// </summary>
+        /// <param name="canvasGroup">CanvasGroup to fade.</param>
+        /// <returns>Coroutine IEnumerator.</returns>
         public IEnumerator FadeOut(CanvasGroup canvasGroup)
         {
             const float RATE = 0.01f;

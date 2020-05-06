@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Scripts.Controller;
 using Scripts.Networking;
@@ -8,16 +6,21 @@ using Scripts.CharacterClass;
 
 namespace Scripts.Actions
 {
+    /// <summary>
+    /// Controls magic for characters, including placement.
+    /// </summary>
     public class PlayerMagic : MonoBehaviour
     {
 
         private bool placingExplosion = false;
         private Vector3 startingPosition;
         public GameObject selection;
-
         public ParticleSystem explosionEffect;
+        
+        /// <inheritdoc cref="IPlayerMovement.InputManager"/>
         public IInputManager InputManager { set; get; }
 
+        #region Monobehaviour
         private void Start()
         {
             if (InputManager == null)
@@ -35,7 +38,9 @@ namespace Scripts.Actions
                 CheckPlayerInput();
             }
         }
+        #endregion
 
+        // Wrapper function that checks if LMB or RMB have been clicked. Will perform different actions based on input.
         private void CheckPlayerInput()
         {
             if (InputManager.GetLeftMouseClick())
@@ -49,15 +54,18 @@ namespace Scripts.Actions
             }
         }
 
+        // Moves the explosion marker around the placeable area.
         private void MoveExposionMarker()
         {
             Ray ray = Camera.main.ScreenPointToRay(InputManager.MousePosition());
-            if (Physics.Raycast(ray, out RaycastHit hit, 100.0f, 1 << 9) && Vector3.Distance(hit.point, startingPosition) < 5) //Only look on ground layer
+            // Only checks on ground layer.
+            if (Physics.Raycast(ray, out RaycastHit hit, 100.0f, 1 << 9) && Vector3.Distance(hit.point, startingPosition) < 5) 
             {
                 selection.transform.position = hit.point;
             }
         }
 
+        // Activates the explosion particle system and cleans up the gameboard. 
         private void CreateExplosion()
         {
             placingExplosion = false;
@@ -78,6 +86,7 @@ namespace Scripts.Actions
             GameLoop.ActionPoints -= 3;
         }
 
+        // Cancels the explosion, retaining magic and action points.
         private void CancelExplosion()
         {
             placingExplosion = false;
@@ -85,6 +94,9 @@ namespace Scripts.Actions
             BattleUIControl.Instance.CancelMagicExplosion();
         }
 
+        /// <summary>
+        /// Creates the placeable explosion marker and starts the Update() loop running.
+        /// </summary>
         public void StartExplosionSelector()
         {
             selection = Instantiate(Resources.Load("MagicSpell/MagicAttackArea")) as GameObject;
@@ -93,6 +105,10 @@ namespace Scripts.Actions
             placingExplosion = true;
         }
 
+        /// <summary>
+        /// Checks attack vs armor and deals damage, if needed.
+        /// </summary>
+        /// <param name="enemy">The enemy character caught in the blast.</param>
         public void MagicAttack(GameObject enemy)
         {
             ICharacterFeatures defendingCharacter = enemy.GetComponent<Character>().Features;
@@ -104,7 +120,6 @@ namespace Scripts.Actions
                 defendingCharacter.DamageCharacter(damage);
                 if (defendingCharacter.Health == 0)
                 {
-                    //attackChar.text = $"You have dealt fatal damage\nto the player named Roman ";
                     Debug.Log("Killed enemy");
                     GameLoop.Instance.CharacterRemoval(defendingCharacter.TroopId, 2);
                     MonoClient.Instance.SendRetreatData(defendingCharacter.TroopId, 2, true);
@@ -112,13 +127,11 @@ namespace Scripts.Actions
                 else
                 {
                     MonoClient.Instance.SendAttackData(defendingCharacter.TroopId, damage);
-                    //attackChar.text = $"You attack was a success \nand you have dealt {damageTaken} damage\nto the player named Roman ";
                     Debug.Log($"Dealt {damage} damage");
                 }
             }
             else
             {
-                //attackChar.text = $"You could not get passed their armor\nyour attack has failed";
                 Debug.Log("Missed attack");
             }
 

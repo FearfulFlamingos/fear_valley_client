@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -10,33 +9,34 @@ using Scripts.CharacterClass;
 
 namespace Scripts.Networking
 {
-    /// <summary>
-    /// Attaches to a client object and handles all communication with the server.
-    /// </summary>
-    /// <remarks>
-    /// There are a lot of precompiler options being used. This is to disable the warnings about 
-    /// how Unity's netcode is being deprecated. Since the replacement has yet to come out and the 
-    /// code is still valid in this version of unity, it's cleaner to disable the warnings.
-    /// </remarks>
+    /// <inheritdoc cref="IClient"/>
     public class Client : IClient
     {
         //public static IClient Instance { set; get; }
         // These can all be private, but for testing I set them public.
-        public int MAX_USER { set; get; }
         private const int PORT = 50000;
-        public string SERVER_IP { set; get; }
-        public const int BYTE_SIZE = 1024; // standard packet
-        public byte ReliableChannel { set; get; }
-        public int ConnectionId { set; get; }
-        public int HostId { set; get; }
-        public bool IsStarted { set; get; }
         private byte error;
+        public const int BYTE_SIZE = 1024; // standard packet size
         public bool hasControl;
 
-        // Niether of these are needed except for testing
+        /// <inheritdoc cref="IClient.MAX_USER"/>
+        public int MAX_USER { set; get; }
+        /// <inheritdoc cref="IClient.SERVER_IP"/>
+        public string SERVER_IP { set; get; }
+        /// <inheritdoc cref="IClient.ReliableChannel"/>
+        public byte ReliableChannel { set; get; }
+        /// <inheritdoc cref="IClient.ConnectionId"/>
+        public int ConnectionId { set; get; }
+        /// <inheritdoc cref="IClient.HostId"/>
+        public int HostId { set; get; }
+        /// <inheritdoc cref="IClient.IsStarted"/>
+        public bool IsStarted { set; get; }
+        /// <inheritdoc cref="IClient.LastEvent"/>
         public NetworkEventType LastEvent { set; get; }
+        /// <inheritdoc cref="IClient.LastSent"/>
         public NetMsg LastSent { set; get; }
 
+        /// <inheritdoc cref="IClient.Init"/>
         public void Init()
         {
             MAX_USER = 2;
@@ -82,9 +82,7 @@ namespace Scripts.Networking
             Debug.Log($"Attempting to connnect on {SERVER_IP}...");
         }
 
-        /// <summary>
-        /// Shuts down the server.
-        /// </summary>
+        /// <inheritdoc cref="IClient.Shutdown"/>
         public void Shutdown()
         {
             IsStarted = false;
@@ -93,9 +91,7 @@ namespace Scripts.Networking
 #pragma warning restore CS0618 // Type or member is obsolete
         }
 
-        /// <summary>
-        /// Checks every frame for a new network event.
-        /// </summary>
+        /// <inheritdoc cref="IClient.UpdateMessagePump"/>
         public void UpdateMessagePump()
         {
             if (!IsStarted)
@@ -121,6 +117,7 @@ namespace Scripts.Networking
             CheckMessageType(recHostId, connectionId, channelId, recievedBuffer, type);
         }
 
+        /// <inheritdoc cref="IClient.CheckMessageType(int, int, int, byte[], NetworkEventType)"/>
         public void CheckMessageType(int recHostId, int connectionId, int channelId, byte[] recievedBuffer, NetworkEventType type)
         {
             switch (type)
@@ -148,6 +145,7 @@ namespace Scripts.Networking
             LastEvent = type;
         }
 
+        /// <inheritdoc cref="IClient.HasControl"/>
         public bool HasControl() => hasControl;
 
         #region OnData
@@ -288,10 +286,7 @@ namespace Scripts.Networking
         #endregion
 
         #region Send
-        /// <summary>
-        /// Base function to send a command to the server. 
-        /// </summary>
-        /// <param name="msg">Any net command.</param>
+        /// <inheritdoc cref="IClient.SendToServer(NetMsg)"/>
         public void SendToServer(NetMsg msg)
         {
             LastSent = msg;
@@ -313,14 +308,7 @@ namespace Scripts.Networking
                 out error);
         }
 
-        /// <summary>
-        /// Sends a troop with information to the server's database.
-        /// </summary>
-        /// <param name="troop">Type of troop.</param>
-        /// <param name="weapon">Weapon used by troop.</param>
-        /// <param name="armor">Armor used by troop.</param>
-        /// <param name="xPos">X position of troop, relative to the player.</param>
-        /// <param name="yPos">Z position of the troop, relative to the player.</param>
+        /// <inheritdoc cref="IClient.SendTroopRequest(string, string, string, float, float)"/>
         public void SendTroopRequest(string troop, string weapon, string armor, float xPos, float yPos)
         {
             Net_AddTroop at = new Net_AddTroop
@@ -335,12 +323,7 @@ namespace Scripts.Networking
             SendToServer(at);
         }
 
-        /// <summary>
-        /// Tell the server that the player is finished building an army.
-        /// <para>Updates the number of spells the player bought in the database.</para>
-        /// <para>Pulls the player name set in Options, if it is set.</para>
-        /// </summary>
-        /// <param name="magicAmount">Number of spells the player bought.</param>
+        /// <inheritdoc cref="IClient.SendFinishBuild(int)"/>
         public void SendFinishBuild(int magicAmount)
         {
             Net_FinishBuild fb = new Net_FinishBuild
@@ -351,12 +334,7 @@ namespace Scripts.Networking
             SendToServer(fb);
         }
 
-        /// <summary>
-        /// Tells the server to move the character to a new position.
-        /// </summary>
-        /// <param name="TroopID">Troop to be moved.</param>
-        /// <param name="newX">New X position, relative to the player.</param>
-        /// <param name="newZ">New Z position, relative to the player.</param>
+        /// <inheritdoc cref="IClient.SendMoveData(int, float, float)"/>
         public void SendMoveData(int TroopID, float newX, float newZ)
         {
             Net_MOVE mv = new Net_MOVE
@@ -367,12 +345,8 @@ namespace Scripts.Networking
             };
             SendToServer(mv);
         }
-
-        /// <summary>
-        /// Sends an attack to the server, updating the characters health.
-        /// </summary>
-        /// <param name="troopId">Troop that took damage.</param>
-        /// <param name="health">New health of troop.</param>
+        
+        /// <inheritdoc cref="IClient.SendAttackData(int, int)"/>
         public void SendAttackData(int troopId, int health)
         {
             Net_ATTACK atk = new Net_ATTACK
@@ -384,11 +358,7 @@ namespace Scripts.Networking
             SendToServer(atk);
         }
 
-        /// <summary>
-        /// Lets the server know a character has retreated or been slain.
-        /// </summary>
-        /// <param name="troopId">Specific troop.</param>
-        /// <param name="TeamNum">Team number of troop.</param>
+        /// <inheritdoc cref="IClient.SendRetreatData(int, int, bool)"/>
         public void SendRetreatData(int troopId, int TeamNum, bool characterShouldDie)
         {
             Net_RETREAT ret = new Net_RETREAT
@@ -401,9 +371,7 @@ namespace Scripts.Networking
             SendToServer(ret);
         }
 
-        /// <summary>
-        /// Ends the players turn.
-        /// </summary>
+        /// <inheritdoc cref="IClient.SendEndTurn"/>
         public void SendEndTurn()
         {
             //Client.Instance.hasControl = false;
@@ -411,9 +379,7 @@ namespace Scripts.Networking
             SendToServer(et);
         }
 
-        /// <summary>
-        /// Pulls the stored name from PlayerPrefs and updates the server.
-        /// </summary>
+        /// <inheritdoc cref="IClient.SendUpdatedName"/>
         public void SendUpdatedName()
         {
             Net_UpdateEnemyName uen = new Net_UpdateEnemyName()

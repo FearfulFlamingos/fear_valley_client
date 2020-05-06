@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -20,11 +24,12 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Fear Valley Client
    &#160;<span id="projectnumber">0.9</span>
    </div>
-   <div id="projectbrief">The client side game.</div>
+   <div id="projectbrief">The client build.</div>
   </td>
  </tr>
  </tbody>
@@ -47,6 +52,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('class_scripts_1_1_menus_1_1_volume_control.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,11 +83,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespace_scripts.html">Scripts</a></li><li class="navelem"><a class="el" href="namespace_scripts_1_1_menus.html">Menus</a></li><li class="navelem"><a class="el" href="class_scripts_1_1_menus_1_1_volume_control.html">VolumeControl</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
@@ -76,6 +93,9 @@ $(function() {
 <div class="title">Scripts.Menus.VolumeControl Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Controls the volume of sounds within the game.  
+ <a href="class_scripts_1_1_menus_1_1_volume_control.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for Scripts.Menus.VolumeControl:</div>
 <div class="dyncontent">
@@ -85,33 +105,116 @@ Inheritance diagram for Scripts.Menus.VolumeControl:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:afcf07400986468d5d5fad7045b219806"><td class="memItemLeft" align="right" valign="top"><a id="afcf07400986468d5d5fad7045b219806"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>channel</b> { <b>MasterVolume</b>, 
-<b>BGMVolume</b>, 
-<b>SFXVolume</b>
+<tr class="memitem:afcf07400986468d5d5fad7045b219806"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_menus_1_1_volume_control.html#afcf07400986468d5d5fad7045b219806">channel</a> { <a class="el" href="class_scripts_1_1_menus_1_1_volume_control.html#afcf07400986468d5d5fad7045b219806a8cc7f554aba0291dd3336e13e0370f12">channel.MasterVolume</a>, 
+<a class="el" href="class_scripts_1_1_menus_1_1_volume_control.html#afcf07400986468d5d5fad7045b219806a8def6ec2a167b4a96eccf5c6b7bd369c">channel.BGMVolume</a>, 
+<a class="el" href="class_scripts_1_1_menus_1_1_volume_control.html#afcf07400986468d5d5fad7045b219806a5f9b77fd3037bfc4edcd4201ffd2e80e">channel.SFXVolume</a>
  }</td></tr>
+<tr class="memdesc:afcf07400986468d5d5fad7045b219806"><td class="mdescLeft">&#160;</td><td class="mdescRight">Choose the channel to change.  <a href="class_scripts_1_1_menus_1_1_volume_control.html#afcf07400986468d5d5fad7045b219806">More...</a><br /></td></tr>
 <tr class="separator:afcf07400986468d5d5fad7045b219806"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8727922cf35e2448c597e104b31e8e57"><td class="memItemLeft" align="right" valign="top"><a id="a8727922cf35e2448c597e104b31e8e57"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetLevel</b> (float sliderValue)</td></tr>
+<tr class="memitem:a8727922cf35e2448c597e104b31e8e57"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_menus_1_1_volume_control.html#a8727922cf35e2448c597e104b31e8e57">SetLevel</a> (float sliderValue)</td></tr>
+<tr class="memdesc:a8727922cf35e2448c597e104b31e8e57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the level of the mixed channel.  <a href="class_scripts_1_1_menus_1_1_volume_control.html#a8727922cf35e2448c597e104b31e8e57">More...</a><br /></td></tr>
 <tr class="separator:a8727922cf35e2448c597e104b31e8e57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a06bb0791d68ff94fb9deb231a43352d6"><td class="memItemLeft" align="right" valign="top"><a id="a06bb0791d68ff94fb9deb231a43352d6"></a>
-channel&#160;</td><td class="memItemRight" valign="bottom"><b>dropdown</b> = channel.MasterVolume</td></tr>
+<tr class="memitem:a06bb0791d68ff94fb9deb231a43352d6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_scripts_1_1_menus_1_1_volume_control.html#afcf07400986468d5d5fad7045b219806">channel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_menus_1_1_volume_control.html#a06bb0791d68ff94fb9deb231a43352d6">dropdown</a> = <a class="el" href="class_scripts_1_1_menus_1_1_volume_control.html#afcf07400986468d5d5fad7045b219806a8cc7f554aba0291dd3336e13e0370f12">channel.MasterVolume</a></td></tr>
 <tr class="separator:a06bb0791d68ff94fb9deb231a43352d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Controls the volume of sounds within the game. </p>
+<p>This is not actually used in the game.</p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="afcf07400986468d5d5fad7045b219806"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcf07400986468d5d5fad7045b219806">&#9670;&nbsp;</a></span>channel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="class_scripts_1_1_menus_1_1_volume_control.html#afcf07400986468d5d5fad7045b219806">Scripts.Menus.VolumeControl.channel</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Choose the channel to change. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="afcf07400986468d5d5fad7045b219806a8cc7f554aba0291dd3336e13e0370f12"></a>MasterVolume&#160;</td><td class="fielddoc"><p>Master Volume. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afcf07400986468d5d5fad7045b219806a8def6ec2a167b4a96eccf5c6b7bd369c"></a>BGMVolume&#160;</td><td class="fielddoc"><p>Background Music Volume. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afcf07400986468d5d5fad7045b219806a5f9b77fd3037bfc4edcd4201ffd2e80e"></a>SFXVolume&#160;</td><td class="fielddoc"><p>Sound Effects Volume. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a8727922cf35e2448c597e104b31e8e57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8727922cf35e2448c597e104b31e8e57">&#9670;&nbsp;</a></span>SetLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Scripts.Menus.VolumeControl.SetLevel </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>sliderValue</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the level of the mixed channel. </p>
+<p>This is only called from the sliders, which input a value.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sliderValue</td><td>Value to set it to.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a06bb0791d68ff94fb9deb231a43352d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06bb0791d68ff94fb9deb231a43352d6">&#9670;&nbsp;</a></span>dropdown</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_scripts_1_1_menus_1_1_volume_control.html#afcf07400986468d5d5fad7045b219806">channel</a> Scripts.Menus.VolumeControl.dropdown = <a class="el" href="class_scripts_1_1_menus_1_1_volume_control.html#afcf07400986468d5d5fad7045b219806a8cc7f554aba0291dd3336e13e0370f12">channel.MasterVolume</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>fear_client/Assets/Scripts/Menus/VolumeControl.cs</li>
+<li>fear_client/Assets/Scripts/Menus/<a class="el" href="_volume_control_8cs.html">VolumeControl.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.17
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_scripts.html">Scripts</a></li><li class="navelem"><a class="el" href="namespace_scripts_1_1_menus.html">Menus</a></li><li class="navelem"><a class="el" href="class_scripts_1_1_menus_1_1_volume_control.html">VolumeControl</a></li>
+    <li class="footer">Generated on Tue May 5 2020 19:44:35 for Fear Valley Client by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
 </body>
 </html>

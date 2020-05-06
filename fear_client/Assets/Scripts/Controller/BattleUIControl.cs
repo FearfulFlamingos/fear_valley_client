@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using TMPro;
-using System;
 using Scripts.CharacterClass;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 namespace Scripts.Controller
 {
+    /// <summary>
+    /// Attaches to the SceneController object and controls all of the UI in the Battlefield scene.
+    /// </summary>
     public class BattleUIControl : MonoBehaviour
     {
         // Info Panel
@@ -48,7 +46,11 @@ namespace Scripts.Controller
         // Text References
         [SerializeField]
         private TMP_Text enemyName;
-        private IInputManager InputManager { set; get; }
+        
+        /// <inheritdoc cref="Actions.IPlayerMovement.InputManager"/>
+        public  IInputManager InputManager { set; get; }
+
+        /// <summary>Static class instance, as there is only ever one.</summary>
         public static BattleUIControl Instance { set; get; }
 
         #region Monobehavior
@@ -58,9 +60,11 @@ namespace Scripts.Controller
                 InputManager = gameObject.GetComponent<InputManager>();
             if (Instance == null)
                 Instance = this;
-            exitButton.onClick.AddListener(() => SceneManager.LoadScene(0));
 
+            // Add exit button functionality.
+            exitButton.onClick.AddListener(() => SceneManager.LoadScene(0));
         }
+
         private void Update()
         {
             if (ActionPanelActive())
@@ -74,7 +78,7 @@ namespace Scripts.Controller
         }
         #endregion
 
-        // Main loop of the BattleUIController script. Intercepts keyboard input.
+        /// <summary>Main loop of the BattleUIController script. Intercepts keyboard input.</summary>
         public void CheckForKeyboardInput()
         {
             if (InputManager.GetMoveButtonDown())
@@ -130,7 +134,7 @@ namespace Scripts.Controller
             attackPanel.SetActive(true);
         }
 
-        // Disables the Attack panel and enables the appropriate action panel.
+        /// <summary>Disables the Attack panel and enables the appropriate action panel.</summary>
         public void CancelAttackPanel()
         {
             attackPanel.SetActive(false);
@@ -143,7 +147,9 @@ namespace Scripts.Controller
 
         }
 
-        // Enables the appropriate action panel based on the character class.
+        /// <summary>Enables the appropriate action panel based on the character class.</summary>
+        /// <param name="state">Desired state of the panel.</param>
+        /// <param name="charClass">Character class of the selected character.</param>
         public void ToggleActionPanel(bool state, string charClass = "")
         {
             if (charClass == "MagicUser")
@@ -165,7 +171,7 @@ namespace Scripts.Controller
             infoPanel.SetActive(state);
         }
 
-        ///<summary>Toggles all relevant panels based on whether the Magic Instructions should be visible.</summary>
+        /// <summary>Toggles all relevant panels based on whether the Magic Instructions should be visible.</summary>
         public void ToggleMagicInstructions(bool state)
         {
             magicInstructionPanel.SetActive(state);
@@ -177,7 +183,6 @@ namespace Scripts.Controller
         public void DeactivateAllPanels()
         {
             infoPanel.SetActive(false);
-            //victoryPanel.SetActive(false);
             stdActionPanel.SetActive(false);
             magicActionPanel.SetActive(false);
             attackPanel.SetActive(false);
@@ -198,6 +203,7 @@ namespace Scripts.Controller
         #endregion
 
         #region Button assignment
+        
         #region Basic Panel Actions
         /// <summary>
         /// Allows the selected character to move.
@@ -280,7 +286,8 @@ namespace Scripts.Controller
         }
 
         #endregion
-        #endregion
+
+        #endregion // Region is Button Assignment
 
         #region Set Text
         /// <summary>
@@ -334,7 +341,16 @@ namespace Scripts.Controller
         #endregion
 
         #region Testing
+        /// <summary>
+        /// Used for Unit Testing.
+        /// </summary>
+        /// <returns>Current Attack Panel::Enemy Info text.</returns>
         public string TESTGETATTACKPANELENEMYINFO() => attackPanelEnemyInfo.text;
+
+        /// <summary>
+        /// Used for Unit Testing.
+        /// </summary>
+        /// <returns>Current State of the Victory Panel.</returns>
         public bool TESTGETVICTORYPANELSTATUS() => victoryPanel.activeSelf;
         #endregion
     }

@@ -1,13 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Scripts.Controller;
 
-
+/// <summary>
+/// All of the scripts used in the ArmyBuilder-Visual scene.
+/// </summary>
 namespace Scripts.ArmyBuilder
 {
+    /// <summary>
+    /// The bulk of the logic for the entire scene. This dictates:
+    /// <list type="bullet">
+    ///   <item>UI interactions</item>
+    ///   <item>Class information for building characters</item>
+    ///   <item>The total army built so far</item>
+    /// </list>
+    /// </summary>
+    /// <remarks>
+    /// The name is a holdover from the previous grid-based placement system.
+    /// <para>IMO this would be the first script to break up into clearer classes.</para>
+    /// </remarks>
     public class PopulateGrid : MonoBehaviour
     {
         private Build build;
@@ -30,23 +43,43 @@ namespace Scripts.ArmyBuilder
         [SerializeField]
         private Button magicUserTroopButton;
         
+        /// <summary>How much the build costs at the moment.</summary>
         public int RollingBudget { set; get; }
+        
+        /// <summary>Amount of money the player currently has.</summary>
         public int Budget { set; get; }
+        
+        /// <summary>Set of purchased troops so far.</summary>
         public HashSet<GameObject> ActiveTroops { set; get; }
+        
+        /// <summary>Stack of explosions purchased so far.</summary>
         public static Stack<GameObject> Explosions { set; get; }
+        
+        /// <summary>Last placed GameObject.</summary>
         public static GameObject LastClicked { set; get; }
+        
+        /// <inheritdoc cref="Scripts.Actions.IPlayerMovement.InputManager"/>
         public IInputManager InputManager { set; get; }
 
         #region Class Info
         /// <summary>
-        /// Keep track of the player's choices so far.
+        /// Keep track of the players choices so far.
         /// </summary>
         public struct Build
         {
+            /// <summary>Armor chosen by player.</summary>
             public Armor ChosenArmor { set; get; }
+            
+            /// <summary>Weapon chosen by player.</summary>
             public Weapon ChosenWeapon { set; get; }
+            
+            /// <summary>Troop chosen by player.</summary>
             public Troop ChosenTroop { set; get; }
 
+            /// <summary>
+            /// Creates a deep copy of the build.
+            /// </summary>
+            /// <returns>A duplicate Build object.</returns>
             public Build DeepCopy()
             {
                 Build copy = new Build
@@ -57,6 +90,11 @@ namespace Scripts.ArmyBuilder
                 };
                 return copy;
             }
+            
+            /// <summary>
+            /// Overridden ToString() method.
+            /// </summary>
+            /// <returns>String description of Build.</returns>
             public override string ToString()
             {
                 return $"<Build: Troop={ChosenTroop}, Armor={ChosenArmor}, Weapon={ChosenWeapon}>";
@@ -391,6 +429,9 @@ namespace Scripts.ArmyBuilder
         #endregion
 
         #region Manual Test Functions
+        /// <summary>
+        /// Not used in final build, but useful for manual testing.
+        /// </summary>
         public void TESTQUICKARMY()
         {
             Networking.MonoClient.Instance.SendTroopRequest("Peasant", "RangedAttack", "LightMundaneArmor", 0, 0);

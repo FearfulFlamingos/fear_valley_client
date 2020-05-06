@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -20,11 +24,12 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Fear Valley Client
    &#160;<span id="projectnumber">0.9</span>
    </div>
-   <div id="projectbrief">The client side game.</div>
+   <div id="projectbrief">The client build.</div>
   </td>
  </tr>
  </tbody>
@@ -48,6 +53,22 @@ $(function() {
 /* @license-end */</script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('functions_func.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -70,13 +91,11 @@ $(function() {
 : <a class="el" href="class_scripts_1_1_actions_1_1_player_attack.html#a00bfab1566e5ce64266de22801ba2f1e">Scripts.Actions.PlayerAttack</a>
 </li>
 <li>ActivateMovement()
-: <a class="el" href="class_scripts_1_1_actions_1_1_player_movement.html#a34e06c4c2e5641fed6d898c9bf107640">Scripts.Actions.PlayerMovement</a>
+: <a class="el" href="interface_scripts_1_1_actions_1_1_i_player_movement.html#ad4e69cc82879b313c75d3658f827382f">Scripts.Actions.IPlayerMovement</a>
+, <a class="el" href="class_scripts_1_1_actions_1_1_player_movement.html#a34e06c4c2e5641fed6d898c9bf107640">Scripts.Actions.PlayerMovement</a>
 </li>
 <li>AddExplosion()
 : <a class="el" href="class_scripts_1_1_army_builder_1_1_populate_grid.html#abc6f98c7b6a35b4b167054dbd85e3d42">Scripts.ArmyBuilder.PopulateGrid</a>
-</li>
-<li>additem()
-: <a class="el" href="class_scripts_1_1_army_builder_1_1_populate_grid.html#aa008d4d882c7855aadcb69fc63274b44">Scripts.ArmyBuilder.PopulateGrid</a>
 </li>
 <li>AddtoDict()
 : <a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#aef1d13faad804f51449de38243a869e9">Scripts.Controller.GameLoop</a>
@@ -100,6 +119,9 @@ $(function() {
 : <a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#ac7257f80106ff8e7a3f37334b9d97804">Scripts.Controller.BattleUIControl</a>
 , <a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#abd6f5e285cf0d345d73d379bad10bf27">Scripts.Controller.GameLoop</a>
 </li>
+<li>CancelAttackPanel()
+: <a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a1418a2342e749867c7166c86b17b90d6">Scripts.Controller.BattleUIControl</a>
+</li>
 <li>CancelMagicExplosion()
 : <a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#abad424a51e2e971f0b4318562edd34b1">Scripts.Controller.BattleUIControl</a>
 </li>
@@ -112,9 +134,6 @@ $(function() {
 <li>CastSpell()
 : <a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#a8ffbe71066457a2dba4ba93f6ed4de88">Scripts.Controller.GameLoop</a>
 </li>
-<li>ChangeChar()
-: <a class="el" href="class_scripts_1_1_army_builder_1_1_populate_grid.html#a1632d3c88040d7ee2782a96b96cd3134">Scripts.ArmyBuilder.PopulateGrid</a>
-</li>
 <li>ChangeSelection()
 : <a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html#ab3b50ab44c32e319bc43ef632870fc62">Scripts.Controller.PlayerSpotlight</a>
 </li>
@@ -124,6 +143,13 @@ $(function() {
 <li>CharacterRemoval()
 : <a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#a8b84f11b10994d4a2bd69a6db3a2c775">Scripts.Controller.GameLoop</a>
 </li>
+<li>CheckForKeyboardInput()
+: <a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a02242ac0764e8ad9f15f4a2667a7e11f">Scripts.Controller.BattleUIControl</a>
+</li>
+<li>CheckMessageType()
+: <a class="el" href="class_scripts_1_1_networking_1_1_client.html#a60d7a2ca88195ecde92e2eda989415b6">Scripts.Networking.Client</a>
+, <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#a4d21181992d7a44d20c3444a64d5995f">Scripts.Networking.IClient</a>
+</li>
 <li>ConfirmAttack()
 : <a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#ab78c3f8726e40faec0c26a0920424efe">Scripts.Controller.GameLoop</a>
 </li>
@@ -131,11 +157,18 @@ $(function() {
 
 
 <h3><a id="index_d"></a>- d -</h3><ul>
+<li>DamageCharacter()
+: <a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html#a3dfa839b44b4a5d0007cc7d3656ed5b7">Scripts.CharacterClass.CharacterFeatures</a>
+, <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a72bb890bba183e5e82c5b9cd5d25e2b4">Scripts.CharacterClass.ICharacterFeatures</a>
+</li>
 <li>DeactivateAllPanels()
 : <a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#ae5e9df21522b424e0ae9c04448387efa">Scripts.Controller.BattleUIControl</a>
 </li>
 <li>DeactivateCurrentFocus()
 : <a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html#ae39e0c79346c5c302f4417a1d7377e15">Scripts.Controller.PlayerSpotlight</a>
+</li>
+<li>DeepCopy()
+: <a class="el" href="struct_scripts_1_1_army_builder_1_1_populate_grid_1_1_build.html#a280072a79bf71768bbd2bdb6f5acb08f">Scripts.ArmyBuilder.PopulateGrid.Build</a>
 </li>
 <li>DisableCharacterSelect()
 : <a class="el" href="class_scripts_1_1_controller_1_1_player_spotlight.html#a89344d7dadb21f0459af8904cd00123d">Scripts.Controller.PlayerSpotlight</a>
@@ -163,26 +196,35 @@ $(function() {
 
 
 <h3><a id="index_f"></a>- f -</h3><ul>
+<li>FadeOut()
+: <a class="el" href="class_scripts_1_1_menus_1_1_main_menu_buttons.html#a2f51fa080df84972fcbf1250357ace6f">Scripts.Menus.MainMenuButtons</a>
+</li>
 <li>FinalizeArmy()
 : <a class="el" href="class_scripts_1_1_army_builder_1_1_populate_grid.html#a883cde926ab24caff1d08c2998cb7c62">Scripts.ArmyBuilder.PopulateGrid</a>
 </li>
 <li>FinishMovementAndReturn()
-: <a class="el" href="class_scripts_1_1_actions_1_1_player_movement.html#a06ceb4fb80ed480693ffdac670744315">Scripts.Actions.PlayerMovement</a>
+: <a class="el" href="interface_scripts_1_1_actions_1_1_i_player_movement.html#aa035ace6b2c862bb7ce34797a868cc8c">Scripts.Actions.IPlayerMovement</a>
+, <a class="el" href="class_scripts_1_1_actions_1_1_player_movement.html#a06ceb4fb80ed480693ffdac670744315">Scripts.Actions.PlayerMovement</a>
 </li>
 </ul>
 
 
 <h3><a id="index_g"></a>- g -</h3><ul>
-<li>GetArmor()
-: <a class="el" href="class_scripts_1_1_army_builder_1_1_populate_grid.html#a769253f6f2fd00c58a462da875692cfe">Scripts.ArmyBuilder.PopulateGrid</a>
-</li>
 <li>GetAttackButtonDown()
 : <a class="el" href="interface_scripts_1_1_controller_1_1_i_input_manager.html#a81818a6489a4f25b4c540f3ed33f2fe0">Scripts.Controller.IInputManager</a>
 , <a class="el" href="class_scripts_1_1_controller_1_1_input_manager.html#a5437cd2950500ffaf89be002d4891654">Scripts.Controller.InputManager</a>
 </li>
+<li>GetAttackRoll()
+: <a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html#ae3c9149726f3f0065d2e3534450a5f10">Scripts.CharacterClass.CharacterFeatures</a>
+, <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#ac35875a139ea03965acd83250fc2ac78">Scripts.CharacterClass.ICharacterFeatures</a>
+</li>
 <li>GetCancelButtonDown()
 : <a class="el" href="interface_scripts_1_1_controller_1_1_i_input_manager.html#a4d3bf5f87973090e5c32a13c6c858c60">Scripts.Controller.IInputManager</a>
 , <a class="el" href="class_scripts_1_1_controller_1_1_input_manager.html#ac344832ee36bd474101d69f1b172843b">Scripts.Controller.InputManager</a>
+</li>
+<li>GetDamageRoll()
+: <a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html#a9e1088a4b48ff4c25ddc62d43a332f93">Scripts.CharacterClass.CharacterFeatures</a>
+, <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a42deb0063b43ad7ef6c228ae93f7939b">Scripts.CharacterClass.ICharacterFeatures</a>
 </li>
 <li>GetIP()
 : <a class="el" href="class_scripts_1_1_networking_1_1_server_preferences.html#abfee052c0c77fb262bd3c29748a4b985">Scripts.Networking.ServerPreferences</a>
@@ -191,9 +233,17 @@ $(function() {
 : <a class="el" href="interface_scripts_1_1_controller_1_1_i_input_manager.html#aab0988200d19f364d39a364072ecc64f">Scripts.Controller.IInputManager</a>
 , <a class="el" href="class_scripts_1_1_controller_1_1_input_manager.html#a078235f1124a7aab0d646b22ed23604e">Scripts.Controller.InputManager</a>
 </li>
+<li>GetMagicAttackRoll()
+: <a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html#aefc84fcc55f77c84084a1ccceeb1eabe">Scripts.CharacterClass.CharacterFeatures</a>
+, <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#abfaa71a6ba4a68572b9934722df7babc">Scripts.CharacterClass.ICharacterFeatures</a>
+</li>
 <li>GetMagicButtonDown()
 : <a class="el" href="interface_scripts_1_1_controller_1_1_i_input_manager.html#a820b0c0fc662cd6f43a366db2a0432f5">Scripts.Controller.IInputManager</a>
 , <a class="el" href="class_scripts_1_1_controller_1_1_input_manager.html#a91353790604e7fb3ccecf6d96439f74c">Scripts.Controller.InputManager</a>
+</li>
+<li>GetMagicDamageRoll()
+: <a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html#a5025e7ed3675c0b2bb11b81c3885e992">Scripts.CharacterClass.CharacterFeatures</a>
+, <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a4f0078f2a83aca95db8ff48d7fa05c24">Scripts.CharacterClass.ICharacterFeatures</a>
 </li>
 <li>GetMoveButtonDown()
 : <a class="el" href="interface_scripts_1_1_controller_1_1_i_input_manager.html#afc2394218054dbbba6313a3a22dfb99f">Scripts.Controller.IInputManager</a>
@@ -201,6 +251,10 @@ $(function() {
 </li>
 <li>GetPort()
 : <a class="el" href="class_scripts_1_1_networking_1_1_server_preferences.html#a849724f39cd05dd75aabb1a4879c227e">Scripts.Networking.ServerPreferences</a>
+</li>
+<li>GetRandom()
+: <a class="el" href="interface_scripts_1_1_character_class_1_1_i_random_number_generator.html#a2bddd0bb34b05a9b5b27c212cb738c45">Scripts.CharacterClass.IRandomNumberGenerator</a>
+, <a class="el" href="class_scripts_1_1_character_class_1_1_random_number_generator.html#afa28020e022a3e6fa781263214a9d672">Scripts.CharacterClass.RandomNumberGenerator</a>
 </li>
 <li>GetRetreatButtonDown()
 : <a class="el" href="interface_scripts_1_1_controller_1_1_i_input_manager.html#a52de745b7775e3023c229f80e1e8a046">Scripts.Controller.IInputManager</a>
@@ -214,15 +268,28 @@ $(function() {
 : <a class="el" href="interface_scripts_1_1_controller_1_1_i_input_manager.html#a192942aad2592f35b46892d07b466e82">Scripts.Controller.IInputManager</a>
 , <a class="el" href="class_scripts_1_1_controller_1_1_input_manager.html#a41ea11cc7049cc8adffe8b5a6beeaaaa">Scripts.Controller.InputManager</a>
 </li>
-<li>GetWeapon()
-: <a class="el" href="class_scripts_1_1_army_builder_1_1_populate_grid.html#a765621d8c4b758227541d0ee6948ae35">Scripts.ArmyBuilder.PopulateGrid</a>
+</ul>
+
+
+<h3><a id="index_h"></a>- h -</h3><ul>
+<li>HasControl()
+: <a class="el" href="class_scripts_1_1_networking_1_1_client.html#a168c946d0fe731a21fbd68942f7a2d90">Scripts.Networking.Client</a>
+, <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#ac6ceacf1e4d8a58c2f556f81c28e58a9">Scripts.Networking.IClient</a>
 </li>
 </ul>
 
 
 <h3><a id="index_i"></a>- i -</h3><ul>
+<li>Init()
+: <a class="el" href="class_scripts_1_1_networking_1_1_client.html#a617012757c1e58ae892ed75bb00be53d">Scripts.Networking.Client</a>
+, <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#a75ce283cb8bb8e157f7d3993bf4fd438">Scripts.Networking.IClient</a>
+</li>
 <li>InputDetected()
-: <a class="el" href="class_scripts_1_1_actions_1_1_player_movement.html#a625990a8b9f45d85a33507871a6fdaff">Scripts.Actions.PlayerMovement</a>
+: <a class="el" href="interface_scripts_1_1_actions_1_1_i_player_movement.html#aa766ce541989de78ae98aff1c4d261d9">Scripts.Actions.IPlayerMovement</a>
+, <a class="el" href="class_scripts_1_1_actions_1_1_player_movement.html#a625990a8b9f45d85a33507871a6fdaff">Scripts.Actions.PlayerMovement</a>
+</li>
+<li>InstantiateTroop()
+: <a class="el" href="class_scripts_1_1_army_builder_1_1_populate_grid.html#aeea2f792783609aa7ee68ea6aac09aa2">Scripts.ArmyBuilder.PopulateGrid</a>
 </li>
 <li>IveBeenAttacked()
 : <a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#ae1fdaa32c54bad96226e516877cac9f6">Scripts.Controller.GameLoop</a>
@@ -241,12 +308,16 @@ $(function() {
 <li>Magic()
 : <a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a5b47a62751674de6d0a46c9510f091a7">Scripts.Controller.BattleUIControl</a>
 </li>
+<li>MagicAttack()
+: <a class="el" href="class_scripts_1_1_actions_1_1_player_magic.html#a3b766dea65506f187bdd2f38b7fd9582">Scripts.Actions.PlayerMagic</a>
+</li>
 <li>MousePosition()
 : <a class="el" href="interface_scripts_1_1_controller_1_1_i_input_manager.html#af63be58146dfc4b851fa95179e0b4925">Scripts.Controller.IInputManager</a>
 , <a class="el" href="class_scripts_1_1_controller_1_1_input_manager.html#a0b6c2190b4929d9b8f773d40e7410b5b">Scripts.Controller.InputManager</a>
 </li>
 <li>Move()
-: <a class="el" href="class_scripts_1_1_actions_1_1_player_movement.html#a36b544a489144eb4220dec5276d0a61c">Scripts.Actions.PlayerMovement</a>
+: <a class="el" href="interface_scripts_1_1_actions_1_1_i_player_movement.html#acc69c5fbcc87c9b0b96b4e178462925c">Scripts.Actions.IPlayerMovement</a>
+, <a class="el" href="class_scripts_1_1_actions_1_1_player_movement.html#a36b544a489144eb4220dec5276d0a61c">Scripts.Actions.PlayerMovement</a>
 , <a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a99110b70e590d4f2005e3c551709d524">Scripts.Controller.BattleUIControl</a>
 , <a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#a9bea000b2b1f322ba66d2ab53897cc43">Scripts.Controller.GameLoop</a>
 </li>
@@ -272,24 +343,38 @@ $(function() {
 <h3><a id="index_s"></a>- s -</h3><ul>
 <li>SendAttackData()
 : <a class="el" href="class_scripts_1_1_networking_1_1_client.html#a73fd40af1f05bf5742ff9d5c57b461d7">Scripts.Networking.Client</a>
+, <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#ae4301350fc86041c501301e2087a3a02">Scripts.Networking.IClient</a>
 </li>
 <li>SendEndTurn()
 : <a class="el" href="class_scripts_1_1_networking_1_1_client.html#adee318a43dff9a17ed969f1af3c8b05d">Scripts.Networking.Client</a>
+, <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#a39d445c4e794ccd8f9ecc8ce8df85a2b">Scripts.Networking.IClient</a>
 </li>
 <li>SendFinishBuild()
 : <a class="el" href="class_scripts_1_1_networking_1_1_client.html#a13124e13f60ccdc0501e370ce8aa69dd">Scripts.Networking.Client</a>
+, <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#ae1cca57e4c885499865fc264a0050290">Scripts.Networking.IClient</a>
 </li>
 <li>SendMoveData()
 : <a class="el" href="class_scripts_1_1_networking_1_1_client.html#a335032e9cb88b0af8d3681cac962de5d">Scripts.Networking.Client</a>
+, <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#aa15db30beff199bec9a3a0024b2b1f58">Scripts.Networking.IClient</a>
 </li>
 <li>SendRetreatData()
 : <a class="el" href="class_scripts_1_1_networking_1_1_client.html#a980da02d5cf7aa992a84eefa41d3f8c0">Scripts.Networking.Client</a>
+, <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#aec07069d6cb010d8df927a34f97d28b9">Scripts.Networking.IClient</a>
 </li>
 <li>SendToServer()
 : <a class="el" href="class_scripts_1_1_networking_1_1_client.html#a7253f968469e729f8e1464621e88e693">Scripts.Networking.Client</a>
+, <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#ae59d24d2fa36365858522e5d2d6d727c">Scripts.Networking.IClient</a>
 </li>
 <li>SendTroopRequest()
 : <a class="el" href="class_scripts_1_1_networking_1_1_client.html#a4c658dbddc979fc13b2a68564ec8d97c">Scripts.Networking.Client</a>
+, <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#ae8723e8336a7897e2c481d6a2b4f7089">Scripts.Networking.IClient</a>
+</li>
+<li>SendUpdatedName()
+: <a class="el" href="class_scripts_1_1_networking_1_1_client.html#a1b3a5cf1df4efbf863d86524145330ee">Scripts.Networking.Client</a>
+, <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#a89eaae69cc975d41ca01c25df06a3504">Scripts.Networking.IClient</a>
+</li>
+<li>SetArmor()
+: <a class="el" href="class_scripts_1_1_army_builder_1_1_populate_grid.html#a04fab0a8e0729b46a5e1d12b57ee4415">Scripts.ArmyBuilder.PopulateGrid</a>
 </li>
 <li>SetAttackPanelAttackerInfo()
 : <a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a20c8a8d33d52fe633978304b0bfd1fd8">Scripts.Controller.BattleUIControl</a>
@@ -300,42 +385,89 @@ $(function() {
 <li>SetInfoPanelFriendlyText()
 : <a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a1aa54f2f7fa478fad877333fbd81a831">Scripts.Controller.BattleUIControl</a>
 </li>
-<li>SetSelection()
-: <a class="el" href="class_scripts_1_1_army_builder_1_1_populate_grid.html#a6ad491736b93b5113feffb52e6440337">Scripts.ArmyBuilder.PopulateGrid</a>
+<li>SetLevel()
+: <a class="el" href="class_scripts_1_1_menus_1_1_volume_control.html#a8727922cf35e2448c597e104b31e8e57">Scripts.Menus.VolumeControl</a>
+</li>
+<li>SetTroop()
+: <a class="el" href="class_scripts_1_1_army_builder_1_1_populate_grid.html#af3dc2c462b80e99e8425b53be44354a7">Scripts.ArmyBuilder.PopulateGrid</a>
 </li>
 <li>SetValues()
-: <a class="el" href="class_scripts_1_1_networking_1_1_server_preferences.html#ac289e0d76b276ff80c70ddc2bbfed53c">Scripts.Networking.ServerPreferences</a>
+: <a class="el" href="class_scripts_1_1_networking_1_1_server_preferences.html#aa15b0817895b826efeba2191552ac33c">Scripts.Networking.ServerPreferences</a>
 </li>
 <li>SetVictoryPanelText()
 : <a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a4c40010994edfdd15b4bb583fec6ae81">Scripts.Controller.BattleUIControl</a>
 </li>
+<li>SetWeapon()
+: <a class="el" href="class_scripts_1_1_army_builder_1_1_populate_grid.html#aaa6e88580adf6351e52b010601c2c6cd">Scripts.ArmyBuilder.PopulateGrid</a>
+</li>
 <li>Shutdown()
 : <a class="el" href="class_scripts_1_1_networking_1_1_client.html#a346698c2271e9bd34a8c364a68c31a63">Scripts.Networking.Client</a>
+, <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#a67fe708ddf9b06cf9305119416db8b58">Scripts.Networking.IClient</a>
+</li>
+<li>StartExplosionSelector()
+: <a class="el" href="class_scripts_1_1_actions_1_1_player_magic.html#af7dfdd3b3d2782037930c35fed43429a">Scripts.Actions.PlayerMagic</a>
+</li>
+<li>SwitchCanvas()
+: <a class="el" href="class_scripts_1_1_menus_1_1_main_menu_buttons.html#af7b6658b9935124dacf960fc99374431">Scripts.Menus.MainMenuButtons</a>
+</li>
+<li>SwitchToAttackPanel()
+: <a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a3c115189d30ce84fa36d74a2516607b7">Scripts.Controller.BattleUIControl</a>
 </li>
 </ul>
 
 
 <h3><a id="index_t"></a>- t -</h3><ul>
+<li>TESTGETATTACKPANELENEMYINFO()
+: <a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a43d6ce372a96125e3a871645868ec78b">Scripts.Controller.BattleUIControl</a>
+</li>
+<li>TESTGETVICTORYPANELSTATUS()
+: <a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a2b3687aa213756cc2fd2ad356be273ef">Scripts.Controller.BattleUIControl</a>
+</li>
 <li>TestLocalhost()
 : <a class="el" href="class_scripts_1_1_networking_1_1_server_preferences.html#a10c127de903f1da3524eca48ff61cd08">Scripts.Networking.ServerPreferences</a>
 </li>
+<li>TESTQUICKARMY()
+: <a class="el" href="class_scripts_1_1_army_builder_1_1_populate_grid.html#ab69ff1990af1043771b3b06e79b8340f">Scripts.ArmyBuilder.PopulateGrid</a>
+</li>
+<li>ToggleActionPanel()
+: <a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a60d9655bef208834d73ea6335b96d308">Scripts.Controller.BattleUIControl</a>
+</li>
+<li>ToggleClassButtons()
+: <a class="el" href="class_scripts_1_1_army_builder_1_1_populate_grid.html#a3b1153421639a36299f9b2cea593fc1d">Scripts.ArmyBuilder.PopulateGrid</a>
+</li>
+<li>ToggleInfoPanel()
+: <a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#abfa86539921a9f21befee85fe48a778d">Scripts.Controller.BattleUIControl</a>
+</li>
+<li>ToggleMagicInstructions()
+: <a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#aed83fc19ab87bf3c9d7c0420c77ea682">Scripts.Controller.BattleUIControl</a>
+</li>
 <li>ToggleVictoryPanel()
 : <a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a36c85fecb573faf2fefdae0cc132f696">Scripts.Controller.BattleUIControl</a>
+</li>
+<li>ToString()
+: <a class="el" href="struct_scripts_1_1_army_builder_1_1_populate_grid_1_1_build.html#aa0a83e395e1e5b2bccd44aed69b95fd7">Scripts.ArmyBuilder.PopulateGrid.Build</a>
 </li>
 </ul>
 
 
 <h3><a id="index_u"></a>- u -</h3><ul>
+<li>UpdateEnemyName()
+: <a class="el" href="class_scripts_1_1_controller_1_1_battle_u_i_control.html#a616fc32594dd913526681e48ebd66123">Scripts.Controller.BattleUIControl</a>
+</li>
 <li>UpdateMessagePump()
 : <a class="el" href="class_scripts_1_1_networking_1_1_client.html#a83ad21537ed8be0b60406ffa2e00cc48">Scripts.Networking.Client</a>
+, <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#ae5bbe419127f7cb48ae7cb0c471a66a2">Scripts.Networking.IClient</a>
 </li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.17
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated on Tue May 5 2020 19:44:39 for Fear Valley Client by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
 </body>
 </html>

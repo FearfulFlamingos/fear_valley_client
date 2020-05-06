@@ -1,9 +1,11 @@
 ﻿using Scripts.CharacterClass;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Scripts.Controller
 {
+    /// <summary>
+    /// Create a GameObject from a prefab and populate it with the appropriate character data.
+    /// </summary>
     public class PopulateCharacter : MonoBehaviour
     {
         /// <summary>

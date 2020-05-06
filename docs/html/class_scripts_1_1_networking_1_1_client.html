@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -20,11 +24,12 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Fear Valley Client
    &#160;<span id="projectnumber">0.9</span>
    </div>
-   <div id="projectbrief">The client side game.</div>
+   <div id="projectbrief">The client build.</div>
   </td>
  </tr>
  </tbody>
@@ -47,6 +52,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('class_scripts_1_1_networking_1_1_client.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,11 +83,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespace_scripts.html">Scripts</a></li><li class="navelem"><a class="el" href="namespace_scripts_1_1_networking.html">Networking</a></li><li class="navelem"><a class="el" href="class_scripts_1_1_networking_1_1_client.html">Client</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -78,7 +95,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Attaches to a client object and handles all communication with the server.  
+<p> 
  <a href="class_scripts_1_1_networking_1_1_client.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for Scripts.Networking.Client:</div>
@@ -86,14 +103,14 @@ Inheritance diagram for Scripts.Networking.Client:</div>
  <div class="center">
   <img src="class_scripts_1_1_networking_1_1_client.png" usemap="#Scripts.Networking.Client_map" alt=""/>
   <map id="Scripts.Networking.Client_map" name="Scripts.Networking.Client_map">
-<area href="interface_scripts_1_1_networking_1_1_i_client.html" alt="Scripts.Networking.IClient" shape="rect" coords="0,0,157,24"/>
+<area href="interface_scripts_1_1_networking_1_1_i_client.html" title="Attaches to a client object and handles all communication with the server." alt="Scripts.Networking.IClient" shape="rect" coords="0,0,157,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a617012757c1e58ae892ed75bb00be53d"><td class="memItemLeft" align="right" valign="top"><a id="a617012757c1e58ae892ed75bb00be53d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Init</b> ()</td></tr>
+<tr class="memitem:a617012757c1e58ae892ed75bb00be53d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_networking_1_1_client.html#a617012757c1e58ae892ed75bb00be53d">Init</a> ()</td></tr>
+<tr class="memdesc:a617012757c1e58ae892ed75bb00be53d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the client and connects to the server.  <a href="class_scripts_1_1_networking_1_1_client.html#a617012757c1e58ae892ed75bb00be53d">More...</a><br /></td></tr>
 <tr class="separator:a617012757c1e58ae892ed75bb00be53d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a346698c2271e9bd34a8c364a68c31a63"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_networking_1_1_client.html#a346698c2271e9bd34a8c364a68c31a63">Shutdown</a> ()</td></tr>
 <tr class="memdesc:a346698c2271e9bd34a8c364a68c31a63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shuts down the server.  <a href="class_scripts_1_1_networking_1_1_client.html#a346698c2271e9bd34a8c364a68c31a63">More...</a><br /></td></tr>
@@ -101,11 +118,11 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Init</b> ()</td></tr>
 <tr class="memitem:a83ad21537ed8be0b60406ffa2e00cc48"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_networking_1_1_client.html#a83ad21537ed8be0b60406ffa2e00cc48">UpdateMessagePump</a> ()</td></tr>
 <tr class="memdesc:a83ad21537ed8be0b60406ffa2e00cc48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks every frame for a new network event.  <a href="class_scripts_1_1_networking_1_1_client.html#a83ad21537ed8be0b60406ffa2e00cc48">More...</a><br /></td></tr>
 <tr class="separator:a83ad21537ed8be0b60406ffa2e00cc48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60d7a2ca88195ecde92e2eda989415b6"><td class="memItemLeft" align="right" valign="top"><a id="a60d7a2ca88195ecde92e2eda989415b6"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>CheckMessageType</b> (int recHostId, int connectionId, int channelId, byte[] recievedBuffer, NetworkEventType type)</td></tr>
+<tr class="memitem:a60d7a2ca88195ecde92e2eda989415b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_networking_1_1_client.html#a60d7a2ca88195ecde92e2eda989415b6">CheckMessageType</a> (int recHostId, int connectionId, int channelId, byte[] recievedBuffer, NetworkEventType type)</td></tr>
+<tr class="memdesc:a60d7a2ca88195ecde92e2eda989415b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the network event type of the incoming net message and acts appropriately.  <a href="class_scripts_1_1_networking_1_1_client.html#a60d7a2ca88195ecde92e2eda989415b6">More...</a><br /></td></tr>
 <tr class="separator:a60d7a2ca88195ecde92e2eda989415b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a168c946d0fe731a21fbd68942f7a2d90"><td class="memItemLeft" align="right" valign="top"><a id="a168c946d0fe731a21fbd68942f7a2d90"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>HasControl</b> ()</td></tr>
+<tr class="memitem:a168c946d0fe731a21fbd68942f7a2d90"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_networking_1_1_client.html#a168c946d0fe731a21fbd68942f7a2d90">HasControl</a> ()</td></tr>
+<tr class="memdesc:a168c946d0fe731a21fbd68942f7a2d90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines whether or not the player can act.  <a href="class_scripts_1_1_networking_1_1_client.html#a168c946d0fe731a21fbd68942f7a2d90">More...</a><br /></td></tr>
 <tr class="separator:a168c946d0fe731a21fbd68942f7a2d90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7253f968469e729f8e1464621e88e693"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_networking_1_1_client.html#a7253f968469e729f8e1464621e88e693">SendToServer</a> (NetMsg msg)</td></tr>
 <tr class="memdesc:a7253f968469e729f8e1464621e88e693"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base function to send a command to the server.  <a href="class_scripts_1_1_networking_1_1_client.html#a7253f968469e729f8e1464621e88e693">More...</a><br /></td></tr>
@@ -114,7 +131,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>HasControl</b> ()</td
 <tr class="memdesc:a4c658dbddc979fc13b2a68564ec8d97c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a troop with information to the server's database.  <a href="class_scripts_1_1_networking_1_1_client.html#a4c658dbddc979fc13b2a68564ec8d97c">More...</a><br /></td></tr>
 <tr class="separator:a4c658dbddc979fc13b2a68564ec8d97c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13124e13f60ccdc0501e370ce8aa69dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_networking_1_1_client.html#a13124e13f60ccdc0501e370ce8aa69dd">SendFinishBuild</a> (int magicAmount)</td></tr>
-<tr class="memdesc:a13124e13f60ccdc0501e370ce8aa69dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tell the server that the player is finished building an army.  <a href="class_scripts_1_1_networking_1_1_client.html#a13124e13f60ccdc0501e370ce8aa69dd">More...</a><br /></td></tr>
+<tr class="memdesc:a13124e13f60ccdc0501e370ce8aa69dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tell the server that the player is finished building an army.Updates the number of spells the player bought in the database.  <a href="class_scripts_1_1_networking_1_1_client.html#a13124e13f60ccdc0501e370ce8aa69dd">More...</a><br /></td></tr>
 <tr class="separator:a13124e13f60ccdc0501e370ce8aa69dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a335032e9cb88b0af8d3681cac962de5d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_networking_1_1_client.html#a335032e9cb88b0af8d3681cac962de5d">SendMoveData</a> (int TroopID, float newX, float newZ)</td></tr>
 <tr class="memdesc:a335032e9cb88b0af8d3681cac962de5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tells the server to move the character to a new position.  <a href="class_scripts_1_1_networking_1_1_client.html#a335032e9cb88b0af8d3681cac962de5d">More...</a><br /></td></tr>
@@ -128,81 +145,158 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>HasControl</b> ()</td
 <tr class="memitem:adee318a43dff9a17ed969f1af3c8b05d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_networking_1_1_client.html#adee318a43dff9a17ed969f1af3c8b05d">SendEndTurn</a> ()</td></tr>
 <tr class="memdesc:adee318a43dff9a17ed969f1af3c8b05d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ends the players turn.  <a href="class_scripts_1_1_networking_1_1_client.html#adee318a43dff9a17ed969f1af3c8b05d">More...</a><br /></td></tr>
 <tr class="separator:adee318a43dff9a17ed969f1af3c8b05d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b3a5cf1df4efbf863d86524145330ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_networking_1_1_client.html#a1b3a5cf1df4efbf863d86524145330ee">SendUpdatedName</a> ()</td></tr>
+<tr class="memdesc:a1b3a5cf1df4efbf863d86524145330ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pulls the stored name from PlayerPrefs and updates the server.  <a href="class_scripts_1_1_networking_1_1_client.html#a1b3a5cf1df4efbf863d86524145330ee">More...</a><br /></td></tr>
+<tr class="separator:a1b3a5cf1df4efbf863d86524145330ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ace8616a82f99b41590e1061d524494c2"><td class="memItemLeft" align="right" valign="top"><a id="ace8616a82f99b41590e1061d524494c2"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>hasControl</b></td></tr>
+<tr class="memitem:ace8616a82f99b41590e1061d524494c2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_networking_1_1_client.html#ace8616a82f99b41590e1061d524494c2">hasControl</a></td></tr>
 <tr class="separator:ace8616a82f99b41590e1061d524494c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a95ee1330c5ab8005a1a541212fa084b4"><td class="memItemLeft" align="right" valign="top"><a id="a95ee1330c5ab8005a1a541212fa084b4"></a>
-const int&#160;</td><td class="memItemRight" valign="bottom"><b>BYTE_SIZE</b> = 1024</td></tr>
+<tr class="memitem:a95ee1330c5ab8005a1a541212fa084b4"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_networking_1_1_client.html#a95ee1330c5ab8005a1a541212fa084b4">BYTE_SIZE</a> = 1024</td></tr>
 <tr class="separator:a95ee1330c5ab8005a1a541212fa084b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a28d99a7d544ceede2e7130f5a065ea5f"><td class="memItemLeft" align="right" valign="top"><a id="a28d99a7d544ceede2e7130f5a065ea5f"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_USER</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a28d99a7d544ceede2e7130f5a065ea5f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_networking_1_1_client.html#a28d99a7d544ceede2e7130f5a065ea5f">MAX_USER</a><code> [get, set]</code></td></tr>
 <tr class="separator:a28d99a7d544ceede2e7130f5a065ea5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38c044cd6666aecfd294fba00c9482c1"><td class="memItemLeft" align="right" valign="top"><a id="a38c044cd6666aecfd294fba00c9482c1"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>PORT</b><code> [get, set]</code></td></tr>
-<tr class="separator:a38c044cd6666aecfd294fba00c9482c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b289e63ef4c08dd8f0eed7616abd911"><td class="memItemLeft" align="right" valign="top"><a id="a4b289e63ef4c08dd8f0eed7616abd911"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>SERVER_IP</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a4b289e63ef4c08dd8f0eed7616abd911"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_networking_1_1_client.html#a4b289e63ef4c08dd8f0eed7616abd911">SERVER_IP</a><code> [get, set]</code></td></tr>
 <tr class="separator:a4b289e63ef4c08dd8f0eed7616abd911"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1c85f777f9450877a7e466b2b42ea06"><td class="memItemLeft" align="right" valign="top"><a id="ae1c85f777f9450877a7e466b2b42ea06"></a>
-byte&#160;</td><td class="memItemRight" valign="bottom"><b>ReliableChannel</b><code> [get, set]</code></td></tr>
+<tr class="memitem:ae1c85f777f9450877a7e466b2b42ea06"><td class="memItemLeft" align="right" valign="top">byte&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_networking_1_1_client.html#ae1c85f777f9450877a7e466b2b42ea06">ReliableChannel</a><code> [get, set]</code></td></tr>
 <tr class="separator:ae1c85f777f9450877a7e466b2b42ea06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1a82d27d4732d4951501e4059d0aec3"><td class="memItemLeft" align="right" valign="top"><a id="aa1a82d27d4732d4951501e4059d0aec3"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>ConnectionId</b><code> [get, set]</code></td></tr>
+<tr class="memitem:aa1a82d27d4732d4951501e4059d0aec3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_networking_1_1_client.html#aa1a82d27d4732d4951501e4059d0aec3">ConnectionId</a><code> [get, set]</code></td></tr>
 <tr class="separator:aa1a82d27d4732d4951501e4059d0aec3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af046205ff988d51017f0c8958a817165"><td class="memItemLeft" align="right" valign="top"><a id="af046205ff988d51017f0c8958a817165"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>HostId</b><code> [get, set]</code></td></tr>
+<tr class="memitem:af046205ff988d51017f0c8958a817165"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_networking_1_1_client.html#af046205ff988d51017f0c8958a817165">HostId</a><code> [get, set]</code></td></tr>
 <tr class="separator:af046205ff988d51017f0c8958a817165"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7b5a064ad3978467a01b842c2680968"><td class="memItemLeft" align="right" valign="top"><a id="af7b5a064ad3978467a01b842c2680968"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsStarted</b><code> [get, set]</code></td></tr>
+<tr class="memitem:af7b5a064ad3978467a01b842c2680968"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_networking_1_1_client.html#af7b5a064ad3978467a01b842c2680968">IsStarted</a><code> [get, set]</code></td></tr>
 <tr class="separator:af7b5a064ad3978467a01b842c2680968"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acbf342c1dc9020dac97f73c4fafbd7b8"><td class="memItemLeft" align="right" valign="top"><a id="acbf342c1dc9020dac97f73c4fafbd7b8"></a>
-NetworkEventType&#160;</td><td class="memItemRight" valign="bottom"><b>LastEvent</b><code> [get, set]</code></td></tr>
+<tr class="memitem:acbf342c1dc9020dac97f73c4fafbd7b8"><td class="memItemLeft" align="right" valign="top">NetworkEventType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_networking_1_1_client.html#acbf342c1dc9020dac97f73c4fafbd7b8">LastEvent</a><code> [get, set]</code></td></tr>
 <tr class="separator:acbf342c1dc9020dac97f73c4fafbd7b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a47d5a4fb275b4f108cd7cda461eafc"><td class="memItemLeft" align="right" valign="top"><a id="a6a47d5a4fb275b4f108cd7cda461eafc"></a>
-NetMsg&#160;</td><td class="memItemRight" valign="bottom"><b>LastSent</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a6a47d5a4fb275b4f108cd7cda461eafc"><td class="memItemLeft" align="right" valign="top">NetMsg&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_networking_1_1_client.html#a6a47d5a4fb275b4f108cd7cda461eafc">LastSent</a><code> [get, set]</code></td></tr>
 <tr class="separator:a6a47d5a4fb275b4f108cd7cda461eafc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header properties_interface_scripts_1_1_networking_1_1_i_client"><td colspan="2" onclick="javascript:toggleInherit('properties_interface_scripts_1_1_networking_1_1_i_client')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html">Scripts.Networking.IClient</a></td></tr>
-<tr class="memitem:a6b4ca04b21ea67d56555ebd2b537c542 inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memItemLeft" align="right" valign="top"><a id="a6b4ca04b21ea67d56555ebd2b537c542"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>ConnectionId</b><code> [get, set]</code></td></tr>
-<tr class="separator:a6b4ca04b21ea67d56555ebd2b537c542 inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a185e56d1372c70d555584813bbe6d13b inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memItemLeft" align="right" valign="top"><a id="a185e56d1372c70d555584813bbe6d13b"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>HostId</b><code> [get, set]</code></td></tr>
-<tr class="separator:a185e56d1372c70d555584813bbe6d13b inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab273af25bf8c7e959f4fd9621fa9cb53 inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memItemLeft" align="right" valign="top"><a id="ab273af25bf8c7e959f4fd9621fa9cb53"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsStarted</b><code> [get, set]</code></td></tr>
-<tr class="separator:ab273af25bf8c7e959f4fd9621fa9cb53 inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb2d3072858c594b2b85f26173a9febc inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memItemLeft" align="right" valign="top"><a id="afb2d3072858c594b2b85f26173a9febc"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_USER</b><code> [get, set]</code></td></tr>
+<tr class="memitem:afb2d3072858c594b2b85f26173a9febc inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#afb2d3072858c594b2b85f26173a9febc">MAX_USER</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:afb2d3072858c594b2b85f26173a9febc inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of users on the server.  <a href="interface_scripts_1_1_networking_1_1_i_client.html#afb2d3072858c594b2b85f26173a9febc">More...</a><br /></td></tr>
 <tr class="separator:afb2d3072858c594b2b85f26173a9febc inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa1b50e15f1265f1dfc553d00fd9fef4 inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memItemLeft" align="right" valign="top"><a id="aaa1b50e15f1265f1dfc553d00fd9fef4"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>PORT</b><code> [get, set]</code></td></tr>
-<tr class="separator:aaa1b50e15f1265f1dfc553d00fd9fef4 inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a536ea1017cd76daaf9f1a757a1a1ade2 inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memItemLeft" align="right" valign="top"><a id="a536ea1017cd76daaf9f1a757a1a1ade2"></a>
-byte&#160;</td><td class="memItemRight" valign="bottom"><b>ReliableChannel</b><code> [get, set]</code></td></tr>
-<tr class="separator:a536ea1017cd76daaf9f1a757a1a1ade2 inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92dc534290b231bf208c174c5f98a8bf inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memItemLeft" align="right" valign="top"><a id="a92dc534290b231bf208c174c5f98a8bf"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>SERVER_IP</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a92dc534290b231bf208c174c5f98a8bf inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#a92dc534290b231bf208c174c5f98a8bf">SERVER_IP</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a92dc534290b231bf208c174c5f98a8bf inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="mdescLeft">&#160;</td><td class="mdescRight">IP address of the server.  <a href="interface_scripts_1_1_networking_1_1_i_client.html#a92dc534290b231bf208c174c5f98a8bf">More...</a><br /></td></tr>
 <tr class="separator:a92dc534290b231bf208c174c5f98a8bf inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef2bef6628b66a56fb13fe8a5e41060a inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memItemLeft" align="right" valign="top"><a id="aef2bef6628b66a56fb13fe8a5e41060a"></a>
-NetworkEventType&#160;</td><td class="memItemRight" valign="bottom"><b>LastEvent</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a536ea1017cd76daaf9f1a757a1a1ade2 inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memItemLeft" align="right" valign="top">byte&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#a536ea1017cd76daaf9f1a757a1a1ade2">ReliableChannel</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a536ea1017cd76daaf9f1a757a1a1ade2 inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reliable channel #  <a href="interface_scripts_1_1_networking_1_1_i_client.html#a536ea1017cd76daaf9f1a757a1a1ade2">More...</a><br /></td></tr>
+<tr class="separator:a536ea1017cd76daaf9f1a757a1a1ade2 inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b4ca04b21ea67d56555ebd2b537c542 inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#a6b4ca04b21ea67d56555ebd2b537c542">ConnectionId</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a6b4ca04b21ea67d56555ebd2b537c542 inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="mdescLeft">&#160;</td><td class="mdescRight">Connection # from the server.  <a href="interface_scripts_1_1_networking_1_1_i_client.html#a6b4ca04b21ea67d56555ebd2b537c542">More...</a><br /></td></tr>
+<tr class="separator:a6b4ca04b21ea67d56555ebd2b537c542 inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a185e56d1372c70d555584813bbe6d13b inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#a185e56d1372c70d555584813bbe6d13b">HostId</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a185e56d1372c70d555584813bbe6d13b inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="mdescLeft">&#160;</td><td class="mdescRight">Port # and Host Topology combined.  <a href="interface_scripts_1_1_networking_1_1_i_client.html#a185e56d1372c70d555584813bbe6d13b">More...</a><br /></td></tr>
+<tr class="separator:a185e56d1372c70d555584813bbe6d13b inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab273af25bf8c7e959f4fd9621fa9cb53 inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#ab273af25bf8c7e959f4fd9621fa9cb53">IsStarted</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ab273af25bf8c7e959f4fd9621fa9cb53 inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether or not the client connection has been started.  <a href="interface_scripts_1_1_networking_1_1_i_client.html#ab273af25bf8c7e959f4fd9621fa9cb53">More...</a><br /></td></tr>
+<tr class="separator:ab273af25bf8c7e959f4fd9621fa9cb53 inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef2bef6628b66a56fb13fe8a5e41060a inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memItemLeft" align="right" valign="top">NetworkEventType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#aef2bef6628b66a56fb13fe8a5e41060a">LastEvent</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:aef2bef6628b66a56fb13fe8a5e41060a inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used for Testing.  <a href="interface_scripts_1_1_networking_1_1_i_client.html#aef2bef6628b66a56fb13fe8a5e41060a">More...</a><br /></td></tr>
 <tr class="separator:aef2bef6628b66a56fb13fe8a5e41060a inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa71f29813691e6dcdecb6e7edf335fec inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memItemLeft" align="right" valign="top"><a id="aa71f29813691e6dcdecb6e7edf335fec"></a>
-NetMsg&#160;</td><td class="memItemRight" valign="bottom"><b>LastSent</b><code> [get, set]</code></td></tr>
+<tr class="memitem:aa71f29813691e6dcdecb6e7edf335fec inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memItemLeft" align="right" valign="top">NetMsg&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#aa71f29813691e6dcdecb6e7edf335fec">LastSent</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:aa71f29813691e6dcdecb6e7edf335fec inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used for Testing.  <a href="interface_scripts_1_1_networking_1_1_i_client.html#aa71f29813691e6dcdecb6e7edf335fec">More...</a><br /></td></tr>
 <tr class="separator:aa71f29813691e6dcdecb6e7edf335fec inherit properties_interface_scripts_1_1_networking_1_1_i_client"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Attaches to a client object and handles all communication with the server. </p>
-<p>There are a lot of precompiler options being used. This is to disable the warnings about how Unity's netcode is being deprecated. Since the replacement has yet to come out and the code is still valid in this version of unity, it's cleaner to disable the warnings. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+<div class="textblock"></div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a60d7a2ca88195ecde92e2eda989415b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60d7a2ca88195ecde92e2eda989415b6">&#9670;&nbsp;</a></span>CheckMessageType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Scripts.Networking.Client.CheckMessageType </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>recHostId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>connectionId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>channelId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">byte[]&#160;</td>
+          <td class="paramname"><em>recievedBuffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">NetworkEventType&#160;</td>
+          <td class="paramname"><em>type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks the network event type of the incoming net message and acts appropriately. </p>
+
+<p>Implements <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#a4d21181992d7a44d20c3444a64d5995f">Scripts.Networking.IClient</a>.</p>
+
+</div>
+</div>
+<a id="a168c946d0fe731a21fbd68942f7a2d90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a168c946d0fe731a21fbd68942f7a2d90">&#9670;&nbsp;</a></span>HasControl()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Scripts.Networking.Client.HasControl </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Determines whether or not the player can act. </p>
+
+<p>Implements <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#ac6ceacf1e4d8a58c2f556f81c28e58a9">Scripts.Networking.IClient</a>.</p>
+
+</div>
+</div>
+<a id="a617012757c1e58ae892ed75bb00be53d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a617012757c1e58ae892ed75bb00be53d">&#9670;&nbsp;</a></span>Init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Scripts.Networking.Client.Init </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes the client and connects to the server. </p>
+
+<p>Implements <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#a75ce283cb8bb8e157f7d3993bf4fd438">Scripts.Networking.IClient</a>.</p>
+
+</div>
+</div>
 <a id="a73fd40af1f05bf5742ff9d5c57b461d7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a73fd40af1f05bf5742ff9d5c57b461d7">&#9670;&nbsp;</a></span>SendAttackData()</h2>
 
@@ -230,15 +324,8 @@ NetMsg&#160;</td><td class="memItemRight" valign="bottom"><b>LastSent</b><code> 
 </div><div class="memdoc">
 
 <p>Sends an attack to the server, updating the characters health. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">troopId</td><td>Troop that took damage.</td></tr>
-    <tr><td class="paramname">health</td><td>New health of troop.</td></tr>
-  </table>
-  </dd>
-</dl>
 
-<p>Implements <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html">Scripts.Networking.IClient</a>.</p>
+<p>Implements <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#ae4301350fc86041c501301e2087a3a02">Scripts.Networking.IClient</a>.</p>
 
 </div>
 </div>
@@ -259,7 +346,7 @@ NetMsg&#160;</td><td class="memItemRight" valign="bottom"><b>LastSent</b><code> 
 
 <p>Ends the players turn. </p>
 
-<p>Implements <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html">Scripts.Networking.IClient</a>.</p>
+<p>Implements <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#a39d445c4e794ccd8f9ecc8ce8df85a2b">Scripts.Networking.IClient</a>.</p>
 
 </div>
 </div>
@@ -279,16 +366,9 @@ NetMsg&#160;</td><td class="memItemRight" valign="bottom"><b>LastSent</b><code> 
       </table>
 </div><div class="memdoc">
 
-<p>Tell the server that the player is finished building an army. </p>
-<p>Updates the number of spells the player bought in the database.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">magicAmount</td><td>Number of spells the player bought.</td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Tell the server that the player is finished building an army.Updates the number of spells the player bought in the database. </p>
 
-<p>Implements <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html">Scripts.Networking.IClient</a>.</p>
+<p>Implements <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#ae1cca57e4c885499865fc264a0050290">Scripts.Networking.IClient</a>.</p>
 
 </div>
 </div>
@@ -325,16 +405,8 @@ NetMsg&#160;</td><td class="memItemRight" valign="bottom"><b>LastSent</b><code> 
 </div><div class="memdoc">
 
 <p>Tells the server to move the character to a new position. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">TroopID</td><td>Troop to be moved.</td></tr>
-    <tr><td class="paramname">newX</td><td>New X position, relative to the player.</td></tr>
-    <tr><td class="paramname">newZ</td><td>New Z position, relative to the player.</td></tr>
-  </table>
-  </dd>
-</dl>
 
-<p>Implements <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html">Scripts.Networking.IClient</a>.</p>
+<p>Implements <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#aa15db30beff199bec9a3a0024b2b1f58">Scripts.Networking.IClient</a>.</p>
 
 </div>
 </div>
@@ -371,15 +443,8 @@ NetMsg&#160;</td><td class="memItemRight" valign="bottom"><b>LastSent</b><code> 
 </div><div class="memdoc">
 
 <p>Lets the server know a character has retreated or been slain. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">troopId</td><td>Specific troop.</td></tr>
-    <tr><td class="paramname">TeamNum</td><td>Team number of troop.</td></tr>
-  </table>
-  </dd>
-</dl>
 
-<p>Implements <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html">Scripts.Networking.IClient</a>.</p>
+<p>Implements <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#aec07069d6cb010d8df927a34f97d28b9">Scripts.Networking.IClient</a>.</p>
 
 </div>
 </div>
@@ -400,14 +465,8 @@ NetMsg&#160;</td><td class="memItemRight" valign="bottom"><b>LastSent</b><code> 
 </div><div class="memdoc">
 
 <p>Base function to send a command to the server. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">msg</td><td>Any net command.</td></tr>
-  </table>
-  </dd>
-</dl>
 
-<p>Implements <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html">Scripts.Networking.IClient</a>.</p>
+<p>Implements <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#ae59d24d2fa36365858522e5d2d6d727c">Scripts.Networking.IClient</a>.</p>
 
 </div>
 </div>
@@ -456,18 +515,29 @@ NetMsg&#160;</td><td class="memItemRight" valign="bottom"><b>LastSent</b><code> 
 </div><div class="memdoc">
 
 <p>Sends a troop with information to the server's database. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">troop</td><td>Type of troop.</td></tr>
-    <tr><td class="paramname">weapon</td><td>Weapon used by troop.</td></tr>
-    <tr><td class="paramname">armor</td><td>Armor used by troop.</td></tr>
-    <tr><td class="paramname">xPos</td><td>X position of troop, relative to the player.</td></tr>
-    <tr><td class="paramname">yPos</td><td>Z position of the troop, relative to the player.</td></tr>
-  </table>
-  </dd>
-</dl>
 
-<p>Implements <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html">Scripts.Networking.IClient</a>.</p>
+<p>Implements <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#ae8723e8336a7897e2c481d6a2b4f7089">Scripts.Networking.IClient</a>.</p>
+
+</div>
+</div>
+<a id="a1b3a5cf1df4efbf863d86524145330ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b3a5cf1df4efbf863d86524145330ee">&#9670;&nbsp;</a></span>SendUpdatedName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Scripts.Networking.Client.SendUpdatedName </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pulls the stored name from PlayerPrefs and updates the server. </p>
+
+<p>Implements <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#a89eaae69cc975d41ca01c25df06a3504">Scripts.Networking.IClient</a>.</p>
 
 </div>
 </div>
@@ -488,7 +558,7 @@ NetMsg&#160;</td><td class="memItemRight" valign="bottom"><b>LastSent</b><code> 
 
 <p>Shuts down the server. </p>
 
-<p>Implements <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html">Scripts.Networking.IClient</a>.</p>
+<p>Implements <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#a67fe708ddf9b06cf9305119416db8b58">Scripts.Networking.IClient</a>.</p>
 
 </div>
 </div>
@@ -509,19 +579,253 @@ NetMsg&#160;</td><td class="memItemRight" valign="bottom"><b>LastSent</b><code> 
 
 <p>Checks every frame for a new network event. </p>
 
-<p>Implements <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html">Scripts.Networking.IClient</a>.</p>
+<p>Implements <a class="el" href="interface_scripts_1_1_networking_1_1_i_client.html#ae5bbe419127f7cb48ae7cb0c471a66a2">Scripts.Networking.IClient</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a95ee1330c5ab8005a1a541212fa084b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95ee1330c5ab8005a1a541212fa084b4">&#9670;&nbsp;</a></span>BYTE_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int Scripts.Networking.Client.BYTE_SIZE = 1024</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ace8616a82f99b41590e1061d524494c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace8616a82f99b41590e1061d524494c2">&#9670;&nbsp;</a></span>hasControl</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Scripts.Networking.Client.hasControl</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="aa1a82d27d4732d4951501e4059d0aec3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1a82d27d4732d4951501e4059d0aec3">&#9670;&nbsp;</a></span>ConnectionId</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Scripts.Networking.Client.ConnectionId</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a id="af046205ff988d51017f0c8958a817165"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af046205ff988d51017f0c8958a817165">&#9670;&nbsp;</a></span>HostId</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Scripts.Networking.Client.HostId</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a id="af7b5a064ad3978467a01b842c2680968"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7b5a064ad3978467a01b842c2680968">&#9670;&nbsp;</a></span>IsStarted</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Scripts.Networking.Client.IsStarted</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a id="acbf342c1dc9020dac97f73c4fafbd7b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbf342c1dc9020dac97f73c4fafbd7b8">&#9670;&nbsp;</a></span>LastEvent</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">NetworkEventType Scripts.Networking.Client.LastEvent</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a id="a6a47d5a4fb275b4f108cd7cda461eafc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a47d5a4fb275b4f108cd7cda461eafc">&#9670;&nbsp;</a></span>LastSent</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">NetMsg Scripts.Networking.Client.LastSent</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a id="a28d99a7d544ceede2e7130f5a065ea5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28d99a7d544ceede2e7130f5a065ea5f">&#9670;&nbsp;</a></span>MAX_USER</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Scripts.Networking.Client.MAX_USER</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a id="ae1c85f777f9450877a7e466b2b42ea06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1c85f777f9450877a7e466b2b42ea06">&#9670;&nbsp;</a></span>ReliableChannel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">byte Scripts.Networking.Client.ReliableChannel</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a id="a4b289e63ef4c08dd8f0eed7616abd911"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b289e63ef4c08dd8f0eed7616abd911">&#9670;&nbsp;</a></span>SERVER_IP</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Scripts.Networking.Client.SERVER_IP</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>fear_client/Assets/Scripts/Networking/Client.cs</li>
+<li>fear_client/Assets/Scripts/Networking/<a class="el" href="_client_8cs.html">Client.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.17
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_scripts.html">Scripts</a></li><li class="navelem"><a class="el" href="namespace_scripts_1_1_networking.html">Networking</a></li><li class="navelem"><a class="el" href="class_scripts_1_1_networking_1_1_client.html">Client</a></li>
+    <li class="footer">Generated on Tue May 5 2020 19:44:36 for Fear Valley Client by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
 </body>
 </html>

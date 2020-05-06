@@ -1,15 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using TMPro;
 
 namespace Scripts.Networking
 {
+    /// <summary>
+    /// Wrapper class to drag server preferences out of connection scene.
+    /// </summary>
     public class ServerPreferences : MonoBehaviour
     {
-
         [SerializeField]
         public TMP_InputField serverNum;
 
@@ -17,6 +16,7 @@ namespace Scripts.Networking
         private static string IP_ADDR;
         [SerializeField]
         private static int PORT_NUM;
+        
         // Start is called before the first frame update
         void Start()
         {
@@ -55,8 +55,8 @@ namespace Scripts.Networking
         /// <summary>
         /// Manually set the connection info.
         /// </summary>
-        /// <param name="ip"></param>
-        /// <param name="port"></param>
+        /// <param name="ip">IP Address</param>
+        /// <param name="port">Port number.</param>
         public void SetValues(string ip, int port)
         {
             IP_ADDR = ip;

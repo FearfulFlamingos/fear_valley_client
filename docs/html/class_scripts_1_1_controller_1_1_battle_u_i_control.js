@@ -1,0 +1,28 @@
+var class_scripts_1_1_controller_1_1_battle_u_i_control =
+[
+    [ "Attack", "class_scripts_1_1_controller_1_1_battle_u_i_control.html#a09a0ecac47896bdd06dc52388b245e35", null ],
+    [ "Cancel", "class_scripts_1_1_controller_1_1_battle_u_i_control.html#a0ba7484236e9b03657508b5dd8a2fa57", null ],
+    [ "CancelAttack", "class_scripts_1_1_controller_1_1_battle_u_i_control.html#ac7257f80106ff8e7a3f37334b9d97804", null ],
+    [ "CancelAttackPanel", "class_scripts_1_1_controller_1_1_battle_u_i_control.html#a1418a2342e749867c7166c86b17b90d6", null ],
+    [ "CancelMagicExplosion", "class_scripts_1_1_controller_1_1_battle_u_i_control.html#abad424a51e2e971f0b4318562edd34b1", null ],
+    [ "CheckForKeyboardInput", "class_scripts_1_1_controller_1_1_battle_u_i_control.html#a02242ac0764e8ad9f15f4a2667a7e11f", null ],
+    [ "DeactivateAllPanels", "class_scripts_1_1_controller_1_1_battle_u_i_control.html#ae5e9df21522b424e0ae9c04448387efa", null ],
+    [ "ExecuteAttack", "class_scripts_1_1_controller_1_1_battle_u_i_control.html#a77aa7ee976bee66cfbc7baa4ad702886", null ],
+    [ "Magic", "class_scripts_1_1_controller_1_1_battle_u_i_control.html#a5b47a62751674de6d0a46c9510f091a7", null ],
+    [ "Move", "class_scripts_1_1_controller_1_1_battle_u_i_control.html#a99110b70e590d4f2005e3c551709d524", null ],
+    [ "Retreat", "class_scripts_1_1_controller_1_1_battle_u_i_control.html#abceabc492652c48a93f54f0cf6eb634b", null ],
+    [ "SetAttackPanelAttackerInfo", "class_scripts_1_1_controller_1_1_battle_u_i_control.html#a20c8a8d33d52fe633978304b0bfd1fd8", null ],
+    [ "SetAttackPanelEnemyInfo", "class_scripts_1_1_controller_1_1_battle_u_i_control.html#a3e311676e552d1091a715eeeadd2fe5c", null ],
+    [ "SetInfoPanelFriendlyText", "class_scripts_1_1_controller_1_1_battle_u_i_control.html#a1aa54f2f7fa478fad877333fbd81a831", null ],
+    [ "SetVictoryPanelText", "class_scripts_1_1_controller_1_1_battle_u_i_control.html#a4c40010994edfdd15b4bb583fec6ae81", null ],
+    [ "SwitchToAttackPanel", "class_scripts_1_1_controller_1_1_battle_u_i_control.html#a3c115189d30ce84fa36d74a2516607b7", null ],
+    [ "TESTGETATTACKPANELENEMYINFO", "class_scripts_1_1_controller_1_1_battle_u_i_control.html#a43d6ce372a96125e3a871645868ec78b", null ],
+    [ "TESTGETVICTORYPANELSTATUS", "class_scripts_1_1_controller_1_1_battle_u_i_control.html#a2b3687aa213756cc2fd2ad356be273ef", null ],
+    [ "ToggleActionPanel", "class_scripts_1_1_controller_1_1_battle_u_i_control.html#a60d9655bef208834d73ea6335b96d308", null ],
+    [ "ToggleInfoPanel", "class_scripts_1_1_controller_1_1_battle_u_i_control.html#abfa86539921a9f21befee85fe48a778d", null ],
+    [ "ToggleMagicInstructions", "class_scripts_1_1_controller_1_1_battle_u_i_control.html#aed83fc19ab87bf3c9d7c0420c77ea682", null ],
+    [ "ToggleVictoryPanel", "class_scripts_1_1_controller_1_1_battle_u_i_control.html#a36c85fecb573faf2fefdae0cc132f696", null ],
+    [ "UpdateEnemyName", "class_scripts_1_1_controller_1_1_battle_u_i_control.html#a616fc32594dd913526681e48ebd66123", null ],
+    [ "InputManager", "class_scripts_1_1_controller_1_1_battle_u_i_control.html#a82e08e4d34315fdd8470dc14de15ff9c", null ],
+    [ "Instance", "class_scripts_1_1_controller_1_1_battle_u_i_control.html#a2c10cdc07de5f1a15b5c361070b308e4", null ]
+];

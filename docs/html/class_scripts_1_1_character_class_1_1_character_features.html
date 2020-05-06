@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -20,11 +24,12 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Fear Valley Client
    &#160;<span id="projectnumber">0.9</span>
    </div>
-   <div id="projectbrief">The client side game.</div>
+   <div id="projectbrief">The client build.</div>
   </td>
  </tr>
  </tbody>
@@ -47,6 +52,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('class_scripts_1_1_character_class_1_1_character_features.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,11 +83,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespace_scripts.html">Scripts</a></li><li class="navelem"><a class="el" href="namespace_scripts_1_1_character_class.html">CharacterClass</a></li><li class="navelem"><a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html">CharacterFeatures</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -76,7 +93,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>This script is largely used to keep track of information on each of the game objects vital to making the game work  
+<p> 
  <a href="class_scripts_1_1_character_class_1_1_character_features.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for Scripts.CharacterClass.CharacterFeatures:</div>
@@ -84,7 +101,7 @@ Inheritance diagram for Scripts.CharacterClass.CharacterFeatures:</div>
  <div class="center">
   <img src="class_scripts_1_1_character_class_1_1_character_features.png" usemap="#Scripts.CharacterClass.CharacterFeatures_map" alt=""/>
   <map id="Scripts.CharacterClass.CharacterFeatures_map" name="Scripts.CharacterClass.CharacterFeatures_map">
-<area href="interface_scripts_1_1_character_class_1_1_i_character_features.html" alt="Scripts.CharacterClass.ICharacterFeatures" shape="rect" coords="0,0,257,24"/>
+<area href="interface_scripts_1_1_character_class_1_1_i_character_features.html" title="This script is largely used to keep track of information on each of the game objects vital to making ..." alt="Scripts.CharacterClass.ICharacterFeatures" shape="rect" coords="0,0,257,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -93,125 +110,108 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac42e3051f974fbb2f069105d8ed9db22"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html#ac42e3051f974fbb2f069105d8ed9db22">CharacterFeatures</a> ()</td></tr>
 <tr class="memdesc:ac42e3051f974fbb2f069105d8ed9db22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blank constructor method.  <a href="class_scripts_1_1_character_class_1_1_character_features.html#ac42e3051f974fbb2f069105d8ed9db22">More...</a><br /></td></tr>
 <tr class="separator:ac42e3051f974fbb2f069105d8ed9db22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3dfa839b44b4a5d0007cc7d3656ed5b7"><td class="memItemLeft" align="right" valign="top"><a id="a3dfa839b44b4a5d0007cc7d3656ed5b7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>DamageCharacter</b> (int amount)</td></tr>
+<tr class="memitem:a3dfa839b44b4a5d0007cc7d3656ed5b7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html#a3dfa839b44b4a5d0007cc7d3656ed5b7">DamageCharacter</a> (int amount)</td></tr>
+<tr class="memdesc:a3dfa839b44b4a5d0007cc7d3656ed5b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Damages the character.  <a href="class_scripts_1_1_character_class_1_1_character_features.html#a3dfa839b44b4a5d0007cc7d3656ed5b7">More...</a><br /></td></tr>
 <tr class="separator:a3dfa839b44b4a5d0007cc7d3656ed5b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3c9149726f3f0065d2e3534450a5f10"><td class="memItemLeft" align="right" valign="top"><a id="ae3c9149726f3f0065d2e3534450a5f10"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>GetAttackRoll</b> ()</td></tr>
+<tr class="memitem:ae3c9149726f3f0065d2e3534450a5f10"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html#ae3c9149726f3f0065d2e3534450a5f10">GetAttackRoll</a> ()</td></tr>
+<tr class="memdesc:ae3c9149726f3f0065d2e3534450a5f10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the attack roll of the character to be compared against an enemy's armor.See <a class="el" href="class_scripts_1_1_actions_1_1_player_attack.html#ae22cf8e51f62fb7279f5d1fd2e71bc8b" title="This is the base funciton for all attacks.">Actions.PlayerAttack.Attack</a> for more details.  <a href="class_scripts_1_1_character_class_1_1_character_features.html#ae3c9149726f3f0065d2e3534450a5f10">More...</a><br /></td></tr>
 <tr class="separator:ae3c9149726f3f0065d2e3534450a5f10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e1088a4b48ff4c25ddc62d43a332f93"><td class="memItemLeft" align="right" valign="top"><a id="a9e1088a4b48ff4c25ddc62d43a332f93"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>GetDamageRoll</b> ()</td></tr>
+<tr class="memitem:a9e1088a4b48ff4c25ddc62d43a332f93"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html#a9e1088a4b48ff4c25ddc62d43a332f93">GetDamageRoll</a> ()</td></tr>
+<tr class="memdesc:a9e1088a4b48ff4c25ddc62d43a332f93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the damage roll of the character.See <a class="el" href="class_scripts_1_1_actions_1_1_player_attack.html#ae22cf8e51f62fb7279f5d1fd2e71bc8b" title="This is the base funciton for all attacks.">Actions.PlayerAttack.Attack</a> for more details.  <a href="class_scripts_1_1_character_class_1_1_character_features.html#a9e1088a4b48ff4c25ddc62d43a332f93">More...</a><br /></td></tr>
 <tr class="separator:a9e1088a4b48ff4c25ddc62d43a332f93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aefc84fcc55f77c84084a1ccceeb1eabe"><td class="memItemLeft" align="right" valign="top"><a id="aefc84fcc55f77c84084a1ccceeb1eabe"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>GetMagicAttackRoll</b> ()</td></tr>
+<tr class="memitem:aefc84fcc55f77c84084a1ccceeb1eabe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html#aefc84fcc55f77c84084a1ccceeb1eabe">GetMagicAttackRoll</a> ()</td></tr>
+<tr class="memdesc:aefc84fcc55f77c84084a1ccceeb1eabe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the magical attack roll of the character.See Actions.PlayerMagic.MagicAttack(UnityEngine.GameObject).  <a href="class_scripts_1_1_character_class_1_1_character_features.html#aefc84fcc55f77c84084a1ccceeb1eabe">More...</a><br /></td></tr>
 <tr class="separator:aefc84fcc55f77c84084a1ccceeb1eabe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5025e7ed3675c0b2bb11b81c3885e992"><td class="memItemLeft" align="right" valign="top"><a id="a5025e7ed3675c0b2bb11b81c3885e992"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>GetMagicDamageRoll</b> ()</td></tr>
+<tr class="memitem:a5025e7ed3675c0b2bb11b81c3885e992"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html#a5025e7ed3675c0b2bb11b81c3885e992">GetMagicDamageRoll</a> ()</td></tr>
+<tr class="memdesc:a5025e7ed3675c0b2bb11b81c3885e992"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the magical damage roll of the character.See Actions.PlayerMagic.MagicAttack(UnityEngine.GameObject).  <a href="class_scripts_1_1_character_class_1_1_character_features.html#a5025e7ed3675c0b2bb11b81c3885e992">More...</a><br /></td></tr>
 <tr class="separator:a5025e7ed3675c0b2bb11b81c3885e992"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:ab40f046fcb54fb22aaa3ca2e18115e15"><td class="memItemLeft" align="right" valign="top"><a id="ab40f046fcb54fb22aaa3ca2e18115e15"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>Team</b><code> [get, set]</code></td></tr>
+<tr class="memitem:ab40f046fcb54fb22aaa3ca2e18115e15"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html#ab40f046fcb54fb22aaa3ca2e18115e15">Team</a><code> [get, set]</code></td></tr>
 <tr class="separator:ab40f046fcb54fb22aaa3ca2e18115e15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3aa9d62c9a37d30f1aaddcfa4a8765de"><td class="memItemLeft" align="right" valign="top"><a id="a3aa9d62c9a37d30f1aaddcfa4a8765de"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>Health</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a3aa9d62c9a37d30f1aaddcfa4a8765de"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html#a3aa9d62c9a37d30f1aaddcfa4a8765de">Health</a><code> [get, set]</code></td></tr>
 <tr class="separator:a3aa9d62c9a37d30f1aaddcfa4a8765de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9814bb146ad4cf03c1e1a87c970c192e"><td class="memItemLeft" align="right" valign="top"><a id="a9814bb146ad4cf03c1e1a87c970c192e"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>TroopId</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a9814bb146ad4cf03c1e1a87c970c192e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html#a9814bb146ad4cf03c1e1a87c970c192e">TroopId</a><code> [get, set]</code></td></tr>
 <tr class="separator:a9814bb146ad4cf03c1e1a87c970c192e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a329c39cb3bcf2894b2bee5e1c67f2039"><td class="memItemLeft" align="right" valign="top"><a id="a329c39cb3bcf2894b2bee5e1c67f2039"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>Charclass</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a329c39cb3bcf2894b2bee5e1c67f2039"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html#a329c39cb3bcf2894b2bee5e1c67f2039">Charclass</a><code> [get, set]</code></td></tr>
 <tr class="separator:a329c39cb3bcf2894b2bee5e1c67f2039"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a960f3433c1bcddacb250b12cb36c051a"><td class="memItemLeft" align="right" valign="top"><a id="a960f3433c1bcddacb250b12cb36c051a"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>AttackBonus</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a960f3433c1bcddacb250b12cb36c051a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html#a960f3433c1bcddacb250b12cb36c051a">AttackBonus</a><code> [get, set]</code></td></tr>
 <tr class="separator:a960f3433c1bcddacb250b12cb36c051a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c6dae5594a512ede4361729f6660a8c"><td class="memItemLeft" align="right" valign="top"><a id="a1c6dae5594a512ede4361729f6660a8c"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>DamageBonus</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a1c6dae5594a512ede4361729f6660a8c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html#a1c6dae5594a512ede4361729f6660a8c">DamageBonus</a><code> [get, set]</code></td></tr>
 <tr class="separator:a1c6dae5594a512ede4361729f6660a8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12c1602cfbbb2b74593f41c201ec064e"><td class="memItemLeft" align="right" valign="top"><a id="a12c1602cfbbb2b74593f41c201ec064e"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>Movement</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a12c1602cfbbb2b74593f41c201ec064e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html#a12c1602cfbbb2b74593f41c201ec064e">Movement</a><code> [get, set]</code></td></tr>
 <tr class="separator:a12c1602cfbbb2b74593f41c201ec064e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba6f53f0792efb23e5159b0190710947"><td class="memItemLeft" align="right" valign="top"><a id="aba6f53f0792efb23e5159b0190710947"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>Perception</b><code> [get, set]</code></td></tr>
+<tr class="memitem:aba6f53f0792efb23e5159b0190710947"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html#aba6f53f0792efb23e5159b0190710947">Perception</a><code> [get, set]</code></td></tr>
 <tr class="separator:aba6f53f0792efb23e5159b0190710947"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49eef8dd0d0085b99d32cb3568782fa8"><td class="memItemLeft" align="right" valign="top"><a id="a49eef8dd0d0085b99d32cb3568782fa8"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>ArmorBonus</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a49eef8dd0d0085b99d32cb3568782fa8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html#a49eef8dd0d0085b99d32cb3568782fa8">ArmorBonus</a><code> [get, set]</code></td></tr>
 <tr class="separator:a49eef8dd0d0085b99d32cb3568782fa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6419fa638f25ccdae187d64a818c50c"><td class="memItemLeft" align="right" valign="top"><a id="af6419fa638f25ccdae187d64a818c50c"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>Stealth</b><code> [get, set]</code></td></tr>
+<tr class="memitem:af6419fa638f25ccdae187d64a818c50c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html#af6419fa638f25ccdae187d64a818c50c">Stealth</a><code> [get, set]</code></td></tr>
 <tr class="separator:af6419fa638f25ccdae187d64a818c50c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeabcfcdbc5c90a0296026f4afb5d5890"><td class="memItemLeft" align="right" valign="top"><a id="aeabcfcdbc5c90a0296026f4afb5d5890"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>AttackRange</b><code> [get, set]</code></td></tr>
+<tr class="memitem:aeabcfcdbc5c90a0296026f4afb5d5890"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html#aeabcfcdbc5c90a0296026f4afb5d5890">AttackRange</a><code> [get, set]</code></td></tr>
 <tr class="separator:aeabcfcdbc5c90a0296026f4afb5d5890"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d786e40bc3af80d5e3cb7cb8f4e4d88"><td class="memItemLeft" align="right" valign="top"><a id="a3d786e40bc3af80d5e3cb7cb8f4e4d88"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>MaxAttackVal</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a3d786e40bc3af80d5e3cb7cb8f4e4d88"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html#a3d786e40bc3af80d5e3cb7cb8f4e4d88">MaxAttackVal</a><code> [get, set]</code></td></tr>
 <tr class="separator:a3d786e40bc3af80d5e3cb7cb8f4e4d88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59af1f485cb856a26dd268c1ecb42e93"><td class="memItemLeft" align="right" valign="top"><a id="a59af1f485cb856a26dd268c1ecb42e93"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>IsLeader</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a59af1f485cb856a26dd268c1ecb42e93"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html#a59af1f485cb856a26dd268c1ecb42e93">IsLeader</a><code> [get, set]</code></td></tr>
 <tr class="separator:a59af1f485cb856a26dd268c1ecb42e93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2fb85dd7b1eb9d9db550864883f6c4f"><td class="memItemLeft" align="right" valign="top"><a id="ac2fb85dd7b1eb9d9db550864883f6c4f"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsFocused</b><code> [get, set]</code></td></tr>
+<tr class="memitem:ac2fb85dd7b1eb9d9db550864883f6c4f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html#ac2fb85dd7b1eb9d9db550864883f6c4f">IsFocused</a><code> [get, set]</code></td></tr>
 <tr class="separator:ac2fb85dd7b1eb9d9db550864883f6c4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef895990c29d31cf5165437bbca4452b"><td class="memItemLeft" align="right" valign="top"><a id="aef895990c29d31cf5165437bbca4452b"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsAttacking</b><code> [get, set]</code></td></tr>
+<tr class="memitem:aef895990c29d31cf5165437bbca4452b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html#aef895990c29d31cf5165437bbca4452b">IsAttacking</a><code> [get, set]</code></td></tr>
 <tr class="separator:aef895990c29d31cf5165437bbca4452b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a891af12a570d4f16582eeb4104f53bf8"><td class="memItemLeft" align="right" valign="top"><a id="a891af12a570d4f16582eeb4104f53bf8"></a>
-<a class="el" href="interface_scripts_1_1_character_class_1_1_i_random_number_generator.html">IRandomNumberGenerator</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Rng</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a891af12a570d4f16582eeb4104f53bf8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_random_number_generator.html">IRandomNumberGenerator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html#a891af12a570d4f16582eeb4104f53bf8">Rng</a><code> [get, set]</code></td></tr>
 <tr class="separator:a891af12a570d4f16582eeb4104f53bf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td colspan="2" onclick="javascript:toggleInherit('properties_interface_scripts_1_1_character_class_1_1_i_character_features')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td></tr>
-<tr class="memitem:a7573759d1b208d73419bce2d86f6b87a inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top"><a id="a7573759d1b208d73419bce2d86f6b87a"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>ArmorBonus</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a7573759d1b208d73419bce2d86f6b87a inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a7573759d1b208d73419bce2d86f6b87a">ArmorBonus</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a7573759d1b208d73419bce2d86f6b87a inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="mdescLeft">&#160;</td><td class="mdescRight">Armor bonus of the character.  <a href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a7573759d1b208d73419bce2d86f6b87a">More...</a><br /></td></tr>
 <tr class="separator:a7573759d1b208d73419bce2d86f6b87a inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec300c1f509ceb5de0126073ae0cfa9a inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top"><a id="aec300c1f509ceb5de0126073ae0cfa9a"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>AttackBonus</b><code> [get, set]</code></td></tr>
+<tr class="memitem:aec300c1f509ceb5de0126073ae0cfa9a inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#aec300c1f509ceb5de0126073ae0cfa9a">AttackBonus</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:aec300c1f509ceb5de0126073ae0cfa9a inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attack bonus of the character.  <a href="interface_scripts_1_1_character_class_1_1_i_character_features.html#aec300c1f509ceb5de0126073ae0cfa9a">More...</a><br /></td></tr>
 <tr class="separator:aec300c1f509ceb5de0126073ae0cfa9a inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1123e4172740a0d9a2773eaa68f6d9a7 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top"><a id="a1123e4172740a0d9a2773eaa68f6d9a7"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>AttackRange</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a1123e4172740a0d9a2773eaa68f6d9a7 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a1123e4172740a0d9a2773eaa68f6d9a7">AttackRange</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a1123e4172740a0d9a2773eaa68f6d9a7 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attack range of the character.  <a href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a1123e4172740a0d9a2773eaa68f6d9a7">More...</a><br /></td></tr>
 <tr class="separator:a1123e4172740a0d9a2773eaa68f6d9a7 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa1b1027e38354c9f5a1ebd4882fad7a inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top"><a id="aaa1b1027e38354c9f5a1ebd4882fad7a"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>Charclass</b><code> [get, set]</code></td></tr>
+<tr class="memitem:aaa1b1027e38354c9f5a1ebd4882fad7a inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#aaa1b1027e38354c9f5a1ebd4882fad7a">Charclass</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:aaa1b1027e38354c9f5a1ebd4882fad7a inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class of the character.  <a href="interface_scripts_1_1_character_class_1_1_i_character_features.html#aaa1b1027e38354c9f5a1ebd4882fad7a">More...</a><br /></td></tr>
 <tr class="separator:aaa1b1027e38354c9f5a1ebd4882fad7a inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6bf1baa1c5890aae3506cb9b9c6085ec inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top"><a id="a6bf1baa1c5890aae3506cb9b9c6085ec"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>DamageBonus</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a6bf1baa1c5890aae3506cb9b9c6085ec inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a6bf1baa1c5890aae3506cb9b9c6085ec">DamageBonus</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a6bf1baa1c5890aae3506cb9b9c6085ec inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="mdescLeft">&#160;</td><td class="mdescRight">Damage bonus of the character.  <a href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a6bf1baa1c5890aae3506cb9b9c6085ec">More...</a><br /></td></tr>
 <tr class="separator:a6bf1baa1c5890aae3506cb9b9c6085ec inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93d7ab90bb6d8638f0e4d47620bcfd60 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top"><a id="a93d7ab90bb6d8638f0e4d47620bcfd60"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>Health</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a93d7ab90bb6d8638f0e4d47620bcfd60 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a93d7ab90bb6d8638f0e4d47620bcfd60">Health</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a93d7ab90bb6d8638f0e4d47620bcfd60 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="mdescLeft">&#160;</td><td class="mdescRight">Health of the character.  <a href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a93d7ab90bb6d8638f0e4d47620bcfd60">More...</a><br /></td></tr>
 <tr class="separator:a93d7ab90bb6d8638f0e4d47620bcfd60 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e4443c3ad2c647377775770d0fa07b7 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top"><a id="a6e4443c3ad2c647377775770d0fa07b7"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsAttacking</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a6e4443c3ad2c647377775770d0fa07b7 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a6e4443c3ad2c647377775770d0fa07b7">IsAttacking</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a6e4443c3ad2c647377775770d0fa07b7 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attacking state of the character.  <a href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a6e4443c3ad2c647377775770d0fa07b7">More...</a><br /></td></tr>
 <tr class="separator:a6e4443c3ad2c647377775770d0fa07b7 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3192eaa5c3255f4e1afc222374913f16 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top"><a id="a3192eaa5c3255f4e1afc222374913f16"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsFocused</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a3192eaa5c3255f4e1afc222374913f16 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a3192eaa5c3255f4e1afc222374913f16">IsFocused</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a3192eaa5c3255f4e1afc222374913f16 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="mdescLeft">&#160;</td><td class="mdescRight">Focused state of the character.  <a href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a3192eaa5c3255f4e1afc222374913f16">More...</a><br /></td></tr>
 <tr class="separator:a3192eaa5c3255f4e1afc222374913f16 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36a3a7627ca28a160b1e21673f5b248d inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top"><a id="a36a3a7627ca28a160b1e21673f5b248d"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>IsLeader</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a36a3a7627ca28a160b1e21673f5b248d inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a36a3a7627ca28a160b1e21673f5b248d">IsLeader</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a36a3a7627ca28a160b1e21673f5b248d inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="mdescLeft">&#160;</td><td class="mdescRight">Leadership quality of the character.  <a href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a36a3a7627ca28a160b1e21673f5b248d">More...</a><br /></td></tr>
 <tr class="separator:a36a3a7627ca28a160b1e21673f5b248d inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7d31b503bfb4b2bf2a441e5b5a62ef6 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top"><a id="ad7d31b503bfb4b2bf2a441e5b5a62ef6"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>MaxAttackVal</b><code> [get, set]</code></td></tr>
+<tr class="memitem:ad7d31b503bfb4b2bf2a441e5b5a62ef6 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#ad7d31b503bfb4b2bf2a441e5b5a62ef6">MaxAttackVal</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ad7d31b503bfb4b2bf2a441e5b5a62ef6 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum damage value of the character.  <a href="interface_scripts_1_1_character_class_1_1_i_character_features.html#ad7d31b503bfb4b2bf2a441e5b5a62ef6">More...</a><br /></td></tr>
 <tr class="separator:ad7d31b503bfb4b2bf2a441e5b5a62ef6 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a517ce1ab493fd389d2dfe49627b93198 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top"><a id="a517ce1ab493fd389d2dfe49627b93198"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>Movement</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a517ce1ab493fd389d2dfe49627b93198 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a517ce1ab493fd389d2dfe49627b93198">Movement</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a517ce1ab493fd389d2dfe49627b93198 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum movement distance of the character.  <a href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a517ce1ab493fd389d2dfe49627b93198">More...</a><br /></td></tr>
 <tr class="separator:a517ce1ab493fd389d2dfe49627b93198 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a450977ee11de1429a18e02f7ef8a15b3 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top"><a id="a450977ee11de1429a18e02f7ef8a15b3"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>Perception</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a450977ee11de1429a18e02f7ef8a15b3 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a450977ee11de1429a18e02f7ef8a15b3">Perception</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a450977ee11de1429a18e02f7ef8a15b3 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perception bonus of the character.  <a href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a450977ee11de1429a18e02f7ef8a15b3">More...</a><br /></td></tr>
 <tr class="separator:a450977ee11de1429a18e02f7ef8a15b3 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad636758ea1ce4bea44159e66533e6abb inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top"><a id="ad636758ea1ce4bea44159e66533e6abb"></a>
-<a class="el" href="interface_scripts_1_1_character_class_1_1_i_random_number_generator.html">IRandomNumberGenerator</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Rng</b><code> [get, set]</code></td></tr>
-<tr class="separator:ad636758ea1ce4bea44159e66533e6abb inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1a52b26cea5ff5be92e8d370ae86db4 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top"><a id="ad1a52b26cea5ff5be92e8d370ae86db4"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>Stealth</b><code> [get, set]</code></td></tr>
+<tr class="memitem:ad1a52b26cea5ff5be92e8d370ae86db4 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#ad1a52b26cea5ff5be92e8d370ae86db4">Stealth</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ad1a52b26cea5ff5be92e8d370ae86db4 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stealth bonus of the character.  <a href="interface_scripts_1_1_character_class_1_1_i_character_features.html#ad1a52b26cea5ff5be92e8d370ae86db4">More...</a><br /></td></tr>
 <tr class="separator:ad1a52b26cea5ff5be92e8d370ae86db4 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03e317835e0e99b0e7fc146054a3fa4d inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top"><a id="a03e317835e0e99b0e7fc146054a3fa4d"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>Team</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a03e317835e0e99b0e7fc146054a3fa4d inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a03e317835e0e99b0e7fc146054a3fa4d">Team</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a03e317835e0e99b0e7fc146054a3fa4d inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="mdescLeft">&#160;</td><td class="mdescRight">Team number of the character.  <a href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a03e317835e0e99b0e7fc146054a3fa4d">More...</a><br /></td></tr>
 <tr class="separator:a03e317835e0e99b0e7fc146054a3fa4d inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2972bd54e6ad1372d1dc42e443315a05 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top"><a id="a2972bd54e6ad1372d1dc42e443315a05"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>TroopId</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a2972bd54e6ad1372d1dc42e443315a05 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a2972bd54e6ad1372d1dc42e443315a05">TroopId</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a2972bd54e6ad1372d1dc42e443315a05 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="mdescLeft">&#160;</td><td class="mdescRight">ID number of the character.  <a href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a2972bd54e6ad1372d1dc42e443315a05">More...</a><br /></td></tr>
 <tr class="separator:a2972bd54e6ad1372d1dc42e443315a05 inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad636758ea1ce4bea44159e66533e6abb inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_random_number_generator.html">IRandomNumberGenerator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#ad636758ea1ce4bea44159e66533e6abb">Rng</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ad636758ea1ce4bea44159e66533e6abb inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="mdescLeft">&#160;</td><td class="mdescRight">RNG calculator of the character. See <a class="el" href="interface_scripts_1_1_character_class_1_1_i_random_number_generator.html" title="Random Number Generator used for attacks and damage rolls.">IRandomNumberGenerator</a>.  <a href="interface_scripts_1_1_character_class_1_1_i_character_features.html#ad636758ea1ce4bea44159e66533e6abb">More...</a><br /></td></tr>
+<tr class="separator:ad636758ea1ce4bea44159e66533e6abb inherit properties_interface_scripts_1_1_character_class_1_1_i_character_features"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This script is largely used to keep track of information on each of the game objects vital to making the game work </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<div class="textblock"></div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ac42e3051f974fbb2f069105d8ed9db22"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac42e3051f974fbb2f069105d8ed9db22">&#9670;&nbsp;</a></span>CharacterFeatures()</h2>
 
@@ -231,15 +231,511 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>TroopId</b><code> [get
 
 </div>
 </div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a3dfa839b44b4a5d0007cc7d3656ed5b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3dfa839b44b4a5d0007cc7d3656ed5b7">&#9670;&nbsp;</a></span>DamageCharacter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Scripts.CharacterClass.CharacterFeatures.DamageCharacter </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>amount</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Damages the character. </p>
+
+<p>Implements <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a72bb890bba183e5e82c5b9cd5d25e2b4">Scripts.CharacterClass.ICharacterFeatures</a>.</p>
+
+</div>
+</div>
+<a id="ae3c9149726f3f0065d2e3534450a5f10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3c9149726f3f0065d2e3534450a5f10">&#9670;&nbsp;</a></span>GetAttackRoll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Scripts.CharacterClass.CharacterFeatures.GetAttackRoll </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the attack roll of the character to be compared against an enemy's armor.See <a class="el" href="class_scripts_1_1_actions_1_1_player_attack.html#ae22cf8e51f62fb7279f5d1fd2e71bc8b" title="This is the base funciton for all attacks.">Actions.PlayerAttack.Attack</a> for more details. </p>
+
+<p>Implements <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#ac35875a139ea03965acd83250fc2ac78">Scripts.CharacterClass.ICharacterFeatures</a>.</p>
+
+</div>
+</div>
+<a id="a9e1088a4b48ff4c25ddc62d43a332f93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e1088a4b48ff4c25ddc62d43a332f93">&#9670;&nbsp;</a></span>GetDamageRoll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Scripts.CharacterClass.CharacterFeatures.GetDamageRoll </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the damage roll of the character.See <a class="el" href="class_scripts_1_1_actions_1_1_player_attack.html#ae22cf8e51f62fb7279f5d1fd2e71bc8b" title="This is the base funciton for all attacks.">Actions.PlayerAttack.Attack</a> for more details. </p>
+
+<p>Implements <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a42deb0063b43ad7ef6c228ae93f7939b">Scripts.CharacterClass.ICharacterFeatures</a>.</p>
+
+</div>
+</div>
+<a id="aefc84fcc55f77c84084a1ccceeb1eabe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefc84fcc55f77c84084a1ccceeb1eabe">&#9670;&nbsp;</a></span>GetMagicAttackRoll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Scripts.CharacterClass.CharacterFeatures.GetMagicAttackRoll </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the magical attack roll of the character.See Actions.PlayerMagic.MagicAttack(UnityEngine.GameObject). </p>
+
+<p>Implements <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#abfaa71a6ba4a68572b9934722df7babc">Scripts.CharacterClass.ICharacterFeatures</a>.</p>
+
+</div>
+</div>
+<a id="a5025e7ed3675c0b2bb11b81c3885e992"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5025e7ed3675c0b2bb11b81c3885e992">&#9670;&nbsp;</a></span>GetMagicDamageRoll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Scripts.CharacterClass.CharacterFeatures.GetMagicDamageRoll </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the magical damage roll of the character.See Actions.PlayerMagic.MagicAttack(UnityEngine.GameObject). </p>
+
+<p>Implements <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a4f0078f2a83aca95db8ff48d7fa05c24">Scripts.CharacterClass.ICharacterFeatures</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="a49eef8dd0d0085b99d32cb3568782fa8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49eef8dd0d0085b99d32cb3568782fa8">&#9670;&nbsp;</a></span>ArmorBonus</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Scripts.CharacterClass.CharacterFeatures.ArmorBonus</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a id="a960f3433c1bcddacb250b12cb36c051a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a960f3433c1bcddacb250b12cb36c051a">&#9670;&nbsp;</a></span>AttackBonus</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Scripts.CharacterClass.CharacterFeatures.AttackBonus</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a id="aeabcfcdbc5c90a0296026f4afb5d5890"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeabcfcdbc5c90a0296026f4afb5d5890">&#9670;&nbsp;</a></span>AttackRange</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Scripts.CharacterClass.CharacterFeatures.AttackRange</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a id="a329c39cb3bcf2894b2bee5e1c67f2039"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a329c39cb3bcf2894b2bee5e1c67f2039">&#9670;&nbsp;</a></span>Charclass</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Scripts.CharacterClass.CharacterFeatures.Charclass</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a id="a1c6dae5594a512ede4361729f6660a8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c6dae5594a512ede4361729f6660a8c">&#9670;&nbsp;</a></span>DamageBonus</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Scripts.CharacterClass.CharacterFeatures.DamageBonus</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a id="a3aa9d62c9a37d30f1aaddcfa4a8765de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3aa9d62c9a37d30f1aaddcfa4a8765de">&#9670;&nbsp;</a></span>Health</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Scripts.CharacterClass.CharacterFeatures.Health</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a id="aef895990c29d31cf5165437bbca4452b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef895990c29d31cf5165437bbca4452b">&#9670;&nbsp;</a></span>IsAttacking</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Scripts.CharacterClass.CharacterFeatures.IsAttacking</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a id="ac2fb85dd7b1eb9d9db550864883f6c4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2fb85dd7b1eb9d9db550864883f6c4f">&#9670;&nbsp;</a></span>IsFocused</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Scripts.CharacterClass.CharacterFeatures.IsFocused</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a id="a59af1f485cb856a26dd268c1ecb42e93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59af1f485cb856a26dd268c1ecb42e93">&#9670;&nbsp;</a></span>IsLeader</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Scripts.CharacterClass.CharacterFeatures.IsLeader</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a id="a3d786e40bc3af80d5e3cb7cb8f4e4d88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d786e40bc3af80d5e3cb7cb8f4e4d88">&#9670;&nbsp;</a></span>MaxAttackVal</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Scripts.CharacterClass.CharacterFeatures.MaxAttackVal</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a id="a12c1602cfbbb2b74593f41c201ec064e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12c1602cfbbb2b74593f41c201ec064e">&#9670;&nbsp;</a></span>Movement</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Scripts.CharacterClass.CharacterFeatures.Movement</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a id="aba6f53f0792efb23e5159b0190710947"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba6f53f0792efb23e5159b0190710947">&#9670;&nbsp;</a></span>Perception</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Scripts.CharacterClass.CharacterFeatures.Perception</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a id="a891af12a570d4f16582eeb4104f53bf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a891af12a570d4f16582eeb4104f53bf8">&#9670;&nbsp;</a></span>Rng</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_random_number_generator.html">IRandomNumberGenerator</a> Scripts.CharacterClass.CharacterFeatures.Rng</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a id="af6419fa638f25ccdae187d64a818c50c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6419fa638f25ccdae187d64a818c50c">&#9670;&nbsp;</a></span>Stealth</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Scripts.CharacterClass.CharacterFeatures.Stealth</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a id="ab40f046fcb54fb22aaa3ca2e18115e15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab40f046fcb54fb22aaa3ca2e18115e15">&#9670;&nbsp;</a></span>Team</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Scripts.CharacterClass.CharacterFeatures.Team</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a id="a9814bb146ad4cf03c1e1a87c970c192e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9814bb146ad4cf03c1e1a87c970c192e">&#9670;&nbsp;</a></span>TroopId</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Scripts.CharacterClass.CharacterFeatures.TroopId</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>fear_client/Assets/Scripts/CharacterClass/CharacterFeatures.cs</li>
+<li>fear_client/Assets/Scripts/CharacterClass/<a class="el" href="_character_features_8cs.html">CharacterFeatures.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.17
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_scripts.html">Scripts</a></li><li class="navelem"><a class="el" href="namespace_scripts_1_1_character_class.html">CharacterClass</a></li><li class="navelem"><a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html">CharacterFeatures</a></li>
+    <li class="footer">Generated on Tue May 5 2020 19:44:23 for Fear Valley Client by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
 </body>
 </html>

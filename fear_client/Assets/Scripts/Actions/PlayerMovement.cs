@@ -1,24 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 using Scripts.Controller;
 using Scripts.Networking;
 using Scripts.CharacterClass;
 
+
 namespace Scripts.Actions
 {
+    /// <inheritdoc cref="IPlayerMovement"/>
     public class PlayerMovement : MonoBehaviour, IPlayerMovement
     {
-        public LayerMask whatCanBeClickedOn;
-        public GameObject movementSelector;
+        private bool movement;
         private Vector3 startingPosition;
         private Vector3 targetPosition;
+        public LayerMask whatCanBeClickedOn;
+        public GameObject movementSelector;
         public NavMeshAgent myAgent;
         public bool selectingMovement;
-        private bool movement;
+        
+        /// <inheritdoc cref="IPlayerMovement.InputManager"/>
         public IInputManager InputManager { set; get; }
 
+        #region Monobehaviour
         void Start()
         {
             myAgent = gameObject.GetComponent<NavMeshAgent>();
@@ -36,8 +39,9 @@ namespace Scripts.Actions
                     FinishMovementAndReturn();
             }
         }
+        #endregion 
 
-        /// <summary>Moves the movement cursor around the screen to follow the actual cursor.</summary>
+        // Moves the movement cursor around the screen to follow the actual cursor.
         private void MoveSelector()
         {
             Ray ray = Camera.main.ScreenPointToRay(InputManager.MousePosition());
@@ -52,14 +56,10 @@ namespace Scripts.Actions
             }
         }
 
-        /// <summary>Checks for player input and ability to move a character</summary>
-        /// <returns>Boolean value of input.</returns>
+        /// <inheritdoc cref="IPlayerMovement.InputDetected"/>
         public bool InputDetected() => InputManager.GetLeftMouseClick() && MonoClient.Instance.HasControl();
 
-        /// <summary>
-        /// This is a private function that triggers movement, sends a client request, and toggles the checks for
-        /// this script. It also resets the character state via a call to PlayerSpotlight.
-        /// </summary>
+        /// <inheritdoc cref="IPlayerMovement.FinishMovementAndReturn"/>
         public void FinishMovementAndReturn()
         {
             selectingMovement = false;
@@ -74,8 +74,7 @@ namespace Scripts.Actions
                 targetPosition[2]);
         }
 
-        /// <summary>Moves the gameobject to <paramref name="newPos"/> with the navmeshagent.</summary>
-        /// <param name="newPos">This is the new vector where the object is put</param>
+        /// <inheritdoc cref="IPlayerMovement.Move(Vector3)"/>
         public void Move(Vector3 newPos)
         {
             if (gameObject.GetComponent<Character>().Features.Team == 2)
@@ -88,10 +87,7 @@ namespace Scripts.Actions
             Debug.Log(newPos);
         }
 
-        /// <summary>
-        /// Creates a movement selector from a prefab and sets its position 
-        /// to the character's position.
-        /// </summary>
+        /// <inheritdoc cref="IPlayerMovement.ActivateMovement"/>
         public void ActivateMovement()
         {
             movement = true;

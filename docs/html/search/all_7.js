@@ -1,11 +1,8 @@
 var searchData=
 [
-  ['icharacterfeatures_46',['ICharacterFeatures',['../interface_scripts_1_1_character_class_1_1_i_character_features.html',1,'Scripts::CharacterClass']]],
-  ['iclient_47',['IClient',['../interface_scripts_1_1_networking_1_1_i_client.html',1,'Scripts::Networking']]],
-  ['iinputmanager_48',['IInputManager',['../interface_scripts_1_1_controller_1_1_i_input_manager.html',1,'Scripts::Controller']]],
-  ['inputdetected_49',['InputDetected',['../class_scripts_1_1_actions_1_1_player_movement.html#a625990a8b9f45d85a33507871a6fdaff',1,'Scripts::Actions::PlayerMovement']]],
-  ['inputmanager_50',['InputManager',['../class_scripts_1_1_controller_1_1_input_manager.html',1,'Scripts::Controller']]],
-  ['iplayermovement_51',['IPlayerMovement',['../interface_scripts_1_1_actions_1_1_i_player_movement.html',1,'Scripts::Actions']]],
-  ['irandomnumbergenerator_52',['IRandomNumberGenerator',['../interface_scripts_1_1_character_class_1_1_i_random_number_generator.html',1,'Scripts::CharacterClass']]],
-  ['ivebeenattacked_53',['IveBeenAttacked',['../class_scripts_1_1_controller_1_1_game_loop.html#ae1fdaa32c54bad96226e516877cac9f6',1,'Scripts::Controller::GameLoop']]]
+  ['hascontrol_91',['HasControl',['../class_scripts_1_1_networking_1_1_client.html#a168c946d0fe731a21fbd68942f7a2d90',1,'Scripts.Networking.Client.HasControl()'],['../interface_scripts_1_1_networking_1_1_i_client.html#ac6ceacf1e4d8a58c2f556f81c28e58a9',1,'Scripts.Networking.IClient.HasControl()'],['../class_scripts_1_1_networking_1_1_client.html#ace8616a82f99b41590e1061d524494c2',1,'Scripts.Networking.Client.hasControl()']]],
+  ['health_92',['Health',['../class_scripts_1_1_character_class_1_1_character_features.html#a3aa9d62c9a37d30f1aaddcfa4a8765de',1,'Scripts.CharacterClass.CharacterFeatures.Health()'],['../interface_scripts_1_1_character_class_1_1_i_character_features.html#a93d7ab90bb6d8638f0e4d47620bcfd60',1,'Scripts.CharacterClass.ICharacterFeatures.Health()']]],
+  ['heavymagicalarmor_93',['HeavyMagicalArmor',['../class_scripts_1_1_army_builder_1_1_populate_grid.html#a0a83e6eec4195a84629f59428bea9bada9c42e64e6a309c7abd9d98219d4426e2',1,'Scripts::ArmyBuilder::PopulateGrid']]],
+  ['heavymundanearmor_94',['HeavyMundaneArmor',['../class_scripts_1_1_army_builder_1_1_populate_grid.html#a0a83e6eec4195a84629f59428bea9bada8603543bd49fefd604c455cd7e359ba2',1,'Scripts::ArmyBuilder::PopulateGrid']]],
+  ['hostid_95',['HostId',['../class_scripts_1_1_networking_1_1_client.html#af046205ff988d51017f0c8958a817165',1,'Scripts.Networking.Client.HostId()'],['../interface_scripts_1_1_networking_1_1_i_client.html#a185e56d1372c70d555584813bbe6d13b',1,'Scripts.Networking.IClient.HostId()']]]
 ];

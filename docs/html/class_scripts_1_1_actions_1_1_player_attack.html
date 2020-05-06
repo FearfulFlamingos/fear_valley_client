@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -20,11 +24,12 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Fear Valley Client
    &#160;<span id="projectnumber">0.9</span>
    </div>
-   <div id="projectbrief">The client side game.</div>
+   <div id="projectbrief">The client build.</div>
   </td>
  </tr>
  </tbody>
@@ -47,6 +52,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('class_scripts_1_1_actions_1_1_player_attack.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,11 +83,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespace_scripts.html">Scripts</a></li><li class="navelem"><a class="el" href="namespace_scripts_1_1_actions.html">Actions</a></li><li class="navelem"><a class="el" href="class_scripts_1_1_actions_1_1_player_attack.html">PlayerAttack</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -76,6 +93,9 @@ $(function() {
 <div class="title">Scripts.Actions.PlayerAttack Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p> 
+ <a href="class_scripts_1_1_actions_1_1_player_attack.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for Scripts.Actions.PlayerAttack:</div>
 <div class="dyncontent">
@@ -86,37 +106,35 @@ Inheritance diagram for Scripts.Actions.PlayerAttack:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa490aa9357d93ae26c1d21fb62d22a52"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_actions_1_1_player_attack.html#aa490aa9357d93ae26c1d21fb62d22a52">Attacking</a> ()</td></tr>
-<tr class="memdesc:aa490aa9357d93ae26c1d21fb62d22a52"><td class="mdescLeft">&#160;</td><td class="mdescRight">The big if() block in the update loop hinges on this. The only way it's going to be called is if MonoClient.Instance has control, so we don't necessarily need to check that explicitly.  <a href="class_scripts_1_1_actions_1_1_player_attack.html#aa490aa9357d93ae26c1d21fb62d22a52">More...</a><br /></td></tr>
+<tr class="memdesc:aa490aa9357d93ae26c1d21fb62d22a52"><td class="mdescLeft">&#160;</td><td class="mdescRight">The big if() block in the update loop hinges on this.  <a href="class_scripts_1_1_actions_1_1_player_attack.html#aa490aa9357d93ae26c1d21fb62d22a52">More...</a><br /></td></tr>
 <tr class="separator:aa490aa9357d93ae26c1d21fb62d22a52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a00bfab1566e5ce64266de22801ba2f1e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_actions_1_1_player_attack.html#a00bfab1566e5ce64266de22801ba2f1e">ActivateAttack</a> ()</td></tr>
 <tr class="memdesc:a00bfab1566e5ce64266de22801ba2f1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows the <a class="el" href="class_scripts_1_1_actions_1_1_player_attack.html">PlayerAttack</a> Update loop to start running.  <a href="class_scripts_1_1_actions_1_1_player_attack.html#a00bfab1566e5ce64266de22801ba2f1e">More...</a><br /></td></tr>
 <tr class="separator:a00bfab1566e5ce64266de22801ba2f1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae22cf8e51f62fb7279f5d1fd2e71bc8b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_actions_1_1_player_attack.html#ae22cf8e51f62fb7279f5d1fd2e71bc8b">Attack</a> ()</td></tr>
-<tr class="memdesc:ae22cf8e51f62fb7279f5d1fd2e71bc8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the base funciton for all attacks. The trigger for this function to be used is a button on the UI canvas. Once the button is triggered the player must have already selected a figure to attack or it will get an error.  <a href="class_scripts_1_1_actions_1_1_player_attack.html#ae22cf8e51f62fb7279f5d1fd2e71bc8b">More...</a><br /></td></tr>
+<tr class="memdesc:ae22cf8e51f62fb7279f5d1fd2e71bc8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the base funciton for all attacks.  <a href="class_scripts_1_1_actions_1_1_player_attack.html#ae22cf8e51f62fb7279f5d1fd2e71bc8b">More...</a><br /></td></tr>
 <tr class="separator:ae22cf8e51f62fb7279f5d1fd2e71bc8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca064d2e1380199a18e075fd70784fbf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_actions_1_1_player_attack.html#aca064d2e1380199a18e075fd70784fbf">CancelOrEndAttack</a> ()</td></tr>
-<tr class="memdesc:aca064d2e1380199a18e075fd70784fbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used after an attack and deactivates this script. The function will also destroy any object that has been destroyed.  <a href="class_scripts_1_1_actions_1_1_player_attack.html#aca064d2e1380199a18e075fd70784fbf">More...</a><br /></td></tr>
+<tr class="memdesc:aca064d2e1380199a18e075fd70784fbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used after an attack and deactivates this script.  <a href="class_scripts_1_1_actions_1_1_player_attack.html#aca064d2e1380199a18e075fd70784fbf">More...</a><br /></td></tr>
 <tr class="separator:aca064d2e1380199a18e075fd70784fbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a6810c3e568e278bcd7f7572f736e51a0"><td class="memItemLeft" align="right" valign="top"><a id="a6810c3e568e278bcd7f7572f736e51a0"></a>
-LayerMask&#160;</td><td class="memItemRight" valign="bottom"><b>whatCanBeClickedOn</b></td></tr>
+<tr class="memitem:a6810c3e568e278bcd7f7572f736e51a0"><td class="memItemLeft" align="right" valign="top">LayerMask&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_actions_1_1_player_attack.html#a6810c3e568e278bcd7f7572f736e51a0">whatCanBeClickedOn</a></td></tr>
 <tr class="separator:a6810c3e568e278bcd7f7572f736e51a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbab8df010ac835c588ef0af09911624"><td class="memItemLeft" align="right" valign="top"><a id="abbab8df010ac835c588ef0af09911624"></a>
-GameObject&#160;</td><td class="memItemRight" valign="bottom"><b>attackObject</b></td></tr>
+<tr class="memitem:abbab8df010ac835c588ef0af09911624"><td class="memItemLeft" align="right" valign="top">GameObject&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_actions_1_1_player_attack.html#abbab8df010ac835c588ef0af09911624">attackObject</a></td></tr>
 <tr class="separator:abbab8df010ac835c588ef0af09911624"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a6c54bc6029201e9317255af981df89da"><td class="memItemLeft" align="right" valign="top"><a id="a6c54bc6029201e9317255af981df89da"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>CanAttack</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a6c54bc6029201e9317255af981df89da"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_actions_1_1_player_attack.html#a6c54bc6029201e9317255af981df89da">CanAttack</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a6c54bc6029201e9317255af981df89da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the character can attack or not.  <a href="class_scripts_1_1_actions_1_1_player_attack.html#a6c54bc6029201e9317255af981df89da">More...</a><br /></td></tr>
 <tr class="separator:a6c54bc6029201e9317255af981df89da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a429efdcb576a4ed6bbd948ed7117b729"><td class="memItemLeft" align="right" valign="top"><a id="a429efdcb576a4ed6bbd948ed7117b729"></a>
-<a class="el" href="interface_scripts_1_1_controller_1_1_i_input_manager.html">IInputManager</a>&#160;</td><td class="memItemRight" valign="bottom"><b>InputManager</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a429efdcb576a4ed6bbd948ed7117b729"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_scripts_1_1_controller_1_1_i_input_manager.html">IInputManager</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_actions_1_1_player_attack.html#a429efdcb576a4ed6bbd948ed7117b729">InputManager</a><code> [get, set]</code></td></tr>
 <tr class="separator:a429efdcb576a4ed6bbd948ed7117b729"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"></div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a00bfab1566e5ce64266de22801ba2f1e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a00bfab1566e5ce64266de22801ba2f1e">&#9670;&nbsp;</a></span>ActivateAttack()</h2>
 
@@ -151,7 +169,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>CanAttack</b><code> [
       </table>
 </div><div class="memdoc">
 
-<p>This is the base funciton for all attacks. The trigger for this function to be used is a button on the UI canvas. Once the button is triggered the player must have already selected a figure to attack or it will get an error. </p>
+<p>This is the base funciton for all attacks. </p>
+<p>The trigger for this function to be used is a button on the UI canvas. Once the button is triggered the player must have already selected a figure to attack or it will get an error.</p>
 <p>This function will take away any health if need be or it can even trigger the destruction of an object. </p>
 
 </div>
@@ -171,7 +190,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>CanAttack</b><code> [
       </table>
 </div><div class="memdoc">
 
-<p>The big if() block in the update loop hinges on this. The only way it's going to be called is if MonoClient.Instance has control, so we don't necessarily need to check that explicitly. </p>
+<p>The big if() block in the update loop hinges on this. </p>
+<p>The only way it's going to be called is if MonoClient.Instance has control, so we don't necessarily need to check that explicitly.</p>
 
 </div>
 </div>
@@ -190,19 +210,102 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>CanAttack</b><code> [
       </table>
 </div><div class="memdoc">
 
-<p>This function is used after an attack and deactivates this script. The function will also destroy any object that has been destroyed. </p>
+<p>This function is used after an attack and deactivates this script. </p>
+<p>The function will also destroy any object that has been destroyed.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="abbab8df010ac835c588ef0af09911624"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbab8df010ac835c588ef0af09911624">&#9670;&nbsp;</a></span>attackObject</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">GameObject Scripts.Actions.PlayerAttack.attackObject</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6810c3e568e278bcd7f7572f736e51a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6810c3e568e278bcd7f7572f736e51a0">&#9670;&nbsp;</a></span>whatCanBeClickedOn</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">LayerMask Scripts.Actions.PlayerAttack.whatCanBeClickedOn</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="a6c54bc6029201e9317255af981df89da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c54bc6029201e9317255af981df89da">&#9670;&nbsp;</a></span>CanAttack</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Scripts.Actions.PlayerAttack.CanAttack</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Determines if the character can attack or not. </p>
+
+</div>
+</div>
+<a id="a429efdcb576a4ed6bbd948ed7117b729"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a429efdcb576a4ed6bbd948ed7117b729">&#9670;&nbsp;</a></span>InputManager</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="interface_scripts_1_1_controller_1_1_i_input_manager.html">IInputManager</a> Scripts.Actions.PlayerAttack.InputManager</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>fear_client/Assets/Scripts/Actions/PlayerAttack.cs</li>
+<li>fear_client/Assets/Scripts/Actions/<a class="el" href="_player_attack_8cs.html">PlayerAttack.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.17
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_scripts.html">Scripts</a></li><li class="navelem"><a class="el" href="namespace_scripts_1_1_actions.html">Actions</a></li><li class="navelem"><a class="el" href="class_scripts_1_1_actions_1_1_player_attack.html">PlayerAttack</a></li>
+    <li class="footer">Generated on Tue May 5 2020 19:44:18 for Fear Valley Client by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
 </body>
 </html>

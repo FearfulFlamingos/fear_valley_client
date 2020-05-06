@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -20,11 +24,12 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Fear Valley Client
    &#160;<span id="projectnumber">0.9</span>
    </div>
-   <div id="projectbrief">The client side game.</div>
+   <div id="projectbrief">The client build.</div>
   </td>
  </tr>
  </tbody>
@@ -47,6 +52,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('class_scripts_1_1_actions_1_1_player_magic.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,11 +83,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespace_scripts.html">Scripts</a></li><li class="navelem"><a class="el" href="namespace_scripts_1_1_actions.html">Actions</a></li><li class="navelem"><a class="el" href="class_scripts_1_1_actions_1_1_player_magic.html">PlayerMagic</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -76,6 +93,9 @@ $(function() {
 <div class="title">Scripts.Actions.PlayerMagic Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Controls magic for characters, including placement.  
+ <a href="class_scripts_1_1_actions_1_1_player_magic.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for Scripts.Actions.PlayerMagic:</div>
 <div class="dyncontent">
@@ -85,37 +105,140 @@ Inheritance diagram for Scripts.Actions.PlayerMagic:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7c0ea8473066eb9a0f340c1508a81803"><td class="memItemLeft" align="right" valign="top"><a id="a7c0ea8473066eb9a0f340c1508a81803"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>PlaceExplosion</b> ()</td></tr>
-<tr class="separator:a7c0ea8473066eb9a0f340c1508a81803"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b766dea65506f187bdd2f38b7fd9582"><td class="memItemLeft" align="right" valign="top"><a id="a3b766dea65506f187bdd2f38b7fd9582"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>MagicAttack</b> (GameObject enemy)</td></tr>
+<tr class="memitem:af7dfdd3b3d2782037930c35fed43429a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_actions_1_1_player_magic.html#af7dfdd3b3d2782037930c35fed43429a">StartExplosionSelector</a> ()</td></tr>
+<tr class="memdesc:af7dfdd3b3d2782037930c35fed43429a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the placeable explosion marker and starts the Update() loop running.  <a href="class_scripts_1_1_actions_1_1_player_magic.html#af7dfdd3b3d2782037930c35fed43429a">More...</a><br /></td></tr>
+<tr class="separator:af7dfdd3b3d2782037930c35fed43429a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b766dea65506f187bdd2f38b7fd9582"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_actions_1_1_player_magic.html#a3b766dea65506f187bdd2f38b7fd9582">MagicAttack</a> (GameObject enemy)</td></tr>
+<tr class="memdesc:a3b766dea65506f187bdd2f38b7fd9582"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks attack vs armor and deals damage, if needed.  <a href="class_scripts_1_1_actions_1_1_player_magic.html#a3b766dea65506f187bdd2f38b7fd9582">More...</a><br /></td></tr>
 <tr class="separator:a3b766dea65506f187bdd2f38b7fd9582"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:adc98489df9d18b334d81c26d69412330"><td class="memItemLeft" align="right" valign="top"><a id="adc98489df9d18b334d81c26d69412330"></a>
-GameObject&#160;</td><td class="memItemRight" valign="bottom"><b>selection</b></td></tr>
+<tr class="memitem:adc98489df9d18b334d81c26d69412330"><td class="memItemLeft" align="right" valign="top">GameObject&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_actions_1_1_player_magic.html#adc98489df9d18b334d81c26d69412330">selection</a></td></tr>
 <tr class="separator:adc98489df9d18b334d81c26d69412330"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae94d0dd5c6cb68e75945d43842b50bc7"><td class="memItemLeft" align="right" valign="top"><a id="ae94d0dd5c6cb68e75945d43842b50bc7"></a>
-ParticleSystem&#160;</td><td class="memItemRight" valign="bottom"><b>explosionEffect</b></td></tr>
+<tr class="memitem:ae94d0dd5c6cb68e75945d43842b50bc7"><td class="memItemLeft" align="right" valign="top">ParticleSystem&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_actions_1_1_player_magic.html#ae94d0dd5c6cb68e75945d43842b50bc7">explosionEffect</a></td></tr>
 <tr class="separator:ae94d0dd5c6cb68e75945d43842b50bc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:aedd2cfd03b6af8c85c53d3d486009033"><td class="memItemLeft" align="right" valign="top"><a id="aedd2cfd03b6af8c85c53d3d486009033"></a>
-<a class="el" href="interface_scripts_1_1_controller_1_1_i_input_manager.html">IInputManager</a>&#160;</td><td class="memItemRight" valign="bottom"><b>InputManager</b><code> [get, set]</code></td></tr>
+<tr class="memitem:aedd2cfd03b6af8c85c53d3d486009033"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_scripts_1_1_controller_1_1_i_input_manager.html">IInputManager</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_actions_1_1_player_magic.html#aedd2cfd03b6af8c85c53d3d486009033">InputManager</a><code> [get, set]</code></td></tr>
 <tr class="separator:aedd2cfd03b6af8c85c53d3d486009033"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Controls magic for characters, including placement. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a3b766dea65506f187bdd2f38b7fd9582"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b766dea65506f187bdd2f38b7fd9582">&#9670;&nbsp;</a></span>MagicAttack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Scripts.Actions.PlayerMagic.MagicAttack </td>
+          <td>(</td>
+          <td class="paramtype">GameObject&#160;</td>
+          <td class="paramname"><em>enemy</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks attack vs armor and deals damage, if needed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enemy</td><td>The enemy character caught in the blast.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af7dfdd3b3d2782037930c35fed43429a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7dfdd3b3d2782037930c35fed43429a">&#9670;&nbsp;</a></span>StartExplosionSelector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Scripts.Actions.PlayerMagic.StartExplosionSelector </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates the placeable explosion marker and starts the Update() loop running. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ae94d0dd5c6cb68e75945d43842b50bc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae94d0dd5c6cb68e75945d43842b50bc7">&#9670;&nbsp;</a></span>explosionEffect</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ParticleSystem Scripts.Actions.PlayerMagic.explosionEffect</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adc98489df9d18b334d81c26d69412330"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc98489df9d18b334d81c26d69412330">&#9670;&nbsp;</a></span>selection</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">GameObject Scripts.Actions.PlayerMagic.selection</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="aedd2cfd03b6af8c85c53d3d486009033"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedd2cfd03b6af8c85c53d3d486009033">&#9670;&nbsp;</a></span>InputManager</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="interface_scripts_1_1_controller_1_1_i_input_manager.html">IInputManager</a> Scripts.Actions.PlayerMagic.InputManager</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>fear_client/Assets/Scripts/Actions/PlayerMagic.cs</li>
+<li>fear_client/Assets/Scripts/Actions/<a class="el" href="_player_magic_8cs.html">PlayerMagic.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.17
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_scripts.html">Scripts</a></li><li class="navelem"><a class="el" href="namespace_scripts_1_1_actions.html">Actions</a></li><li class="navelem"><a class="el" href="class_scripts_1_1_actions_1_1_player_magic.html">PlayerMagic</a></li>
+    <li class="footer">Generated on Tue May 5 2020 19:44:19 for Fear Valley Client by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
 </body>
 </html>

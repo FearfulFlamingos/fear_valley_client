@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -20,11 +24,12 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Fear Valley Client
    &#160;<span id="projectnumber">0.9</span>
    </div>
-   <div id="projectbrief">The client side game.</div>
+   <div id="projectbrief">The client build.</div>
   </td>
  </tr>
  </tbody>
@@ -47,6 +52,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('interface_scripts_1_1_character_class_1_1_i_character_features.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,11 +83,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespace_scripts.html">Scripts</a></li><li class="navelem"><a class="el" href="namespace_scripts_1_1_character_class.html">CharacterClass</a></li><li class="navelem"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">ICharacterFeatures</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Scripts.CharacterClass.ICharacterFeatures Member List</div>  </div>
@@ -74,33 +91,36 @@ $(function() {
 
 <p>This is the complete list of members for <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a>, including all inherited members.</p>
 <table class="directory">
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>ArmorBonus</b> (defined in <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a>)</td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>AttackBonus</b> (defined in <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a>)</td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>AttackRange</b> (defined in <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a>)</td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>Charclass</b> (defined in <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a>)</td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>DamageBonus</b> (defined in <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a>)</td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>DamageCharacter</b>(int amount) (defined in <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a>)</td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>GetAttackRoll</b>() (defined in <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a>)</td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>GetDamageRoll</b>() (defined in <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a>)</td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>GetMagicAttackRoll</b>() (defined in <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a>)</td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>GetMagicDamageRoll</b>() (defined in <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a>)</td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>Health</b> (defined in <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a>)</td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>IsAttacking</b> (defined in <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a>)</td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>IsFocused</b> (defined in <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a>)</td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>IsLeader</b> (defined in <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a>)</td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>MaxAttackVal</b> (defined in <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a>)</td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>Movement</b> (defined in <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a>)</td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>Perception</b> (defined in <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a>)</td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>Rng</b> (defined in <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a>)</td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>Stealth</b> (defined in <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a>)</td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>Team</b> (defined in <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a>)</td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>TroopId</b> (defined in <a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a>)</td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a7573759d1b208d73419bce2d86f6b87a">ArmorBonus</a></td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#aec300c1f509ceb5de0126073ae0cfa9a">AttackBonus</a></td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a1123e4172740a0d9a2773eaa68f6d9a7">AttackRange</a></td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#aaa1b1027e38354c9f5a1ebd4882fad7a">Charclass</a></td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a6bf1baa1c5890aae3506cb9b9c6085ec">DamageBonus</a></td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a72bb890bba183e5e82c5b9cd5d25e2b4">DamageCharacter</a>(int amount)</td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#ac35875a139ea03965acd83250fc2ac78">GetAttackRoll</a>()</td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a42deb0063b43ad7ef6c228ae93f7939b">GetDamageRoll</a>()</td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#abfaa71a6ba4a68572b9934722df7babc">GetMagicAttackRoll</a>()</td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a4f0078f2a83aca95db8ff48d7fa05c24">GetMagicDamageRoll</a>()</td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a93d7ab90bb6d8638f0e4d47620bcfd60">Health</a></td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a6e4443c3ad2c647377775770d0fa07b7">IsAttacking</a></td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a3192eaa5c3255f4e1afc222374913f16">IsFocused</a></td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a36a3a7627ca28a160b1e21673f5b248d">IsLeader</a></td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#ad7d31b503bfb4b2bf2a441e5b5a62ef6">MaxAttackVal</a></td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a517ce1ab493fd389d2dfe49627b93198">Movement</a></td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a450977ee11de1429a18e02f7ef8a15b3">Perception</a></td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#ad636758ea1ce4bea44159e66533e6abb">Rng</a></td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#ad1a52b26cea5ff5be92e8d370ae86db4">Stealth</a></td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a03e317835e0e99b0e7fc146054a3fa4d">Team</a></td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html#a2972bd54e6ad1372d1dc42e443315a05">TroopId</a></td><td class="entry"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">Scripts.CharacterClass.ICharacterFeatures</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.17
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated on Tue May 5 2020 19:44:24 for Fear Valley Client by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
 </body>
 </html>

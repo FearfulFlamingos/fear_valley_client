@@ -1,5 +1,4 @@
-﻿ using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
@@ -7,16 +6,30 @@ using Scripts.Actions;
 using Scripts.Networking;
 using Scripts.CharacterClass;
 
+/// <summary>
+/// All scripts related to the battlefield scene.
+/// </summary>
 namespace Scripts.Controller
 {
+    /// <summary>
+    /// Specifies all the actions that a character can take during thier turn.
+    /// </summary>
     public class GameLoop : MonoBehaviour
     {
-        public static GameLoop Instance { set; get; }
-        public static int ActionPoints { set; get; }
-        public static GameObject SelectedCharacter { set; get; }
-        public static int MagicPoints { set; get; }
-        public Dictionary<int, GameObject> p1CharsDict, p2CharsDict;
         private int numAttacks;
+        public Dictionary<int, GameObject> p1CharsDict, p2CharsDict;
+        
+        /// <summary>Static instance of a GameLoop, as there can only be one.</summary>
+        public static GameLoop Instance { set; get; }
+        
+        /// <summary>Player's current amount of action points.</summary>
+        public static int ActionPoints { set; get; }
+        
+        /// <summary>Currently selected friendly character.</summary>
+        public static GameObject SelectedCharacter { set; get; }
+        
+        /// <summary>Player's current amount of magic points.</summary>
+        public static int MagicPoints { set; get; }
 
         #region Monobehavior
         // Start is called before the first frame update
@@ -30,9 +43,6 @@ namespace Scripts.Controller
         }
 
         // Update is called once per frame
-        /// <summary>
-        /// This function is constantly checking if action points have dipped below 0 at which point the next turn is triggered
-        /// </summary>
         void Update()
         {
             if (ActionPoints == 0)
@@ -68,9 +78,9 @@ namespace Scripts.Controller
         /// Once this message is received the gameobject is retrieved from the dictionary and then the move
         /// function is triggered.
         /// </summary>
-        /// <param name="troopid"></param>
-        /// <param name="newX"></param>
-        /// <param name="newZ"></param>
+        /// <param name="troopid">ID of the troop to move.</param>
+        /// <param name="newX">New X position for the troop to move to.</param>
+        /// <param name="newZ">New Z position for the troop to move to.</param>
         public void MoveOther(int troopid, float newX, float newZ)
         {
             GameObject changing = p2CharsDict[troopid];
@@ -86,8 +96,8 @@ namespace Scripts.Controller
         /// This is another networking function and it currently is used to remove health from a specified
         /// troop after another player succesfully attacks them.
         /// </summary>
-        /// <param name="troopid"></param>
-        /// <param name="damage"></param>
+        /// <param name="troopid">Troop to be attacked.</param>
+        /// <param name="damage">Amount of damage to take.</param>
         public void IveBeenAttacked(float troopid, int damage)
         {
             GameObject changing = p1CharsDict[Convert.ToInt32(troopid)];

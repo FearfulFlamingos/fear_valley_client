@@ -1,34 +1,32 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using Scripts.Controller;
 using Scripts.Networking;
 using Scripts.CharacterClass;
 
 namespace Scripts.Actions
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class PlayerAttack : MonoBehaviour
     {
+        private bool attacking;
         public LayerMask whatCanBeClickedOn;
         public GameObject attackObject;
+        
+        /// <summary>Determines if the character can attack or not.</summary>
         public bool CanAttack { set; get; } 
+        
+        /// <inheritdoc cref="IPlayerMovement.InputManager"/>
         public IInputManager InputManager { set; get; }
-        private bool attacking;
 
-
+        #region Monobehaviour
         void Start()
         {
             if (InputManager == null)
                 InputManager = GameObject.Find("SceneController").GetComponent<InputManager>();
         }
 
-
-        /// <summary>
-        /// This function is called once per frame while attack is active. It is similar to player spotlight
-        /// in that it is constantly checking to see if someone has been clicked on and updating the UI.
-        /// </summary>
         void Update()
         {
             if (Attacking() && InputManager.GetLeftMouseClick())
@@ -36,8 +34,9 @@ namespace Scripts.Actions
                 CheckIfEnemyCanBeAttacked();
             }
         }
+        #endregion
 
-        // 
+        // Used to select an enemy to see if they can be attacked.
         private void CheckIfEnemyCanBeAttacked()
         {
             Ray ray = Camera.main.ScreenPointToRay(InputManager.MousePosition());

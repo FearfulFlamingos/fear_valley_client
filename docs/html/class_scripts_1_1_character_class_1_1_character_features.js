@@ -1,0 +1,25 @@
+var class_scripts_1_1_character_class_1_1_character_features =
+[
+    [ "CharacterFeatures", "class_scripts_1_1_character_class_1_1_character_features.html#ac42e3051f974fbb2f069105d8ed9db22", null ],
+    [ "DamageCharacter", "class_scripts_1_1_character_class_1_1_character_features.html#a3dfa839b44b4a5d0007cc7d3656ed5b7", null ],
+    [ "GetAttackRoll", "class_scripts_1_1_character_class_1_1_character_features.html#ae3c9149726f3f0065d2e3534450a5f10", null ],
+    [ "GetDamageRoll", "class_scripts_1_1_character_class_1_1_character_features.html#a9e1088a4b48ff4c25ddc62d43a332f93", null ],
+    [ "GetMagicAttackRoll", "class_scripts_1_1_character_class_1_1_character_features.html#aefc84fcc55f77c84084a1ccceeb1eabe", null ],
+    [ "GetMagicDamageRoll", "class_scripts_1_1_character_class_1_1_character_features.html#a5025e7ed3675c0b2bb11b81c3885e992", null ],
+    [ "ArmorBonus", "class_scripts_1_1_character_class_1_1_character_features.html#a49eef8dd0d0085b99d32cb3568782fa8", null ],
+    [ "AttackBonus", "class_scripts_1_1_character_class_1_1_character_features.html#a960f3433c1bcddacb250b12cb36c051a", null ],
+    [ "AttackRange", "class_scripts_1_1_character_class_1_1_character_features.html#aeabcfcdbc5c90a0296026f4afb5d5890", null ],
+    [ "Charclass", "class_scripts_1_1_character_class_1_1_character_features.html#a329c39cb3bcf2894b2bee5e1c67f2039", null ],
+    [ "DamageBonus", "class_scripts_1_1_character_class_1_1_character_features.html#a1c6dae5594a512ede4361729f6660a8c", null ],
+    [ "Health", "class_scripts_1_1_character_class_1_1_character_features.html#a3aa9d62c9a37d30f1aaddcfa4a8765de", null ],
+    [ "IsAttacking", "class_scripts_1_1_character_class_1_1_character_features.html#aef895990c29d31cf5165437bbca4452b", null ],
+    [ "IsFocused", "class_scripts_1_1_character_class_1_1_character_features.html#ac2fb85dd7b1eb9d9db550864883f6c4f", null ],
+    [ "IsLeader", "class_scripts_1_1_character_class_1_1_character_features.html#a59af1f485cb856a26dd268c1ecb42e93", null ],
+    [ "MaxAttackVal", "class_scripts_1_1_character_class_1_1_character_features.html#a3d786e40bc3af80d5e3cb7cb8f4e4d88", null ],
+    [ "Movement", "class_scripts_1_1_character_class_1_1_character_features.html#a12c1602cfbbb2b74593f41c201ec064e", null ],
+    [ "Perception", "class_scripts_1_1_character_class_1_1_character_features.html#aba6f53f0792efb23e5159b0190710947", null ],
+    [ "Rng", "class_scripts_1_1_character_class_1_1_character_features.html#a891af12a570d4f16582eeb4104f53bf8", null ],
+    [ "Stealth", "class_scripts_1_1_character_class_1_1_character_features.html#af6419fa638f25ccdae187d64a818c50c", null ],
+    [ "Team", "class_scripts_1_1_character_class_1_1_character_features.html#ab40f046fcb54fb22aaa3ca2e18115e15", null ],
+    [ "TroopId", "class_scripts_1_1_character_class_1_1_character_features.html#a9814bb146ad4cf03c1e1a87c970c192e", null ]
+];

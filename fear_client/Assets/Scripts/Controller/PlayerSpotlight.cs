@@ -1,23 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using System;
+﻿using UnityEngine;
 using Scripts.Networking;
 using Scripts.CharacterClass;
 
 namespace Scripts.Controller
 {
+    /// <summary>
+    /// Highlights a character after the player clicks on them.
+    /// </summary>
     public class PlayerSpotlight : MonoBehaviour
     {
+        private bool selectingCharacter = true;
+        private BattleUIControl uiController;
         public Camera camera1;
         public GameObject board;
         public GameObject battleUI;
-        private bool selectingCharacter = true;
         public bool testing;
 
-        private BattleUIControl uiController;
+        /// <summary>Static instance of the Player Spotlight, as there will only ever be one.</summary>
         public static PlayerSpotlight Instance { private set; get; }
+        /// <inheritdoc cref="Actions.IPlayerMovement.InputManager"/>
         public IInputManager InputManager { set; get; }
 
         #region Monobehavior
@@ -64,7 +65,7 @@ namespace Scripts.Controller
         /// <summary>
         /// Changes the selected object to match the one just clicked on.
         /// </summary>
-        /// <param name="selection"></param>
+        /// <param name="selection">GameObject to select.</param>
         public void ChangeSelection(GameObject selection)
         {
             Debug.Log($"Last clicked: {GameLoop.SelectedCharacter}");
@@ -82,9 +83,8 @@ namespace Scripts.Controller
         }
 
         /// <summary>
-        /// Toggles whether or not the LMB should select a character.
+        /// Disables the LMB to prevent the <see cref="Update"/> loop from running.
         /// </summary>
-        /// 
         public void DisableCharacterSelect()
         {
             selectingCharacter = false;
@@ -131,21 +131,11 @@ namespace Scripts.Controller
             selectingCharacter = true;
         }
 
+        // Changes the color of a character's base.
         private void ChangeFocusedColor(Color color)
         {
             GameLoop.SelectedCharacter.transform.GetChild(0).Find("Base").gameObject.GetComponent<Renderer>().material.SetColor("_Color", color);
-            //if (GameLoop.SelectedCharacter.GetComponent<Character>().Features.Charclass == "Trained Warrior")
-            //{
-            //    Debug.Log("selecting trained warrior");
-            //}
-            //else
-            //    GameLoop.SelectedCharacter.GetComponent<Renderer>().material.SetColor("_Color", color);
         }
-
-        //private void ChangeFocusedColor(byte red, byte green, byte blue, byte alpha)
-        //{
-        //    GameLoop.SelectedCharacter.GetComponent<Renderer>().material.SetColor("_Color", new Color32(red, green, blue, alpha));
-        //}
     }
 
 }

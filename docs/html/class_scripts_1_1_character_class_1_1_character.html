@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -20,11 +24,12 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Fear Valley Client
    &#160;<span id="projectnumber">0.9</span>
    </div>
-   <div id="projectbrief">The client side game.</div>
+   <div id="projectbrief">The client build.</div>
   </td>
  </tr>
  </tbody>
@@ -47,6 +52,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('class_scripts_1_1_character_class_1_1_character.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,11 +83,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespace_scripts.html">Scripts</a></li><li class="navelem"><a class="el" href="namespace_scripts_1_1_character_class.html">CharacterClass</a></li><li class="navelem"><a class="el" href="class_scripts_1_1_character_class_1_1_character.html">Character</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
@@ -75,6 +92,9 @@ $(function() {
 <div class="title">Scripts.CharacterClass.Character Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>The wrapper class for each character.  
+ <a href="class_scripts_1_1_character_class_1_1_character.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for Scripts.CharacterClass.Character:</div>
 <div class="dyncontent">
@@ -84,45 +104,214 @@ Inheritance diagram for Scripts.CharacterClass.Character:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a1381e5e1da5f60b9c406043bf1c5380d"><td class="memItemLeft" align="right" valign="top"><a id="a1381e5e1da5f60b9c406043bf1c5380d"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>State</b> { <br />
-&#160;&#160;<b>None</b>, 
-<b>Moving</b>, 
-<b>Attacking</b>, 
-<b>CastingSpell</b>, 
+<tr class="memitem:a1381e5e1da5f60b9c406043bf1c5380d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character.html#a1381e5e1da5f60b9c406043bf1c5380d">State</a> { <br />
+&#160;&#160;<a class="el" href="class_scripts_1_1_character_class_1_1_character.html#a1381e5e1da5f60b9c406043bf1c5380da6adf97f83acf6453d4a6a4b1070f3754">State.None</a>, 
+<a class="el" href="class_scripts_1_1_character_class_1_1_character.html#a1381e5e1da5f60b9c406043bf1c5380dadefe967ad0373b2274fc298f19125ca7">State.Moving</a>, 
+<a class="el" href="class_scripts_1_1_character_class_1_1_character.html#a1381e5e1da5f60b9c406043bf1c5380da8abd002ea36128383f3269de7e74039b">State.Attacking</a>, 
+<a class="el" href="class_scripts_1_1_character_class_1_1_character.html#a1381e5e1da5f60b9c406043bf1c5380daf1b6c6f14a0693869c323cde6cea5e9d">State.CastingSpell</a>, 
 <br />
-&#160;&#160;<b>Selected</b>, 
-<b>Waiting</b>
+&#160;&#160;<a class="el" href="class_scripts_1_1_character_class_1_1_character.html#a1381e5e1da5f60b9c406043bf1c5380da91b442d385b54e1418d81adc34871053">State.Selected</a>, 
+<a class="el" href="class_scripts_1_1_character_class_1_1_character.html#a1381e5e1da5f60b9c406043bf1c5380da5706de961fb376d701be6e7762d8b09c">State.Waiting</a>
 <br />
  }</td></tr>
+<tr class="memdesc:a1381e5e1da5f60b9c406043bf1c5380d"><td class="mdescLeft">&#160;</td><td class="mdescRight">All possible states of the character.  <a href="class_scripts_1_1_character_class_1_1_character.html#a1381e5e1da5f60b9c406043bf1c5380d">More...</a><br /></td></tr>
 <tr class="separator:a1381e5e1da5f60b9c406043bf1c5380d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:acd85c704b3e78eb8eef6fcdd688f7c5b"><td class="memItemLeft" align="right" valign="top"><a id="acd85c704b3e78eb8eef6fcdd688f7c5b"></a>
-<a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">ICharacterFeatures</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Features</b><code> [get, set]</code></td></tr>
+<tr class="memitem:acd85c704b3e78eb8eef6fcdd688f7c5b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">ICharacterFeatures</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character.html#acd85c704b3e78eb8eef6fcdd688f7c5b">Features</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:acd85c704b3e78eb8eef6fcdd688f7c5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Properties of the character.See <a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html">CharacterFeatures</a>.  <a href="class_scripts_1_1_character_class_1_1_character.html#acd85c704b3e78eb8eef6fcdd688f7c5b">More...</a><br /></td></tr>
 <tr class="separator:acd85c704b3e78eb8eef6fcdd688f7c5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbccb08c3fed61cf7f977f25980777b6"><td class="memItemLeft" align="right" valign="top"><a id="afbccb08c3fed61cf7f977f25980777b6"></a>
-<a class="el" href="interface_scripts_1_1_actions_1_1_i_player_movement.html">IPlayerMovement</a>&#160;</td><td class="memItemRight" valign="bottom"><b>PlayerMovement</b><code> [get, set]</code></td></tr>
+<tr class="memitem:afbccb08c3fed61cf7f977f25980777b6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_scripts_1_1_actions_1_1_i_player_movement.html">IPlayerMovement</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character.html#afbccb08c3fed61cf7f977f25980777b6">PlayerMovement</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:afbccb08c3fed61cf7f977f25980777b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Movement script for the character. See <a class="el" href="class_scripts_1_1_actions_1_1_player_movement.html">Actions.PlayerMovement</a>.  <a href="class_scripts_1_1_character_class_1_1_character.html#afbccb08c3fed61cf7f977f25980777b6">More...</a><br /></td></tr>
 <tr class="separator:afbccb08c3fed61cf7f977f25980777b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e45c200b52934f4b1498f199012a4cd"><td class="memItemLeft" align="right" valign="top"><a id="a2e45c200b52934f4b1498f199012a4cd"></a>
-<a class="el" href="class_scripts_1_1_actions_1_1_player_attack.html">PlayerAttack</a>&#160;</td><td class="memItemRight" valign="bottom"><b>PlayerAttack</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a2e45c200b52934f4b1498f199012a4cd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_scripts_1_1_actions_1_1_player_attack.html">PlayerAttack</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character.html#a2e45c200b52934f4b1498f199012a4cd">PlayerAttack</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a2e45c200b52934f4b1498f199012a4cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attack script for the character. See <a class="el" href="class_scripts_1_1_actions_1_1_player_attack.html">Actions.PlayerAttack</a>.  <a href="class_scripts_1_1_character_class_1_1_character.html#a2e45c200b52934f4b1498f199012a4cd">More...</a><br /></td></tr>
 <tr class="separator:a2e45c200b52934f4b1498f199012a4cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1590c6ceb1c51fa7917d0eda261abf6"><td class="memItemLeft" align="right" valign="top"><a id="ad1590c6ceb1c51fa7917d0eda261abf6"></a>
-<a class="el" href="class_scripts_1_1_actions_1_1_player_magic.html">PlayerMagic</a>&#160;</td><td class="memItemRight" valign="bottom"><b>PlayerMagic</b><code> [get, set]</code></td></tr>
+<tr class="memitem:ad1590c6ceb1c51fa7917d0eda261abf6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_scripts_1_1_actions_1_1_player_magic.html">PlayerMagic</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character.html#ad1590c6ceb1c51fa7917d0eda261abf6">PlayerMagic</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ad1590c6ceb1c51fa7917d0eda261abf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Magic script for the character, if applicable.  <a href="class_scripts_1_1_character_class_1_1_character.html#ad1590c6ceb1c51fa7917d0eda261abf6">More...</a><br /></td></tr>
 <tr class="separator:ad1590c6ceb1c51fa7917d0eda261abf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc92c872fc6507e3ab3ea930d1f5c0df"><td class="memItemLeft" align="right" valign="top"><a id="acc92c872fc6507e3ab3ea930d1f5c0df"></a>
-State&#160;</td><td class="memItemRight" valign="bottom"><b>CurrentState</b><code> [get, set]</code></td></tr>
+<tr class="memitem:acc92c872fc6507e3ab3ea930d1f5c0df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_scripts_1_1_character_class_1_1_character.html#a1381e5e1da5f60b9c406043bf1c5380d">State</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_character_class_1_1_character.html#acc92c872fc6507e3ab3ea930d1f5c0df">CurrentState</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:acc92c872fc6507e3ab3ea930d1f5c0df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current state of the character. See <a class="el" href="class_scripts_1_1_character_class_1_1_character.html#a1381e5e1da5f60b9c406043bf1c5380d" title="All possible states of the character.">State</a>.  <a href="class_scripts_1_1_character_class_1_1_character.html#acc92c872fc6507e3ab3ea930d1f5c0df">More...</a><br /></td></tr>
 <tr class="separator:acc92c872fc6507e3ab3ea930d1f5c0df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The wrapper class for each character. </p>
+<p>Determines what state the character is in.</p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a1381e5e1da5f60b9c406043bf1c5380d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1381e5e1da5f60b9c406043bf1c5380d">&#9670;&nbsp;</a></span>State</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="class_scripts_1_1_character_class_1_1_character.html#a1381e5e1da5f60b9c406043bf1c5380d">Scripts.CharacterClass.Character.State</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>All possible states of the character. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a1381e5e1da5f60b9c406043bf1c5380da6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"><p>Default state. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1381e5e1da5f60b9c406043bf1c5380dadefe967ad0373b2274fc298f19125ca7"></a>Moving&#160;</td><td class="fielddoc"><p>Currently moving. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1381e5e1da5f60b9c406043bf1c5380da8abd002ea36128383f3269de7e74039b"></a>Attacking&#160;</td><td class="fielddoc"><p>Currently attacking. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1381e5e1da5f60b9c406043bf1c5380daf1b6c6f14a0693869c323cde6cea5e9d"></a>CastingSpell&#160;</td><td class="fielddoc"><p>Casting a spell. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1381e5e1da5f60b9c406043bf1c5380da91b442d385b54e1418d81adc34871053"></a>Selected&#160;</td><td class="fielddoc"><p>Selected by the player. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1381e5e1da5f60b9c406043bf1c5380da5706de961fb376d701be6e7762d8b09c"></a>Waiting&#160;</td><td class="fielddoc"><p>Inter-state waiting location. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="acc92c872fc6507e3ab3ea930d1f5c0df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc92c872fc6507e3ab3ea930d1f5c0df">&#9670;&nbsp;</a></span>CurrentState</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_scripts_1_1_character_class_1_1_character.html#a1381e5e1da5f60b9c406043bf1c5380d">State</a> Scripts.CharacterClass.Character.CurrentState</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Current state of the character. See <a class="el" href="class_scripts_1_1_character_class_1_1_character.html#a1381e5e1da5f60b9c406043bf1c5380d" title="All possible states of the character.">State</a>. </p>
+
+</div>
+</div>
+<a id="acd85c704b3e78eb8eef6fcdd688f7c5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd85c704b3e78eb8eef6fcdd688f7c5b">&#9670;&nbsp;</a></span>Features</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="interface_scripts_1_1_character_class_1_1_i_character_features.html">ICharacterFeatures</a> Scripts.CharacterClass.Character.Features</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Properties of the character.See <a class="el" href="class_scripts_1_1_character_class_1_1_character_features.html">CharacterFeatures</a>. </p>
+
+</div>
+</div>
+<a id="a2e45c200b52934f4b1498f199012a4cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e45c200b52934f4b1498f199012a4cd">&#9670;&nbsp;</a></span>PlayerAttack</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_scripts_1_1_actions_1_1_player_attack.html">PlayerAttack</a> Scripts.CharacterClass.Character.PlayerAttack</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Attack script for the character. See <a class="el" href="class_scripts_1_1_actions_1_1_player_attack.html">Actions.PlayerAttack</a>. </p>
+
+</div>
+</div>
+<a id="ad1590c6ceb1c51fa7917d0eda261abf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1590c6ceb1c51fa7917d0eda261abf6">&#9670;&nbsp;</a></span>PlayerMagic</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_scripts_1_1_actions_1_1_player_magic.html">PlayerMagic</a> Scripts.CharacterClass.Character.PlayerMagic</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Magic script for the character, if applicable. </p>
+<p><a class="el" href="class_scripts_1_1_actions_1_1_player_magic.html" title="Controls magic for characters, including placement.">Actions.PlayerMagic</a>. </p>
+
+</div>
+</div>
+<a id="afbccb08c3fed61cf7f977f25980777b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbccb08c3fed61cf7f977f25980777b6">&#9670;&nbsp;</a></span>PlayerMovement</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="interface_scripts_1_1_actions_1_1_i_player_movement.html">IPlayerMovement</a> Scripts.CharacterClass.Character.PlayerMovement</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Movement script for the character. See <a class="el" href="class_scripts_1_1_actions_1_1_player_movement.html">Actions.PlayerMovement</a>. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>fear_client/Assets/Scripts/CharacterClass/Character.cs</li>
+<li>fear_client/Assets/Scripts/CharacterClass/<a class="el" href="_character_8cs.html">Character.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.17
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_scripts.html">Scripts</a></li><li class="navelem"><a class="el" href="namespace_scripts_1_1_character_class.html">CharacterClass</a></li><li class="navelem"><a class="el" href="class_scripts_1_1_character_class_1_1_character.html">Character</a></li>
+    <li class="footer">Generated on Tue May 5 2020 19:44:22 for Fear Valley Client by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
 </body>
 </html>

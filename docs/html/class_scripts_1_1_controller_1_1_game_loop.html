@@ -9,6 +9,10 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -20,11 +24,12 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Fear Valley Client
    &#160;<span id="projectnumber">0.9</span>
    </div>
-   <div id="projectbrief">The client side game.</div>
+   <div id="projectbrief">The client build.</div>
   </td>
  </tr>
  </tbody>
@@ -47,6 +52,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('class_scripts_1_1_controller_1_1_game_loop.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,11 +83,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespace_scripts.html">Scripts</a></li><li class="navelem"><a class="el" href="namespace_scripts_1_1_controller.html">Controller</a></li><li class="navelem"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">GameLoop</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -76,6 +93,9 @@ $(function() {
 <div class="title">Scripts.Controller.GameLoop Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Specifies all the actions that a character can take during thier turn.  
+ <a href="class_scripts_1_1_controller_1_1_game_loop.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for Scripts.Controller.GameLoop:</div>
 <div class="dyncontent">
@@ -86,10 +106,10 @@ Inheritance diagram for Scripts.Controller.GameLoop:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aef1d13faad804f51449de38243a869e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#aef1d13faad804f51449de38243a869e9">AddtoDict</a> (int team, int troopid, GameObject reference)</td></tr>
-<tr class="memdesc:aef1d13faad804f51449de38243a869e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to create dictionaries for each player. The dicitionaries are used to track the number of active figures each player currently has and it tracks a reference to the gameobjects.  <a href="class_scripts_1_1_controller_1_1_game_loop.html#aef1d13faad804f51449de38243a869e9">More...</a><br /></td></tr>
+<tr class="memdesc:aef1d13faad804f51449de38243a869e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to create dictionaries for each player.  <a href="class_scripts_1_1_controller_1_1_game_loop.html#aef1d13faad804f51449de38243a869e9">More...</a><br /></td></tr>
 <tr class="separator:aef1d13faad804f51449de38243a869e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a2acee44f4670bcc6324d7e21d9a101"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#a7a2acee44f4670bcc6324d7e21d9a101">MoveOther</a> (int troopid, float newX, float newZ)</td></tr>
-<tr class="memdesc:a7a2acee44f4670bcc6324d7e21d9a101"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a networking function that is called by the client script eachtime the other player moves. Once this message is received the gameobject is retrieved from the dictionary and then the move function is triggered.  <a href="class_scripts_1_1_controller_1_1_game_loop.html#a7a2acee44f4670bcc6324d7e21d9a101">More...</a><br /></td></tr>
+<tr class="memdesc:a7a2acee44f4670bcc6324d7e21d9a101"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a networking function that is called by the client script eachtime the other player moves.  <a href="class_scripts_1_1_controller_1_1_game_loop.html#a7a2acee44f4670bcc6324d7e21d9a101">More...</a><br /></td></tr>
 <tr class="separator:a7a2acee44f4670bcc6324d7e21d9a101"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1fdaa32c54bad96226e516877cac9f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#ae1fdaa32c54bad96226e516877cac9f6">IveBeenAttacked</a> (float troopid, int damage)</td></tr>
 <tr class="memdesc:ae1fdaa32c54bad96226e516877cac9f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is another networking function and it currently is used to remove health from a specified troop after another player succesfully attacks them.  <a href="class_scripts_1_1_controller_1_1_game_loop.html#ae1fdaa32c54bad96226e516877cac9f6">More...</a><br /></td></tr>
@@ -113,37 +133,38 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a8ffbe71066457a2dba4ba93f6ed4de88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Casts a spell if the player has enough magic points and action points.  <a href="class_scripts_1_1_controller_1_1_game_loop.html#a8ffbe71066457a2dba4ba93f6ed4de88">More...</a><br /></td></tr>
 <tr class="separator:a8ffbe71066457a2dba4ba93f6ed4de88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15cddf72065d07fc2405962eaaa2986e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#a15cddf72065d07fc2405962eaaa2986e">Leave</a> ()</td></tr>
-<tr class="memdesc:a15cddf72065d07fc2405962eaaa2986e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called when the local player calls a retreat on their figure. See <a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#a8b84f11b10994d4a2bd69a6db3a2c775" title="This is a networking function used when other players call a retreat in the game.">CharacterRemoval(int, int)</a>.  <a href="class_scripts_1_1_controller_1_1_game_loop.html#a15cddf72065d07fc2405962eaaa2986e">More...</a><br /></td></tr>
+<tr class="memdesc:a15cddf72065d07fc2405962eaaa2986e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called when the local player calls a retreat on their figure.  <a href="class_scripts_1_1_controller_1_1_game_loop.html#a15cddf72065d07fc2405962eaaa2986e">More...</a><br /></td></tr>
 <tr class="separator:a15cddf72065d07fc2405962eaaa2986e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ffdf9c5438c831773a8110ef26c429b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#a6ffdf9c5438c831773a8110ef26c429b">EndGame</a> ()</td></tr>
 <tr class="memdesc:a6ffdf9c5438c831773a8110ef26c429b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is called when the game is finished and the player clicks the x button.  <a href="class_scripts_1_1_controller_1_1_game_loop.html#a6ffdf9c5438c831773a8110ef26c429b">More...</a><br /></td></tr>
 <tr class="separator:a6ffdf9c5438c831773a8110ef26c429b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b84f11b10994d4a2bd69a6db3a2c775"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#a8b84f11b10994d4a2bd69a6db3a2c775">CharacterRemoval</a> (int troopId, int team)</td></tr>
-<tr class="memdesc:a8b84f11b10994d4a2bd69a6db3a2c775"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a networking function used when other players call a retreat in the game.  <a href="class_scripts_1_1_controller_1_1_game_loop.html#a8b84f11b10994d4a2bd69a6db3a2c775">More...</a><br /></td></tr>
+<tr class="memdesc:a8b84f11b10994d4a2bd69a6db3a2c775"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is checked each time a character dies or retreats.  <a href="class_scripts_1_1_controller_1_1_game_loop.html#a8b84f11b10994d4a2bd69a6db3a2c775">More...</a><br /></td></tr>
 <tr class="separator:a8b84f11b10994d4a2bd69a6db3a2c775"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:af4dac8ce33024167e170517ff53f4057"><td class="memItemLeft" align="right" valign="top"><a id="af4dac8ce33024167e170517ff53f4057"></a>
-Dictionary&lt; int, GameObject &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>p1CharsDict</b></td></tr>
+<tr class="memitem:af4dac8ce33024167e170517ff53f4057"><td class="memItemLeft" align="right" valign="top">Dictionary&lt; int, GameObject &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#af4dac8ce33024167e170517ff53f4057">p1CharsDict</a></td></tr>
 <tr class="separator:af4dac8ce33024167e170517ff53f4057"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:ae4687629004c71881cd337ccc0d31a31"><td class="memItemLeft" align="right" valign="top"><a id="ae4687629004c71881cd337ccc0d31a31"></a>
-static <a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">GameLoop</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Instance</b><code> [get, set]</code></td></tr>
+<tr class="memitem:ae4687629004c71881cd337ccc0d31a31"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">GameLoop</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#ae4687629004c71881cd337ccc0d31a31">Instance</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:ae4687629004c71881cd337ccc0d31a31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static instance of a <a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html" title="Specifies all the actions that a character can take during thier turn.">GameLoop</a>, as there can only be one.  <a href="class_scripts_1_1_controller_1_1_game_loop.html#ae4687629004c71881cd337ccc0d31a31">More...</a><br /></td></tr>
 <tr class="separator:ae4687629004c71881cd337ccc0d31a31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4070582046a96d1f105250f9611b2509"><td class="memItemLeft" align="right" valign="top"><a id="a4070582046a96d1f105250f9611b2509"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>ActionPoints</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a4070582046a96d1f105250f9611b2509"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#a4070582046a96d1f105250f9611b2509">ActionPoints</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a4070582046a96d1f105250f9611b2509"><td class="mdescLeft">&#160;</td><td class="mdescRight">Player's current amount of action points.  <a href="class_scripts_1_1_controller_1_1_game_loop.html#a4070582046a96d1f105250f9611b2509">More...</a><br /></td></tr>
 <tr class="separator:a4070582046a96d1f105250f9611b2509"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af141dc6d0286777fe35220998a03f93e"><td class="memItemLeft" align="right" valign="top"><a id="af141dc6d0286777fe35220998a03f93e"></a>
-static GameObject&#160;</td><td class="memItemRight" valign="bottom"><b>SelectedCharacter</b><code> [get, set]</code></td></tr>
+<tr class="memitem:af141dc6d0286777fe35220998a03f93e"><td class="memItemLeft" align="right" valign="top">static GameObject&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#af141dc6d0286777fe35220998a03f93e">SelectedCharacter</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:af141dc6d0286777fe35220998a03f93e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Currently selected friendly character.  <a href="class_scripts_1_1_controller_1_1_game_loop.html#af141dc6d0286777fe35220998a03f93e">More...</a><br /></td></tr>
 <tr class="separator:af141dc6d0286777fe35220998a03f93e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6823ced79a5259c233732710687b3e0"><td class="memItemLeft" align="right" valign="top"><a id="af6823ced79a5259c233732710687b3e0"></a>
-static int&#160;</td><td class="memItemRight" valign="bottom"><b>MagicPoints</b><code> [get, set]</code></td></tr>
+<tr class="memitem:af6823ced79a5259c233732710687b3e0"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#af6823ced79a5259c233732710687b3e0">MagicPoints</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:af6823ced79a5259c233732710687b3e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Player's current amount of magic points.  <a href="class_scripts_1_1_controller_1_1_game_loop.html#af6823ced79a5259c233732710687b3e0">More...</a><br /></td></tr>
 <tr class="separator:af6823ced79a5259c233732710687b3e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Specifies all the actions that a character can take during thier turn. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="aef1d13faad804f51449de38243a869e9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aef1d13faad804f51449de38243a869e9">&#9670;&nbsp;</a></span>AddtoDict()</h2>
 
@@ -176,7 +197,8 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>MagicPoints</b>
       </table>
 </div><div class="memdoc">
 
-<p>This function is used to create dictionaries for each player. The dicitionaries are used to track the number of active figures each player currently has and it tracks a reference to the gameobjects. </p>
+<p>This function is used to create dictionaries for each player. </p>
+<p>The dicitionaries are used to track the number of active figures each player currently has and it tracks a reference to the gameobjects.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">team</td><td></td></tr>
@@ -271,17 +293,8 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>MagicPoints</b>
       </table>
 </div><div class="memdoc">
 
-<p>This is a networking function used when other players call a retreat in the game. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">troopId</td><td>Troop retreating</td></tr>
-    <tr><td class="paramname">TeamNum</td><td>The team that is leaving</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>See <a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#a15cddf72065d07fc2405962eaaa2986e" title="This function is called when the local player calls a retreat on their figure. See CharacterRemoval(i...">Leave</a></p>
-<p>This function is checked each time a character dies. It removes them from the internal team dictionaries, then checks if the endgame has been triggered.</p>
-<p>This used to have a separate set of checks for if the enemy/player retreated thier last troop, but I think it's unnecessary. </p>
+<p>This function is checked each time a character dies or retreats. </p>
+<p>It removes them from the internal team dictionaries, then checks if the endgame has been triggered.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">troopId</td><td>ID of the troop.</td></tr>
@@ -378,8 +391,8 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>MagicPoints</b>
 <p>This is another networking function and it currently is used to remove health from a specified troop after another player succesfully attacks them. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">troopid</td><td></td></tr>
-    <tr><td class="paramname">damage</td><td></td></tr>
+    <tr><td class="paramname">troopid</td><td>Troop to be attacked.</td></tr>
+    <tr><td class="paramname">damage</td><td>Amount of damage to take.</td></tr>
   </table>
   </dd>
 </dl>
@@ -401,7 +414,8 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>MagicPoints</b>
       </table>
 </div><div class="memdoc">
 
-<p>This function is called when the local player calls a retreat on their figure. See <a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#a8b84f11b10994d4a2bd69a6db3a2c775" title="This is a networking function used when other players call a retreat in the game.">CharacterRemoval(int, int)</a>. </p>
+<p>This function is called when the local player calls a retreat on their figure. </p>
+<p>See <a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html#a8b84f11b10994d4a2bd69a6db3a2c775" title="This function is checked each time a character dies or retreats.">CharacterRemoval(int, int)</a>.</p>
 
 </div>
 </div>
@@ -456,27 +470,144 @@ static int&#160;</td><td class="memItemRight" valign="bottom"><b>MagicPoints</b>
       </table>
 </div><div class="memdoc">
 
-<p>This is a networking function that is called by the client script eachtime the other player moves. Once this message is received the gameobject is retrieved from the dictionary and then the move function is triggered. </p>
+<p>This is a networking function that is called by the client script eachtime the other player moves. </p>
+<p>Once this message is received the gameobject is retrieved from the dictionary and then the move function is triggered.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">troopid</td><td></td></tr>
-    <tr><td class="paramname">newX</td><td></td></tr>
-    <tr><td class="paramname">newZ</td><td></td></tr>
+    <tr><td class="paramname">troopid</td><td>ID of the troop to move.</td></tr>
+    <tr><td class="paramname">newX</td><td>New X position for the troop to move to.</td></tr>
+    <tr><td class="paramname">newZ</td><td>New Z position for the troop to move to.</td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="af4dac8ce33024167e170517ff53f4057"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4dac8ce33024167e170517ff53f4057">&#9670;&nbsp;</a></span>p1CharsDict</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Dictionary&lt;int, GameObject&gt; Scripts.Controller.GameLoop.p1CharsDict</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="a4070582046a96d1f105250f9611b2509"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4070582046a96d1f105250f9611b2509">&#9670;&nbsp;</a></span>ActionPoints</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Scripts.Controller.GameLoop.ActionPoints</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Player's current amount of action points. </p>
+
+</div>
+</div>
+<a id="ae4687629004c71881cd337ccc0d31a31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4687629004c71881cd337ccc0d31a31">&#9670;&nbsp;</a></span>Instance</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">GameLoop</a> Scripts.Controller.GameLoop.Instance</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Static instance of a <a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html" title="Specifies all the actions that a character can take during thier turn.">GameLoop</a>, as there can only be one. </p>
+
+</div>
+</div>
+<a id="af6823ced79a5259c233732710687b3e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6823ced79a5259c233732710687b3e0">&#9670;&nbsp;</a></span>MagicPoints</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Scripts.Controller.GameLoop.MagicPoints</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Player's current amount of magic points. </p>
+
+</div>
+</div>
+<a id="af141dc6d0286777fe35220998a03f93e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af141dc6d0286777fe35220998a03f93e">&#9670;&nbsp;</a></span>SelectedCharacter</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GameObject Scripts.Controller.GameLoop.SelectedCharacter</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Currently selected friendly character. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>fear_client/Assets/Scripts/Controller/GameLoop.cs</li>
+<li>fear_client/Assets/Scripts/Controller/<a class="el" href="_game_loop_8cs.html">GameLoop.cs</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.17
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespace_scripts.html">Scripts</a></li><li class="navelem"><a class="el" href="namespace_scripts_1_1_controller.html">Controller</a></li><li class="navelem"><a class="el" href="class_scripts_1_1_controller_1_1_game_loop.html">GameLoop</a></li>
+    <li class="footer">Generated on Tue May 5 2020 19:44:28 for Fear Valley Client by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
+  </ul>
+</div>
 </body>
 </html>
